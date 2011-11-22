@@ -1,1 +1,16 @@
-define(["jQuery","Underscore","Backbone","models/projects"],function(a,b,c,d){var e=c.Collection.extend({model:d,initialize:function(){}});return new e})
+define([
+  'jQuery',
+  'Underscore',
+  'Backbone',
+  'models/projects'
+], function($, _, Backbone, projectsModel){
+  var projectsCollection = Backbone.Collection.extend({
+    model: projectsModel,
+    initialize: function(){
+
+    }
+
+  });
+ 
+  return new projectsCollection;
+});

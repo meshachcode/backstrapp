@@ -1,1 +1,15 @@
-define(["Underscore","Backbone"],function(a,b){var c=b.Model.extend({defaults:{score:10},initialize:function(){}});return c})
+define([
+  'Underscore',
+  'Backbone'
+], function(_, Backbone) {
+  var projectsModel = Backbone.Model.extend({
+    defaults: {
+      score: 10
+    },
+    initialize: function(){
+    }
+    
+  });
+  return projectsModel;
+
+});

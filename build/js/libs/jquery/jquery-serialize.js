@@ -1,1 +1,27 @@
-jQuery.fn.serializeObject=function(){var a,b;return a=this.serializeArray(),b={},jQuery.each(a,function(){var a;this.value!=null?a=this.value:a="",b[this.name]!=null?(b[this.name].push||(b[this.name]=[b[this.name]]),b[this.name].push(a)):b[this.name]=a}),b}
+jQuery.fn.serializeObject = function(){  
+  var arrayData, objectData;
+  arrayData = this.serializeArray();
+  objectData = {};
+
+  jQuery.each(arrayData, function() {
+    var value;
+
+    if (this.value != null) {
+      value = this.value;
+    } else {
+      value = '';
+    }
+
+    if (objectData[this.name] != null) {
+      if (!objectData[this.name].push) {
+        objectData[this.name] = [objectData[this.name]];
+      }
+
+      objectData[this.name].push(value);
+    } else {
+      objectData[this.name] = value;
+    }
+  });
+
+  return objectData;
+}
