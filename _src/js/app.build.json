@@ -21,5 +21,6 @@
             //wants foo.js to exist in the source directory.
             create: true
         }
-    ]
+    ],
+    fileExclusionRegExp: /^\./
 })
