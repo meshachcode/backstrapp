@@ -1,4 +1,4 @@
-// Filename: .views/projects/list
+// Filename: views/projects/list
 define([
   'jQuery',
   'Underscore',

@@ -1,3 +1,1 @@
-define(['loader'], function(Loader){
-  return Loader._;
-});
+define(["loader"],function(a){return a._})
