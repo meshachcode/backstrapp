@@ -3,6 +3,5 @@ define([
   'Underscore',
   'Backbone'
 ], function($, _, Backbone){
-
   return {};
 });
