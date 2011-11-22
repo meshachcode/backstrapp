@@ -1,3 +1,1 @@
-define(['loader'], function(Loader){
-  return Loader.Backbone;
-});
+define(["loader"],function(a){return a.Backbone})

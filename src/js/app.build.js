@@ -13,6 +13,7 @@
     },
 	modules: [
         {
+            name: "pubMo",
             include: ["requireLib", "main"],
             //True tells the optimizer it is OK to create
             //a new file foo.js. Normally the optimizer
