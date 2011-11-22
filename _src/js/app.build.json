@@ -2,8 +2,8 @@
     appDir: "../",
     baseUrl: "js",
     dir: "../../_build",
-	inlineText: true,
 	optimize: "none",
+	inlineText: true,
 	paths: {
 	    "loader": "libs/backbone/loader",
         "requireLib": "libs/require/require",
