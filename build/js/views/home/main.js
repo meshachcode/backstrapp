@@ -1,1 +1,0 @@
-define(["jQuery","Underscore","Backbone","text!templates/home/main.html"],function(a,b,c,d){var e=c.View.extend({el:a("#page"),render:function(){this.el.html(d)}});return new e})
