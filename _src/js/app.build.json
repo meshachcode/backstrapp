@@ -22,5 +22,5 @@
             create: true
         }
     ],
-    fileExclusionRegExp: /\_src\./
+    fileExclusionRegExp: /_src\.*/
 })
