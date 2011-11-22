@@ -22,5 +22,5 @@
             create: true
         }
     ],
-    fileExclusionRegExp: /_/_g
+    fileExclusionRegExp: /^\_/
 })
