@@ -1,1 +1,0 @@
-({appDir:"../",baseUrl:"js",dir:"../../build",inlineText:!0,paths:{loader:"libs/backbone/loader",requireLib:"libs/require/require",jQuery:"libs/jquery/jquery",Underscore:"libs/underscore/underscore",Backbone:"libs/backbone/backbone",templates:"../templates"},modules:[{name:"pubMo",include:["requireLib","main"],create:!0}]})
