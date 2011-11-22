@@ -1,0 +1,1 @@
+define(["Underscore","Backbone"],function(a,b){var c=b.Model.extend({defaults:{score:10},initialize:function(){}});return c})
