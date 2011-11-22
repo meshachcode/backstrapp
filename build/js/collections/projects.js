@@ -1,0 +1,1 @@
+define(["jQuery","Underscore","Backbone","models/projects"],function(a,b,c,d){var e=c.Collection.extend({model:d,initialize:function(){}});return new e})
