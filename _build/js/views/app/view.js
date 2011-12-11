@@ -1,11 +1,17 @@
 define([
   'jQuery',
   'Underscore',
-  'Backbone'
-], function($, _, Backbone){
+  'Backbone',
+  'models/data',
+  'events/vent'
+], function($, _, Backbone, DataModel, Vent){
 	
-	var AppView = Backbone.View.extend({});
+	var AppView = Backbone.View.extend({
+		initialize: function () {
+			debug.debug('AppView.init()');
+		}
+	});
 
-	return new AppView();
+	return AppView;
 
 });
