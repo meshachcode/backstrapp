@@ -1,32 +1,32 @@
 // Filename: router.js
-define([
-  'jQuery',
-  'Underscore',
-  'Backbone'
-], function($, _, Backbone){
+define(['jQuery', 'Underscore', 'Backbone', 'models/data', 'events/vent'], 
 
-  var AppRouter = Backbone.Router.extend({
+function($, _, Backbone, DataModel, Vent) {
 
-    routes: {
-      // Default
-      '*actions': 'defaultAction'
-    },
+	var AppRouter = Backbone.Router.extend({
 
-    defaultAction: function(actions){
-      // We have no matching route, lets display the home page 
-    }
+		initialize: function() {
+			Backbone.history.start();
+		},
 
-  });
+		routes: {
+			'/:page': 	'pageAction',
+			'/home'	:	'defaultAction',
+			// Default
+			'*actions': 'defaultAction'
+		},
 
-  var initialize = function(){
+		pageAction: function(page) {
+			debug.debug('Router.pageAction()');
+			DataModel.set({requestedPage: page});
+			Vent.trigger('navigate:page');
+		},
 
-    var app_router = new AppRouter;
-    Backbone.history.start();
+		defaultAction: function(actions) { // We have no matching route, lets display the home page 
+			debug.debug('Router.defaultAction()');
+			Vent.trigger('navigate:home');
+		}
+	});
 
-  };
-
-  return { 
-    initialize: initialize
-  };
-
+	return AppRouter;
 });

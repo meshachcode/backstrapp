@@ -270,10 +270,61 @@ define('models/data',[
   'Backbone'
 ], function($, _, Backbone){
 	
-	var DataModel = Backbone.Model.extend({});
+	var DataModel = Backbone.Model.extend({
+		defaults: {
+			features: [
+				{file: '/templates/features/extra.html', 		target: '#feature-left'}, 
+				{file: '/templates/features/front-end.html', 	target: '#feature-middle'}, 
+				{file: '/templates/features/javascript.html',	target: '#feature-right'}
+			],
+			homeTemplate: '/templates/pages/home.html'
+		},
+		
+		loadData: function (file, callback) {
+			$.getJSON(file, function (json) {
+				callback(json);
+			});
+		},
+		
+		itemExists: function (needle, haystack) {
+			var i, ret;
+			for ( i in haystack ) {
+				if ( ret = haystack[i][needle] ) {
+					debug.debug(ret);
+					return ret;
+				}
+			}
+			return false;
+		}
+	});
 
 	return new DataModel();
 
+});
+define('models/template',[
+		'jQuery', 
+		'Underscore',
+		'Backbone'
+	], 
+
+function($, _, Backbone) {
+
+	var TemplateModel = Backbone.Model.extend({
+
+		initialize: function () {
+			debug.debug('TemplateModel.init()');
+			return
+		},
+
+		loadTemplate: function (obj, callback) {
+			debug.debug('TemplateModel.loadTemplate(obj)', obj);
+			var template;
+			template = Handlebars.compile(obj.template);
+			callback(template(obj));
+		}
+
+	});
+	return new TemplateModel();
 });
 define('events/vent',[
   'jQuery',
@@ -285,17 +336,114 @@ define('events/vent',[
 	
 	return Vent;
 });
+// Filename: router.js
+define('router',['jQuery', 'Underscore', 'Backbone', 'models/data', 'events/vent'], 
+
+function($, _, Backbone, DataModel, Vent) {
+
+	var AppRouter = Backbone.Router.extend({
+
+		initialize: function() {
+			Backbone.history.start();
+		},
+
+		routes: {
+			'/:page': 	'pageAction',
+			'/home'	:	'defaultAction',
+			// Default
+			'*actions': 'defaultAction'
+		},
+
+		pageAction: function(page) {
+			debug.debug('Router.pageAction()');
+			DataModel.set({requestedPage: page});
+			Vent.trigger('navigate:page');
+		},
+
+		defaultAction: function(actions) { // We have no matching route, lets display the home page 
+			debug.debug('Router.defaultAction()');
+			Vent.trigger('navigate:home');
+		}
+	});
+
+	return AppRouter;
+});
+
 define('views/app/view',[
   'jQuery',
   'Underscore',
   'Backbone',
+  'router',
   'models/data',
+  'models/template',
   'events/vent'
-], function($, _, Backbone, DataModel, Vent){
+], function($, _, Backbone, Router, DataModel, TemplateModel, Vent){
 	
 	var AppView = Backbone.View.extend({
+		el: $('#content'),
+
 		initialize: function () {
+			debug.time('dataLoad');
 			debug.debug('AppView.init()');
+			DataModel.bind('change:file', this.loadData, this);
+			DataModel.set({file: 'json/pages.json'});
+			DataModel.bind('change:data', this.render, this);
+
+			Vent.bind('navigate:home', 	this.loadHome, this);
+			Vent.bind('navigate:page', 	this.loadPage, this);
+			Vent.bind('show:home', 		this.renderHome, this);
+			Vent.bind('show:page', 		this.renderPage, this);			
+		},
+		
+		render: function () {
+			debug.debug('AppView.render()');
+			this.router = new Router();
+			debug.timeEnd('dataLoad');
+			return this;
+		},
+		
+		loadData: function () {
+			debug.debug('AppView.loadData()');
+			DataModel.loadData(DataModel.get('file'), function (json) {
+				DataModel.set({data: json});
+			})
+		},
+		
+		loadHome: function () {
+			debug.debug('AppView.loadHome()');
+			// load home page from templates/pages/home.html into the #content div
+			$.get(DataModel.get('homeTemplate'), function (html) {
+				debug.debug(html);
+				DataModel.set({homeHtml: html});
+				Vent.trigger('show:home');
+			})
+		},
+
+		renderHome: function () {
+			debug.debug('AppView.renderHome()');
+			this.el.html(DataModel.get('homeHtml'));
+		},
+
+		loadPage: function () {
+			debug.debug('AppView.loadPage()');
+			debug.debug('DataModel.pages', DataModel.get('data').routes);
+			var page;
+			if (page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').routes)) {
+				$.get(page, function (html) {
+					debug.debug(html);
+					DataModel.set({pageHtml: html});
+					Vent.trigger('show:page');
+				});
+			} else {
+				debug.debug('PAGE NOT FOUND');
+				this.router.navigate('/home', true);
+				Vent.trigger('navigate:home');
+			}
+		},
+
+		renderPage: function () {
+			debug.debug('AppView.renderPage()');
+			this.el.html(DataModel.get('pageHtml'));
 		}
 	});
 

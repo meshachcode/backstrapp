@@ -1,0 +1,7 @@
+{
+	"routes"	:	[
+		{	"home"			:	"/templates/pages/home.html"			},
+		{	"about"			:	"/templates/pages/about.html"			},
+		{	"contact"		:	"/templates/pages/contact.html"			}
+	]
+}

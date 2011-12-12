@@ -17,6 +17,8 @@ js/libs/jquery/jquery.js
 js/libs/underscore/underscore.js
 js/libs/backbone/backbone.js
 js/models/data.js
+js/models/template.js
 js/events/vent.js
+js/router.js
 js/views/app/view.js
 js/main.js
