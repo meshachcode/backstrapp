@@ -24,7 +24,8 @@ function($, _, Backbone, DataModel, Vent) {
 
 		defaultAction: function(actions) { // We have no matching route, lets display the home page 
 			debug.debug('Router.defaultAction()');
-			Vent.trigger('navigate:home');
+			DataModel.set({requestedPage: 'home'});
+			Vent.trigger('navigate:page');
 		}
 	});
 

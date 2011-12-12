@@ -14,14 +14,13 @@ define([
 		initialize: function () {
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
-			DataModel.bind('change:file', this.loadData, this);
-			DataModel.set({file: 'json/pages.json'});
 			DataModel.bind('change:data', this.render, this);
+			DataModel.bind('change:data', this.buildNav, this);
 
-			Vent.bind('navigate:home', 	this.loadHome, this);
 			Vent.bind('navigate:page', 	this.loadPage, this);
-			Vent.bind('show:home', 		this.renderHome, this);
-			Vent.bind('show:page', 		this.renderPage, this);			
+			Vent.bind('render:page', 	this.renderPage, this);			
+			Vent.bind('render:page', 	this.updateNav, this);
+			this.loadData();
 		},
 		
 		render: function () {
@@ -31,37 +30,35 @@ define([
 			return this;
 		},
 		
+		buildNav: function () {
+			debug.debug('AppView.buildNav()');
+			debug.debug(DataModel.get('data').pages);
+			var i, pages;
+			pages = DataModel.get('data').pages;
+			for ( i in pages ) {
+				debug.debug(pages[i].url);
+				$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
+			}
+		},
+
 		loadData: function () {
 			debug.debug('AppView.loadData()');
 			DataModel.loadData(DataModel.get('file'), function (json) {
 				DataModel.set({data: json});
 			})
 		},
-		
-		loadHome: function () {
-			debug.debug('AppView.loadHome()');
-			// load home page from templates/pages/home.html into the #content div
-			$.get(DataModel.get('homeTemplate'), function (html) {
-				debug.debug(html);
-				DataModel.set({homeHtml: html});
-				Vent.trigger('show:home');
-			})
-		},
-
-		renderHome: function () {
-			debug.debug('AppView.renderHome()');
-			this.el.html(DataModel.get('homeHtml'));
-		},
 
 		loadPage: function () {
 			debug.debug('AppView.loadPage()');
-			debug.debug('DataModel.pages', DataModel.get('data').routes);
+			debug.debug('DataModel.pages', DataModel.get('data').pages);
 			var page;
-			if (page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').routes)) {
-				$.get(page, function (html) {
+			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
+				debug.debug('PAGE FOUND');
+				DataModel.set({ currentPage: page });
+				$.get(page.file, function (html) {
 					debug.debug(html);
 					DataModel.set({pageHtml: html});
-					Vent.trigger('show:page');
+					Vent.trigger('render:page');
 				});
 			} else {
 				debug.debug('PAGE NOT FOUND');
@@ -73,6 +70,13 @@ define([
 		renderPage: function () {
 			debug.debug('AppView.renderPage()');
 			this.el.html(DataModel.get('pageHtml'));
+		},
+		
+		updateNav: function () {
+			debug.debug('AppView.updateNav()');
+			$('li.active', "#nav").removeClass('active');
+			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
+			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
 		}
 	});
 

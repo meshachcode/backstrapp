@@ -6,12 +6,12 @@ define([
 	
 	var DataModel = Backbone.Model.extend({
 		defaults: {
+			file: 'json/pages.json',
 			features: [
 				{file: '/templates/features/extra.html', 		target: '#feature-left'}, 
 				{file: '/templates/features/front-end.html', 	target: '#feature-middle'}, 
 				{file: '/templates/features/javascript.html',	target: '#feature-right'}
-			],
-			homeTemplate: '/templates/pages/home.html'
+			]
 		},
 		
 		loadData: function (file, callback) {
@@ -21,11 +21,11 @@ define([
 		},
 		
 		itemExists: function (needle, haystack) {
+			debug.debug('DataModel.itemExists(needle, haystack)', needle, haystack);
 			var i, ret;
 			for ( i in haystack ) {
-				if ( ret = haystack[i][needle] ) {
-					debug.debug(ret);
-					return ret;
+				if (haystack[i].url == needle) {
+					return haystack[i];
 				}
 			}
 			return false;

@@ -1,7 +1,19 @@
 {
-	"routes"	:	[
-		{	"home"			:	"/templates/pages/home.html"			},
-		{	"about"			:	"/templates/pages/about.html"			},
-		{	"contact"		:	"/templates/pages/contact.html"			}
+	"pages"	:	[
+		{	
+			"url"		:	"home",
+			"title"		:	"Home",
+			"file"		:	"/templates/pages/home.html"
+		},
+		{	
+			"url"		:	"about",
+			"title"		:	"About",
+			"file"		:	"/templates/pages/about.html"
+		},
+		{	
+			"url"		:	"contact",
+			"title"		:	"Contact",
+			"file"		:	"/templates/pages/contact.html"
+		}
 	]
 }
