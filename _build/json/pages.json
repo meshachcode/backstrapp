@@ -23,6 +23,12 @@
 			"title"		:	"Song",
 			"type"		:	"app",
 			"name"		:	"song"
+		},
+		{
+			"url"		:	"test",
+			"title"		:	"Test",
+			"type"		:	"app",
+			"name"		:	"test"
 		}
 	]
 }

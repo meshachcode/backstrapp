@@ -392,12 +392,29 @@ define('views/song/view',[
 	return new SongView();
 	
 });
-define('models/appLoader',[
-	'views/song/view'
-],
-function(SongView){
+define('views/test/view',[
+  'jQuery',
+  'Underscore',
+  'Backbone',
+  'models/data',
+  'events/vent'
+], function($, _, Backbone, DataModel, Vent){
+	
+	var TestView = Backbone.View.extend({
+		initialize: function () {
+			Vent.bind('currentapp:test', this.render, this);
+			debug.debug('TestView.init()');
+		}, 
+		
+		render: function () {
+			debug.debug('TestView.render()');
+		}
+	});
+	
+	return new TestView();
 	
 });
+define('models/appLoader',['views/song/view', 'views/test/view'], function (SongView, TestView) {});
 define('views/app/view',[
   'jQuery',
   'Underscore',
