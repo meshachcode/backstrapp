@@ -79,7 +79,7 @@ define([
 			page = DataModel.get('currentPage');
 			debug.debug('AppView.loadApp()', page);
 			debug.debug('AppView.loadApp() -> appPath', page.name);
-			DataModel.set({currentApp: page.name});
+			Vent.trigger('currentapp:' + page.name);
 		},
 
 		renderPage: function () {

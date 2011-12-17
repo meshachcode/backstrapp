@@ -326,27 +326,6 @@ function($, _, Backbone) {
 	});
 	return new TemplateModel();
 });
-define('views/song/view',[
-  'jQuery',
-  'Underscore',
-  'Backbone'
-], function($, _, Backbone){
-	
-	var SongView = Backbone.View.extend({
-		initialize: function () {
-			debug.debug('SongView.init()');
-		}
-	});
-	
-	return new SongView();
-	
-});
-define('models/appLoader',[
-	'views/song/view'
-],
-function(SongView){
-	
-});
 define('events/vent',[
   'jQuery',
   'Underscore',
@@ -391,6 +370,34 @@ function($, _, Backbone, DataModel, Vent) {
 	return AppRouter;
 });
 
+define('views/song/view',[
+  'jQuery',
+  'Underscore',
+  'Backbone',
+  'models/data',
+  'events/vent'
+], function($, _, Backbone, DataModel, Vent){
+	
+	var SongView = Backbone.View.extend({
+		initialize: function () {
+			Vent.bind('currentapp:song', this.render, this);
+			debug.debug('SongView.init()');
+		}, 
+		
+		render: function () {
+			debug.debug('SongView.render()');
+		}
+	});
+	
+	return new SongView();
+	
+});
+define('models/appLoader',[
+	'views/song/view'
+],
+function(SongView){
+	
+});
 define('views/app/view',[
   'jQuery',
   'Underscore',
@@ -472,7 +479,7 @@ define('views/app/view',[
 			page = DataModel.get('currentPage');
 			debug.debug('AppView.loadApp()', page);
 			debug.debug('AppView.loadApp() -> appPath', page.name);
-			DataModel.set({currentApp: page.name});
+			Vent.trigger('currentapp:' + page.name);
 		},
 
 		renderPage: function () {
