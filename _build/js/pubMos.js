@@ -438,8 +438,8 @@ define('views/app/view',[
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
-			Vent.bind('render:page', 	this.renderPage, this);			
-			Vent.bind('render:page', 	this.updateNav, this);
+			Vent.bind('render:page', 	this.renderPage, this);
+			Vent.bind('render:nav', 	this.updateNav, this);
 			this.loadData();
 		},
 		
@@ -499,9 +499,11 @@ define('views/app/view',[
 			debug.debug('AppView.loadApp()', page);
 			debug.debug('AppView.loadApp() -> appPath', page.name);
 			Vent.trigger('currentapp:' + page.name);
+			Vent.trigger('render:nav');
 		},
 
 		renderPage: function () {
+			Vent.trigger('render:nav');
 			debug.debug('AppView.renderPage()');
 			var me;
 			me = this;
