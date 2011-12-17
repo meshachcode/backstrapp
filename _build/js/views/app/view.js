@@ -7,7 +7,7 @@ define([
   'models/template',
   'events/vent'
 ], function($, _, Backbone, Router, DataModel, TemplateModel, Vent){
-	
+
 	var AppView = Backbone.View.extend({
 		el: $('#content'),
 
@@ -69,12 +69,18 @@ define([
 
 		renderPage: function () {
 			debug.debug('AppView.renderPage()');
-			this.el.html(DataModel.get('pageHtml'));
+			var me;
+			me = this;
+			this.el.parent().fadeOut(100, function () {
+				debug.debug('animation over');
+				me.el.html(DataModel.get('pageHtml'));
+				me.el.parent().fadeIn(400);
+			});
 		},
 		
 		updateNav: function () {
 			debug.debug('AppView.updateNav()');
-			$('li.active', "#nav").removeClass('active');
+			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
 		}
