@@ -447,7 +447,7 @@ define('views/app/view',[
 		
 		loadApp: function () {
 			debug.debug('AppView.loadApp()', DataModel.get('currentPage'));
-			
+			debug.debug('AppView.loadApp() -> appPath', DataModel.get('currentPage').name);
 		},
 
 		renderPage: function () {
