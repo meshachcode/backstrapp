@@ -2,6 +2,8 @@
 js/pubMos.js
 ----------------
 js/libs/require/require.js
+js/text.js
+text!templates/song/view.html
 js/libs/debug.js
 js/order.js
 js/libs/jquery/jquery-min.js

@@ -3,8 +3,9 @@ define([
   'Underscore',
   'Backbone',
   'models/data',
-  'events/vent'
-], function($, _, Backbone, DataModel, Vent){
+  'events/vent',
+  'text!templates/song/view.html'
+], function($, _, Backbone, DataModel, Vent, SongHtml){
 
 	var SongView = Backbone.View.extend({
 		el: $('#content'),
@@ -20,7 +21,7 @@ define([
 			me = this;
 			this.el.parent().fadeOut(100, function () {
 				debug.debug('animation over');
-				me.el.html('SONG');
+				me.el.html(SongHtml);
 				me.el.parent().fadeIn(400);
 			});
 		}
