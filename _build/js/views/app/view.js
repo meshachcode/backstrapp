@@ -3,10 +3,11 @@ define([
   'Underscore',
   'Backbone',
   'router',
+  'models/appLoader',
   'models/data',
   'models/template',
   'events/vent'
-], function($, _, Backbone, Router, DataModel, TemplateModel, Vent){
+], function($, _, Backbone, Router, AppLoader, DataModel, TemplateModel, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),
@@ -74,8 +75,11 @@ define([
 		},
 		
 		loadApp: function () {
-			debug.debug('AppView.loadApp()', DataModel.get('currentPage'));
-			debug.debug('AppView.loadApp() -> appPath', DataModel.get('currentPage').name);
+			var page;
+			page = DataModel.get('currentPage');
+			debug.debug('AppView.loadApp()', page);
+			debug.debug('AppView.loadApp() -> appPath', page.name);
+			// somehow, I need to load in the appropriate Module based on the 'name'
 		},
 
 		renderPage: function () {

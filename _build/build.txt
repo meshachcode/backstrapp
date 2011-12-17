@@ -2,6 +2,7 @@
 js/pubMos.js
 ----------------
 js/libs/require/require.js
+js/models/appLoader.js
 js/libs/debug.js
 js/order.js
 js/libs/jquery/jquery-min.js
