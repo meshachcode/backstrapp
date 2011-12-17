@@ -19,9 +19,10 @@
 			"file"		:	"/templates/pages/contact.html"
 		},
 		{
-			"url"		:	"write",
-			"title"		:	"Write",
-			"type"		:	"app"
+			"url"		:	"song",
+			"title"		:	"Song",
+			"type"		:	"app",
+			"name"		:	"song"
 		}
 	]
 }
