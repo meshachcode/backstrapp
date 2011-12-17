@@ -1,19 +1,27 @@
 {
 	"pages"	:	[
-		{	
+		{
 			"url"		:	"home",
 			"title"		:	"Home",
+			"type"		:	"page",
 			"file"		:	"/templates/pages/home.html"
 		},
-		{	
+		{
 			"url"		:	"about",
 			"title"		:	"About",
+			"type"		:	"page",
 			"file"		:	"/templates/pages/about.html"
 		},
-		{	
+		{
 			"url"		:	"contact",
 			"title"		:	"Contact",
+			"type"		:	"page",
 			"file"		:	"/templates/pages/contact.html"
+		},
+		{
+			"url"		:	"write",
+			"title"		:	"Write",
+			"type"		:	"app"
 		}
 	]
 }
