@@ -414,7 +414,7 @@ define('views/test/view',[
 	return new TestView();
 	
 });
-define('models/appLoader',['views/song/view', 'views/test/view'], function (SongView, TestView) {});
+define('models/module',['views/song/view', 'views/test/view'], function (SongView, TestView) {});
 define('views/app/view',[
   'jQuery',
   'Underscore',
@@ -422,9 +422,9 @@ define('views/app/view',[
   'router',
   'models/data',
   'models/template',
-  'models/appLoader',
+  'models/module',
   'events/vent'
-], function($, _, Backbone, Router, DataModel, TemplateModel, AppLoader, Vent){
+], function($, _, Backbone, Router, DataModel, TemplateModel, Module, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),

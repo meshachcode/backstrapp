@@ -5,9 +5,9 @@ define([
   'router',
   'models/data',
   'models/template',
-  'models/appLoader',
+  'models/module',
   'events/vent'
-], function($, _, Backbone, Router, DataModel, TemplateModel, AppLoader, Vent){
+], function($, _, Backbone, Router, DataModel, TemplateModel, Module, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),

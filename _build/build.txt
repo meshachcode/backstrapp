@@ -22,6 +22,6 @@ js/events/vent.js
 js/router.js
 js/views/song/view.js
 js/views/test/view.js
-js/models/appLoader.js
+js/models/module.js
 js/views/app/view.js
 js/main.js
