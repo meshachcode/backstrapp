@@ -389,7 +389,8 @@ define('views/app/view',[
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
 
-			Vent.bind('navigate:page', 	this.loadPage, this);
+			Vent.bind('navigate:page', 	this.findPage, this);
+			Vent.bind('pagetype:page', this.loadPage, this);
 			Vent.bind('render:page', 	this.renderPage, this);			
 			Vent.bind('render:page', 	this.updateNav, this);
 			this.loadData();
@@ -420,23 +421,27 @@ define('views/app/view',[
 			})
 		},
 
-		loadPage: function () {
+		findPage: function () {
 			debug.debug('AppView.loadPage()');
 			debug.debug('DataModel.pages', DataModel.get('data').pages);
 			var page;
 			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
 				debug.debug('PAGE FOUND', page);
 				DataModel.set({ currentPage: page });
-				$.get(page.file, function (html) {
-					debug.debug(html);
-					DataModel.set({pageHtml: html});
-					Vent.trigger('render:page');
-				});
+				Vent.trigger('pagetype:' + page.type);
 			} else {
 				debug.debug('PAGE NOT FOUND');
 				this.router.navigate('/home', true);
 				Vent.trigger('navigate:home');
 			}
+		},
+		
+		loadPage: function () {
+			$.get(DataModel.get('currentPage').file, function (html) {
+				debug.debug(html);
+				DataModel.set({pageHtml: html});
+				Vent.trigger('render:page');
+			});
 		},
 
 		renderPage: function () {
