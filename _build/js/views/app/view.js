@@ -40,7 +40,9 @@ define([
 			pages = DataModel.get('data').pages;
 			for ( i in pages ) {
 				debug.debug(pages[i].url);
-				$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
+				if ( pages[i].visible == true ) {
+					$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
+				}
 			}
 		},
 
