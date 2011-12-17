@@ -18,7 +18,8 @@ define([
 			DataModel.bind('change:data', this.buildNav, this);
 
 			Vent.bind('navigate:page', 	this.findPage, this);
-			Vent.bind('pagetype:page', this.loadPage, this);
+			Vent.bind('pagetype:page', 	this.loadPage, this);
+			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);			
 			Vent.bind('render:page', 	this.updateNav, this);
 			this.loadData();
@@ -70,6 +71,10 @@ define([
 				DataModel.set({pageHtml: html});
 				Vent.trigger('render:page');
 			});
+		},
+		
+		loadApp: function () {
+			debug.debug('AppView.loadApp()', DataModel.get('currentPage'));
 		},
 
 		renderPage: function () {
