@@ -2,7 +2,6 @@
 js/pubMos.js
 ----------------
 js/libs/require/require.js
-js/models/appLoader.js
 js/libs/debug.js
 js/order.js
 js/libs/jquery/jquery-min.js
@@ -19,6 +18,8 @@ js/libs/underscore/underscore.js
 js/libs/backbone/backbone.js
 js/models/data.js
 js/models/template.js
+js/views/song/view.js
+js/models/appLoader.js
 js/events/vent.js
 js/router.js
 js/views/app/view.js

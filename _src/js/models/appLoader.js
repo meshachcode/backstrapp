@@ -1,10 +1,6 @@
-$.getJSON('json/apps.json', function () {
+define([
+	'views/song/view'
+],
+function(SongView){
 	
-	debug.debug('AppLoader()');
-	
-/*
-	define(appsArr, function(){
-		
-	});
-*/
 });

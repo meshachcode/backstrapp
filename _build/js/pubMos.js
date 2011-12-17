@@ -33,18 +33,6 @@ c.detachEvent&&!ca?c.detachEvent("onreadystatechange",d.onScriptLoad):c.removeEv
 
 define("requireLib", function(){});
 
-$.getJSON('json/apps.json', function () {
-	
-	debug.debug('AppLoader()');
-	
-/*
-	define(appsArr, function(){
-		
-	});
-*/
-});
-define("models/appLoader", function(){});
-
 /*
  * JavaScript Debug - v0.4 - 6/22/2010
  * http://benalman.com/projects/javascript-debug-console-log/
@@ -338,6 +326,27 @@ function($, _, Backbone) {
 	});
 	return new TemplateModel();
 });
+define('views/song/view',[
+  'jQuery',
+  'Underscore',
+  'Backbone'
+], function($, _, Backbone){
+	
+	var SongView = Backbone.View.extend({
+		initialize: function () {
+			debug.debug('SongView.init()');
+		}
+	});
+	
+	return new SongView();
+	
+});
+define('models/appLoader',[
+	'views/song/view'
+],
+function(SongView){
+	
+});
 define('events/vent',[
   'jQuery',
   'Underscore',
@@ -387,11 +396,11 @@ define('views/app/view',[
   'Underscore',
   'Backbone',
   'router',
-  'models/appLoader',
   'models/data',
   'models/template',
+  'models/appLoader',
   'events/vent'
-], function($, _, Backbone, Router, AppLoader, DataModel, TemplateModel, Vent){
+], function($, _, Backbone, Router, DataModel, TemplateModel, AppLoader, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),
@@ -463,7 +472,7 @@ define('views/app/view',[
 			page = DataModel.get('currentPage');
 			debug.debug('AppView.loadApp()', page);
 			debug.debug('AppView.loadApp() -> appPath', page.name);
-			// somehow, I need to load in the appropriate Module based on the 'name'
+			DataModel.set({currentApp: page.name});
 		},
 
 		renderPage: function () {
