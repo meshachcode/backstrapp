@@ -425,7 +425,7 @@ define('views/app/view',[
 			debug.debug('DataModel.pages', DataModel.get('data').pages);
 			var page;
 			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
-				debug.debug('PAGE FOUND');
+				debug.debug('PAGE FOUND', page);
 				DataModel.set({ currentPage: page });
 				$.get(page.file, function (html) {
 					debug.debug(html);
