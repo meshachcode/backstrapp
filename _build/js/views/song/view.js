@@ -9,10 +9,17 @@ define([
 
 	var SongView = Backbone.View.extend({
 		el: $('#content'),
+		pageData: {
+			"url"		:	"song",
+			"title"		:	"Song",
+			"type"		:	"app",
+			"visible"	:	true
+		},
 
 		initialize: function () {
 			Vent.bind('currentapp:song', this.render, this);
 			debug.debug('SongView.init()');
+			DataModel.set({newpage: this.pageData});
 		}, 
 		
 		render: function () {

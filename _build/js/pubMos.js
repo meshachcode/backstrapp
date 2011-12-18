@@ -286,20 +286,15 @@ define('models/data',[
 	
 	var DataModel = Backbone.Model.extend({
 		defaults: {
-			file: 'json/pages.json',
-			features: [
-				{file: '/templates/features/extra.html', 		target: '#feature-left'}, 
-				{file: '/templates/features/front-end.html', 	target: '#feature-middle'}, 
-				{file: '/templates/features/javascript.html',	target: '#feature-right'}
-			]
+			file: 'json/pages.json'
 		},
-		
+
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);
 			});
 		},
-		
+
 		itemExists: function (needle, haystack) {
 			debug.debug('DataModel.itemExists(needle, haystack)', needle, haystack);
 			var i, ret;
@@ -395,10 +390,17 @@ define('views/song/view',[
 
 	var SongView = Backbone.View.extend({
 		el: $('#content'),
+		pageData: {
+			"url"		:	"song",
+			"title"		:	"Song",
+			"type"		:	"app",
+			"visible"	:	true
+		},
 
 		initialize: function () {
 			Vent.bind('currentapp:song', this.render, this);
 			debug.debug('SongView.init()');
+			DataModel.set({newpage: this.pageData});
 		}, 
 		
 		render: function () {
@@ -458,6 +460,8 @@ define('views/app/view',[
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			
+			DataModel.bind('change:newpage', this.addPage, this);
 
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
@@ -543,6 +547,11 @@ define('views/app/view',[
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
+		},
+		
+		addPage: function () {
+			debug.debug('AppView.addPage()');
+			debug.debug(DataModel.get('newpage'));
 		}
 	});
 

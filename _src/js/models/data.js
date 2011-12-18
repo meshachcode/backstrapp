@@ -6,20 +6,15 @@ define([
 	
 	var DataModel = Backbone.Model.extend({
 		defaults: {
-			file: 'json/pages.json',
-			features: [
-				{file: '/templates/features/extra.html', 		target: '#feature-left'}, 
-				{file: '/templates/features/front-end.html', 	target: '#feature-middle'}, 
-				{file: '/templates/features/javascript.html',	target: '#feature-right'}
-			]
+			file: 'json/pages.json'
 		},
-		
+
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);
 			});
 		},
-		
+
 		itemExists: function (needle, haystack) {
 			debug.debug('DataModel.itemExists(needle, haystack)', needle, haystack);
 			var i, ret;
