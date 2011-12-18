@@ -27,6 +27,8 @@ define([
 			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);
 			Vent.bind('render:nav', 	this.updateNav, this);
+			
+			PagesCollection.bind('add', this.appendNavItem, this);
 
 			this.model.loadData();
 		},
@@ -51,6 +53,11 @@ define([
 					// $("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
 				}
 			}
+		},
+		
+		appendNavItem: function (page) {
+			debug.debug('AppView.appendNavItem(page)', page);
+			// $("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');			
 		},
 				
 		loadApp: function () {
