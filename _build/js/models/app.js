@@ -7,6 +7,7 @@ define([
 	var AppModel = Backbone.Model.extend({
 		
 		loadPage: function (callback) {
+			debug.debug('AppModel.loadPage()');
 			$.get(this.get('currentPage').file, function (html) {
 				debug.debug(html);
 				this.set({pageHtml: html});
