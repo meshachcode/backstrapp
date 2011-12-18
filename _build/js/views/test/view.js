@@ -14,7 +14,7 @@ define([
 			"title"		:	"Test",
 			"type"		:	"app",
 			"name"		:	"test",
-			"visible"	:	true
+			"visible"	:	false
 		},
 		
 		testHtml: "<div><h1>MY TEST APP</h1></div>",

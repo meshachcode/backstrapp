@@ -471,7 +471,7 @@ define('views/song/view',[
 			"title"		:	"Song",
 			"type"		:	"app",
 			"name"		:	"song",
-			"visible"	:	true
+			"visible"	:	false
 		},
 
 		initialize: function () {
@@ -506,7 +506,7 @@ define('views/test/view',[
 			"title"		:	"Test",
 			"type"		:	"app",
 			"name"		:	"test",
-			"visible"	:	true
+			"visible"	:	false
 		},
 		
 		testHtml: "<div><h1>MY TEST APP</h1></div>",

@@ -14,7 +14,7 @@ define([
 			"title"		:	"Song",
 			"type"		:	"app",
 			"name"		:	"song",
-			"visible"	:	true
+			"visible"	:	false
 		},
 
 		initialize: function () {
