@@ -12,6 +12,10 @@
       <div class="fill">
         <div class="container">
           <a class="brand" href="#">Backstrapp</a>
+
+			<!-- Place this tag where you want the +1 button to render -->
+			<g:plusone size="small" annotation="inline" width="120"></g:plusone>
+
           <ul class="nav" id="nav">
           </ul>
         </div>
@@ -39,6 +43,12 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
 </script>
+
 </body>
 </html>
