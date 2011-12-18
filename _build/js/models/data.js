@@ -32,7 +32,7 @@ define([
 
 		addPage: function () {
 			debug.debug('DataModel.addPage()');
-			debug.debug(DataModel.get('newpage'));
+			debug.debug(this.get('newpage'));
 		}
 	});
 
