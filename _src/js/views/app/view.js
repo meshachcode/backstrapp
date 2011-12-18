@@ -21,14 +21,15 @@ define([
 
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			DataModel.bind('change:newpage', this.addNavItem, this);
+
+			PagesCollection.bind('add', this.appendNavItem, this);
 
 			Vent.bind('navigate:page', 	this.model.findPage, this);
 			Vent.bind('pagetype:page', 	this.model.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);
-			Vent.bind('render:nav', 	this.updateNav, this);
-			
-			PagesCollection.bind('add', this.appendNavItem, this);
+			Vent.bind('render:nav', 	this.updateNav, this);			
 
 			this.model.loadData();
 		},
@@ -50,16 +51,20 @@ define([
 				if ( pages[i].visible == true ) {
 					// add the page to the PagesCollection
 					PagesCollection.add(pages[i]);
-					// $("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
 				}
 			}
+		},
+
+		addNavItem: function () {
+			debug.debug('AppView.addNavItem()');
+			PagesCollection.add(DataModel.get('newpage'));
 		},
 		
 		appendNavItem: function (p) {
 			debug.debug('AppView.appendNavItem(p)', p);
 			var page = p.attributes;
 			debug.debug('page', page);
-			$("#nav").append('<li id="nav_' + page.url + '"><a href="/#/' + page.url + '">' + page.title + '</a></li>');			
+			$("#nav").append('<li id="nav_' + page.url + '"><a href="/#/' + page.url + '">' + page.title + '</a></li>');
 		},
 				
 		loadApp: function () {
