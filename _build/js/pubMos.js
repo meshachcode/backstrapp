@@ -470,6 +470,7 @@ define('views/song/view',[
 			"url"		:	"song",
 			"title"		:	"Song",
 			"type"		:	"app",
+			"name"		:	"song",
 			"visible"	:	true
 		},
 
@@ -509,6 +510,7 @@ define('views/test/view',[
 			"url"		:	"test",
 			"title"		:	"Test",
 			"type"		:	"app",
+			"name"		:	"test",
 			"visible"	:	true
 		},
 

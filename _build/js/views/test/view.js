@@ -12,6 +12,7 @@ define([
 			"url"		:	"test",
 			"title"		:	"Test",
 			"type"		:	"app",
+			"name"		:	"test",
 			"visible"	:	true
 		},
 

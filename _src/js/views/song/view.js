@@ -13,6 +13,7 @@ define([
 			"url"		:	"song",
 			"title"		:	"Song",
 			"type"		:	"app",
+			"name"		:	"song",
 			"visible"	:	true
 		},
 
