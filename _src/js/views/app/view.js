@@ -17,6 +17,8 @@ define([
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			DataModel.bind('change:newpage', this.addPage, this);
+
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);

@@ -9,10 +9,6 @@ define([
 			file: 'json/pages.json'
 		},
 		
-		initialize: function () {
-			this.bind('change:newpage', this.addPage, this);
-		},
-
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);

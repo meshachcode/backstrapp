@@ -289,10 +289,6 @@ define('models/data',[
 			file: 'json/pages.json'
 		},
 		
-		initialize: function () {
-			this.bind('change:newpage', this.addPage, this);
-		},
-
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);
@@ -466,6 +462,8 @@ define('views/app/view',[
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			DataModel.bind('change:newpage', this.addPage, this);
+
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
