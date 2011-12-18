@@ -4,13 +4,15 @@ define([
   'Backbone',
   'router',
   'models/data',
+  'models/app',
   'models/template',
   'models/module',
   'events/vent'
-], function($, _, Backbone, Router, DataModel, TemplateModel, Module, Vent){
+], function($, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),
+		model: AppModel,
 
 		initialize: function () {
 			debug.time('dataLoad');
