@@ -2,8 +2,9 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  'models/data'
-], function($, _, Backbone, DataModel){
+  'models/data',
+  'events/vent'
+], function($, _, Backbone, DataModel, Vent){
 	
 	var AppModel = Backbone.Model.extend({
 		

@@ -19,10 +19,10 @@ js/libs/jquery/jquery.js
 js/libs/underscore/underscore.js
 js/libs/backbone/backbone.js
 js/models/data.js
-js/models/app.js
 js/models/template.js
 js/events/vent.js
 js/router.js
+js/models/app.js
 js/views/song/view.js
 js/views/test/view.js
 js/models/module.js
