@@ -286,9 +286,14 @@ define('models/data',[
 	
 	var DataModel = Backbone.Model.extend({
 		defaults: {
-			file: 'json/pages.json'
+			file: 'json/pages.json',
+			pages: []
 		},
 		
+		initialize: function () {
+			this.bind('change:newpage', this.addPage, this);
+		},
+
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);
@@ -304,8 +309,16 @@ define('models/data',[
 				}
 			}
 			return false;
-		}
+		},
 
+		addPage: function () {
+			debug.debug('DataModel.addPage()');
+			debug.debug(this.get('newpage'));
+			var p;
+			p = this.get('pages');
+			p.push(this.get('newpage'));
+			this.set({ pages: p });
+		}
 	});
 
 	return new DataModel();
@@ -462,7 +475,6 @@ define('views/app/view',[
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			DataModel.bind('change:newpage', this.addPage, this);
 
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
@@ -548,11 +560,6 @@ define('views/app/view',[
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
-		},
-		
-		addPage: function () {
-			debug.debug('AppView.addPage()');
-			debug.debug(DataModel.get('newpage'));
 		}
 
 	});
