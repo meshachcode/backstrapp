@@ -575,8 +575,10 @@ define('views/app/view',[
 			}
 		},
 		
-		appendNavItem: function (page) {
-			debug.debug('AppView.appendNavItem(page)', page);
+		appendNavItem: function (p) {
+			debug.debug('AppView.appendNavItem(p)', p);
+			var page = p.attributes;
+			debug.debug('page', page);
 			// $("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');			
 		},
 				
