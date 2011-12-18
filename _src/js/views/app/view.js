@@ -21,6 +21,8 @@ define([
 
 			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			
+			DataModel.bind('change:pageHtml', this.render, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
 

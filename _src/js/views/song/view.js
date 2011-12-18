@@ -25,13 +25,7 @@ define([
 		
 		render: function () {
 			debug.debug('SongView.render()');
-			var me;
-			me = this;
-			this.el.parent().fadeOut(100, function () {
-				debug.debug('animation over');
-				me.el.html(SongHtml);
-				me.el.parent().fadeIn(400);
-			});
+			DataModel.set({ pageHtml: SongHtml });
 		}
 
 	});

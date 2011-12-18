@@ -482,13 +482,7 @@ define('views/song/view',[
 		
 		render: function () {
 			debug.debug('SongView.render()');
-			var me;
-			me = this;
-			this.el.parent().fadeOut(100, function () {
-				debug.debug('animation over');
-				me.el.html(SongHtml);
-				me.el.parent().fadeIn(400);
-			});
+			DataModel.set({ pageHtml: SongHtml });
 		}
 
 	});
@@ -552,6 +546,8 @@ define('views/app/view',[
 
 			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
+			
+			DataModel.bind('change:pageHtml', this.render, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
 
