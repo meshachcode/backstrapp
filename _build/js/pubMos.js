@@ -465,7 +465,7 @@ define('views/song/view',[
 ], function($, _, Backbone, DataModel, Vent, SongHtml){
 
 	var SongView = Backbone.View.extend({
-		el: $('#content'),
+
 		pageData: {
 			"url"		:	"song",
 			"title"		:	"Song",
@@ -550,7 +550,7 @@ define('views/app/view',[
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
 
-			DataModel.bind('change:data', this.render, this);
+			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
@@ -558,13 +558,25 @@ define('views/app/view',[
 			Vent.bind('navigate:page', 	this.model.findPage, this);
 			Vent.bind('pagetype:page', 	this.model.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
-			Vent.bind('render:page', 	this.renderPage, this);
+			Vent.bind('render:page', 	this.render, this);
 			Vent.bind('render:nav', 	this.updateNav, this);			
 
 			this.model.loadData();
 		},
 		
 		render: function () {
+			Vent.trigger('render:nav');
+			debug.debug('AppView.renderPage()');
+			var me;
+			me = this;
+			this.el.parent().fadeOut(100, function () {
+				debug.debug('animation over');
+				me.el.html(DataModel.get('pageHtml'));
+				me.el.parent().fadeIn(400);
+			});
+		},
+		
+		router: function () {
 			debug.debug('AppView.render()');
 			this.router = new Router();
 			debug.timeEnd('dataLoad');
@@ -599,18 +611,6 @@ define('views/app/view',[
 			debug.debug('AppView.loadApp() -> appPath', page.name);
 			Vent.trigger('currentapp:' + page.name);
 			Vent.trigger('render:nav');
-		},
-
-		renderPage: function () {
-			Vent.trigger('render:nav');
-			debug.debug('AppView.renderPage()');
-			var me;
-			me = this;
-			this.el.parent().fadeOut(100, function () {
-				debug.debug('animation over');
-				me.el.html(DataModel.get('pageHtml'));
-				me.el.parent().fadeIn(400);
-			});
 		},
 		
 		updateNav: function () {

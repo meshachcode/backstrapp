@@ -8,7 +8,7 @@ define([
 ], function($, _, Backbone, DataModel, Vent, SongHtml){
 
 	var SongView = Backbone.View.extend({
-		el: $('#content'),
+
 		pageData: {
 			"url"		:	"song",
 			"title"		:	"Song",
