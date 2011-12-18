@@ -333,6 +333,19 @@ define('models/app',[
 	
 	var AppModel = Backbone.Model.extend({
 		
+		loadData: function () {
+			debug.debug('AppModel.loadData()');
+			DataModel.loadData(DataModel.get('file'), function (json) {
+				debug.debug('DataModel.pages', DataModel.get('pages'));
+				var pages;
+				pages = DataModel.get('pages');
+				for ( i in pages ) {
+					json.pages.push(pages[i]);
+				}
+				DataModel.set({data: json});
+			})
+		},
+
 		loadPage: function (callback) {
 			debug.debug('AppModel.loadPage()');
 			$.get(DataModel.get('currentPage').file, function (html) {
@@ -505,7 +518,7 @@ define('views/app/view',[
 			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);
 			Vent.bind('render:nav', 	this.updateNav, this);
-			this.loadData();
+			this.model.loadData();
 		},
 		
 		render: function () {
@@ -526,19 +539,6 @@ define('views/app/view',[
 					$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
 				}
 			}
-		},
-
-		loadData: function () {
-			debug.debug('AppView.loadData()');
-			DataModel.loadData(DataModel.get('file'), function (json) {
-				debug.debug('DataModel.pages', DataModel.get('pages'));
-				var pages;
-				pages = DataModel.get('pages');
-				for ( i in pages ) {
-					json.pages.push(pages[i]);
-				}
-				DataModel.set({data: json});
-			})
 		},
 
 		findPage: function () {
