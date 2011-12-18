@@ -289,6 +289,10 @@ define('models/data',[
 			file: 'json/pages.json',
 			pages: []
 		},
+		
+		initialize: function () {
+			this.bind('change:newpage', this.addPage, this);
+		},
 
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
@@ -305,8 +309,16 @@ define('models/data',[
 				}
 			}
 			return false;
-		}
+		},
 
+		addPage: function () {
+			debug.debug('DataModel.addPage()');
+			debug.debug(this.get('newpage'));
+			var p;
+			p = this.get('pages');
+			p.push(this.get('newpage'));
+			this.set({ pages: p });
+		}
 	});
 
 	return new DataModel();
@@ -529,7 +541,6 @@ define('views/app/view',[
 
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			DataModel.bind('change:newpage', this.addNavItem, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
 
@@ -561,11 +572,6 @@ define('views/app/view',[
 					PagesCollection.add(pages[i]);
 				}
 			}
-		},
-
-		addNavItem: function () {
-			debug.debug('AppView.addNavItem()');
-			PagesCollection.add(DataModel.get('newpage'));
 		},
 		
 		appendNavItem: function (p) {

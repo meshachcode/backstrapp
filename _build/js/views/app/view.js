@@ -21,7 +21,6 @@ define([
 
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			DataModel.bind('change:newpage', this.addNavItem, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
 
@@ -53,11 +52,6 @@ define([
 					PagesCollection.add(pages[i]);
 				}
 			}
-		},
-
-		addNavItem: function () {
-			debug.debug('AppView.addNavItem()');
-			PagesCollection.add(DataModel.get('newpage'));
 		},
 		
 		appendNavItem: function (p) {
