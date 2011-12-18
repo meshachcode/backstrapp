@@ -7,7 +7,8 @@ define([
 ], function($, _, Backbone, DataModel, Vent){
 	
 	var TestView = Backbone.View.extend({
-		el: $('#content'),
+		className: "hero-unit",
+	
 		pageData: {
 			"url"		:	"test",
 			"title"		:	"Test",
@@ -16,7 +17,7 @@ define([
 			"visible"	:	true
 		},
 		
-		testHtml: "<h1>MY TEST APP</h1>",
+		testHtml: "<div><h1>MY TEST APP</h1></div>",
 
 		initialize: function () {
 			Vent.bind('currentapp:test', this.render, this);
@@ -26,7 +27,8 @@ define([
 		
 		render: function () {
 			debug.debug('TestView.render()');
-			DataModel.set({ pageHtml: this.testHtml });
+			this.el.html(this.testHtml);
+			DataModel.set({ pageHtml:  this.el });
 		}
 	});
 	
