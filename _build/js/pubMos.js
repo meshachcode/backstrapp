@@ -519,7 +519,7 @@ define('views/test/view',[
 		
 		render: function () {
 			debug.debug('TestView.render()');
-			this.el.html(this.testHtml);
+			$(this.el).html(this.testHtml);
 			DataModel.set({ pageHtml:  this.el });
 		}
 	});
