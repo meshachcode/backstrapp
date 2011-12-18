@@ -533,10 +533,8 @@ define('views/app/view',[
 		},
 		
 		loadPage: function () {
-			$.get(DataModel.get('currentPage').file, function (html) {
-				debug.debug(html);
-				DataModel.set({pageHtml: html});
-				Vent.trigger('render:page');
+			this.model.loadPage(function () {
+				Vent.trigger('render:page')
 			});
 		},
 		
