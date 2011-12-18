@@ -308,12 +308,8 @@ define('models/data',[
 				}
 			}
 			return false;
-		},
-
-		addPage: function () {
-			debug.debug('DataModel.addPage()');
-			debug.debug(this.get('newpage'));
 		}
+
 	});
 
 	return new DataModel();
@@ -554,7 +550,13 @@ define('views/app/view',[
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
+		},
+		
+		addPage: function () {
+			debug.debug('AppView.addPage()');
+			debug.debug(DataModel.get('newpage'));
 		}
+
 	});
 
 	return AppView;

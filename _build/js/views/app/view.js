@@ -101,7 +101,13 @@ define([
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
+		},
+		
+		addPage: function () {
+			debug.debug('AppView.addPage()');
+			debug.debug(DataModel.get('newpage'));
 		}
+
 	});
 
 	return AppView;

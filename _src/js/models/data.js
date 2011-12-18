@@ -28,12 +28,8 @@ define([
 				}
 			}
 			return false;
-		},
-
-		addPage: function () {
-			debug.debug('DataModel.addPage()');
-			debug.debug(this.get('newpage'));
 		}
+
 	});
 
 	return new DataModel();
