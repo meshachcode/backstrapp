@@ -17,9 +17,6 @@ define([
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			
-			DataModel.bind('change:newpage', this.addPage, this);
-
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
@@ -104,11 +101,6 @@ define([
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
-		},
-		
-		addPage: function () {
-			debug.debug('AppView.addPage()');
-			debug.debug(DataModel.get('newpage'));
 		}
 	});
 

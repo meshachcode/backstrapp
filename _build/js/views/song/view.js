@@ -19,7 +19,7 @@ define([
 		initialize: function () {
 			Vent.bind('currentapp:song', this.render, this);
 			debug.debug('SongView.init()');
-			DataModel.set({newpage: this.pageData});
+			DataModel.set({ newpage: this.pageData });
 		}, 
 		
 		render: function () {
@@ -32,6 +32,7 @@ define([
 				me.el.parent().fadeIn(400);
 			});
 		}
+
 	});
 	
 	return new SongView();

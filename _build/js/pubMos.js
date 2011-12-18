@@ -288,6 +288,10 @@ define('models/data',[
 		defaults: {
 			file: 'json/pages.json'
 		},
+		
+		initialize: function () {
+			this.bind('change:newpage', this.addPage, this);
+		},
 
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
@@ -304,6 +308,11 @@ define('models/data',[
 				}
 			}
 			return false;
+		},
+
+		addPage: function () {
+			debug.debug('DataModel.addPage()');
+			debug.debug(DataModel.get('newpage'));
 		}
 	});
 
@@ -400,7 +409,7 @@ define('views/song/view',[
 		initialize: function () {
 			Vent.bind('currentapp:song', this.render, this);
 			debug.debug('SongView.init()');
-			DataModel.set({newpage: this.pageData});
+			DataModel.set({ newpage: this.pageData });
 		}, 
 		
 		render: function () {
@@ -413,6 +422,7 @@ define('views/song/view',[
 				me.el.parent().fadeIn(400);
 			});
 		}
+
 	});
 	
 	return new SongView();
@@ -460,9 +470,6 @@ define('views/app/view',[
 			debug.debug('AppView.init()');
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			
-			DataModel.bind('change:newpage', this.addPage, this);
-
 			Vent.bind('navigate:page', 	this.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
@@ -547,11 +554,6 @@ define('views/app/view',[
 			$('li.active', '#nav').removeClass('active');
 			debug.debug('AppView.currentPage', DataModel.get('currentPage'));
 			$("#nav_" + DataModel.get('currentPage').url).addClass('active');
-		},
-		
-		addPage: function () {
-			debug.debug('AppView.addPage()');
-			debug.debug(DataModel.get('newpage'));
 		}
 	});
 

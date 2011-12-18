@@ -8,6 +8,10 @@ define([
 		defaults: {
 			file: 'json/pages.json'
 		},
+		
+		initialize: function () {
+			this.bind('change:newpage', this.addPage, this);
+		},
 
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
@@ -24,6 +28,11 @@ define([
 				}
 			}
 			return false;
+		},
+
+		addPage: function () {
+			debug.debug('DataModel.addPage()');
+			debug.debug(DataModel.get('newpage'));
 		}
 	});
 
