@@ -49,7 +49,12 @@ define([
 		loadData: function () {
 			debug.debug('AppView.loadData()');
 			DataModel.loadData(DataModel.get('file'), function (json) {
-				json.pages.push(DataModel.get('pages'));
+				debug.debug('DataModel.pages', DataModel.get('pages'));
+				var pages;
+				pages = DataModel.get('pages');
+				for ( i in pages ) {
+					json.pages.push(pages[i]);
+				}
 				DataModel.set({data: json});
 			})
 		},
