@@ -333,6 +333,21 @@ define('models/app',[
 	
 	var AppModel = Backbone.Model.extend({
 		
+		findPage: function () {
+			debug.debug('AppModel.findPage()');
+			debug.debug('DataModel.pages', DataModel.get('data').pages);
+			var page;
+			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
+				debug.debug('PAGE FOUND', page);
+				DataModel.set({ currentPage: page });
+				Vent.trigger('pagetype:' + page.type);
+			} else {
+				debug.debug('PAGE NOT FOUND');
+				this.router.navigate('/home', true);
+				Vent.trigger('navigate:home');
+			}
+		},
+
 		loadData: function () {
 			debug.debug('AppModel.loadData()');
 			DataModel.loadData(DataModel.get('file'), function (json) {
@@ -513,7 +528,7 @@ define('views/app/view',[
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
 
-			Vent.bind('navigate:page', 	this.findPage, this);
+			Vent.bind('navigate:page', 	this.model.findPage, this);
 			Vent.bind('pagetype:page', 	this.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);
@@ -538,21 +553,6 @@ define('views/app/view',[
 				if ( pages[i].visible == true ) {
 					$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
 				}
-			}
-		},
-
-		findPage: function () {
-			debug.debug('AppView.loadPage()');
-			debug.debug('DataModel.pages', DataModel.get('data').pages);
-			var page;
-			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
-				debug.debug('PAGE FOUND', page);
-				DataModel.set({ currentPage: page });
-				Vent.trigger('pagetype:' + page.type);
-			} else {
-				debug.debug('PAGE NOT FOUND');
-				this.router.navigate('/home', true);
-				Vent.trigger('navigate:home');
 			}
 		},
 		

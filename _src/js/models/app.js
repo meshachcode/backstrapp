@@ -7,6 +7,21 @@ define([
 	
 	var AppModel = Backbone.Model.extend({
 		
+		findPage: function () {
+			debug.debug('AppModel.findPage()');
+			debug.debug('DataModel.pages', DataModel.get('data').pages);
+			var page;
+			if ( page = DataModel.itemExists(DataModel.get('requestedPage'), DataModel.get('data').pages) ) {
+				debug.debug('PAGE FOUND', page);
+				DataModel.set({ currentPage: page });
+				Vent.trigger('pagetype:' + page.type);
+			} else {
+				debug.debug('PAGE NOT FOUND');
+				this.router.navigate('/home', true);
+				Vent.trigger('navigate:home');
+			}
+		},
+
 		loadData: function () {
 			debug.debug('AppModel.loadData()');
 			DataModel.loadData(DataModel.get('file'), function (json) {
