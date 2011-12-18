@@ -8,11 +8,14 @@ define([
 		
 		loadPage: function (callback) {
 			debug.debug('AppModel.loadPage()');
+//			debug.debug(this.get('currentPage'));
+/*
 			$.get(this.get('currentPage').file, function (html) {
 				debug.debug(html);
 				this.set({pageHtml: html});
 				callback();
 			});
+*/
 		}
 		
 	});
