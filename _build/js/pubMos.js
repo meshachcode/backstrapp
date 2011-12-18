@@ -327,8 +327,9 @@ define('models/data',[
 define('models/app',[
   'jQuery',
   'Underscore',
-  'Backbone'
-], function($, _, Backbone){
+  'Backbone',
+  'models/data'
+], function($, _, Backbone, DataModel){
 	
 	var AppModel = Backbone.Model.extend({
 		
