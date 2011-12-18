@@ -349,6 +349,17 @@ function($, _, Backbone) {
 	});
 	return new TemplateModel();
 });
+define('collections/pages',[
+  'jQuery',
+  'Underscore',
+  'Backbone'
+], function($, _, Backbone){
+	
+	var PagesCollection = Backbone.Collection.extend({});
+
+	return new PagesCollection();
+});
+
 define('events/vent',[
   'jQuery',
   'Underscore',
@@ -431,12 +442,12 @@ define('models/app',[
 			})
 		},
 
-		loadPage: function (callback) {
+		loadPage: function () {
 			debug.debug('AppModel.loadPage()');
 			$.get(DataModel.get('currentPage').file, function (html) {
 				debug.debug(html);
 				DataModel.set({pageHtml: html});
-				callback();
+				Vent.trigger('render:page')
 			});
 		}
 		
@@ -516,8 +527,9 @@ define('views/app/view',[
   'models/app',
   'models/template',
   'models/module',
+  'collections/pages',
   'events/vent'
-], function($, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, Vent){
+], function($, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, PagesCollection, Vent){
 
 	var AppView = Backbone.View.extend({
 		el: $('#content'),
@@ -526,14 +538,16 @@ define('views/app/view',[
 		initialize: function () {
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
+
 			DataModel.bind('change:data', this.render, this);
 			DataModel.bind('change:data', this.buildNav, this);
 
 			Vent.bind('navigate:page', 	this.model.findPage, this);
-			Vent.bind('pagetype:page', 	this.loadPage, this);
+			Vent.bind('pagetype:page', 	this.model.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
 			Vent.bind('render:page', 	this.renderPage, this);
 			Vent.bind('render:nav', 	this.updateNav, this);
+
 			this.model.loadData();
 		},
 		
@@ -552,17 +566,13 @@ define('views/app/view',[
 			for ( i in pages ) {
 				debug.debug(pages[i].url);
 				if ( pages[i].visible == true ) {
-					$("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
+					// add the page to the PagesCollection
+					PagesCollection.add(pages[i]);
+					// $("#nav").append('<li id="nav_' + pages[i].url + '"><a href="/#/' + pages[i].url + '">' + pages[i].title + '</a></li>');
 				}
 			}
 		},
-		
-		loadPage: function () {
-			this.model.loadPage(function () {
-				Vent.trigger('render:page')
-			});
-		},
-		
+				
 		loadApp: function () {
 			var page;
 			page = DataModel.get('currentPage');

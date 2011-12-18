@@ -1,8 +1,9 @@
 define([
   'jQuery',
+  'Handlebars',
   'Underscore',
   'Backbone'
-], function($, _, Backbone){
+], function($, Handlebars, _, Backbone){
 
   return {};
 });

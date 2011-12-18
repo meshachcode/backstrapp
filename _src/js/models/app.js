@@ -36,12 +36,12 @@ define([
 			})
 		},
 
-		loadPage: function (callback) {
+		loadPage: function () {
 			debug.debug('AppModel.loadPage()');
 			$.get(DataModel.get('currentPage').file, function (html) {
 				debug.debug(html);
 				DataModel.set({pageHtml: html});
-				callback();
+				Vent.trigger('render:page')
 			});
 		}
 		

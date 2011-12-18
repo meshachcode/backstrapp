@@ -20,6 +20,7 @@ js/libs/underscore/underscore.js
 js/libs/backbone/backbone.js
 js/models/data.js
 js/models/template.js
+js/collections/pages.js
 js/events/vent.js
 js/router.js
 js/models/app.js
