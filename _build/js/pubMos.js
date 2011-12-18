@@ -507,6 +507,8 @@ define('views/test/view',[
 			"name"		:	"test",
 			"visible"	:	true
 		},
+		
+		testHtml: "<h1>MY TEST APP</h1>",
 
 		initialize: function () {
 			Vent.bind('currentapp:test', this.render, this);
@@ -516,6 +518,7 @@ define('views/test/view',[
 		
 		render: function () {
 			debug.debug('TestView.render()');
+			DataModel.set({ pageHtml: this.testHtml });
 		}
 	});
 	
