@@ -20,20 +20,6 @@
 			"type"		:	"page",
 			"visible"	:	true,
 			"file"		:	"/templates/pages/contact.html"
-		},
-		{
-			"url"		:	"song",
-			"title"		:	"Song",
-			"type"		:	"app",
-			"visible"	:	true,
-			"name"		:	"song"
-		},
-		{
-			"url"		:	"test",
-			"title"		:	"Test",
-			"type"		:	"app",
-			"visible"	:	false,
-			"name"		:	"test"
 		}
 	]
 }
