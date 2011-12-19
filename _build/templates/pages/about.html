@@ -22,33 +22,7 @@
 					<p>
 						Edit the file at: 
 						<pre>your_backstrapp_dev_dir/_src/js/app.build.json</pre>
-						Change the settings to fit your app:
-						<pre>({
-						    appDir: "../",
-						    baseUrl: "js",
-						    dir: "../../_build",
-							optimize: "none",
-							inlineText: true,
-							paths: {
-							    "loader": "libs/backbone/loader",
-						        "requireLib": "libs/require/require",
-								"jQuery": "libs/jquery/jquery",
-								"Underscore": "libs/underscore/underscore",
-								"Backbone": "libs/backbone/backbone",
-								"templates": "../templates"
-						    },
-							modules: [
-						        {
-						            name: "backstrapp",
-						            include: ["requireLib", "main"],
-						            //True tells the optimizer it is OK to create
-						            //a new file foo.js. Normally the optimizer
-						            //wants foo.js to exist in the source directory.
-						            create: true
-						        }
-						    ],
-						    fileExclusionRegExp: /^\./
-						})</pre>
+						Change the settings to fit your app. For more details <a href="https://github.com/jrburke/r.js/">checkout r.js on github.</a>
 					</p>
 				</li>
 			</ol>
