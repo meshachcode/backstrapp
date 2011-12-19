@@ -13,13 +13,6 @@
 			"type"		:	"page",
 			"visible"	:	true,
 			"file"		:	"/templates/pages/about.html"
-		},
-		{
-			"url"		:	"contact",
-			"title"		:	"Contact",
-			"type"		:	"page",
-			"visible"	:	true,
-			"file"		:	"/templates/pages/contact.html"
 		}
 	]
 }
