@@ -33,6 +33,7 @@ or to access the `express(1)` executable install globally:
 
   * [Meshach Jackson](http://github.com/meshachjackson)
   * [Sam Bernard]()
+  * [Maciek Ruckgaber](http://github.com/maciekrb) (this Fork)
 
 ## Viewing Examples
 
@@ -42,6 +43,12 @@ or to access the `express(1)` executable install globally:
 
     $ coming soon
 
+## About this Fork
+  
+Contains small fixes that I found useful while using the framework,
+Up until now, just event related stuff and some documentation.
+ 
+    
 ## License 
 
 (The MIT License)

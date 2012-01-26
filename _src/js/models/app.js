@@ -23,6 +23,10 @@ define([
 			}
 		},
 
+    /**
+    * DataModel has a binding of type change:data fires
+    * the router and buildNav methods at the AppView
+    **/
 		loadData: function () {
 			debug.debug('AppModel.loadData()');
 			DataModel.loadData(DataModel.get('file'), function (json) {
@@ -36,12 +40,15 @@ define([
 			})
 		},
 
+    /**
+    * DataModel has a binding of type change:pageHtml fires
+    * the render method at the AppView
+    **/
 		loadPage: function () {
 			debug.debug('AppModel.loadPage()');
 			$.get(DataModel.get('currentPage').file, function (html) {
 				debug.debug(html);
 				DataModel.set({pageHtml: html});
-				Vent.trigger('render:page')
 			});
 		}
 		
