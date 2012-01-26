@@ -89,13 +89,15 @@ define([
 				debug.debug('animation over');
 				me.el.html(DataModel.get('pageHtml'));
 				me.el.parent().fadeIn(400);
+        //Render app name when rendering an app or staticHtml if a page is rendered
         var page = DataModel.get('currentPage');
+        var evName = page.type == 'app' ? page.name : 'staticHtml';
         /**
         * You are likely to need  to know when your module has finished loading its HTML inside
         * the DOM, this events tells you so. Inside your module you just listen for this to occur.
         * i.e : Vent.bind('renderfinish:myapp')
         **/
-        Vent.trigger('renderfinish:'+page.name);
+        Vent.trigger('renderfinish:' + evName);
 			});
 		},
 		
