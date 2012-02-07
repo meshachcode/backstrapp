@@ -1,17 +1,17 @@
 ({
-    appDir: "../",
+    appDir: "../../",
     baseUrl: "js",
-    dir: "../../_build",
+    dir: "../../../_build",
 	optimize: "none",
 	inlineText: true,
 	paths: {
-	    "loader": "libs/backbone/loader",
-        "requireLib": "libs/require/require",
-		"jQuery": "libs/jquery/jquery",
-		"Underscore": "libs/underscore/underscore",
-		"Backbone": "libs/backbone/backbone",
+	    	"loader": "../libs/backbone/loader",
+        	"requireLib": "../libs/require/require",
+		"jQuery": "../libs/jquery/jquery",
+		"Underscore": "../libs/underscore/underscore",
+		"Backbone": "../libs/backbone/backbone",
 		"templates": "../templates"
-    },
+    	},
 	modules: [
         {
             name: "backstrapp",
