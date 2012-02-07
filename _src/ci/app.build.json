@@ -1,6 +1,6 @@
 ({
-    appDir				: "../",
-    baseUrl				: "./",
+    appDir				: "../js/app",
+    baseUrl				: "../",
     dir					: "../../_build",
 	optimize			: "none",
 	inlineText			: true,
