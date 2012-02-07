@@ -1,0 +1,1 @@
+define(['modules/song/view', 'modules/test/view'], function (SongView, TestView) {});

@@ -1,7 +1,7 @@
 ({
     appDir: "../../",
     baseUrl: "js",
-    dir: "../_build",
+    dir: "../../_build",
 	optimize: "none",
 	inlineText: true,
 	paths: {
