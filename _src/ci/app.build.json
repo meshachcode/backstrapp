@@ -6,8 +6,8 @@
 	inlineText			: true,
 	mainConfigFile		: 'app/main.js',
 	paths: {
-		"loader"		: "libs/backbone/loader",
-		"requireLib"	: "libs/require/require",
+		"loader"		: "../libs/backbone/loader",
+		"requireLib"	: "../libs/require/require",
 		"jQuery"		: "libs/jquery/jquery",
 		"Underscore"	: "libs/underscore/underscore",
 		"Backbone"		: "libs/backbone/backbone",
