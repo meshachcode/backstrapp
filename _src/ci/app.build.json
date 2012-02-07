@@ -4,7 +4,6 @@
     dir					: "../../_build",
 	optimize			: "none",
 	inlineText			: true,
-	mainConfigFile		: 'app/main.js',
 	paths: {
 		"loader"		: "libs/backbone/loader",
 		"requireLib"	: "libs/require/require",
