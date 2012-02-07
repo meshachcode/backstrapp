@@ -12,7 +12,8 @@
 		"jQuery"		: "libs/jquery/jquery",
 		"Underscore"	: "libs/underscore/underscore",
 		"Backbone"		: "libs/backbone/backbone",
-		"templates"		: "../html"
+		"templates"		: "../html",
+		"views"			: "app/views"
 	},
 	modules: [
 		{
