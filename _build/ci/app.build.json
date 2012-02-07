@@ -1,6 +1,6 @@
 ({
     appDir				: "../",
-    baseUrl				: "js",
+    baseUrl				: "js/app",
     dir					: "../../_build",
 	optimize			: "none",
 	inlineText			: true,
@@ -8,16 +8,14 @@
 	paths: {
 		"loader"		: "libs/backbone/loader",
 		"requireLib"	: "libs/require/require",
-		"main"			: "app/main",
 		"jQuery"		: "libs/jquery/jquery",
 		"Underscore"	: "libs/underscore/underscore",
 		"Backbone"		: "libs/backbone/backbone",
-		"templates"		: "../html",
-		"views"			: "app/views"
+		"templates"		: "../../html"
 	},
 	modules: [
 		{
-			name: "js/backstrapp",
+			name: "backstrapp",
 			include: ["requireLib", "main"],
 			//True tells the optimizer it is OK to create
 			//a new file foo.js. Normally the optimizer

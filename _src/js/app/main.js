@@ -2,12 +2,11 @@
 // Their usage will become more apparent futher along in the tutorial.
 require.config({
   paths: {
-  	libs:			'../libs',
-    loader: 		'../libs/backbone/loader',
-    jQuery: 		'../libs/jquery/jquery',
-    Handlebars: 	'../libs/handlebars/handlebars',
-    Underscore: 	'../libs/underscore/underscore',
-    Backbone: 		'../libs/backbone/backbone',
+    loader: 		'libs/backbone/loader',
+    jQuery: 		'libs/jquery/jquery',
+    Handlebars: 	'libs/handlebars/handlebars',
+    Underscore: 	'libs/underscore/underscore',
+    Backbone: 		'libs/backbone/backbone',
     templates: 		'../../html',
     json: 			'../../json',
     modules: 		'../modules'
