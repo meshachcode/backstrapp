@@ -9,7 +9,7 @@ require.config({
     Backbone: 		'libs/backbone/backbone',
     templates: 		'../../html',
     json: 			'../../json',
-    modules: 		'../../modules'
+    modules: 		'../modules'
   }
 });
 
