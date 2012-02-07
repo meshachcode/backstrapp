@@ -1,3 +1,3 @@
-define([ 'loader'], function(Loader){
+define(['loader'], function(Loader){
   return Loader.$;
 });

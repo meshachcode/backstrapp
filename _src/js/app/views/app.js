@@ -6,7 +6,7 @@ define([
   'models/data',
   'models/app',
   'models/template',
-  'models/module',
+  'moduleLoader',
   'collections/pages',
   'events/vent'
 ], function($, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, PagesCollection, Vent){
@@ -18,14 +18,11 @@ define([
 		initialize: function () {
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
-
 			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
-			
 			DataModel.bind('change:pageHtml', this.render, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
-
 			Vent.bind('navigate:page', 	this.model.findPage, this);
 			Vent.bind('pagetype:page', 	this.model.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);

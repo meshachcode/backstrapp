@@ -22,12 +22,11 @@ define([
 			debug.debug('SongView.init()');
 			DataModel.set({ newpage: this.pageData });
 		}, 
-		
+
 		render: function () {
 			debug.debug('SongView.render()');
 			DataModel.set({ pageHtml: SongHtml });
 		}
-
 	});
 	
 	return new SongView();
