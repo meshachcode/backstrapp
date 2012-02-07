@@ -17,7 +17,7 @@ require.config({
 require([
 
   // Load our app module and pass it to our definition function
-  'views/app',
+  'app/views/app',
   'libs/debug',
 
   // Some plugins have to be loaded in order due to their non AMD compliance
