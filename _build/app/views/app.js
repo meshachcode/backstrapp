@@ -18,20 +18,18 @@ define([
 		initialize: function () {
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
-			DataModel.bind('change:data', this.router, this);
-			DataModel.bind('change:data', this.buildNav, this);
-			DataModel.bind('change:pageHtml', this.render, this);
-
-			PagesCollection.bind('add', this.appendNavItem, this);
-			Vent.bind('navigate:page', 	this.model.findPage, this);
-			Vent.bind('pagetype:page', 	this.model.loadPage, this);
-			Vent.bind('pagetype:app', 	this.loadApp, this);
-			Vent.bind('render:page', 	this.render, this);
-			Vent.bind('render:nav', 	this.updateNav, this);			
-
+			DataModel.bind('change:data', 		this.router, this);
+			DataModel.bind('change:data', 		this.buildNav, this);
+			DataModel.bind('change:pageHtml', 	this.render, this);
+			PagesCollection.bind('add', 		this.appendNavItem, this);
+			Vent.bind('navigate:page', 			this.model.findPage, this);
+			Vent.bind('pagetype:page', 			this.model.loadPage, this);
+			Vent.bind('pagetype:app', 			this.loadApp, this);
+			Vent.bind('render:page', 			this.render, this);
+			Vent.bind('render:nav', 			this.updateNav, this);
 			this.model.loadData();
 		},
-		
+
 		render: function () {
 			Vent.trigger('render:nav');
 			debug.debug('AppView.renderPage()');
