@@ -5,12 +5,12 @@
 	optimize: "none",
 	inlineText: true,
 	paths: {
-		"loader": "../libs/backbone/loader",
-		"requireLib": "../../libs/require/require",
-		"jQuery": "../libs/jquery/jquery",
-		"Underscore": "../libs/underscore/underscore",
-		"Backbone": "../libs/backbone/backbone",
-		"templates": "../templates"
+		"loader"		: "../libs/backbone/loader",
+		"requireLib"	: "../../libs/require/require",
+		"jQuery"		: "../libs/jquery/jquery",
+		"Underscore"	: "../libs/underscore/underscore",
+		"Backbone"		: "../libs/backbone/backbone",
+		"templates"		: "../templates"
 	},
 	modules: [
 		{
