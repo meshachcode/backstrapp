@@ -10,6 +10,9 @@ require.config({
     Handlebars: 'libs/handlebars/handlebars',
     Underscore: 'libs/underscore/underscore',
     Backbone: 'libs/backbone/backbone',
+    order: 'libs/require/order',
+    text: 'libs/require/text',
+    template: 'libs/require/template',
     templates: '../templates'
   }
 

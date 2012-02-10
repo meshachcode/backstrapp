@@ -1,11 +1,11 @@
 
 js/backstrapp.js
 ----------------
-js/libs/require/require.js
-js/text.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/require/require.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/require/text.js
 text!templates/song/view.html
 js/libs/debug.js
-js/order.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/require/order.js
 js/libs/jquery/jquery-min.js
 order!libs/jquery/jquery-min
 js/libs/handlebars/handlebars-min.js
@@ -14,10 +14,10 @@ js/libs/underscore/underscore-min.js
 order!libs/underscore/underscore-min
 js/libs/backbone/backbone-min.js
 order!libs/backbone/backbone-min
-js/libs/backbone/loader.js
-js/libs/jquery/jquery.js
-js/libs/underscore/underscore.js
-js/libs/backbone/backbone.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/backbone/loader.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/jquery/jquery.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/underscore/underscore.js
+/Users/maciekrb/lib/backstrapp/_src/js/libs/backbone/backbone.js
 js/models/data.js
 js/models/template.js
 js/collections/pages.js

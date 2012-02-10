@@ -11,17 +11,63 @@ define([
   'events/vent'
 ], function($, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, PagesCollection, Vent){
 
+  /**
+  * This view contains all logic related to the application. 
+  * Sets up all events related to loading pages (just static HTML that
+  * silentrly inserts inside your #content), or modules (your own defined
+  * apps). 
+  *
+  * Keep in mind that this is a whole lot of boilerplate code for you 
+  * to be able to have a site like project, with many applications mixed
+  * with static pages. Best of all, you don't need to touch this code, 
+  * you just build your modules and load them, then is just matter
+  * of listening to the right events.
+  * 
+  * The view binds actions related to resource (DataModel:data) loading
+  * and page/module rendering.
+  **/
 	var AppView = Backbone.View.extend({
-		el: $('#content'),
+		el: '#content',
 		model: AppModel,
 
 		initialize: function () {
 			debug.time('dataLoad');
 			debug.debug('AppView.init()');
-
+      
+      /**
+      * Fires whenever you change the "data variable in the DataModel,
+      * I.e every time you call DataModel.set("data",{})
+      * Data being a definition of what to load, something like :
+      * { 
+      *   pages : [
+      *      {
+      *         file: "/path/to/file",
+      *         title: "The Menu name of this page",
+      *         type: "[page|app]",
+      *         url: "myapp", //Any name that seems like decent url
+      *         visible: [true|false] //either if is visible or not in the nav
+      *      }
+      *      ... (you define how many, just remember thew will load at once)
+      *      {
+      *         file: "/path/to/otherfile",
+      *         title: "The Menu name of this other page",
+      *         type: "[page|app]",
+      *         url: "myotherapp", //Any name that seems like decent url
+      *         visible: [true|false] //either if is visible or not in the nav
+      *      }
+      *   ]
+      * }
+      * 
+      * You can actually change the whole navigation of your site by resetting the data variable.
+      **/
 			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
 			
+      /**
+      * Fires whenever the pageHtml variable is changed, This is the way you load
+      * your application html from inside your module (DataModel.set({ newpage: "html here" }),
+      * of course you want this to be loaded from an Undrscore template.
+      **/
 			DataModel.bind('change:pageHtml', this.render, this);
 
 			PagesCollection.bind('add', this.appendNavItem, this);
@@ -29,7 +75,6 @@ define([
 			Vent.bind('navigate:page', 	this.model.findPage, this);
 			Vent.bind('pagetype:page', 	this.model.loadPage, this);
 			Vent.bind('pagetype:app', 	this.loadApp, this);
-			Vent.bind('render:page', 	this.render, this);
 			Vent.bind('render:nav', 	this.updateNav, this);			
 
 			this.model.loadData();
@@ -40,10 +85,19 @@ define([
 			debug.debug('AppView.renderPage()');
 			var me;
 			me = this;
-			this.el.parent().fadeOut(100, function () {
+			this.$el.parent().fadeOut(100, function () {
 				debug.debug('animation over');
-				me.el.html(DataModel.get('pageHtml'));
-				me.el.parent().fadeIn(400);
+				me.$el.html(DataModel.get('pageHtml'));
+				me.$el.parent().fadeIn(400);
+        //Render app name when rendering an app or staticHtml if a page is rendered
+        var page = DataModel.get('currentPage');
+        var evName = page.type == 'app' ? page.name : 'staticHtml';
+        /**
+        * You are likely to need  to know when your module has finished loading its HTML inside
+        * the DOM, this events tells you so. Inside your module you just listen for this to occur.
+        * i.e : Vent.bind('renderfinish:myapp')
+        **/
+        Vent.trigger('renderfinish:' + evName);
 			});
 		},
 		

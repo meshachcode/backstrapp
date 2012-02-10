@@ -27,7 +27,7 @@ define([
   * and page/module rendering.
   **/
 	var AppView = Backbone.View.extend({
-		el: $('#content'),
+		el: '#content',
 		model: AppModel,
 
 		initialize: function () {
@@ -85,10 +85,10 @@ define([
 			debug.debug('AppView.renderPage()');
 			var me;
 			me = this;
-			this.el.parent().fadeOut(100, function () {
+			this.$el.parent().fadeOut(100, function () {
 				debug.debug('animation over');
-				me.el.html(DataModel.get('pageHtml'));
-				me.el.parent().fadeIn(400);
+				me.$el.html(DataModel.get('pageHtml'));
+				me.$el.parent().fadeIn(400);
         //Render app name when rendering an app or staticHtml if a page is rendered
         var page = DataModel.get('currentPage');
         var evName = page.type == 'app' ? page.name : 'staticHtml';
