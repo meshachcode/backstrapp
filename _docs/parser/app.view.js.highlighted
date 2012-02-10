@@ -1,0 +1,130 @@
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm">	* The AppView is the main object of the application.</span>
+<span class="cm">	* @module AppView</span>
+<span class="cm">	* @requires $, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, PagesCollection, Vent</span>
+<span class="cm">*/</span>
+<span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;jQuery&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Underscore&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Backbone&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;router&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;models/data.model&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;models/app.model&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;models/template.model&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;moduleLoader&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;collections/pages&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;events/vent&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">DataModel</span><span class="p">,</span> <span class="nx">AppModel</span><span class="p">,</span> <span class="nx">TemplateModel</span><span class="p">,</span> <span class="nx">Module</span><span class="p">,</span> <span class="nx">PagesCollection</span><span class="p">,</span> <span class="nx">Vent</span><span class="p">){</span>
+
+	<span class="cm">/**</span>
+<span class="cm">		* @class AppView</span>
+<span class="cm">		* @extends Backbone.View</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+		<span class="cm">/**</span>
+<span class="cm">			* @property el</span>
+<span class="cm">		*/</span>
+		<span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">),</span>
+		<span class="cm">/**</span>
+<span class="cm">			* @property model</span>
+<span class="cm">		*/</span>
+		<span class="nx">model</span><span class="o">:</span> <span class="nx">AppModel</span><span class="p">,</span>
+
+		<span class="cm">/**</span>
+<span class="cm">			* @method initialize</span>
+<span class="cm">		*/</span>
+		<span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;dataLoad&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.init()&#39;</span><span class="p">);</span>
+			<span class="nx">DataModel</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change:data&#39;</span><span class="p">,</span> 		<span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">DataModel</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change:data&#39;</span><span class="p">,</span> 		<span class="k">this</span><span class="p">.</span><span class="nx">buildNav</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">DataModel</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change:pageHtml&#39;</span><span class="p">,</span> 	<span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">PagesCollection</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> 		<span class="k">this</span><span class="p">.</span><span class="nx">appendNavItem</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;navigate:page&#39;</span><span class="p">,</span> 			<span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">findPage</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;pagetype:page&#39;</span><span class="p">,</span> 			<span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">loadPage</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;pagetype:app&#39;</span><span class="p">,</span> 			<span class="k">this</span><span class="p">.</span><span class="nx">loadApp</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;render:page&#39;</span><span class="p">,</span> 			<span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;render:nav&#39;</span><span class="p">,</span> 			<span class="k">this</span><span class="p">.</span><span class="nx">updateNav</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">loadData</span><span class="p">();</span>
+		<span class="p">},</span>
+
+		<span class="cm">/**</span>
+<span class="cm">			* @method render</span>
+<span class="cm">		*/</span>
+		<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;render:nav&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.renderPage()&#39;</span><span class="p">);</span>
+			<span class="kd">var</span> <span class="nx">me</span><span class="p">;</span>
+			<span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">parent</span><span class="p">().</span><span class="nx">fadeOut</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;animation over&#39;</span><span class="p">);</span>
+				<span class="nx">me</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;pageHtml&#39;</span><span class="p">));</span>
+				<span class="nx">me</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">parent</span><span class="p">().</span><span class="nx">fadeIn</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
+			<span class="p">});</span>
+		<span class="p">},</span>
+		
+		<span class="cm">/**</span>
+<span class="cm">			* @method router</span>
+<span class="cm">		*/</span>
+		<span class="nx">router</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.render()&#39;</span><span class="p">);</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">();</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;dataLoad&#39;</span><span class="p">);</span>
+			<span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+		<span class="p">},</span>
+		
+		<span class="cm">/**</span>
+<span class="cm">			* @method buildNav</span>
+<span class="cm">		*/</span>
+		<span class="nx">buildNav</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.buildNav()&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">).</span><span class="nx">pages</span><span class="p">);</span>
+			<span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">pages</span><span class="p">;</span>
+			<span class="nx">pages</span> <span class="o">=</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">).</span><span class="nx">pages</span><span class="p">;</span>
+			<span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">pages</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">pages</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">url</span><span class="p">);</span>
+				<span class="k">if</span> <span class="p">(</span> <span class="nx">pages</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">visible</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">)</span> <span class="p">{</span>
+					<span class="c1">// add the page to the PagesCollection</span>
+					<span class="nx">PagesCollection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">pages</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">},</span>
+		
+		<span class="cm">/**</span>
+<span class="cm">			* @method appendNavItem</span>
+<span class="cm">		*/</span>
+		<span class="nx">appendNavItem</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.appendNavItem(p)&#39;</span><span class="p">,</span> <span class="nx">p</span><span class="p">);</span>
+			<span class="kd">var</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">,</span> <span class="nx">page</span><span class="p">);</span>
+			<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#nav&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;li id=&quot;nav_&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;a href=&quot;/#/&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s1">&#39;&lt;/a&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+		<span class="p">},</span>
+				
+		<span class="cm">/**</span>
+<span class="cm">			* @method loadApp</span>
+<span class="cm">		*/</span>
+		<span class="nx">loadApp</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
+			<span class="nx">page</span> <span class="o">=</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;currentPage&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.loadApp()&#39;</span><span class="p">,</span> <span class="nx">page</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.loadApp() -&gt; appPath&#39;</span><span class="p">,</span> <span class="nx">page</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;currentapp:&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+			<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;render:nav&#39;</span><span class="p">);</span>
+		<span class="p">},</span>
+		
+		<span class="cm">/**</span>
+<span class="cm">			* @method updateNav</span>
+<span class="cm">		*/</span>
+		<span class="nx">updateNav</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.updateNav()&#39;</span><span class="p">);</span>
+			<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;li.active&#39;</span><span class="p">,</span> <span class="s1">&#39;#nav&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppView.currentPage&#39;</span><span class="p">,</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;currentPage&#39;</span><span class="p">));</span>
+			<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#nav_&quot;</span> <span class="o">+</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;currentPage&#39;</span><span class="p">).</span><span class="nx">url</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+		<span class="p">}</span>
+
+	<span class="p">});</span>
+
+	<span class="k">return</span> <span class="nx">AppView</span><span class="p">;</span>
+
+<span class="p">});</span>
+</pre></div>

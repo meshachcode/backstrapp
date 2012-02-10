@@ -1,0 +1,37 @@
+<div class="highlight"><pre><span class="nx">define</span><span class="p">([</span>
+		<span class="s1">&#39;jQuery&#39;</span><span class="p">,</span> 
+		<span class="s1">&#39;Underscore&#39;</span><span class="p">,</span>
+		<span class="s1">&#39;Backbone&#39;</span>
+	<span class="p">],</span> 
+
+<span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="cm">/*</span>
+<span class="cm">		* @class TemplateModel</span>
+<span class="cm">		* @extends Backbone.Model</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> <span class="nx">TemplateModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+		<span class="cm">/*</span>
+<span class="cm">			* @method initialize</span>
+<span class="cm">		*/</span>
+		<span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;TemplateModel.init()&#39;</span><span class="p">);</span>
+			<span class="k">return</span>
+		<span class="p">},</span>
+
+		<span class="cm">/*</span>
+<span class="cm">			* @method loadTemplate</span>
+<span class="cm">			* @param obj, callback</span>
+<span class="cm">		*/</span>
+		<span class="nx">loadTemplate</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;TemplateModel.loadTemplate(obj)&#39;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+			<span class="kd">var</span> <span class="nx">template</span><span class="p">;</span>
+			<span class="nx">template</span> <span class="o">=</span> <span class="nx">Handlebars</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">template</span><span class="p">);</span>
+			<span class="nx">callback</span><span class="p">(</span><span class="nx">template</span><span class="p">(</span><span class="nx">obj</span><span class="p">));</span>
+		<span class="p">}</span>
+
+	<span class="p">});</span>
+	<span class="k">return</span> <span class="k">new</span> <span class="nx">TemplateModel</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>

@@ -1,0 +1,30 @@
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm">	* @module</span>
+<span class="cm">	* @requires $, Handlebars, _, Backbone</span>
+<span class="cm">*/</span>
+<span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;jQuery&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Handlebars&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Underscore&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Backbone&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">Handlebars</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">){</span>
+	<span class="cm">/*</span>
+<span class="cm">		* @class </span>
+<span class="cm">		* @extends Backbone.</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> 	<span class="o">=</span> <span class="nx">Backbone</span><span class="p">.[].</span><span class="nx">extend</span><span class="p">({</span>
+
+		<span class="cm">/*</span>
+<span class="cm">			* @property</span>
+<span class="cm">		*/</span>
+
+		<span class="cm">/*</span>
+<span class="cm">			* @method initialize</span>
+<span class="cm">		*/</span>
+		<span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+
+	<span class="p">});</span>
+	
+	<span class="k">return</span> <span class="p">;</span>
+<span class="p">});</span>
+</pre></div>

@@ -1,0 +1,65 @@
+<div class="highlight"><pre><span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;jQuery&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Underscore&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Backbone&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;models/data.model&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;events/vent&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">DataModel</span><span class="p">,</span> <span class="nx">Vent</span><span class="p">){</span>
+
+	<span class="cm">/**</span>
+<span class="cm">		* @class AppModel</span>
+<span class="cm">		* @extends Backbone.Model</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> <span class="nx">AppModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+		<span class="cm">/**</span>
+<span class="cm">			* @method findPage</span>
+<span class="cm">		*/</span>
+		<span class="nx">findPage</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppModel.findPage()&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;DataModel.pages&#39;</span><span class="p">,</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">).</span><span class="nx">pages</span><span class="p">);</span>
+			<span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">itemExists</span><span class="p">(</span><span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;requestedPage&#39;</span><span class="p">),</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">).</span><span class="nx">pages</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;PAGE FOUND&#39;</span><span class="p">,</span> <span class="nx">page</span><span class="p">);</span>
+				<span class="nx">DataModel</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span> <span class="nx">currentPage</span><span class="o">:</span> <span class="nx">page</span> <span class="p">});</span>
+				<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pagetype:&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;PAGE NOT FOUND&#39;</span><span class="p">);</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+				<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;navigate:home&#39;</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">},</span>
+
+		<span class="cm">/**</span>
+<span class="cm">			* @method loadData</span>
+<span class="cm">		*/</span>
+		<span class="nx">loadData</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppModel.loadData()&#39;</span><span class="p">);</span>
+			<span class="nx">DataModel</span><span class="p">.</span><span class="nx">loadData</span><span class="p">(</span><span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">),</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;DataModel.pages&#39;</span><span class="p">,</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">));</span>
+				<span class="kd">var</span> <span class="nx">pages</span><span class="p">;</span>
+				<span class="nx">pages</span> <span class="o">=</span> <span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">);</span>
+				<span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">pages</span> <span class="p">)</span> <span class="p">{</span>
+					<span class="nx">json</span><span class="p">.</span><span class="nx">pages</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">pages</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+				<span class="p">}</span>
+				<span class="nx">DataModel</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">json</span><span class="p">});</span>
+			<span class="p">})</span>
+		<span class="p">},</span>
+
+		<span class="cm">/**</span>
+<span class="cm">			* @method loadPage</span>
+<span class="cm">		*/</span>
+		<span class="nx">loadPage</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;AppModel.loadPage()&#39;</span><span class="p">);</span>
+			<span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">DataModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;currentPage&#39;</span><span class="p">).</span><span class="nx">file</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
+				<span class="nx">DataModel</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span><span class="nx">pageHtml</span><span class="o">:</span> <span class="nx">html</span><span class="p">});</span>
+				<span class="nx">Vent</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;render:page&#39;</span><span class="p">)</span>
+			<span class="p">});</span>
+		<span class="p">}</span>
+		
+	<span class="p">});</span>
+	
+	<span class="k">return</span> <span class="k">new</span> <span class="nx">AppModel</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>

@@ -1,0 +1,45 @@
+<div class="highlight"><pre><span class="cm">/*</span>
+<span class="cm">	* The Box Module tests how modules work in Backstrapp</span>
+<span class="cm">	* @module Box</span>
+<span class="cm">	* @namespace Box</span>
+<span class="cm">*/</span>
+<span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;jQuery&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Handlebars&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Underscore&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Backbone&#39;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">Handlebars</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">){</span>
+	<span class="cm">/*</span>
+<span class="cm">		* @class BoxModel</span>
+<span class="cm">		* @extends Backbone.Model</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> <span class="nx">BoxModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+		<span class="cm">/*</span>
+<span class="cm">			* @property defaults</span>
+<span class="cm">		*/</span>
+		<span class="nx">defaults</span><span class="o">:</span> <span class="p">{</span>
+			<span class="s1">&#39;msg&#39;</span>	<span class="o">:</span> 	<span class="s1">&#39;hey there&#39;</span>
+		<span class="p">}</span>
+	<span class="p">});</span>
+
+	<span class="cm">/*</span>
+<span class="cm">		* @class BoxView</span>
+<span class="cm">		* @extends Backbone.View</span>
+<span class="cm">	*/</span>
+	<span class="kd">var</span> <span class="nx">BoxView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+		<span class="cm">/*</span>
+<span class="cm">			* @property model</span>
+<span class="cm">		*/</span>
+		<span class="nx">model</span><span class="o">:</span> <span class="k">new</span> <span class="nx">BoxModel</span><span class="p">(),</span>
+		<span class="cm">/*</span>
+<span class="cm">			* @method initialize</span>
+<span class="cm">		*/</span>
+		<span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;BoxView&#39;</span><span class="p">);</span>
+			<span class="nx">debug</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;MSG&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">));</span>
+		<span class="p">}</span>
+	<span class="p">});</span>
+
+	<span class="k">return</span> <span class="k">new</span> <span class="nx">BoxView</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>

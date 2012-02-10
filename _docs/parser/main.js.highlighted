@@ -1,0 +1,37 @@
+<div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+  <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">loader</span><span class="o">:</span> 		<span class="s1">&#39;libs/backbone/loader&#39;</span><span class="p">,</span>
+    <span class="nx">jQuery</span><span class="o">:</span> 		<span class="s1">&#39;libs/jquery/jquery&#39;</span><span class="p">,</span>
+    <span class="nx">Handlebars</span><span class="o">:</span> 	<span class="s1">&#39;libs/handlebars/handlebars&#39;</span><span class="p">,</span>
+    <span class="nx">Underscore</span><span class="o">:</span> 	<span class="s1">&#39;libs/underscore/underscore&#39;</span><span class="p">,</span>
+    <span class="nx">Backbone</span><span class="o">:</span> 		<span class="s1">&#39;libs/backbone/backbone&#39;</span><span class="p">,</span>
+    <span class="nx">templates</span><span class="o">:</span> 		<span class="s1">&#39;../../html&#39;</span><span class="p">,</span>
+    <span class="nx">json</span><span class="o">:</span> 			<span class="s1">&#39;../../json&#39;</span><span class="p">,</span>
+    <span class="nx">modules</span><span class="o">:</span> 		<span class="s1">&#39;../modules&#39;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">require</span><span class="p">([</span>
+
+<span class="cm">/*   * Load our app module and pass it to our definition function */</span>
+  <span class="s1">&#39;views/app.view&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;libs/debug&#39;</span><span class="p">,</span>
+
+<span class="cm">/*</span>
+<span class="cm">  * Some plugins have to be loaded in order due to their non AMD compliance</span>
+<span class="cm">  * Because these scripts are not &quot;modules&quot; they do not pass any values to the definition function below</span>
+<span class="cm">*/</span>
+  <span class="s1">&#39;order!libs/jquery/jquery-min&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;order!libs/handlebars/handlebars-min&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;order!libs/underscore/underscore-min&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;order!libs/backbone/backbone-min&#39;</span>
+
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">AppView</span><span class="p">){</span>
+
+<span class="cm">/*</span>
+<span class="cm">  * The &quot;app&quot; dependency is passed in as &quot;App&quot;</span>
+<span class="cm">  * Again, the other dependencies passed in are not &quot;AMD&quot; therefore don&#39;t pass a parameter to this function</span>
+<span class="cm">*/</span>
+  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
