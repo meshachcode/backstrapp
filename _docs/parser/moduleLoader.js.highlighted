@@ -1,6 +1,0 @@
-<div class="highlight"><pre><span class="nx">define</span><span class="p">([</span>
-	<span class="s1">&#39;modules/song/songapp.view&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;modules/test/testapp.view&#39;</span><span class="p">,</span>
-	<span class="s1">&#39;modules/box/box&#39;</span>
-<span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">SongView</span><span class="p">,</span> <span class="nx">TestView</span><span class="p">,</span> <span class="nx">Box</span><span class="p">)</span> <span class="p">{});</span>
-</pre></div>

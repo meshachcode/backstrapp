@@ -5,14 +5,14 @@
 			"title"		:	"Home",
 			"type"		:	"page",
 			"visible"	:	true,
-			"file"		:	"/html/pages/home.html"
+			"file"		:	"/html/static/pages/home.html"
 		},
 		{
 			"url"		:	"about",
 			"title"		:	"About",
 			"type"		:	"page",
 			"visible"	:	true,
-			"file"		:	"/html/pages/about.html"
+			"file"		:	"/html/static/pages/about.html"
 		}
 	]
 }
