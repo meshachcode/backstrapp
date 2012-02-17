@@ -9,8 +9,10 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  'libs/backstrapp/models/backstrapp.model'
-], function($, _, Backbone, BackstrappModel){
+  'libs/backstrapp/modules/backstrapp.module',
+  'libs/backstrapp/models/backstrapp.model',
+  'libs/backstrapp/views/backstrapp.view'
+], function($, _, Backbone, BackstrappModule, BackstrappModel, BackstrappView){
 
 	/**
 		* @class Backstrapp
@@ -19,10 +21,11 @@ define([
 
 	Backstrapp.Model = BackstrappModel;
 
-	Backstrapp.View = Backbone.View.extend({});
+	Backstrapp.Collection = Backbone.Collection.extend({});
 
-	Backstrapp.Module = Backbone.View.extend({ model: new Backstrapp.Model() });
+	Backstrapp.View = BackstrappView;
+
+	Backstrapp.Module = BackstrappModule;
 
 	return Backstrapp;
-
 });

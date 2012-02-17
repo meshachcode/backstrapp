@@ -1,42 +1,43 @@
 /**
-	* The AppView is the main object of the application.
-	* @module AppView
+	* The AppModule
+	* @module AppModule
 	* @requires $, _, Backbone, Router, DataModel, AppModel, TemplateModel, Module, PagesCollection, Vent
 */
 define([
   'jQuery',
-  'Underscore',
-  'Backbone',
   'Backstrapp',
   'router',
-  'modules/data/data.module',
+  'models/data.model',
   'modules/template/template.module',
   'models/app.model',
   'collections/pages.collection',
+  'collections/modules.collection',
   'events/vent'
-], function($, _, Backbone, Backstrapp, Router, DataModel, TemplateModel, AppModel, PagesCollection, Vent){
+], function($, Backstrapp, Router, DataModel, TemplateModel, AppModel, PagesCollection, ModulesCollection, Vent){
 
 	/**
-		* @class AppView
-		* @extends Backbone.View
+		* @class App
+		* @extends Backstrapp.Module
 	*/
-	var AppView = Backstrapp.View.extend({
+	var App = Backstrapp.Module.extend({
+		/**
+			* @property model
+		*/
+		model: new AppModel(),
+		modules: ModulesCollection,
+
 		/**
 			* @property el
 		*/
 		el: $('#content'),
-		/**
-			* @property model
-		*/
-		model: AppModel,
 
 		/**
 			* @method initialize
 		*/
 		initialize: function () {
-			debug.debug('initialize', DataModel.get('requested'));
-			_.bindAll(this);
-			DataModel.bind('change:requested', 	this.handleRequest, this);
+			// call super.init
+			Backstrapp.Module.prototype.initialize.call(this);
+			DataModel.bind('change:page',		this.model.handlePageRequest, this);
 			DataModel.bind('change:data', 		this.router, this);
 /*
 			DataModel.bind('change:data', 		this.buildNav, this);
@@ -49,10 +50,6 @@ define([
 			Vent.bind('render:nav', 			this.updateNav, this);
 */
 			this.model.loadData();
-		},
-		
-		moduleRequest: function () {
-			debug.debug('moduleRequest', DataModel.get('requested'));
 		},
 
 		/**
@@ -118,6 +115,6 @@ define([
 
 	});
 
-	return AppView;
+	return App;
 
 });

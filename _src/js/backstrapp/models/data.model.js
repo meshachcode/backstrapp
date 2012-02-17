@@ -1,22 +1,37 @@
-/*
-	* Data Module
-	* @module Data
-*/
 define([
 	'jQuery',
-	'Backstrapp'
-], function($, Backstrapp){
-	
+	'Underscore',
+	'Backstrapp',
+	'modules/page/page.module'
+], function($, _, Backstrapp, Page){
+
 	/*
 		* @class DataModel
 		* @extends Backbone.Model
 	*/
 	var DataModel = Backstrapp.Model.extend({
+		defaults: {},
+
+		/*
+			* The valid object is used in the validate method
+			* @property valid
+		*/
+		valid: {
+			data:		{
+				type:	{}
+			},
+			file:		{
+				type: 	'string'
+			},
+			current:	{
+				type: 	{}
+			}
+		},
+
 		/*
 			* @method initialize
 		*/
 		initialize: function () {
-			this.set({ file: 'json/pages.json' });
 			this.bind('change:newpage', this.addPage, this);
 		},
 

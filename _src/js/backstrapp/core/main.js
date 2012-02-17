@@ -6,6 +6,7 @@ require.config({
     Underscore: 	'../libs/underscore/underscore',
     Backbone: 		'../libs/backbone/backbone',
     Backstrapp: 	'../libs/backstrapp/backstrapp',
+    backstrapp:		'../libs/backstrapp/',
     templates: 		'../../../../html',
     json: 			'../../../../json',
     views:			'../views',
@@ -20,7 +21,7 @@ require.config({
 require([
 
 /*   * Load our app module and pass it to our definition function */
-  'views/index.view',
+  '../app',
   'libs/debug',
 
 /*
@@ -31,13 +32,13 @@ require([
   'order!libs/handlebars/handlebars-min',
   'order!libs/underscore/underscore-min',
   'order!libs/backbone/backbone-min',
-  'order!libs/backstrapp/backstrapp-min'
+  'order!libs/backstrapp/backstrapp.unminified'
 
-], function(AppView){
+], function(App){
 
 /*
   * The "app" dependency is passed in as "App"
   * Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
 */
-  var app = new AppView();
+  var app = new App();
 });

@@ -8,7 +8,7 @@ define([
 		* @class PagesCollection
 		* @extends Backbone.Collection
 	*/
-	var PagesCollection = Backbone.Collection.extend({});
+	var ModulesCollection = Backbone.Collection.extend({});
 
-	return new PagesCollection();
+	return new ModulesCollection();
 });

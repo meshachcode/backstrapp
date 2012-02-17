@@ -7,7 +7,7 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  'modules/data/data.module',
+  'models/data.model',
   'events/vent'
 ], function($, _, Backbone, DataModel, Vent){
 	

@@ -1,4 +1,4 @@
-define(['order!libs/backstrapp/backstrapp.module'], function(Backstrapp){
+define(['order!libs/backstrapp/backstrapp.unminified'], function(Backstrapp){
 
 	return Backstrapp;
 
