@@ -4,7 +4,17 @@ define([
 
 	var PageModel = Backstrapp.Model.extend({
 		defaults: {
-			name:	'page'
+			name:	'page',
+			views: 	[
+				{
+					name	:	'default',
+					type	:	'static'
+				},
+				{
+					name	:	'about',
+					type	:	'static'
+				}
+			]
 		},
 		
 		valid: 	{
@@ -29,6 +39,7 @@ define([
 			var i, valid = true, errors = [];
 			// run through the Backstrapp validation method
 			Backstrapp.Model.prototype.validate.call(this, args, function (valid) {
+				
 				debug.debug('PageModel validate', valid);
 			});
 

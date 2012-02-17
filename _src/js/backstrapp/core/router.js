@@ -33,7 +33,7 @@ function($, _, Backbone, DataModel, Vent) {
 				id			: 	null,
 				name		:	page,
 				type		:	'page',
-				view		:	'index'
+				view		:	'default'
 			};
 			this.requestPage(obj);
 		},

@@ -29,6 +29,9 @@ define([
 			}
 		},
 
+		initialize: function () {
+		},
+
 		/* 
 			* @method validate 
 		*/
