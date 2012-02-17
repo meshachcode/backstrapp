@@ -14,11 +14,11 @@ define([
   /**
   * This view contains all logic related to the application. 
   * Sets up all events related to loading pages (just static HTML that
-  * silentrly inserts inside your #content), or modules (your own defined
+  * silently inserts inside your #content), or modules (your own defined
   * apps). 
   *
   * Keep in mind that this is a whole lot of boilerplate code for you 
-  * to be able to have a site like project, with many applications mixed
+  * to be able to have a site like project, with many applications (modules) mixed
   * with static pages. Best of all, you don't need to touch this code, 
   * you just build your modules and load them, then is just matter
   * of listening to the right events.
@@ -59,6 +59,48 @@ define([
       * }
       * 
       * You can actually change the whole navigation of your site by resetting the data variable.
+      *
+      * The big picture of the event model could be sumarized here :
+      * 
+      * Navigation (#nav): 
+      * - AppView observes changes in DataModel.data and triggers this.render and this.buildNav
+      * When PagesCollection gets a new model, this.appendNavItem is triggered
+      * - AppView is subscribed to event "navigate:page" triggered by router.js when navigating,
+      * AppView : 
+      *
+      *   //Navigation related
+      *   - DataModel:change:data -> this.router    |
+      *   - DataModel:change:data -> this.buildNav  | -> page lists, and nav menu
+      *
+      *   //Content Related
+      *   - DataModel:change:pageHtml -> this.render (current view)
+      *   - PagesCollection:add -> this->appendNavItem -> nav menu
+      *   - Vent:navigate:page -> AppModel.findPage :
+      *       page = DataModel.itemExists(DataModel.requestedPage) :
+      *         if page exists : 
+      *           DataModel.set('currentPage',page)
+      *           Vent.trigger('pagetype',page.type) (see type above)
+      *         else : 
+      *           Vent.trigger('navigate:home') 
+      *
+      *   //Sets currently displayed page html fetching static html from server
+      *   - Vent:pagetype:page -> this.AppModel.loadPage : 
+      *       $.get(DataModel.get('currentPage'),func(html){
+      *         DataModel.set('pageHtml',html);
+      *       })
+      *
+      *   //Sets currently displayed app by triggering currentapp:myapp
+      *   //which is normaly observed by your app, triggering its rendering
+      *   - Vent:pagetype:app -> this.loadApp :
+      *       page = DataModel.get('currentPage')
+      *       Vent.trigger('currentapp:' + page.name)
+      *       Vent.trigger('render:nav')
+      *
+      *   - Vent:render:nav -> this.updateNav (sets active menu item)
+      *
+      * Current Content (#content): 
+      * - AppView observes changes in DataModel.pageHtml and triggers this.render
+      * 
       **/
 			DataModel.bind('change:data', this.router, this);
 			DataModel.bind('change:data', this.buildNav, this);
@@ -66,7 +108,7 @@ define([
       /**
       * Fires whenever the pageHtml variable is changed, This is the way you load
       * your application html from inside your module (DataModel.set({ newpage: "html here" }),
-      * of course you want this to be loaded from an Undrscore template.
+      * you might want this to be loaded from an Underscore template.
       **/
 			DataModel.bind('change:pageHtml', this.render, this);
 
@@ -86,10 +128,9 @@ define([
 			var me;
 			me = this;
 			this.$el.parent().fadeOut(100, function () {
-				debug.debug('animation over');
 				me.$el.html(DataModel.get('pageHtml'));
 				me.$el.parent().fadeIn(400);
-        //Render app name when rendering an app or staticHtml if a page is rendered
+        //Render app name when app or staticHtml if a page is rendered
         var page = DataModel.get('currentPage');
         var evName = page.type == 'app' ? page.name : 'staticHtml';
         /**
@@ -98,6 +139,7 @@ define([
         * i.e : Vent.bind('renderfinish:myapp')
         **/
         Vent.trigger('renderfinish:' + evName);
+        debug.debug("renderfinish:" + evName);
 			});
 		},
 		

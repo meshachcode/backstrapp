@@ -42,7 +42,7 @@ define([
 
     /**
     * DataModel has a binding of type change:pageHtml fires
-    * the render method at the AppView
+    * the render method at the AppView once the page is fetched
     **/
 		loadPage: function () {
 			debug.debug('AppModel.loadPage()');

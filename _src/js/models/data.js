@@ -13,7 +13,11 @@ define([
 		initialize: function () {
 			this.bind('change:newpage', this.addPage, this);
 		},
-
+    
+    /**
+    * Fetches a list of static html pages to be loaded
+    * triggered at AppView.initialize
+    **/
 		loadData: function (file, callback) {
 			$.getJSON(file, function (json) {
 				callback(json);
