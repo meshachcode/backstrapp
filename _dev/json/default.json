@@ -1,0 +1,43 @@
+{
+	"refinancing": {
+		"type": "category",
+		"title": "Refinancing"
+	},
+	"payment_plans": {
+		"type": "category",
+		"title": "Payment Plans"
+	},
+	"loan_modifications": {
+		"type": "category",
+		"title": "Loan Modification"
+	},
+	"leaving_your_home": {
+		"type": "category",
+		"title": "Alternatives to Foreclosure"
+	},
+	"worried": {
+		"type": "origin",
+		"title": "I'm up to date but worried about payments",
+		"sliderTitle": "I'm current on payments but worried"
+	},
+	"missed-one": {
+		"type": "origin",
+		"title": "I've Already Missed One Payment",
+		"sliderTitle": "I've already missed one payment"
+	},
+	"three-or-more": {
+		"type": "origin",
+		"title": "I've missed three or more payments",
+		"sliderTitle": "I've missed multiple payments"
+	},
+	"foreclosure": {
+		"type": "origin",
+		"title": "I'm in foreclosure",
+		"sliderTitle": "I'm in foreclosure"
+	},
+	"foreclosed": {
+		"type": "origin",
+		"title": "I have been foreclosed upon",
+		"sliderTitle": "I lost my home through foreclosure"
+	}
+}

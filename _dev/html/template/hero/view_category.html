@@ -1,0 +1,15 @@
+        <div class="main"><img src="{{headerImage}}" width="320" height="190" /></div>
+        
+        <div id="copy">
+	        <div id="originTitle" class="bluebg">
+	            <img src="img/icons/mortgage_header_icon.png" width="36" height="55">	
+				<h2 class="category">Category: {{category}}</h2>
+	        </div>
+			<ul id="subHead" class="sub-sections">
+				{{#items}}
+					<li><a href="#!/{{this.slug}}">{{this.title}}</a></li>
+				{{/items}}
+			</ul>
+		</div>
+		
+        <div class="clear"></div>

@@ -1,0 +1,17 @@
+div.account div.dropdown {
+	
+	box-shadow: none;
+	behavior: none;
+}
+
+#speedBump_continue, #speedBump_return {
+
+	border-radius: none;
+	box-shadow: none;	
+	behavior: none;
+}
+
+#speedBump_return {
+
+	border: 1px solid #c1c1c1;
+}

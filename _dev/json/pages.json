@@ -1,0 +1,440 @@
+{
+	"traditional": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "refinance-a-mortgage-traditional-refinance",
+		"title": "Traditional Refinance",
+		"file": "html/static/mortgage/refinancing/traditional-refinance.html",
+		"category": "refinancing",
+		"headerImage": "img/mortgage_header_05.jpg",
+		"sidebar_modules": [
+			"faq_traditional",
+			"help"
+		],
+		"origins": [
+			"worried"
+		],
+		"meta": {
+			"title": "How to Refinance a Mortgage Loan with Traditional Refinance Plans",
+			"description": "Learn how to refinance a mortgage with traditional refinance plans. Discover alternative mortgage loan refinancing or mortgage modifications that are right for you.",
+			"keywords": "Refinance a mortgage, mortgage loan, mortgage modifications"
+		}
+	},
+	"harp": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "home-affordable-refinance-program-harp",
+		"title": "Home Affordable Refinancing Program (HARP)",
+		"file": "html/static/mortgage/refinancing/harp.html",
+		"category": "refinancing",
+		"headerImage": "img/mortgage_header_05.jpg",
+		"sidebar_modules": [
+			"faq_harp",
+			"help"
+		],
+		"origins": [
+			"worried"
+		],
+		"meta": {
+			"title": "Fannie Mae and Freddie Mac Home Affordable Refinance Program (HARP)",
+			"description": "Learn about the Home Affordable Refinance Program (HARP) from Fannie Mae and Freddie Mac. Find information on refinancing under HARP to get lower interest rates.",
+			"keywords": "home affordable refinance program, freddie mac, fannie mae, fannie mae and freddie mac"
+		}
+	},
+	"repayment": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "mortgage-help-with-repayment-plans",
+		"title": "Repayment Plan",
+		"file": "html/static/mortgage/payment-plans/repayment-plan.html",
+		"category": "payment_plans",
+		"headerImage": "img/mortgage_header_04.jpg",
+		"sidebar_modules": [
+			"faq_repayment",
+			"help"
+		],
+		"origins": [
+			"missed-one",
+			"three-or-more",
+			"foreclosed"
+		],
+		"meta": {
+			"title": "Mortgage Help and Mortgage Payments/Repayment Plans",
+			"description": "Get mortgage help with past due mortgage payments with a repayment plan. Learn how repayment plans work to bring your mortgage payments current within 12 months.",
+			"keywords": "mortgage payment, mortgage payments, mortgage help"
+		}
+	},
+	"deferment": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "help-with-mortgage-deferment-forbearance",
+		"title": "Deferment And Forbearance",
+		"file": "html/static/mortgage/payment-plans/deferment-forebearance.html",
+		"category": "payment_plans",
+		"headerImage": "img/mortgage_header_04.jpg",
+		"sidebar_modules": [
+			"faq_deferment",
+			"help"
+		],
+		"origins": [
+			"worried",
+			"missed-one",
+			"foreclosed"
+		],
+		"meta": {
+			"title": "Get Help with Mortgage Payments using Deferment and Forbearance",
+			"description": "Find help with mortgage payments using payment deferment or forbearance with your mortgage company. Learn about temporarily lowering or eliminating your loan payments.",
+			"keywords": "help with mortgage, mortgage payments, mortgage company"
+		}
+	},
+	"extension": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "avoid-foreclosure-with-mortgage-extension",
+		"title": "Extension",
+		"file": "html/static/mortgage/payment-plans/extensions.html",
+		"category": "payment_plans",
+		"headerImage": "img/mortgage_header_04.jpg",
+		"sidebar_modules": [
+			"faq_extension",
+			"help"
+		],
+		"origins": [
+			"missed-one",
+			"foreclosed"
+		],
+		"meta": {
+			"title": "How to Avoid Foreclosure with a Mortgage Extension ",
+			"description": "Learn how to avoid foreclosure after a financial hardship with a mortgage extension. Talk to your mortgage advisor to bring your account current with an extension.",
+			"keywords": "Avoid foreclosure, mortgage extension, mortgage advisor"
+		}
+	},
+	"hamp": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "home-affordable-modification-program-hamp",
+		"title": "Home Affordable Modification Program",
+		"file": "html/static/mortgage/loan-modifications/hamp.html",
+		"category": "loan_modifications",
+		"headerImage": "img/mortgage_header_03.jpg",
+		"sidebar_modules": [
+			"faq_hamp",
+			"help"
+		],
+		"origins": [
+			"three-or-more",
+			"missed-one",
+			"foreclosure"
+		],
+		"meta": {
+			"title": "Federal Mortgage Relief - Home Affordable Modification Program (HAMP)",
+			"description": "Learn about the Home Affordable Modification Program (HAMP) to lower your monthly payments. Apply for federal mortgage relief during long-term financial hardship.",
+			"keywords": "home affordable modification program, hamp, federal mortgage, federal mortgage relief"
+		}
+	},
+	"modify": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "mortgage-financing-traditional-loan-modification",
+		"title": "Modifying Your Loan Through Your Mortgage Company",
+		"file": "html/static/mortgage/loan-modifications/modify-your-loan.html",
+		"category": "loan_modifications",
+		"headerImage": "img/mortgage_header_03.jpg",
+		"sidebar_modules": [
+			"faq_modify",
+			"help"
+		],
+		"origins": [
+			"three-or-more",
+			"foreclosure"
+		],
+		"meta": {
+			"title": "Change your Mortgage Financing with a Traditional Loan Modification",
+			"description": "Learn how to get a loan modification through your mortgage company. Read how mortgage financing with a traditional mortgage loan modification can lower your payments.",
+			"keywords": "mortgage financing, mortgage modification, mortgage loan modification, loan modification, mortgage company"
+		}
+	},
+	"short-sale": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "stop-foreclosure-with-short-sale",
+		"title": "Short Sale Through Your Mortgage Company",
+		"file": "html/static/mortgage/leave-your-home/short-sale.html",
+		"category": "leaving_your_home",
+		"headerImage": "img/mortgage_header_02.jpg",
+		"sidebar_modules": [
+			"faq_short-sale",
+			"help"
+		],
+		"origins": [
+			"missed-one",
+			"three-or-more",
+			"foreclosure"
+		],
+		"meta": {
+			"title": "Stop Foreclosure with a Short Sale Through Your Mortgage Company",
+			"description": "Discover how to stop foreclosure and get a fresh start by selling your home through a short sale. Read the eligibility factors for a short sale from a mortgage company.",
+			"keywords": "stop foreclosure, mortgage company"
+		}
+	},
+	"deed": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "deed-in-lieu",
+		"title": "Deed In Lieu",
+		"file": "html/static/mortgage/leave-your-home/deed-in-lieu.html",
+		"category": "leaving_your_home",
+		"headerImage": "img/mortgage_header_02.jpg",
+		"sidebar_modules": [
+			"faq_deed-in-lieu",
+			"help"
+		],
+		"origins": [
+			"foreclosure"
+		],
+		"meta": {
+			"title": "Alternatives to Foreclosure: Deed In Lieu",
+			"description": "Description...",
+			"keywords": "stop foreclosure, deed in lieu"
+		}
+	},
+	"haup": {
+		"type": "mortgage",
+		"module": "mortgage",
+		"slug": "home-affordable-unemployment-program",
+		"title": "Home Affordable Unemployment Program",
+		"file": "html/static/mortgage/payment-plans/haup.html",
+		"category": "payment_plans",
+		"headerImage": "img/mortgage_header_04.jpg",
+		"sidebar_modules": [
+			"faq_haup",
+			"help"
+		],
+		"origins": [],
+		"meta": {
+			"title": "Alternatives to Foreclosure: Deed In Lieu",
+			"description": "Description...",
+			"keywords": "stop foreclosure, deed in lieu"
+		}
+	},
+	"home": {
+		"type": "content",
+                "module": "home",
+		"slug": "homeowner-support-citimortgage",
+		"title": "Home",
+		"file": "",
+		"hero": {},
+		"sidebar_modules": [],
+		"meta": {
+			"title": "Homeowner Support - a service of CitiMortgage",
+			"description": "Research mortgage information & refinancing options to help prevent foreclosure. Connect with homeowners just like yourself. Stop foreclosure & get mortgage help today.",
+			"keywords": "mortgage information, prevent foreclosure, refinancing, stop foreclosure, mortgage help, citimortgage"
+		}
+	},
+	"about-homeowner-support-citimortgage": {
+		"type": "content",
+		"module": "page",
+		"slug": "about-homeowner-support-citimortgage",
+		"title": "About Homeowner Support - a Service from CitiMortgage",
+		"file": "html/static/pages/about.html",
+		"hero": {
+			"type": "static",
+			"file": "about",
+			"id": "about"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "About Homeowner Support - a Service from CitiMortgage",
+			"description": "Find resources and community forums dedicated to helping homeowners get mortgage relief. Discover valuable information on loan modifications, refinance, and foreclosures.",
+			"keywords": "mortgage relief, loan modifications, refinance, foreclosures, citimortgage"
+		}
+	},
+	"contact-your-mortgage-company": {
+		"type": "content",
+		"module": "page",
+		"slug": "contact-your-mortgage-company",
+		"title": "Contact your Mortgage Company - Find a Mortgage Advisor",
+		"file": "html/static/pages/contact.html",
+		"hero": {
+			"type": "static",
+			"file": "contact",
+			"id": "contact"
+		},
+		"sidebar_modules": [
+			"faq"
+		],
+		"meta": {
+			"title": "Contact your Mortgage Company - Find a Mortgage Advisor",
+			"description": "Learn how it's never too late to get help with your mortgage. Review a list of documentation you'll need when you speak with a mortgage expert.",
+			"keywords": "mortgage company, help with mortgage, mortgage advisor"
+		}
+	},
+	"faq": {
+		"type": "content",
+		"module": "faq",
+		"slug": "refinance-loan-modification-help-faq",
+		"title": "Homeowner Support FAQ - Refinancing and Loan Modification Help",
+		"file": "html/static/faq/view.html",
+		"hero": {
+			"type": "static",
+			"file": "faq",
+			"id": "faq"
+		},
+		"sidebar_modules": [
+			"help"
+		],
+		"meta": {
+			"title": "Homeowner Support FAQ - Refinancing and Loan Modification Help",
+			"description": "Find answers to common mortgage & refinancing questions. Learn what steps to take to get loan modification help & options are available to save your home.",
+			"keywords": "loan modification help, refinancing, loan modifications, mortgage, mortgage payment"
+		}
+	},
+	"mortgage-options-beyond-refinancing": {
+		"type": "content",
+		"module": "page",
+		"slug": "mortgage-options-beyond-refinancing",
+		"title": "Mortgage Options for Homeowners: Beyond Refinancing",
+		"file": "html/static/pages/mortgage-options.html",
+		"hero": {
+			"type": "static",
+			"file": "mortgage-options",
+			"id": "mortgage-options"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "Mortgage Options for Homeowners: Beyond Refinancing",
+			"description": "Discover what mortgage options are available to you that go beyond refinancing to prevent foreclosure. Find information on how to adjust your mortgage payments.",
+			"keywords": "refinancing, mortgage payment, loan modifications, prevent foreclosure"
+		}
+	},
+	"word": {
+		"type": "content",
+		"module": "page",
+		"slug": "word",
+		"title": "Word",
+		"file": "html/static/pages/word.html",
+		"hero": {
+			"type": "static",
+			"file": "word",
+			"id": "word"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "Word",
+			"description": "",
+			"keywords": ""
+		}
+	},
+	"press": {
+		"type": "content",
+		"module": "page",
+		"slug": "press",
+		"title": "Press",
+		"file": "html/static/pages/press.html",
+		"hero": {
+			"type": "static",
+			"file": "press",
+			"id": "press"
+		},
+		"sidebar_modules": [
+			"help"
+		],
+		"meta": {
+			"title": "Press",
+			"description": "",
+			"keywords": ""
+		}
+	},
+	"privacy-policy": {
+		"type": "content",
+		"module": "page",
+		"slug": "privacy-policy",
+		"title": "Homeowner Support Privacy Policy",
+		"file": "html/static/pages/privacy.html",
+		"hero": {
+			"type": "static",
+			"file": "privacy",
+			"id": "privacy"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "Homeowner Support Privacy Policy",
+			"description": "Read information regarding the safety and security of your data on Homeowner Support, a service of CitiMortgage.",
+			"keywords": "citimortgage"
+		}
+	},
+	"sitemap": {
+		"type": "content",
+		"module": "page",
+		"slug": "sitemap",
+		"title": "Sitemap for Homeowner Support - a Service from CitiMortgage",
+		"file": "html/static/pages/sitemap.html",
+		"hero": {
+			"type": "static",
+			"file": "sitemap",
+			"id": "sitemap"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "Sitemap for Homeowner Support - a Service from CitiMortgage",
+			"description": "Navigate through a list of the pages contained inside Homeowner Support. Find loan modification help, refinance resources, & community groups for mortgage help.",
+			"keywords": "loan modification help, refinance, mortgage help, citimortgage"
+		}
+	},
+	"terms": {
+		"type": "content",
+		"module": "page",
+		"slug": "terms",
+		"title": "Homeowner Support Terms & Conditions",
+		"file": "html/static/pages/terms-and-conditions.html",
+		"hero": {
+			"type": "static",
+			"file": "terms-and-conditions",
+			"id": "terms-and-conditions"
+		},
+		"sidebar_modules": [
+			"help",
+			"faq"
+		],
+		"meta": {
+			"title": "Homeowner Support Terms & Conditions",
+			"description": "Review the terms and conditions for the use of information found on Homeowner Support, a service of CitiMortgage. ",
+			"keywords": "citimortgage"
+		}
+	},
+	"national-settlement-information": {
+		"type": "content",
+		"module": "page",
+		"slug": "national-settlement-information",
+		"title": "National Mortgage Settlement Information",
+		"file": "html/static/pages/national-settlement-information.html",
+		"hero": {
+			"type": "static",
+			"file": "national-settlement-information",
+			"id": "national-settlement-information"
+		},
+		"sidebar_modules": [
+			"help"
+		],
+		"meta": {
+			"title": "National Mortgage Settlement Information",
+			"description": "Read information regarding the safety and security of your data on Homeowner Support, a service of CitiMortgage.",
+			"keywords": "citimortgage"
+		}
+	}
+}

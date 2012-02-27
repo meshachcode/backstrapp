@@ -1,0 +1,225 @@
+<!--<script runat="server">
+private void Page_Load(object sender, System.EventArgs e)
+{
+    string fragment = Request.QueryString["_escaped_fragment_"];
+    string url = Regex.Replace(Request.Url.GetLeftPart(UriPartial.Path), "index.+", "", RegexOptions.IgnoreCase);
+    string staticPath = url+"/_static/";
+    
+    if (fragment != null)
+    {
+        string redirect = staticPath+fragment;
+        Response.Status = "302 Moved Temporarily";
+        Response.AddHeader("Location", redirect);
+    }
+}
+</script>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homeowner Support</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+    <link type="text/css" href="css/jquery.jscrollpane.css" rel="stylesheet" />
+    
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="css/ie7.css" media="all" />
+	<![endif]-->
+    
+    <!--[if IE 8]>
+      <link rel="stylesheet" href="css/ie8.css" media="all" />
+	<![endif]-->
+
+        <script data-main="js/backstrapp/core/main" src="js/backstrapp/libs/require/require.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="header_wrapper">
+        <div id="header">
+        	<div class="title">
+	            <a href="#!/homeowner-support-citimortgage">
+	            	<img src="img/title.png" alt="Homeowner Support, a service of CitiMortgage" />
+	            </a>
+	            <div class="account">
+	                <img src="img/icons/header_icon.png" width="18" height="22" alt="" />
+	                <a href="#" class="tts">
+	                    TALK TO SOMEONE
+	                </a>
+	                <div class="dropdown hidden">
+	                	<!--<img src="img/icons/header_dropdown_arrow.png" width="11" height="6" alt="" />-->
+	                    <a href="#!/contact-your-mortgage-company">Contact Your Mortgage Company</a>
+	                    <a href="http://www.hud.gov/offices/hsg/sfh/hcc/hcs.cfm" class="speedBump_link">Talk to a Mortgage Counselor</a>
+	                </div>
+	            </div>
+			</div>
+       </div>
+		<div class="navigation_wrapper">
+			<div class="navigation">
+				<a href="#!/homeowner-support-citimortgage"><span class="first">HOME</span></a>
+				<a href="#!/mortgage-options-beyond-refinancing"><span>MORTGAGE OPTIONS</span></a>
+				<a href="#!/refinance-loan-modification-help-faq"><span>FAQS</span></a>
+				<a href="https://community.homeownersupport.com/community/forums"><span>FORUMS</span></a>
+				<a href="https://community.homeownersupport.com/community/forums?view=blog"><span class="last">BLOG</span></a>
+				<div id="quickSearch_link"></div>					
+			</div>
+		</div>
+    </div>
+    <div id="content">
+        <div class="content_wrapper">
+            <div class="content">
+            	<div id="hero"></div>
+            	<div class="clear"></div>
+            	<div id="content_main">loading...</div><div id="content_side"></div><div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="links_wrapper">
+            <div class="links">
+                <div class="links_column">
+                    <h6>HOMEOWNER SUPPORT</h6>
+                    <a href="#!/mortgage-options-beyond-refinancing">Mortgage Options</a>
+                    <a href="#!/refinance-loan-modification-help-faq">FAQs</a>
+                    <a href="https://community.homeownersupport.com/community/forums">Forums</a>
+                    <a href="https://community.homeownersupport.com/community/forums?view=blog">Blog</a>
+                    <a href="#!/about-homeowner-support-citimortgage">About Homeowner Support</a>
+                    <a href="#!/sitemap">Site Map</a>
+                </div>
+                <div class="links_column">
+                    <h6>TALK TO SOMEONE</h6>
+                    <a href="#!/contact-your-mortgage-company">Contact Your Mortgage Company</a>
+                    <a href="http://www.hud.gov/offices/hsg/sfh/hcc/hcs.cfm" class="speedBump_link">Talk to a Mortgage Counselor</a>
+                </div>
+                <div class="links_column">
+                    <h6>LEGAL</h6>
+                    <a href="#!/privacy-policy">Privacy Policy</a>
+                    <a href="#!/terms">Terms</a>
+                </div>
+                <div class="links_column">
+                    <h6>SHARE THIS SITE</h6>
+                    
+                    <a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[title]=Real+Advice+for+Struggling+Homeowners&amp;p[summary]=Connect+with+other+homeowners+and+learn+about+mortgage+options+that+can+keep+families+in+their+homes.&amp;p[url]=http://www.homeownersupport.com" class="fb speedBump_link"></a>
+
+                    <a href="https://twitter.com/share?text=Reading%20helpful%20info%20about%20mortgage%20options%20at" class="tw speedBump_link" rel="external"></a>
+                    <a href="mailto:?Subject=Helpful%20information%20for%20struggling%20homeowners&amp;Body=I%20just%20found%20this%20site%20for%20homeowners%20who%20are%20worried%20about%20their%20mortgage%20payments.%20Thought%20you%20might%20find%20it%20interesting.%20%0A%0Ahttp%3A%2F%2F%20www.homeownersupport.com%0A" class="em" rel="external"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>
+            Homeowner Support is a service of CitiMortgage. Copyright &copy; 2011 CitiMortgage Inc.<a id="footer_logo_link" href="http://www.CitiMortgage.com">CitiMortgage.com</a>
+        </p>
+    </div>
+    
+    <div id="speedBump_popup">
+    
+    	<h6>
+        	You are leaving the Homeowner Support Site
+            
+            <img src="img/icons/speedBump_close.png" id="speedBump_close" width="13" height="13" alt="x" />
+            
+        </h6>
+        
+        <div id="speedBump_popup_inner">
+        
+            <p>
+                You are leaving the Homeowner Support site and going to a third-party site
+            </p>
+    
+            <p>
+                That site may have a privacy policy different from Homeowner Support and may provide less security than this site. The Homeowner Support site is not responsible for the products, services and content on a third-party website. Do you want to continue to the third-party site?
+            </p>
+            
+            <button id="speedBump_continue">
+                Continue
+            </button>
+            
+            <button id="speedBump_return">
+                Return to Homeowner Support
+            </button>
+            
+        </div>
+    
+    </div>
+    
+    <div id="quickSearch_popup">
+    
+    	<h6>
+        	Quick Search Terms
+            
+            <img src="img/icons/speedBump_close.png" id="quickSearch_close" width="13" height="13" alt="x" />
+            
+        </h6>
+        
+        <div id="quickSearch_popup_inner">
+            <div class="col2">
+            	<ul>
+					<li><a href="#/refinance-loan-modification-help-faq/s02_q01">Adjustable Rate Mortgage (ARM)</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s06">Alternatives to Foreclosure</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s06_q10">Bankruptcy</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s06_q04">Deed in Lieu (DIL)</a></li>
+					<li><a href="#!/help-with-mortgage-deferment-forbearance">Deferment</a></li>
+					<li><a href="#!/avoid-foreclosure-with-mortgage-extension">Extension</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s02_q10">FHA Short Refinance</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s01_q09">Fannie Mae</a></li>
+					<li><a href="#!/help-with-mortgage-deferment-forbearance">Forbearance</a></li>
+					<li><a href="#!/stop-foreclosure-with-short-sale">Foreclosure</a></li> 
+					<li><a href="#/refinance-loan-modification-help-faq/s07">Fraud</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s01_q09">Freddie Mac</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s06_q07">Home Affordable Foreclosure Alternatives (HAFA)</a></li>
+					<li><a href="#!/home-affordable-modification-program-hamp">Home Affordable Modification Program (HAMP)</a></li>
+					<li><a href="#!/home-affordable-refinance-program-harp">Home Affordable Refinance Program (HARP) </a></li>
+					<li><a href="#!/refinance-loan-modification-help-faq">Home Affordable Unemployment Program (UP)</a></li>
+            	</ul>
+            	
+            </div>
+            <div class="col2">
+            	<ul>
+					<li><a href="#!/mortgage-financing-traditional-loan-modification">Modifications</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s07_q03">Mortgage Counselor (HUD)</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s01_q02">Mortgage Lender</a></li>
+					<li><a href="#!/mortgage-options-beyond-refinancing">Mortgage Options</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s01_q01">Mortgage Servicer</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s04_q10">Partial Claim</a></li>
+					<li><a href="#!/mortgage-options-beyond-refinancing">Payment Plans</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s04_q08">Principal Reduction Alternative (PRA)</a></li>
+					<li><a href="#!/refinance-a-mortgage-traditional-refinance">Refinancing</a></li>
+					<li><a href="#!/mortgage-help-with-repayment-plans">Repayment Plan</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s07_q01">Scams</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s03_q11">Second Lien Modification Program (2MP)</a></li>
+					<li><a href="#!/stop-foreclosure-with-short-sale">Short Sale</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s02_q04">Under Water</a></li>
+					<li><a href="#/refinance-loan-modification-help-faq/s05_q01">Unemployed</a></li>
+            	</ul>
+            	
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    
+    </div>    
+    
+    <div id="ajax_loader">
+    	<img src="img/ajax-loader.gif" />
+    </div>
+    
+    <script language="JavaScript" type="text/javascript">
+    var s_account="citicitimortsupport"
+    </script>
+    
+    <!-- SiteCatalyst code version: H.24.1.
+    Copyright 1996-2011 Adobe, Inc. All Rights Reserved
+    More info available at http://www.omniture.com -->
+    <script language="JavaScript" type="text/javascript" src="js/backstrapp/libs/sitecatalyst/s_code_homeownersupport.js"></script>
+    
+    <script language="JavaScript" type="text/javascript"><!--
+    if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+    //--></script>
+    
+    <noscript><img src="http://metrics.citibank.com/b/ss/citicitimortsupport/1/H.24.1--NS/0"
+    height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+    <!-- End SiteCatalyst code version: H.24.1. -->    
+    
+</body>
+</html>
