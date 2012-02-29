@@ -1,6 +1,8 @@
 define([
-	'loader',
+	'order!vendors/backbone/backbone-min',
+	'order!vendors/backbone/backbone.query',
+	'order!vendors/backbone/backbone.validation'
 ],
-function (Loader) {
-	return Loader.Backbone;
+function () {
+	return Backbone
 });

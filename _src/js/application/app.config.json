@@ -1,0 +1,23 @@
+{
+	"app"				: {
+		"name"				: "Backstrapp",
+		"version"			: "alpha",
+		"description"		: "This application will display the basic functions of Backstrapp, by utilizing the Page Module, and extending Backstrapp's App, Model, View, Collection, and Module classes."
+	},
+	"model"				: {
+		"name"				: "BackstrappModel"
+	},
+	"data_sources"		: {
+		"pages"				: "json/pages.json"
+	},
+	"routes"			: {
+		"/*test"			: "test"
+	},
+	"requests" 			: {
+		"test"				: {
+			"module"			: "page",
+			"view"				: "view"
+		}
+	}
+
+}

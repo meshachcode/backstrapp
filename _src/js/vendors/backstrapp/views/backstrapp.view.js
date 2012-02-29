@@ -1,8 +1,6 @@
 define([
-  'jQuery',
-  'Underscore',
-  'Backbone'
-], function($, _, Backbone){
+  'wrap!backbone'
+], function(Backbone){
 
 	var View = Backbone.View.extend({
 		initialize: function (obj) {

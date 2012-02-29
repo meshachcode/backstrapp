@@ -1,100 +1,99 @@
-define(['jQuery', 'Underscore', 'Backbone'], function ($, _, Backbone) {
-	/**
-		* @class Router
-		* @extends Backbone.Router
-	*/
-	var AppRouter = Backbone.Router.extend({
-		/**
-			* Initiates Backbone.history
-			* @method initalize
-		*/
-		initialize: function () {
-			this.bind('call', this.test, this);
-			_.bindAll(this, 'slugAction');
-			Backbone.history.start();
-		},
-		/**
-			* @property routes
-		*/
-		routes: {
-			'': 'homeAction',
-            '!': 'homeAction',
-            '/': 'homeAction',
-            '!/': 'homeAction',
-			'/api/:page/:view/:id': 'apiViewAction',
-			'/api/:page/:view': 'defaultAction',
-			'/api/:page': 'defaultAction',
-			'/:slug': 'slugAction',
-			'!/:slug': 'slugAction',
-			'/:module/:view': 'defaultAction',
-			'!/:module/:view': 'defaultAction',
-			'/:module/:view/:slug': 'defaultAction',
-			'!/:module/:view/:slug': 'defaultAction'
-		},
+define(['wrap!backbone'], function (Backbone) {
 
-		defaultAction: function () {
-			debug.debug('defaultAction');
-			this.processRawParams(arguments);
+	var r = Backbone.Router.extend({
+		routes			: {
+			""						: "home",
+	        "/"						: "home",
+	        "/home"					: "home",
+			"/api/:page/:view/:id"	: "api",
+			"/api/:page/:view"		: "api",
+			"/api/:page"			: "api",
+			"/:page/:view/:id"		: "page",
+			"/:page/:view"			: "page",
+			"/:page"				: "page"
 		},
-
-		slugAction: function (slug) {
-			debug.debug('slugAction');
-			var $this = this, request = DataModel.defaults.request;
-			request.params.slug = slug;
-			DataModel.set({
-				request: request
-			}, {
-				error: function (model, error) {
-					$this.handleErrors(error, slug);
-				}
-			});
-		},
-        
-		handleErrors: function (error, slug) {
-			var $this = this;
-			switch (error.type) {
-				case 'data':
-					DataModel.loadDataToModel('pages', 'pages', function () {
-						$this.slugAction(slug);
-					});
-					break;
-				case 'page':
-					debug.error(error.msg, slug);
-					break;
-				case 'module':
-					debug.error(error.msg, slug);
-					break;
+		
+		requests 		: {
+			"home"			: {
+				module			: "page",
+				view			: "static"
+			},
+			"api"			: {
+				module			: "api",
+				view			: "json"
+			},
+			"page"			: {
+				module			: "page",
+				view			: "template"
 			}
 		},
 
-		processRawParams: function () {
-			debug.debug('processRawParams');
-			var i = 1,
-				request = DataModel.get('request');
-			[].reverse.apply(request.rawParams);
-			_.each(request.rawParams, function (param) {
-				switch (i) {
+		initialize: function () {
+			_.bindAll(this, 'loadRoutes', 'loadRequests', 'start');
+			var callback, routes, requests;
+
+			switch (arguments.length) {
 				case 3:
-					request.params.module = param;
+					// callback, routes, requests
+					callback = arguments[0];
+					routes = arguments[1];
+					requests = arguments[2];
+					this.loadRequests(requests, routes, callback);
 					break;
 				case 2:
-					request.params.view = param;
+					// callback, routes
+					callback = arguments[0];
+					routes = arguments[1];
+					this.loadRoutes(routes, callback);
+					break;
+				case 1:
+					// callback
+					callback = arguments[0];
+					callback();
 					break;
 				default:
-					request.params.slug = param;
+					this.on("all", this.changeHandler);
+					this.start();
 					break;
-				}
-				i++;
-			});
-			debug.debug('processed request', request); /*DataModel.set({
-				request: request
-			})*/
-			; //DataModel.trigger('change:params');
+			}
 		},
-        
-        homeAction: function(){
-            this.slugAction('homeowner-support-citimortgage');
-        }
+		
+		changeHandler: function (e) {
+			var funcs = _.functions(this),
+				event = e.replace('route:', '');
+
+			if (funcs[event] == undefined && this.requests[event]) {
+				this.trigger('request:' + this.requests[event], this);
+			}
+		},
+		
+		loadRequests: function (requests, routes, callback) {
+			console.log('loading Requests', requests, routes);
+			var i;
+			for ( i in requests ) {
+				this.requests[i] = requests[i];
+			}
+			console.log('requests', this.requests);
+			this.loadRoutes(routes, callback);
+		},
+
+		loadRoutes: function (routes, callback) {
+			console.log('loading Routes', routes);
+			var i;
+			for ( i in routes ) {
+				this.routes[i] = routes[i];
+			}
+			console.log('routes', this.routes);
+			callback(this);
+		},
+
+		start: function () {
+			console.log('Backbone', Backbone);
+			Backbone.history.start();
+			console.timeEnd('router');
+		}
+
 	});
-	return AppRouter;
+
+	return r;
 });

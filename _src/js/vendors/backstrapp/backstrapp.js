@@ -1,23 +1,18 @@
 define([
-	'order!vendors/backstrapp/models/data.model',
-	'order!vendors/backstrapp/events/vent',
-	'order!vendors/backstrapp/models/backstrapp.model',
-	'order!vendors/backstrapp/views/backstrapp.view',
-	'order!vendors/backstrapp/modules/backstrapp.module',
-	'order!vendors/backstrapp/backstrapp.app'
+	'vendors/backstrapp/backstrapp.app',
+	'vendors/backstrapp/models/backstrapp.model',
+	'vendors/backstrapp/views/backstrapp.view',
+	'vendors/backstrapp/modules/backstrapp.module'
 ],
 
-function (Data, Vent, Model, View, Module, App) {
-/*
-	var app = new App();
-	debug.debug('app', app);
-*/
-	return {
-		Data: Data,
-		Vent: Vent,
-		Model: Model,
-		View: View,
-		Module: Module,
-		App: App
-	}
+function (App, Model, View, Module) {
+
+    return {
+		_VERSION	: 'sqrl',
+		App			: App,
+		Model		: Model,
+		View		: View,
+		Module		: Module
+	};
+
 });

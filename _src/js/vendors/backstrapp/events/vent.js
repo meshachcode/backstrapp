@@ -1,14 +1,8 @@
 define([
-  'jQuery',
-  'Underscore',
-  'Backbone'
-], function($, _, Backbone){
+	'wrap!underscore',
+	'wrap!backbone'
+], function(_, Backbone){
 
-	/**
-		* @module Vent
-		* @extends Backbone.Events
-	*/
-	
 	var Vent = _.extend({}, Backbone.Events);
 
 	return Vent;

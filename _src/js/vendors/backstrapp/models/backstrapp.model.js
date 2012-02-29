@@ -1,14 +1,6 @@
-define([
-	'jQuery',
-	'Underscore',
-	'Backbone'
-], function($, _, Backbone){
+define(['wrap!backbone'], 	function(Backbone){
 
-	/**
-		* @class Backstrapp.Model
-		* @extends Backbone.Model
-	*/
-	return Backbone.Model.extend({
+	var e = Backbone.Model.extend({
 		defaults: {
 			name: 'default'
 		},
@@ -18,8 +10,6 @@ define([
 				required: false
 			}
 		},
-
-		validate: Backbone.Validation.mixin.validate,
 
 		/**
 			* @method loadHtml
@@ -41,6 +31,7 @@ define([
 		}
 
 	});
+	
+	return e
 
 });
-

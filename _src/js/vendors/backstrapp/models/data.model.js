@@ -1,43 +1,12 @@
-define(['jQuery', 'Underscore', 'vendors/backstrapp/models/backstrapp.model'], function ($, _, b$Model) {
+define([
+	'vendors/backstrapp/models/backstrapp.model'
+], 
+function (BackstrappModel) {
 	/*
 		* @class DataModel
 		* @extends Backbone.Model
 	*/
-	var DataModel = b$Model.extend({
-		defaults: {
-			module: null,
-			request: {
-				type: 'get',
-				format: 'html',
-				params: {
-					module: null,
-					view: null,
-					slug: null
-				}
-			},
-			data_sources: {
-				meta: {
-					loaded: false,
-					file: 'json/default.json'
-				},
-				pages: {
-					loaded: false,
-					file: 'json/pages.json'
-				}
-			}
-		},
-		validation: {
-			request: 'checkLoadedData'
-		},
-/* 		modules: ModulesCollection, */
-		/*
-			* @method initialize
-		*/
-		initialize: function () {
-			_.bindAll(this, 'checkRequest');
-			this.bind('change:newpage', this.addPage, this);
-			this.bind('loaded:pages', this.processRequest, this);
-		},
+	var DataModel = BackstrappModel.extend({
 		/*
 			* @method loadData
 			* @param file, callback
@@ -73,16 +42,6 @@ define(['jQuery', 'Underscore', 'vendors/backstrapp/models/backstrapp.model'], f
 			return results;
 		},
 		/*
-			* @method checkLoadedData
-		*/
-		checkLoadedData: function (request) {
-			if (!this.get('pages')) {
-				return { type: 'data', msg: 'Data Not Loaded' };
-			} else {
-				return this.checkRequest(request);
-			}
-		},
-		/*
 			* @method checkRequest
 		*/
 		checkRequest: function (request) {
@@ -105,5 +64,5 @@ define(['jQuery', 'Underscore', 'vendors/backstrapp/models/backstrapp.model'], f
 			return { type: 'page', msg: 'Page Not Found' };
 		}
 	});
-	return new DataModel();
-}); //request validation: check loaded pages, load them if not, check slug against all pages, if not found trigger error. App.js listens for valid Request change, sets
+	return DataModel;
+});

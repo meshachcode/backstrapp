@@ -1,6 +1,9 @@
 define([
-	'loader',
+	'order!vendors/jquery/jquery-min',
+	'order!vendors/jquery/jquery-ui.min',
+	'order!vendors/jquery/jquery-serialize',
+	'order!vendors/jquery/plugins'
 ],
-function(Loader){
-	return Loader.$;
+function () {
+	return window.$
 });
