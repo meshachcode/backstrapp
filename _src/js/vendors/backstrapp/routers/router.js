@@ -28,7 +28,7 @@ define(['wrap!backbone'], function (Backbone) {
 			}
 		},
 
-		initialize: function () {
+		setup: function () {
 			_.bindAll(this, 'loadRoutes', 'loadRequests', 'start');
 			var callback, routes, requests;
 
@@ -66,29 +66,24 @@ define(['wrap!backbone'], function (Backbone) {
 				this.trigger('request:' + this.requests[event], this);
 			}
 		},
-		
+
 		loadRequests: function (requests, routes, callback) {
-			console.log('loading Requests', requests, routes);
 			var i;
 			for ( i in requests ) {
 				this.requests[i] = requests[i];
 			}
-			console.log('requests', this.requests);
 			this.loadRoutes(routes, callback);
 		},
 
 		loadRoutes: function (routes, callback) {
-			console.log('loading Routes', routes);
 			var i;
 			for ( i in routes ) {
 				this.routes[i] = routes[i];
 			}
-			console.log('routes', this.routes);
 			callback(this);
 		},
 
 		start: function () {
-			console.log('Backbone', Backbone);
 			Backbone.history.start();
 			console.timeEnd('router');
 		}

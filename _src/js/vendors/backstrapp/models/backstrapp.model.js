@@ -4,7 +4,7 @@ define(['wrap!backbone'], 	function(Backbone){
 		defaults: {
 			name: 'default'
 		},
-		
+
 		validation: {
 			views: {
 				required: false

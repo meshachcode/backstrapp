@@ -20,8 +20,6 @@ require.config({
 		// Check the wrap!underscore config below for more
 		underscore:			'../vendors/underscore/underscore-min',
 		backbone:			'../vendors/backbone/backbone',
-		bbq:				'../vendors/backbone/backbone.query',
-		bbvalid:			'../vendors/backbone/backbone.validation',
 		backstrapp:			'../vendors/backstrapp/backstrapp',
 
 		// shortcuts for later
@@ -63,10 +61,10 @@ require.config({
 
 require([
 	'json!./app.config.json',
-	'modules/app'
+	'app'
 ], function(Config, App){
 
 	console.time('router');
-	var app = new App(Config);
+	window.backstrapp = new App(Config);
 
 });
