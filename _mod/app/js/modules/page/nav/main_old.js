@@ -1,19 +1,9 @@
-/**
-	* Nav Module
-*/
-define(['json!data/config.json', 'underscore', 'lib/backstrapp/module'], function (config, _, mod) {
+define(['underscore', 'lib/backstrapp/module', '../facade'], function (_, mod, facade) {
 	var Module = new mod();
 
 	Module.extend({
+		
 		template: 'html/test/content/nav.html',
-
-		init: function (item, params) {
-			_.bindAll(this, 'render');
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-			this.base(params);
-			return this.exports();
-		},
 
 		updateActive: function (page) {
 			console.log('updateActive', page);
@@ -23,16 +13,20 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module'], functio
 
 		render: function () {
 			var el = this.el;
-			console.log('el', el, this.template);
 			require(['text!' + this.template], function (response) {
 				el.html(response);
 			});
 		}
+		
 	});
 
 	return {
 		init: function (item, params) {
-			return Module.init(item, params);
+			facade.subscribe('nav', 'renderDone', this.updateActive);
+			var n = $(item).attr('id');
+			Module.set({ name: n, el: item });
+			Module.base(params);
+			return Module.exports();
 		}
 	};
 });

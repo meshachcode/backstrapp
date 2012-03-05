@@ -12,7 +12,6 @@ define([], function () {
 		renderDone:{
 			home:true,
 			about:true,
-			nav:true
 		},
 
 		renderMessageModule:{
@@ -21,6 +20,10 @@ define([], function () {
 		
 		renderSongList: {
 			songList: true
+		},
+		
+		renderNavModule: {
+			navModule:true
 		}
 	};
 

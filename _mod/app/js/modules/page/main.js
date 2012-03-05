@@ -1,10 +1,24 @@
-define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router'], function (config, _, mod, router) {
+/**
+	* Page Module
+*/
+define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router', './facade'], function (config, _, mod, router, facade) {
 	var Module = new mod();
 
 	Module.extend({
 		defaultPage: 'home',
 		pagesDir: 'html/test/',
 		router: {},
+
+		init: function (item, params) {
+			_.bindAll(this, 'route', 'subscribe');
+			this.router = new router();
+			this.router.bind('route:page', this.route);
+			this.router.start();
+			var n = $(item).attr('id');
+			this.set({ name: n, el: item });
+			this.base(params);
+			return this.exports();
+		},
 
 		route: function (page) {
 			if (page === undefined) {
@@ -27,13 +41,7 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './route
 
 	return {
 		init: function (item, params) {
-			Module.router = new router();
-			Module.router.bind('route:page', this.route);
-			Module.router.start();
-			var n = $(item).attr('id');
-			Module.set({ name: n, el: item });
-			Module.base(params);
-			return Module.exports();
+			return Module.init(item, params);
 		}
-	}
+	};
 });
