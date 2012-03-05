@@ -4,13 +4,19 @@ define(['../utils', '../facade'], function (utils, facade) {
 	var nav = {
 		init: function (params) {
 			facade.subscribe('nav', 'renderDone', this.updateActive);
+			if (params != undefined) {
+				this.processParams(params, this.render);
+			}
+		},
+
+		processParams: function (params, callback) {
 			var paramObj = utils.objectifyParams(params);
 			if ( paramObj.template != undefined ) {
 				navTemplate = paramObj.template;
 			}
-			this.render();
+			callback();
 		},
-		
+			
 		updateActive: function (page) {
 			console.log('updateActive', page);
 			$('.active', el).removeClass('active');

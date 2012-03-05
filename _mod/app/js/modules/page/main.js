@@ -1,10 +1,10 @@
-define(['underscore', './utils', 'util/content-builder', 'util/module-activator', './facade', './router'],
-function (_, utils, builder, activator, facade, router) {
+define(['json!data/config.json', 'underscore', './utils', 'util/content-builder', 'util/module-activator', './facade', './router'],
+function (config, _, utils, builder, activator, facade, router) {
 
 	var el, html = '';
 	var page = {
-		defaultPage: 'about',
-		pagesDir: 'html/test/',
+		defaultPage: 'home',
+		pagesDir: 'html/',
 		router: {},
 
 		init: function (params) {
