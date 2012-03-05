@@ -12,6 +12,7 @@ function (config, _, utils, builder, activator, facade, router) {
 			this.router = new router();
 			this.router.bind('route:page', this.route);
 			this.router.start();
+			return {};
 		},
 		
 		route: function (page) {
@@ -59,6 +60,7 @@ function (config, _, utils, builder, activator, facade, router) {
 		init: function (item, params) {
 			el = item;
 			page.init(params);
+			return {};
 		}
 	};
 });
