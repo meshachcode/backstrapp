@@ -1,4 +1,4 @@
-define(['./underscore', './cookie', './module-activator'], function (_, cookie, activator) {
+define(['underscore', './cookie', './module-activator'], function (_, cookie, activator) {
     var exports = {},
         replaceContent = function (element, content) {
             element[0].innerHTML = content;

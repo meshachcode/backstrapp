@@ -1,4 +1,4 @@
-define(['util/underscore'], function (_) {
+define(['underscore'], function (_) {
     return function loadCss(cssFile, element) {
         var path = "",
             folder = "app/css",

@@ -1,8 +1,8 @@
-define(["../models/todo", "../localStorage"], function (Todo) {
+define(["underscore", "backbone", "../models/todo", "lib/backbone/localStorage"], function (_, Backbone, Todo, Store) {
 
     var TodoList = Backbone.Collection.extend({
         model: Todo,
-        localStorage: new Store("todos"),
+        localStorage: new Store("b$-Todos"),
         done: function () {
             return this.filter(function (todo) {
                 return todo.get('done');

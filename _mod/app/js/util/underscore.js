@@ -1,3 +1,3 @@
-define(["../lib/underscore.js"], function () {
+define(["underscore"], function () {
     return _;
 });

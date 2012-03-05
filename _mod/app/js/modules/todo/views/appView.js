@@ -1,6 +1,6 @@
-define(["text!../templates/stats.js", "../collections/todoList", "./todoView", "../mediator", "../modules"], 
+define(['underscore', 'backbone', "text!../templates/stats.js", "../collections/todoList", "./todoView", "../mediator", "../modules"], 
 
-function (statsTemplate, Todos, TodoView, mediator) {
+function (_, Backbone, statsTemplate, Todos, TodoView, mediator) {
 
 	var AppView = Backbone.View.extend({
 		el: $("#todoapp"),

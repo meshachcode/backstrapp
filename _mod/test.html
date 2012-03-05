@@ -10,9 +10,16 @@
 <body>
 
     <!-- Test App Interface -->
-    <div data-module="modules/page/main" data-module-parameters="page:home" id="testApp" class="container"></div><!-- /TestApp -->
+	<div class="topbar">
+	    <div class="fill">
+	        <div class="container">
+			    <div data-module="modules/page/nav/main" id="navModule"></div><!-- /navModule -->
+	        </div><!-- /container -->
+	    </div><!-- /fill -->
+	</div><!-- /topbar -->
+    <div data-module="modules/page/main" id="testApp" class="container"></div><!-- /TestApp -->
 
-    <script type="text/javascript" src="app/js/lib/modernizr-1.6.min.js"></script><script type="text/javascript" src="app/js/lib/jquery-1.7.min.js"></script><script type="text/javascript" data-main="main" src=
-"app/js/allplugins-require.js"></script>
+    <script type="text/javascript" src="app/js/lib/modernizr-1.6.min.js"></script><script type="text/javascript" data-main="app/js/main" src=
+"app/js/lib/require/require.js"></script>
 </body>
 </html>

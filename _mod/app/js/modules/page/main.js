@@ -1,25 +1,46 @@
-define(['util/underscore', 'util/content-builder', 'util/module-activator', './facade.js'],
-function (_, builder, activator, facade) {
+define(['underscore', 'util/content-builder', 'util/module-activator', './facade', './router'],
+function (_, builder, activator, facade, router) {
 
 	var el, html = '';
 	var page = {
 		pagesDir: 'html/test/',
+		router: {},
 
 		init: function (params) {
-			facade.subscribe('home', 'renderDone', this.render);
-			this.start(params);
+			_.bindAll(this, 'render', 'loadPage', 'route');
+			this.router = new router();
+			this.router.bind('route:page', this.route);
+			this.router.start();
+		},
+		
+		route: function (page) {
+			this.subscribe(page);
+			this.getPage(page);
+		},
+		
+		subscribe: function (page) {
+			facade.subscribe(page, 'renderDone', this.render);
 		},
 
-		start: function (params) {
+		processParams: function (params) {
 			var paramObj = page.objectifyParams(params);
-			this.loadPage(this.pagesDir + paramObj.page + '.html', function (response) {
+			this.subscribe(paramObj.page);
+			this.getPage(paramObj.page);
+		},
+		
+		getPage: function (page) {
+			var pagePath = this.getPagePath(page);
+			this.loadPage(pagePath, function (response) {
 				html = response;
-				facade.publish('renderDone', 'home');
+				facade.publish(page, 'renderDone', page);
 			});
 		},
 
+		getPagePath: function (page) {
+			return this.pagesDir + page + '.html';
+		},
+
 		loadPage: function (page, callback) {
-			console.log('page', page);
 			require(['text!' + page], callback);
 		},
 		
@@ -34,12 +55,10 @@ function (_, builder, activator, facade) {
 		},
 		
 		render: function () {
-			console.log('render!');
 			el.html(html);
 		    builder.execute(el);
 		    activator.execute(el);
 		}
-		
 	};
 
 	return {

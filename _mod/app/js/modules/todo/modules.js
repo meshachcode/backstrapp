@@ -1,4 +1,4 @@
-define(["../todo/facade"], function (facade) {
+define(['underscore', "../todo/facade"], function (_, facade) {
 
     //Subscriber modules for Todo view with named
     // subscribers

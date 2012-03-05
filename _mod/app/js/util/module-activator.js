@@ -1,4 +1,4 @@
-define(['util/loadcss'], function (loadcss) {
+define(['jquery', 'util/loadcss'], function ($, loadcss) {
 	var exports = {};
 	exports.execute = function (element) {
 		$("[data-module-cssonly]", element).each(function () {
@@ -12,7 +12,7 @@ define(['util/loadcss'], function (loadcss) {
 				parameters = item.data("module-parameters");
 
 			require([module], function (mod) {
-				console.log('Module Loaded:', module, mod);
+				console.log('Module Loaded:', mod, module);
 				if (mod.css) {
 					loadcss(mod.css, item);
 				} else {

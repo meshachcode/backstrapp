@@ -1,4 +1,4 @@
-define(["text!../templates/todo.js", "../mediator", "../modules"], function (templateText, mediator) {
+define(['underscore', 'backbone', "text!../templates/todo.js", "../mediator", "../modules"], function (_, Backbone, templateText, mediator) {
 
     var TodoView = Backbone.View.extend({
         tagName: "li",
@@ -11,13 +11,11 @@ define(["text!../templates/todo.js", "../mediator", "../modules"], function (tem
             "click span.todo-destroy": "clear",
             "keypress .todo-input": "updateOnEnter"
         },
-        initialize: function () {
 
-            _.bindAll(this, 'render', this.render);
+        initialize: function () {
+            _.bindAll(this, 'render');
             this.model.bind('change', this.render);
             this.model.view = this;
-
-
         },
 
         render: function () {

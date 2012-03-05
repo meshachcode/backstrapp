@@ -11,14 +11,14 @@ define([], function () {
 
 		renderDone:{
 			home:true,
-			about:true
+			about:true,
+			nav:true
 		}
 
 	};
 
 	permissions.validate = function(subscriber, channel){
 		var test = permissions[channel][subscriber];
-		console.log(test);
 		return test===undefined? false: test;
 	};
 

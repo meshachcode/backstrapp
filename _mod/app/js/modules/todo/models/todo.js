@@ -1,4 +1,4 @@
-define([], function(){
+define(['backbone'], function(Backbone){
 	var Todo = Backbone.Model.extend({
 		defaults : {
 				   content: "An empty entry",

@@ -1,4 +1,4 @@
-define(["./views/appView", "util/loadCss", "lib/backbone", "lib/underscore", "lib/jquery.tmpl"], 
+define(["./views/appView", "util/loadCss", "backbone", "underscore", "lib/jquery/jquery.tmpl"], 
 
 function (AppView, loadCss) {
 

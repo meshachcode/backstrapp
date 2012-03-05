@@ -3,8 +3,8 @@
  */
 require.config({
   paths: {
-    jquery: 'libs/jquery/jquery-min',
-    underscore: 'libs/underscore/underscore-min',
+    jquery: 'lib/jquery/jquery-min',
+    underscore: 'lib/underscore/underscore-min',
   }
 });
 
