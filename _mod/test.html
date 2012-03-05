@@ -1,49 +1,18 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
     <title>TEST App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="app/css/bootstrap.min.css">
 </head>
-
 <body>
+
     <!-- Test App Interface -->
-
-    <div class="container">
-        <div class="topbar">
-            <div class="fill">
-                <div class="container">
-                    <div data-module="modules/test/nav" id="navModule"></div><!-- /navModule -->
-                </div><!-- /container -->
-            </div><!-- /fill -->
-        </div><!-- /topbar -->
-
-        <div class="container" style="display: block">
-            <div id="content" class="content">
-                <div data-module="modules/test/hero" id="heroModule">
-                </div><!-- /heroModule -->
-                <div class="row">
-                	<div class="span11">
-		                <div data-module="modules/test/features" id="featuresModule"></div><!-- /heroModule -->
-                	</div>
-                	<div class="span5">
-		                <div data-module="modules/test/tools" id="toolsModule"></div><!-- /heroModule -->
-                	</div>
-                </div>
-            </div><!-- /content -->
-
-            <footer>
-                <div data-module="modules/test/footer" id="footerModule"></div><!-- /footerModule -->
-            </footer><!-- /footer -->
-        </div><!-- /container -->
-    </div><!-- /container -->
+    <div data-module="modules/page/main" data-module-parameters="page:home" id="testApp" class="container"></div><!-- /TestApp -->
 
     <script type="text/javascript" src="app/js/lib/modernizr-1.6.min.js"></script><script type="text/javascript" src="app/js/lib/jquery-1.7.min.js"></script><script type="text/javascript" data-main="main" src=
 "app/js/allplugins-require.js"></script>
-
 </body>
 </html>

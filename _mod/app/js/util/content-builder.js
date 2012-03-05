@@ -23,17 +23,19 @@ define(['./underscore', './cookie', './module-activator'], function (_, cookie, 
 
             /* temporary alerts to help us get usage right */
             if (element.data("dynamic-auth")) {
-                alert("Switch data-dynamic-auth to use data-auth-uri");
+                console.warn("Switch data-dynamic-auth to use data-auth-uri");
                 return;
             }
 
             /* checks to return early and make content visible */
             if (authUri && !authCookie && !dynamicUri) {
+            	console.log('authUri && !authCookie && !dynamicUri');
                 element.css('visibility', 'visible');
                 return;
             }
 
             if (match) {
+            	console.log('match', match);
                 val = cookie(match[0].slice(1, match.length - 2));
                 val = val || "";
                 uri = uri.replace(match, val);

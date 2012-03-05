@@ -1,0 +1,21 @@
+<h2>Features</h2>
+<dl>
+	<dt>Global Event Tracking</dt>
+	<dd><p>Using an 'outside-in' philosophy, all classes communicate with a global event model. (Thanks to <a href="http://lostechies.com/derickbailey/2011/08/28/dont-execute-a-backbone-js-route-handler-from-your-code/">Derick Bailey at LosTechies for the tip!</a>)</p></dd>
+	<dt>Global Data Model</dt>
+	<dd><p>With the future feature of an external database in mind (MongoDB or CouchDB), we designed BackStrapp with a global data model, which updates dynamically and is accessible to all Classes. This, combined with the global event model, makes for clean, easy-to-trace code, and allows for complex, asynchronous interactions.</p></dd>
+	<dt>JSON Data Structure</dt>
+	<dd><p>We use an external JSON file to control the default pages of the site, and populate a nav bar. It's simple, intuitive, and ideal for quick projects which still need small amounts of dynamic content.</p></dd>
+	<dt>Dynamic Content</dt>
+	<dd><p>Though static content could be put inline to aid in non-obtrusiveness for the site, BackStrapp ships with the default setting of loading all pages dynamically, based on the url.</p></dd>
+	<dt>Easy-to-Manage HTML Content</dt>
+	<dd><p>To make things really easy for small teams of front end developers, BackStrapp's architecture allows for all content pages to be flat HTML files, only containing the body content to be used. These mush be well-formed, but don't have to validate, since they're just being loaded into a container div.</p></dd>
+	<dt>Intuitive Debugging</dt>
+	<dd><p>We like Console. If for no other reason, but to keep Alert() boxes out of our face. So we leveraged <a href="http://benalman.com/projects/javascript-debug-console-log/">Ben Alman's debug script</a> to handle compatibility issues (aghem, I.E.).</p></dd>
+	<dt>Plugin-Ready Architecture</dt>
+	<dd><p>The architecture used allows for a page type of 'app', which connects a url route to a 'module' in BackStrapp. To see this in action, take a look at the 'Test' module that comes with this build.</p></dd>
+	<dt>Page Load Animations</dt>
+	<dd><p>All pages loop through AppView.render(), which uses a simple jQuery animation method to change out page content. It's easy to edit, and fun to try!</p></dd>
+	<dt>Continuous Integration (sorta)</dt>
+	<dd><p>BackStrapp comes equipped with a pre-commit git hook, which runs the r.js compiler. This makes for quick and easy deployment of a single JS file, while maintaining a clean working environment with multiple MVC-ish files for your app.</p></dd>
+</dl>
