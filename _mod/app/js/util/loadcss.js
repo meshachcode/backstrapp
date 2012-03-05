@@ -1,7 +1,7 @@
 define(['util/underscore'], function (_) {
     return function loadCss(cssFile, element) {
         var path = "",
-            folder = "/content/styles",
+            folder = "app/css",
             extension = ".css",
             href = '/' + (path ? path + '/' : '') + folder + '/' + cssFile + extension;
 
