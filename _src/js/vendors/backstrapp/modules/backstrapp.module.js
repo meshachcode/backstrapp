@@ -1,8 +1,6 @@
 define([
-	'wrap!jquery',
-	'wrap!backbone',
 	'vendors/backstrapp/models/backstrapp.model'
-], function($, Backbone, BackstrappModel){
+], function(BackstrappModel){
 
 	BackstrappModule = Backbone.View.extend({
 		el: $("#content"),

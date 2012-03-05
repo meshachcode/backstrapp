@@ -4,11 +4,10 @@ define([
 	'vendors/backstrapp/views/backstrapp.view',
 	'vendors/backstrapp/modules/backstrapp.module'
 ],
-
 function (App, Model, View, Module) {
 
-    return {
-		_VERSION	: 'sqrl',
+	return {
+		_VERSION	: 'Backstrapp 0.1.1',
 		App			: App,
 		Model		: Model,
 		View		: View,

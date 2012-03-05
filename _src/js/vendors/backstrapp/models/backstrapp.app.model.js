@@ -1,23 +1,10 @@
-define(['wrap!backbone'], 	function(Backbone){
+define([], 	function(){
 
 	var e = Backbone.Model.extend({
 		defaults: {
 			name: 'appModel'
 		},
 		
-		validation: {
-			request: {
-				fn: 'requestHandler'
-			}
-		},
-		
-		requestHandler: function (obj) {
-			if (obj != undefined) {
-				console.log('requestHandler', obj.data);
-				console.log(obj.data);
-			}
-		}
-
 	});
 	
 	return e

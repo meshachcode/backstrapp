@@ -1,9 +1,4 @@
-define([
-	'wrap!underscore',
-	'wrap!backbone'
-], function(_, Backbone){
-
+define(function(){
 	var Vent = _.extend({}, Backbone.Events);
-
 	return Vent;
-});
+}());

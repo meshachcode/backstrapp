@@ -1,4 +1,4 @@
-define(['wrap!backbone'], 	function(Backbone){
+define([], 	function(){
 
 	var e = Backbone.Model.extend({
 		defaults: {

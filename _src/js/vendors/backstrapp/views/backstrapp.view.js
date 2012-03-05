@@ -1,6 +1,4 @@
-define([
-  'wrap!backbone'
-], function(Backbone){
+define(function(){
 
 	var View = Backbone.View.extend({
 		initialize: function (obj) {

@@ -1,4 +1,4 @@
-define(['wrap!backbone'], function (Backbone) {
+define([], function () {
 
 	var r = Backbone.Router.extend({
 		routes			: {

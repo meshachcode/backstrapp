@@ -1,26 +1,22 @@
 define([
-	'order!wrap!backbone',
-	'order!json!vendors/backstrapp/bs.config.json',
+	'json!vendors/backstrapp/bs.config.json',
+	'vendors/backbone/plugins/backbone.validation',
 	'vendors/backstrapp/routers/router',
-	'vendors/backstrapp/events/vent',
-	'vendors/backstrapp/models/data.model'
-], 
-function (Backbone, Config, Router, Vent, Data) {
+	'vendors/backstrapp/models/data.model',
+	'vendors/backstrapp/events/vent'
+], function (Config, Validation, Router, Data, Vent) {
+
+	_.extend(Backbone.Model.prototype, Validation);
 
 	var App = Backbone.Model.extend({
 		defaults: {
 			config: Config
 		},
 		
-		validation: {
-			request: 'requestHandler'
-		},
-		
 		initialize: function (config) {
-			if (config) {
-				this.set({ config : config });
-			}
+			this.config = config || this.config;
 			_.bindAll(this, 'startRouter', 'changeHandler', 'requestHandler');
+			this.bind('change:request', this.requestHandler, this);
 			this.Data = new Data(this.get('config').data);
 			this.Vent = Vent;
 			this.Router = new Router();
@@ -49,12 +45,8 @@ function (Backbone, Config, Router, Vent, Data) {
 			}
 		},
 
-		requestHandler: function (obj) {
-			console.log('requestHandler');
-			if (obj != undefined) {
-				console.log('requestHandler', obj.data);
-				console.log(obj.data);
-			}
+		requestHandler: function () {
+			console.log(this.get('request'));
 		}
 	});
 
@@ -63,7 +55,6 @@ function (Backbone, Config, Router, Vent, Data) {
 		return {
 			Router: app.Router,
 			Vent: app.Vent,
-			Model: app.Model,
 			Data: app.Data
 		}
 	}

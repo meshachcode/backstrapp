@@ -7,8 +7,8 @@ require.config({
 		font:				'../vendors/require/plugins/font',
 		depend:				'../vendors/require/plugins/depend',
 		json:				'../vendors/require/plugins/json',
-		use:				'../vendors/require/plugins/use',
 		wrap:				'../vendors/require/plugins/wrap',
+		use:				'../vendors/require/plugins/use',
 
 		// vendors and dependencies
 		vendors:	 		'../vendors',
@@ -19,9 +19,9 @@ require.config({
 		// underscore doesn't need a wrapper because of it's AMD upgrade. 
 		// Check the wrap!underscore config below for more
 		underscore:			'../vendors/underscore/underscore-min',
-		backbone:			'../vendors/backbone/backbone',
+		backbone:			'../vendors/backbone/backbone-min',
 		backstrapp:			'../vendors/backstrapp/backstrapp',
-
+		
 		// shortcuts for later
 		templates:			'../../html/templates',
 		static:				'../../html/static',
@@ -30,32 +30,27 @@ require.config({
 	
 	wrapJS: {
 		backbone: {
-			deps: ["wrap!underscore", "debug"], //an array of the script's dependencies
-			attach: function () {
-				var Backbone = this.Backbone;
-				delete this.Backbone;
-				return Backbone;
-			}
+			deps: ["wrap!underscore", "debug"],
+			attach: "Backbone"
 		},
 
-		// note that Underscore is a function call. This instantiates a local _ object, 
-		// allowing us to destroy the global one.
 		underscore:	{
 			deps: ["wrap!jquery"],
-			attach: function () {
-				var _ = this._({});
-				delete this._;
-				return _;
-			}
+			attach: "_"
 		},
 
 		jquery:	{
-			attach: function () {
-				var $ = this.$;
-				delete this.$;
-				return $;
+			attach: "$"
+		}		
+	},
+	
+	use: {
+		backstrapp: {
+			deps: ["wrap!backbone"],
+			attach: function (Backstrapp) {
+				return Backstrapp;
 			}
-		}
+		}		
 	}
 });
 
@@ -65,6 +60,6 @@ require([
 ], function(Config, App){
 
 	console.time('router');
-	window.backstrapp = new App(Config);
+	window.backstrappSite = new App(Config);
 
 });
