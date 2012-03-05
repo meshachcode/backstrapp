@@ -37,6 +37,7 @@ function (config, _, utils, builder, activator, facade, router) {
 			var pagePath = this.getPagePath(page);
 			this.loadPage(pagePath, function (response) {
 				html = response;
+				console.log('page', page, facade);
 				facade.publish(page, 'renderDone', page);
 			});
 		},

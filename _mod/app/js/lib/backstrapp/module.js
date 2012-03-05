@@ -1,4 +1,12 @@
-define(['underscore', 'backbone', 'lib/aura/core/mediator', 'modules/maestro/facade', 'util/content-builder', 'util/module-activator', 'util/base'], 
+define([
+	'underscore', 
+	'backbone', 
+	'lib/aura/core/mediator', 
+	'modules/maestro/facade', 
+	'util/content-builder', 
+	'util/module-activator', 
+	'util/base'
+],
 function (_, Backbone, m, f, builder, activator) {
 
 	var e = Base.extend({
