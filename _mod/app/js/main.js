@@ -1,6 +1,6 @@
 require({
     paths: {
-        underscore: 	"util/underscore"
+        underscore: "util/underscore"
     }
 },
 ['util/content-builder', 'util/module-activator'], function (builder, activator) {

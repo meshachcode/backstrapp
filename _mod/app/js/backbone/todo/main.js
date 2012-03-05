@@ -1,8 +1,8 @@
 define(["./views/appView",
         "util/loadCss",
-         "app/scripts/lib/backbone.js",
-         "app/scripts/lib/underscore.js",
-         "app/scripts/lib/jquery.tmpl.js"],
+         "app/js/lib/backbone.js",
+         "app/js/lib/underscore.js",
+         "app/js/lib/jquery.tmpl.js"],
     	function (AppView, loadCss) {
 			//loadCss("todos");
     	    var app = new AppView();
