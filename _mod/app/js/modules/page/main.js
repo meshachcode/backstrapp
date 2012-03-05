@@ -15,6 +15,7 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './route
 			this.router.bind('route:page', this.route);
 			this.router.start();
 			var n = $(item).attr('id');
+			console.log('n', n);
 			this.set({ name: n, el: item });
 			this.base(params);
 			return this.exports();
@@ -28,8 +29,8 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './route
 			this.getPage(page);
 		},
 
-		subscribe: function (page) {
-			facade.subscribe(page, 'renderDone', this.render);
+		subscribe: function () {
+			facade.subscribe(this.name, this.renderEvent, this.render);
 		},
 
 		render: function () {

@@ -27,7 +27,7 @@ function (_, Backbone, m, f, builder, activator) {
 			* and breaking the parent class
 		*/
 		constructor: function () {
-			_.bindAll(this, 'validation', 'publish');
+			_.bindAll(this, 'validate', 'publish');
 		},
 
 		/*
@@ -71,7 +71,7 @@ function (_, Backbone, m, f, builder, activator) {
 			this.renderEvent = 'render' + m.util.camelize(this.name); 
 			f.subscribe(this.name, this.renderEvent, this.render);
 			if (!_.isUndefined(params) && !_.isNull(params)) {
-				this.utils.processParams(params, this.validation);
+				this.utils.processParams(params, this.validate);
 			}
 			return this.exports();
 		},
@@ -84,8 +84,7 @@ function (_, Backbone, m, f, builder, activator) {
 			* publish. that's a problem, 'cause some modules do not need the
 			* template param to be set.
 		*/
-		validation: function (param) {
-			console.log('validation');
+		validate: function (param) {
 			if (param.template) {
 				this.utils.loadView(param.template, this.publish, this);
 			}
@@ -132,6 +131,7 @@ function (_, Backbone, m, f, builder, activator) {
 		
 		utils: {
 			processParams: function (params, callback) {
+				console.log('callback', callback);
 				var paramObj = this.objectifyParams(params);
 				callback(paramObj);
 			},
@@ -158,6 +158,7 @@ function (_, Backbone, m, f, builder, activator) {
 	
 			loadView: function (path, callback) {
 				require(['text!' + path], function (response) {
+					console.log('response', response);
 					callback(response);
 				});
 			}				
@@ -165,7 +166,7 @@ function (_, Backbone, m, f, builder, activator) {
 		
 		/*
 			* @method exports
-			* @returns Object 
+			* @returns Object
 		*/
 		exports: function () {
 			return {

@@ -24,6 +24,10 @@ define([], function () {
 		
 		renderNavModule: {
 			navModule:true
+		},
+		
+		renderPageModule: {
+			pageModule:true
 		}
 	};
 
