@@ -3,6 +3,7 @@ function (_, builder, activator, facade, router) {
 
 	var el, html = '';
 	var page = {
+		defaultPage: 'about',
 		pagesDir: 'html/test/',
 		router: {},
 
@@ -14,6 +15,9 @@ function (_, builder, activator, facade, router) {
 		},
 		
 		route: function (page) {
+			if (page === undefined) {
+				page = this.defaultPage;
+			}
 			this.subscribe(page);
 			this.getPage(page);
 		},
