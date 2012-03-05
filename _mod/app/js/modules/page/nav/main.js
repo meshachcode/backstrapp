@@ -1,9 +1,13 @@
-define(['../facade'], function (facade) {
+define(['../utils', '../facade'], function (utils, facade) {
 	var el, html = '', navTemplate = 'html/test/content/nav.html';
 	
 	var nav = {
 		init: function (params) {
 			facade.subscribe('nav', 'renderDone', this.updateActive);
+			var paramObj = utils.objectifyParams(params);
+			if ( paramObj.template != undefined ) {
+				navTemplate = paramObj.template;
+			}
 			this.render();
 		},
 		

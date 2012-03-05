@@ -12,7 +12,7 @@ define(['jquery', 'util/loadcss'], function ($, loadcss) {
 				parameters = item.data("module-parameters");
 
 			require([module], function (mod) {
-				console.log('Module Loaded:', mod, module);
+				console.log('Module Loaded:', mod, module, parameters);
 				if (mod.css) {
 					loadcss(mod.css, item);
 				} else {

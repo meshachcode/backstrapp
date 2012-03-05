@@ -1,5 +1,5 @@
-define(['underscore', 'util/content-builder', 'util/module-activator', './facade', './router'],
-function (_, builder, activator, facade, router) {
+define(['underscore', './utils', 'util/content-builder', 'util/module-activator', './facade', './router'],
+function (_, utils, builder, activator, facade, router) {
 
 	var el, html = '';
 	var page = {
@@ -21,13 +21,13 @@ function (_, builder, activator, facade, router) {
 			this.subscribe(page);
 			this.getPage(page);
 		},
-		
+
 		subscribe: function (page) {
 			facade.subscribe(page, 'renderDone', this.render);
 		},
 
 		processParams: function (params) {
-			var paramObj = page.objectifyParams(params);
+			var paramObj = utils.objectifyParams(params);
 			this.subscribe(paramObj.page);
 			this.getPage(paramObj.page);
 		},
@@ -47,17 +47,7 @@ function (_, builder, activator, facade, router) {
 		loadPage: function (page, callback) {
 			require(['text!' + page], callback);
 		},
-		
-		objectifyParams: function (paramStr) {
-			var pObj = {}, pArr = [], iArr = [];
-			pArr = paramStr.split(',');
-			_.each(pArr, function (i) {
-				iArr = i.split(':');
-				pObj[iArr[0]] = iArr[1];
-			});
-			return pObj;
-		},
-		
+				
 		render: function () {
 			el.html(html);
 		    builder.execute(el);
