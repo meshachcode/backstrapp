@@ -4,7 +4,7 @@ function (config, _, utils, builder, activator, facade, router) {
 	var el, html = '';
 	var page = {
 		defaultPage: 'home',
-		pagesDir: 'html/',
+		pagesDir: 'html/test/',
 		router: {},
 
 		init: function (params) {

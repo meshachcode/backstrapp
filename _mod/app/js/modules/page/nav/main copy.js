@@ -1,29 +1,27 @@
-define(['underscore', 'lib/backstrapp/module', '../facade'], function (_, mod, facade) {
-	var Module = new mod();
-
-	Module.extend({
-		init: function (item, params) {
+define(['../utils', '../facade'], function (utils, facade) {
+	var el, html = '', template = 'html/test/content/nav.html';
+	
+	var nav = {
+		init: function (params) {
 			facade.subscribe('nav', 'renderDone', this.updateActive);
-			var n = $(item).attr('id');
-			Module.set({ name: n, el: item });
-			Module.base(params);
-			return Module.exports;
+			if (params != undefined) {
+				this.processParams(params, this.render);
+			}
 		},
 
+		processParams: function (params, callback) {
+			var paramObj = utils.objectifyParams(params);
+			if ( paramObj.template != undefined ) {
+				navTemplate = paramObj.template;
+			}
+			callback();
+		},
+			
 		updateActive: function (page) {
 			console.log('updateActive', page);
 			$('.active', el).removeClass('active');
 			$('#nav_' + page, el).addClass('active');
 		},
-	});
-	
-	return Module;
-});
-
-define(['../utils', '../facade'], function (utils, facade) {
-	var el, html = '', template = 'html/test/content/nav.html';
-	
-	var nav = {
 
 		render: function () {
 			require(['text!' + navTemplate], function (response) {

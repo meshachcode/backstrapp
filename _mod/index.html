@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Maestro</title>
+    <title>Back$trapp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="app/css/bootstrap.min.css">
 </head>
@@ -13,12 +13,12 @@
 	<div class="topbar">
 	    <div class="fill">
 	        <div class="container">
-			    <div data-module="modules/page/nav/main" id="navModule"></div><!-- /navModule -->
+			    <div data-module="modules/page/nav/main" data-module-parameters="template:html/test/content/nav.html" id="navModule"></div><!-- /navModule -->
 	        </div><!-- /container -->
 	    </div><!-- /fill -->
 	</div><!-- /topbar -->
 
-    <div data-module="modules/page/main" id="maestroApp" class="container"></div><!-- /TestApp -->
+    <div data-module="modules/page/main" data-module-parameters="pagesDir:html/test/" id="backstrApp" class="container"></div><!-- /TestApp -->
 
     <script type="text/javascript" src="app/js/lib/modernizr-1.6.min.js"></script><script type="text/javascript" data-main="app/js/main" src=
 "app/js/lib/require/require.js"></script>

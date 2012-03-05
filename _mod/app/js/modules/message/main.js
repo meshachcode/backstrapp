@@ -1,22 +1,13 @@
-define(['lib/backstrapp/module'], function (mod) {
+define(['underscore', 'lib/backstrapp/module'], function (_, mod) {
+	var Module = new mod();
 
-	var m = mod.extend({});
-	
-/*
-	m.init = function (params) {
-		console.log('hi', params);
-		mod.init(params);
-	}
-*/
-
-	return {
+	Module.extend({
 		init: function (item, params) {
-			var n = $(item).attr('id'), ex = {};
-			m.name = n;
-			m.el = item;
-			m.init(params);
-			ex = m.get('exports');
-			return ex;
+			var n = $(item).attr('id');
+			Module.set({ name: n, el: item });
+			Module.base(params);
+			return Module.exports;
 		}
-	};
+	});
+	return Module;
 });

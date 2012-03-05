@@ -17,6 +17,10 @@ define([], function () {
 
 		renderMessageModule:{
 			messageModule:true
+		},
+		
+		renderSongList: {
+			songList: true
 		}
 	};
 
