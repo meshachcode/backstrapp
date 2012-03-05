@@ -1,20 +1,11 @@
-define(['json!data/config.json', 'underscore', './utils', 'util/content-builder', 'util/module-activator', './facade', './router'],
-function (config, _, utils, builder, activator, facade, router) {
+define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router'], function (config, _, mod, router) {
+	var Module = new mod();
 
-	var el, html = '';
-	var page = {
+	Module.extend({
 		defaultPage: 'home',
 		pagesDir: 'html/test/',
 		router: {},
 
-		init: function (params) {
-			_.bindAll(this, 'render', 'loadPage', 'route');
-			this.router = new router();
-			this.router.bind('route:page', this.route);
-			this.router.start();
-			return {};
-		},
-		
 		route: function (page) {
 			if (page === undefined) {
 				page = this.defaultPage;
@@ -27,41 +18,22 @@ function (config, _, utils, builder, activator, facade, router) {
 			facade.subscribe(page, 'renderDone', this.render);
 		},
 
-		processParams: function (params) {
-			var paramObj = utils.objectifyParams(params);
-			this.subscribe(paramObj.page);
-			this.getPage(paramObj.page);
-		},
-		
-		getPage: function (page) {
-			var pagePath = this.getPagePath(page);
-			this.loadPage(pagePath, function (response) {
-				html = response;
-				console.log('page', page, facade);
-				facade.publish(page, 'renderDone', page);
-			});
-		},
-
-		getPagePath: function (page) {
-			return this.pagesDir + page + '.html';
-		},
-
-		loadPage: function (page, callback) {
-			require(['text!' + page], callback);
-		},
-				
 		render: function () {
 			el.html(html);
 		    builder.execute(el);
 		    activator.execute(el);
 		}
-	};
+	});
 
 	return {
 		init: function (item, params) {
-			el = item;
-			page.init(params);
-			return {};
+			Module.router = new router();
+			Module.router.bind('route:page', this.route);
+			Module.router.start();
+			var n = $(item).attr('id');
+			Module.set({ name: n, el: item });
+			Module.base(params);
+			return Module.exports();
 		}
-	};
+	}
 });

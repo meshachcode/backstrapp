@@ -16,18 +16,17 @@ define(['underscore', 'lib/backstrapp/module', '../facade'], function (_, mod, f
 			require(['text!' + this.template], function (response) {
 				el.html(response);
 			});
-		},
-		
-		exports: {
-			init: function (item, params) {
-				facade.subscribe('nav', 'renderDone', this.updateActive);
-				var n = $(item).attr('id');
-				Module.set({ name: n, el: item });
-				Module.base(params);
-				return Module.exports;
-			}
 		}
+		
 	});
 
-	return Module.exports;
+	return {
+		init: function (item, params) {
+			facade.subscribe('nav', 'renderDone', this.updateActive);
+			var n = $(item).attr('id');
+			Module.set({ name: n, el: item });
+			Module.base(params);
+			return Module.exports();
+		}
+	};
 });

@@ -1,10 +1,10 @@
 define([
-	'underscore', 
-	'backbone', 
-	'lib/aura/core/mediator', 
-	'modules/maestro/facade', 
-	'util/content-builder', 
-	'util/module-activator', 
+	'underscore',
+	'backbone',
+	'lib/aura/core/mediator',
+	'modules/maestro/facade',
+	'util/content-builder',
+	'util/module-activator',
 	'util/base'
 ],
 function (_, Backbone, m, f, builder, activator) {
