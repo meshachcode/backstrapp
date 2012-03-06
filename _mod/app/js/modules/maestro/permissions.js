@@ -19,11 +19,6 @@ define([], function () {
 			backstrApp:true
 		},
 
-		renderDone:{
-			home:true,
-			about:true
-		},
-
 		renderMessageModule:{
 			messageModule:true
 		},

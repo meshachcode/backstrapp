@@ -29,6 +29,7 @@ function (config, _, mod, router, facade) {
 		},
 
 		changeHandler: function () {
+			console.log('changeHandler', arguments);
 			facade.publish(this.name, this.routerEvent, arguments);
 		},
 

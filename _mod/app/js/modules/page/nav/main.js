@@ -23,7 +23,6 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module'], functio
 
 		render: function () {
 			var el = this.el;
-			console.log('el', el, this.template);
 			require(['text!' + this.template], function (response) {
 				el.html(response);
 			});
