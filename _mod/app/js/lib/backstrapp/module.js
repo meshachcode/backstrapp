@@ -83,9 +83,6 @@ function (_, Backbone, m, f, builder, activator) {
 			* @method validation
 			* this doesn't really do anything yet, but the idea is that we'd
 			* do some kind of check to make sure the module is ready to load.
-			* right now, it's looking for param.template to be set in order to 
-			* publish. that's a problem, 'cause some modules do not need the
-			* template param to be set.
 		*/
 		validate: function (param) {
 			if (param.template) {

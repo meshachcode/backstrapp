@@ -14,11 +14,14 @@ function (config, _, mod, router, facade) {
 
 		init: function (item, params) {
 			_.bindAll(this, 'changeHandler', 'getPage', 'validate');
+
 			var n = $(item).attr('id');
 			this.set({ name: n, el: item });
 			this.base(params);
+
 			facade.subscribe(this.name, this.routerEvent, this.getPage);
 			facade.subscribe(this.name, this.renderPageEvent, this.render);
+
 			this.router = new router();
 			this.router.bind('all', this.changeHandler);
 			this.router.start();
