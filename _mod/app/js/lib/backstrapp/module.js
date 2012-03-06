@@ -71,9 +71,7 @@ function (_, Backbone, m, f, builder, activator) {
 		init: function(params) {
 			this.renderEvent = 'render' + m.util.camelize(this.name); 
 			f.subscribe(this.name, this.renderEvent, this.render);
-
 			this.routerEvent = 'router' + m.util.camelize(this.name); 
-			f.subscribe(this.name, this.routerEvent, this.render);
 
 			if (!_.isUndefined(params) && !_.isNull(params)) {
 				this.utils.processParams(params, this.validate);
@@ -107,13 +105,13 @@ function (_, Backbone, m, f, builder, activator) {
 				* export object 
 					* ({ isValid:true, data: { module-specific data object }, errors: [ array of error objects ]}})
 		*/
-		publish: function (response) {
+		publish: function (response, renderEvent) {
 			this.set({ 
 				html: response,
 				isValid: true
 			});
-			var ex = this.exports();
-			f.publish(this.name, this.renderEvent, ex);
+			var e = renderEvent || this.renderEvent;
+			f.publish(this.name, e);
 		},
 		
 		/*
@@ -127,14 +125,18 @@ function (_, Backbone, m, f, builder, activator) {
 			* If you don't want your render method to print it's errors to screen, then you may wanna
 			* override this method in your module instance.
 		*/
-		render: function () {
+		render: function (domEl, html) {
+			var el = domEl || this.el;
+			var h = html || this.html;
+			console.log('render!', domEl, html);
+
 			if (this.isValid) {
-				$(this.el).html(this.html);
-			    builder.execute(this.el);
-			    activator.execute(this.el);
+				$(el).html(h);
+			    builder.execute(el);
+			    activator.execute(el);
 			} else {
 				var eMsg = this.printErrors();
-				$(this.el).html(eMsg);
+				$(el).html(eMsg);
 			}
 		},
 		

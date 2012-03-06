@@ -38,7 +38,12 @@ define([], function () {
 		
 		renderPageModule: {
 			pageModule:true
-		}
+		},
+		
+		renderPageModulePage: {
+			pageModule:true,
+			backstrApp:true
+		}		
 	};
 
 	permissions.validate = function(subscriber, channel){

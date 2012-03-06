@@ -1,3 +1,4 @@
+/* * Maestro Mediator */
 define([], function (obj) {
 	var channels = {};
 	if (!obj) obj = {};

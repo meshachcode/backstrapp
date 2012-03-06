@@ -1,4 +1,4 @@
-define(["./mediator" , "modules/maestro/permissions" ], function (mediator, permissions) {
+define(["modules/maestro/mediator" , "modules/maestro/permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};
 
