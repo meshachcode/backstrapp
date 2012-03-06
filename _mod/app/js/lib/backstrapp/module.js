@@ -1,3 +1,13 @@
+/*
+
+	params:
+		name, events [], 
+
+
+*/
+
+
+
 /** 
 	* Backstrapp Module Class
 */

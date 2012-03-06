@@ -3,11 +3,13 @@
  */
 require.config({
   paths: {
-    jquery: 'lib/jquery/jquery-min',
-    underscore: 'lib/underscore/underscore-min',
+    jquery: '../../lib/jquery/jquery-min',
+    underscore: '../../lib/underscore/underscore-min',
+    modules:	'../../modules',
+    lib:		'../../lib'
   }
 });
 
-require(["./mediator"], function (mediator) {
-	mediator.publish('appInit', "#app");
+require(["./facade"], function (facade) {
+	facade.publish('appInit', "#app");
 });

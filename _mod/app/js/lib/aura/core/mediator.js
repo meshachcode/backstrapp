@@ -40,7 +40,7 @@ define(['jquery', 'underscore'], function ($, _) {
      * @param {object} context Context in which to execute the module
      */
     obj.subscribe = function (channel, callback, context) {
-        // console.log("obj.subscribe", channel, subscription);
+        console.log("obj.subscribe", arguments, channels);
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
     };

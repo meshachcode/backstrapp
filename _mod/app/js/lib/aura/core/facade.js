@@ -17,6 +17,7 @@ define(["./mediator", "./permissions"], function (mediator, permissions) {
      * @param {object} callback Module
      */
     facade.subscribe = function (subscriber, channel, callback) {
+    	console.log('subscribe request', arguments);
         if (permissions.validate(subscriber, channel)) {
             mediator.subscribe(channel, callback, this);
         }

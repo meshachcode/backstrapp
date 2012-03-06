@@ -3,6 +3,9 @@
  */
 define(["./core/permissions"], function (permissions) {
 	
-	permissions.rules.appInit = {bootstrap:true};
+	permissions.rules.appInit = {
+		bootstrap: true
+	};
 	return permissions;
+
 });

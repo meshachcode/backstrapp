@@ -1,4 +1,4 @@
-define(["../facade"], function(facade){
+define(["lib/aura/facade"], function(facade){
     // @todo: return function in facade and mediator, simply call function in
     // mediator.publish?
     return facade.subscribe('bootstrap', 'appInit', function (element) {
