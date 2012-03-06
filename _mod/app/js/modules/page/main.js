@@ -1,7 +1,9 @@
 /**
 	* Page Module
 */
-define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router', './facade'], function (config, _, mod, router, facade) {
+define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router', './facade'],
+
+function (config, _, mod, router, facade) {
 	var Module = new mod();
 
 	Module.extend({
@@ -10,33 +12,18 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './route
 		router: {},
 
 		init: function (item, params) {
-			_.bindAll(this, 'route', 'subscribe');
-			this.router = new router();
-			this.router.bind('route:page', this.route);
-			this.router.start();
+			_.bindAll(this, 'publishPage');
 			var n = $(item).attr('id');
-			console.log('n', n);
 			this.set({ name: n, el: item });
 			this.base(params);
+			this.router = new router();
+			this.router.bind('all', this.publishPage);
+			this.router.start();
 			return this.exports();
 		},
 
-		route: function (page) {
-			if (page === undefined) {
-				page = this.defaultPage;
-			}
-			this.subscribe(page);
-			this.getPage(page);
-		},
-
-		subscribe: function () {
-			facade.subscribe(this.name, this.renderEvent, this.render);
-		},
-
-		render: function () {
-			el.html(html);
-		    builder.execute(el);
-		    activator.execute(el);
+		publishPage: function (e, v) {
+			facade.publish(this.name, this.routerEvent, arguments);
 		}
 	});
 
@@ -44,5 +31,5 @@ define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './route
 		init: function (item, params) {
 			return Module.init(item, params);
 		}
-	};
+	}
 });

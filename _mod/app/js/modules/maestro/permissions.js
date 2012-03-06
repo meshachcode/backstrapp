@@ -1,6 +1,9 @@
+/** 
+	* Maestro Permissions 
+*/
+
 define([], function () {
 
-	// Permissions
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing
@@ -8,10 +11,17 @@ define([], function () {
 	// security layer for your application.
 
 	var permissions = {
+		renderBackstrApp: {
+			backstrApp:true
+		},
+		
+		routerBackstrApp: {
+			backstrApp:true
+		},
 
 		renderDone:{
 			home:true,
-			about:true,
+			about:true
 		},
 
 		renderMessageModule:{
@@ -32,7 +42,6 @@ define([], function () {
 	};
 
 	permissions.validate = function(subscriber, channel){
-		console.log('checking', subscriber, channel);
 		var test = permissions[channel][subscriber];
 		return test===undefined? false: test;
 	};

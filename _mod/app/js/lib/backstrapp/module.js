@@ -14,10 +14,11 @@ function (_, Backbone, m, f, builder, activator) {
 
 	var e = Base.extend({
 		name			:	'Module',
-		renderEvent		:	'Module',
-		el 				:	$(),
+		renderEvent		:	'renderModule',
+		routerEvent		:	'routerModule',
+		el 				:	$('#content'),
 		html			:	'loading',
-		template		: 	'test',
+		template		: 	'default.html',
 		isValid			: 	false,
 		errors			:	[],
 		
@@ -27,7 +28,7 @@ function (_, Backbone, m, f, builder, activator) {
 			* and breaking the parent class
 		*/
 		constructor: function () {
-			_.bindAll(this, 'validate', 'publish');
+			_.bindAll(this, 'render', 'validate', 'publish');
 		},
 
 		/*
@@ -70,12 +71,16 @@ function (_, Backbone, m, f, builder, activator) {
 		init: function(params) {
 			this.renderEvent = 'render' + m.util.camelize(this.name); 
 			f.subscribe(this.name, this.renderEvent, this.render);
+
+			this.routerEvent = 'router' + m.util.camelize(this.name); 
+			f.subscribe(this.name, this.routerEvent, this.render);
+
 			if (!_.isUndefined(params) && !_.isNull(params)) {
 				this.utils.processParams(params, this.validate);
 			}
 			return this.exports();
 		},
-		
+
 		/*
 			* @method validation
 			* this doesn't really do anything yet, but the idea is that we'd
@@ -87,6 +92,9 @@ function (_, Backbone, m, f, builder, activator) {
 		validate: function (param) {
 			if (param.template) {
 				this.utils.loadView(param.template, this.publish, this);
+			} else {
+				this.set({ isValid: true });
+				this.publish(this.name, this.renderEvent, this.render);
 			}
 		},
 		
@@ -120,9 +128,10 @@ function (_, Backbone, m, f, builder, activator) {
 			* override this method in your module instance.
 		*/
 		render: function () {
-			console.log('render!');
 			if (this.isValid) {
 				$(this.el).html(this.html);
+			    builder.execute(this.el);
+			    activator.execute(this.el);
 			} else {
 				var eMsg = this.printErrors();
 				$(this.el).html(eMsg);
@@ -131,7 +140,6 @@ function (_, Backbone, m, f, builder, activator) {
 		
 		utils: {
 			processParams: function (params, callback) {
-				console.log('callback', callback);
 				var paramObj = this.objectifyParams(params);
 				callback(paramObj);
 			},
@@ -158,7 +166,6 @@ function (_, Backbone, m, f, builder, activator) {
 	
 			loadView: function (path, callback) {
 				require(['text!' + path], function (response) {
-					console.log('response', response);
 					callback(response);
 				});
 			}				
