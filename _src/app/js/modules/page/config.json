@@ -1,0 +1,17 @@
+{
+	"home"		:		{
+		"title"			:		"Home",
+		"file"			:		"app/html/app/pages/home.html",
+		"description"	:		"Welcome to Backstrapp"
+	},
+	"about"		:		{
+		"title"			:		"About",
+		"file"			:		"app/html/app/pages/about.html",
+		"description"	:		"What the $#@% is Back$str.app?"
+	},
+	"todo"		:		{
+		"title"			:		"Todo",
+		"file"			:		"app/html/app/pages/todo.html",
+		"description"	:		"Obligatory ToDo application."
+	}
+}

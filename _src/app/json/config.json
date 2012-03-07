@@ -1,8 +1,8 @@
 {
 	"meta"	:	{
-		"title"			:		"Maestro",
+		"title"			:		"Back$tr.app",
 		"version"		:		"0.0.1",
-		"codename"		:		"fan",
-		"description"	:		"(a) Magical Music Maker."
+		"codename"		:		"squirrel",
+		"description"	:		"Making better apps faster."
 	}
 }

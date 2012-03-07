@@ -2,7 +2,7 @@
 	* Page Module
 */
 
-define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module', './router', 'core/facade'],
+define(['jsonLoad!./config.json', 'underscore', 'lib/backstrapp/module', './router', 'core/facade'],
 
 function (config, _, mod, router, facade) {
 	var Module = new mod();
@@ -33,9 +33,14 @@ function (config, _, mod, router, facade) {
 			facade.subscribe(this.name, this.routerPageEvent, this.getPage);
 			facade.subscribe(this.name, this.renderPageEvent, this.render);
 
-			this.router = new router({ name: this.name, event: this.routerPageEvent });
-			this.router.start();
+			this.router = this.initRouter();
 			return this.exports();
+		},
+		
+		initRouter: function () {
+			var r = new router({ name: this.name, event: this.routerPageEvent });
+			r.start();
+			return r;
 		},
 
 		getPage: function (page) {
