@@ -12,12 +12,16 @@ define([], function () {
 	var permissions = permissions || {};
 
 	permissions.rules = {
-		renderBackstrApp: {
-			backstrApp:true
+		renderPageModule: {
+			pageModule:true
 		},
 
-		routerBackstrApp: {
-			backstrApp:true
+		routerPageModule: {
+			pageModule:true
+		},
+
+		renderPageModulePage: {
+			pageModule:true
 		},
 
 		renderMessageModule:{
@@ -30,16 +34,7 @@ define([], function () {
 		
 		renderNavModule: {
 			navModule:true
-		},
-		
-		renderPageModule: {
-			pageModule:true
-		},
-		
-		renderPageModulePage: {
-			pageModule:true,
-			backstrApp:true
-		}		
+		}
 	};
 
 	/**

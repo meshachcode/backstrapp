@@ -5,12 +5,15 @@
 */
 
 define(['underscore'], function (_) {
+
 	var channels = {};
 	var obj = {};
+
 	obj.subscribe = function (channel, subscription) {
 		if (!channels[channel]) channels[channel] = [];
 		channels[channel].push(subscription);
 	};
+
 	obj.publish = function (channel) {
 		if (!channels[channel]) return;
 		var args = [].slice.call(arguments, 1);
@@ -18,12 +21,15 @@ define(['underscore'], function (_) {
 			channels[channel][i].apply(this, args);
 		}
 	};
+
     obj.util = {
         each: _.each,
+
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
             return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
         },
+
         /**
          * @link <a href="https://gist.github.com/827679">camelize.js</a>
          * @param {string} str String to make camelCase
@@ -33,6 +39,7 @@ define(['underscore'], function (_) {
                 return c ? c.toUpperCase () : '';
             });
         },
+
         /**
          * Always returns the fn within the context
          * @param {object} fn Method to call
@@ -42,9 +49,11 @@ define(['underscore'], function (_) {
         method: function (fn, context) {
             return $.proxy(fn, context);
         },
+
         parseJson: function (json) {
             return $.parseJSON(json);
         }
     };
+
 	return obj;
 });
