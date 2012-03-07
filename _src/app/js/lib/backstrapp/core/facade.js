@@ -1,3 +1,9 @@
+/* 
+	Backstrapp Facade.
+	Drawn on heavily from Addy Osmani's 'Aura' code.
+	This is your sandbox. All modules will know about this module, so keep it clean, and secure. 
+*/
+
 define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};

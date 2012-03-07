@@ -1,3 +1,9 @@
+/*
+	Backstrapp Mediator.
+	Drawn on heavily from Addy Osmani's 'Aura' code.
+	This is the application core. It's private, and should drive the application-wide functionality.
+*/
+
 define(['underscore'], function (_) {
 	var channels = {};
 	var obj = {};

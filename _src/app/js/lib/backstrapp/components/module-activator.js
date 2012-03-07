@@ -1,3 +1,8 @@
+/*
+	Backstrapp Module Activator.
+	Drawn on heavily from Addy Osmani's 'Aura' code.
+*/
+
 define(['jquery', 'util/loadcss'], function ($, loadcss) {
 	var exports = {};
 	exports.execute = function (element) {

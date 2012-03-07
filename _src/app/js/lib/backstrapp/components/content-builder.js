@@ -1,3 +1,7 @@
+/*
+	Backstrapp Content Builder.
+	Drawn on heavily from Addy Osmani's 'Aura' code.
+*/
 define(['underscore', 'util/cookie', './module-activator'], function (_, cookie, activator) {
     var exports = {},
         replaceContent = function (element, content) {

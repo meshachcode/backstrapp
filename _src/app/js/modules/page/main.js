@@ -1,7 +1,7 @@
 /**
 	* Page Module
 */
-define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module', './router', 'lib/backstrapp/facade'],
+define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/components/module', './router', 'lib/backstrapp/core/facade'],
 
 function (config, _, mod, router, facade) {
 	var Module = new mod();

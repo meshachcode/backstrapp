@@ -13,7 +13,7 @@ require({
 		modules_html:	'../html/modules'
     }
 },
-['lib/backstrapp/content-builder', 'lib/backstrapp/module-activator'], function (builder, activator) {
+['lib/backstrapp/components/content-builder', 'lib/backstrapp/components/module-activator'], function (builder, activator) {
 	activator.execute();
 	builder.execute();
 });

@@ -1,5 +1,7 @@
 /** 
-	* Backstrapp Permissions 
+	* Backstrapp Permissions.
+	* NOTE: is it possible to load these from an external source? 
+	* Maybe this should all be handled at the server-level (eventually).
 */
 define([], function () {
 
