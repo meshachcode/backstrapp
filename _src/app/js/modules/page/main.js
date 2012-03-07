@@ -1,40 +1,46 @@
 /**
 	* Page Module
 */
+
 define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module', './router', 'core/facade'],
 
 function (config, _, mod, router, facade) {
 	var Module = new mod();
 
 	Module.extend({
-		page:				'home',
-		pagesDir: 			'html/app/pages/',
-		renderPageEvent:	'renderPageModulePage',
-		router: 			{},
+		/*
+			* @props
+				- sourceDir: Where are the pages coming from?
+				- routerPageEvent: how do I know when a route event has fired?
+				- renderPageEvent: how do I know when a page is ready to render?
+		*/
+		sourceDir			: 'html/app/pages/',
+		routerPageEvent		: 'routerPageModule',
+		renderPageEvent		: 'renderPageModulePage',
 
+		/*
+			* @method init
+				- bind this to methods called by callback
+				- call the ancestor init()
+				- subscribe to the router and render events
+				- create a new router, passing it my info
+				- return exports object, which will contain validation status, error messages, and data
+		*/
 		init: function (item, params) {
-			_.bindAll(this, 'changeHandler', 'getPage', 'validate');
+			_.bindAll(this, 'getPage', 'validate');
+			this.base(item, params);
 
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-			this.base(params);
-
-			facade.subscribe(this.name, this.routerEvent, this.getPage);
+			facade.subscribe(this.name, this.routerPageEvent, this.getPage);
 			facade.subscribe(this.name, this.renderPageEvent, this.render);
 
-			this.router = new router({ name: this.name, event: this.routerEvent });
-			this.router.bind('all', this.changeHandler);
+			this.router = new router({ name: this.name, event: this.routerPageEvent });
 			this.router.start();
 			return this.exports();
 		},
 
-		changeHandler: function () {
-			console.log('changeHandler', arguments);
-			facade.publish(this.name, this.routerEvent, arguments);
-		},
-
-		getPage: function () {
-			var path = this.pagesDir + this.page + '.html';
+		getPage: function (page) {
+			console.log('page', page);
+			var path = this.sourceDir + page + '.html';
 			this.utils.loadView(path, this.validate);
 		},
 		

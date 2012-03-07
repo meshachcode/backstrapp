@@ -9,12 +9,14 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 	var facade = facade || {};
 
 	facade.subscribe = function(subscriber, channel, callback){
+/* 		console.log('subscribe', arguments); */
 		if(permissions.validate(subscriber, channel)){
 			mediator.subscribe( channel, callback );
 		}
 	}
 
 	facade.publish = function(subscriber, channel, params){
+/* 		console.log('publish', arguments); */
 		if(permissions.validate(subscriber, channel)){
 			mediator.publish( channel, params );
 		}

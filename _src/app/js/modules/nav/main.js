@@ -1,7 +1,7 @@
 /**
 	* Nav Module
 */
-define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module'], function (config, _, mod) {
+define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module', 'core/facade'], function (config, _, mod, facade) {
 	var Module = new mod();
 
 	Module.extend({
@@ -9,16 +9,15 @@ define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module'], fun
 
 		init: function (item, params) {
 			_.bindAll(this, 'render');
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-			this.base(params);
+			this.base(item, params);
+			facade.subscribe(this.name, 'renderPageModulePage', this.updateActive);
 			return this.exports();
 		},
 
 		updateActive: function (page) {
-			console.log('updateActive', page);
-			$('.active', el).removeClass('active');
-			$('#nav_' + page, el).addClass('active');
+			console.log('updateActive', page, this.el);
+			$('.active', this.el).removeClass('active');
+			$('#nav_' + page, this.el).addClass('active');
 		},
 
 		render: function () {

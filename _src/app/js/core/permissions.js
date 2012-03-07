@@ -21,7 +21,8 @@ define([], function () {
 		},
 
 		renderPageModulePage: {
-			pageModule:true
+			pageModule:true,
+			navModule:true
 		},
 
 		renderMessageModule:{

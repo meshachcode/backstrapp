@@ -68,14 +68,14 @@ function (_, Backbone, m, f, builder, activator) {
 				* callback method (this.render)
 			* process the params to see if there are further actions to be taken
 		*/
-		init: function(item, params) {
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-
-			this.renderEvent = 'render' + m.util.camelize(this.name);
+		init: function(params) {
+			this.renderEvent = 'render' + m.util.camelize(this.name); 
 			f.subscribe(this.name, this.renderEvent, this.render);
+			this.routerEvent = 'router' + m.util.camelize(this.name); 
 
-			this.validate(params);
+			if (!_.isUndefined(params) && !_.isNull(params)) {
+				this.utils.processParams(params, this.validate);
+			}
 			return this.exports();
 		},
 
@@ -138,6 +138,23 @@ function (_, Backbone, m, f, builder, activator) {
 		},
 		
 		utils: {
+			processParams: function (params, callback) {
+				var paramObj = this.objectifyParams(params);
+				callback(paramObj);
+			},
+	
+			objectifyParams: function (paramStr) {
+				var pObj = {},
+					pArr = [],
+					iArr = [];
+				pArr = paramStr.split(',');
+				_.each(pArr, function (i) {
+					iArr = i.split(':');
+					pObj[iArr[0]] = iArr[1];
+				});
+				return pObj;
+			},
+
 			printErrors: function () {
 				var msg;
 				_.each(this.errors, function(e) {
@@ -154,15 +171,15 @@ function (_, Backbone, m, f, builder, activator) {
 			}				
 		},
 		
+		/*
+			* @method exports
+			* @returns Object
+		*/
 		exports: function () {
 			return {
 				isValid: 	this.get('isValid'),
 				errors: 	this.get('errors'),
-				data:		this.get('data'),
-				get: function () {
-				},
-				set: function () {
-				}
+				data:		this.get('data')
 			}
 		}
 	});
