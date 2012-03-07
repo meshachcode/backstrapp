@@ -8,7 +8,7 @@ function (config, _, mod, router, facade) {
 
 	Module.extend({
 		page:				'home',
-		pagesDir: 			'modules_html/test/pages/',
+		pagesDir: 			'html/app/pages/',
 		renderPageEvent:	'renderPageModulePage',
 		router: 			{},
 

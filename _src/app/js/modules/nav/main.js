@@ -5,7 +5,7 @@ define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/components/mo
 	var Module = new mod();
 
 	Module.extend({
-		template: 'modules_html/test/parts/nav.html',
+		template: 'html/app/parts/nav.html',
 
 		init: function (item, params) {
 			_.bindAll(this, 'render');
