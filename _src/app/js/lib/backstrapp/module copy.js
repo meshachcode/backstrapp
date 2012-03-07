@@ -6,8 +6,8 @@ define([
 	'backbone',
 	'lib/aura/core/mediator',
 	'modules/maestro/facade',
-	'util/content-builder',
-	'util/module-activator',
+	'aura/util/content-builder',
+	'aura/util/module-activator',
 	'util/base'
 ],
 function (_, Backbone, m, f, builder, activator) {

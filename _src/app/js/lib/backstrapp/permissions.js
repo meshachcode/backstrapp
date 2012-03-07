@@ -1,20 +1,19 @@
 /** 
-	* Maestro Permissions 
+	* Backstrapp Permissions 
 */
-
 define([], function () {
-
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing
 	// them to clear. This enforces a light 
 	// security layer for your application.
+	var permissions = permissions || {};
 
-	var permissions = {
+	permissions.rules = {
 		renderBackstrApp: {
 			backstrApp:true
 		},
-		
+
 		routerBackstrApp: {
 			backstrApp:true
 		},
@@ -41,11 +40,14 @@ define([], function () {
 		}		
 	};
 
+	/**
+     * @param {string} subscriber Module name
+     * @param {string} channel Event name
+     */
 	permissions.validate = function(subscriber, channel){
-		var test = permissions[channel][subscriber];
-		return test===undefined? false: test;
+		var test = permissions.rules[channel][subscriber];
+		return test === undefined ? false : test;
 	};
 
 	return permissions;
-
 });

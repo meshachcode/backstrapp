@@ -1,11 +1,11 @@
 /**
 	* Nav Module
 */
-define(['json!data/config.json', 'underscore', 'lib/backstrapp/module'], function (config, _, mod) {
+define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module'], function (config, _, mod) {
 	var Module = new mod();
 
 	Module.extend({
-		template: 'html/test/content/nav.html',
+		template: 'modules_html/test/parts/nav.html',
 
 		init: function (item, params) {
 			_.bindAll(this, 'render');

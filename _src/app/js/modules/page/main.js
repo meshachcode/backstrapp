@@ -1,14 +1,14 @@
 /**
 	* Page Module
 */
-define(['json!data/config.json', 'underscore', 'lib/backstrapp/module', './router', './facade'],
+define(['jsonLoad!json/config.json', 'underscore', 'lib/backstrapp/module', './router', 'lib/backstrapp/facade'],
 
 function (config, _, mod, router, facade) {
 	var Module = new mod();
 
 	Module.extend({
 		page:				'home',
-		pagesDir: 			'html/test/',
+		pagesDir: 			'modules_html/test/pages/',
 		renderPageEvent:	'renderPageModulePage',
 		router: 			{},
 
