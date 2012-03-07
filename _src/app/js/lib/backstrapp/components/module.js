@@ -4,8 +4,8 @@
 define([
 	'underscore',
 	'backbone',
-	'./mediator',
-	'./facade',
+	'../core/mediator',
+	'../core/facade',
 	'./content-builder',
 	'./module-activator',
 	'util/base'
