@@ -4,10 +4,10 @@
 define([
 	'underscore',
 	'backbone',
-	'../core/mediator',
-	'../core/facade',
-	'./content-builder',
-	'./module-activator',
+	'core/mediator',
+	'core/facade',
+	'util/content-builder',
+	'util/module-activator',
 	'util/base'
 ],
 function (_, Backbone, m, f, builder, activator) {

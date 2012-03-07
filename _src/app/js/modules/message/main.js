@@ -1,4 +1,4 @@
-define(['underscore', 'lib/backstrapp/components/module'], function (_, mod) {
+define(['underscore', 'lib/backstrapp/module'], function (_, mod) {
 	var Module = new mod();
 
 	Module.extend({

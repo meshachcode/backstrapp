@@ -1,3 +1,4 @@
+/* App Main */
 require({
     paths: {
 		html:			'../html',
@@ -10,10 +11,11 @@ require({
 		aura:			'lib/aura',
 		modules:		'modules',
 		modules_js:		'modules',
-		modules_html:	'../html/modules'
+		modules_html:	'../html/modules',
+		core:			'core'
     }
 },
-['lib/backstrapp/components/content-builder', 'lib/backstrapp/components/module-activator'], function (builder, activator) {
+['util/content-builder', 'util/module-activator'], function (builder, activator) {
 	activator.execute();
 	builder.execute();
 });
