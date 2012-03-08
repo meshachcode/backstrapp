@@ -35,7 +35,8 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 		/*
 			* @method process
 			* called by load() with the loaded html from this.template
-			* if you 
+			* the super version of this method just runs the following:
+				* this.processTemplate(html, this.exports, this.activate)
 		*/
 		process: function (html) {
 			var obj = {
@@ -43,15 +44,6 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 				pages: f.getPages()
 			}
 			this.processTemplate(html, obj, this.activate);
-		},
-		
-		/*
-			* @method activate
-			* 
-		*/
-		activate: function (h) {
-			this.set({ html: h });
-			this.base();
 		},
 
 		/*
@@ -65,12 +57,12 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 		}
 
 	});
-	// this is here to allow the module to pass 'autoload:true' to the constructor,
-	// and avoid the need for an extra init() call 
-	_.bindAll(Module, 'process', 'load', 'start', 'activate', 'updateActive');
 
 	return {
 		init: function (item, params) {
+			// bindAll here to allow the module to pass 'autoload:true' to the constructor,
+			// and avoid the need for an extra init() call 
+			_.bindAll(Module, 'process', 'load', 'start', 'activate', 'updateActive');
 			return Module.init(item, params);
 		}
 	};

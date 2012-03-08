@@ -15,6 +15,8 @@ function (Backbone, f, builder, activator) {
 		isActive		:	false,
 		autoload		:	false,
 		name			:	'backstrappModule',
+		html			: 	'',
+		template		: 	'',
 		el 				:	$('#content'),
 		errors			:	[],
 		exports			:	{},
@@ -33,7 +35,18 @@ function (Backbone, f, builder, activator) {
 			* @method constructor
 		*/
 		constructor: function (obj) {
-			f.util.bindAll(this, 'start', 'stop', 'process', 'render', 'activate', 'deactivate', 'loadHtml', 'initEvents', 'createEvent');
+			f.util.bindAll(this, 
+				'start', 
+				'stop', 
+				'process', 
+				'render', 
+				'activate', 
+				'deactivate', 
+				'loadHtml', 
+				'setHtml',
+				'initEvents', 
+				'createEvent'
+			);
 			this.set(obj);
 		},
 
@@ -127,6 +140,15 @@ function (Backbone, f, builder, activator) {
 		processTemplate: function (html, data, callback) {
 			f.processTemplate(html, data, callback);
 		},
+		
+		/*
+			* @method setHtml
+			* 
+		*/
+		setHtml: function (h) {
+			this.set({ html: h });
+			this.publish('renderReady');
+		},
 
 		/*
 			* @method render
@@ -185,17 +207,17 @@ function (Backbone, f, builder, activator) {
 			* @method activate
 			* 
 		*/
-		activate: function () {
+		activate: function (h) {
 			this.set({
 				isValid: true,
 				isActive: true
 			});
-			this.publish('renderReady');
+			this.setHtml(h);
 		},
 		
 		/*
 			* @method save
-			* 
+			* NOT USED YET
 		*/
 		save: function () {
 			this.publish('saveComplete');
@@ -203,7 +225,6 @@ function (Backbone, f, builder, activator) {
 		
 		/*
 			* @method publish
-			* 
 		*/
 		publish: function (event, params) {
 			f.publish(this.name, this.events[event], params);
@@ -211,15 +232,14 @@ function (Backbone, f, builder, activator) {
 		
 		/*
 			* @method subscribe
-			* 
 		*/
 		subscribe: function (event, callback) {
 			f.subscribe(this.name, this.events[event], callback);
 		},
 
 		/*
-			* @method createEvent
-			* 
+			* @method initEvents
+			* loops through the events array and generates custom events which include the module name
 		*/
 		initEvents: function () {
 			// set all events
@@ -233,7 +253,6 @@ function (Backbone, f, builder, activator) {
 
 		/*
 			* @method createEvent
-			* 
 		*/
 		createEvent: function (v, k, context) {
 			var event = this.name + f.util.camelize(k);
@@ -242,7 +261,8 @@ function (Backbone, f, builder, activator) {
 		
 		/*
 			* @method newEvent
-			* 
+			* this is used when a module needs to 'listen' to the event of another module
+			* example: navModule needs to listen to pageModulePageReady, not navModulePageModulePageReady
 		*/
 		newEvent: function (e) {
 			this.events[e] = e;
@@ -250,7 +270,6 @@ function (Backbone, f, builder, activator) {
 
 		/*
 			* @method printErrors
-			* 
 		*/
 		printErrors: function (arr) {
 			var msg;
