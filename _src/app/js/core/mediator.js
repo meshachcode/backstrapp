@@ -4,10 +4,12 @@
 	This is the application core. It's private, and should drive the application-wide functionality.
 */
 
-define(['underscore'], function (_) {
+define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (config, _, handlebars) {
 
 	var channels = {};
 	var obj = {};
+	obj.config = config;
+	obj.template = handlebars;
 
 	obj.subscribe = function (channel, subscription) {
 		if (!channels[channel]) channels[channel] = [];
@@ -52,6 +54,12 @@ define(['underscore'], function (_) {
 
         parseJson: function (json) {
             return $.parseJSON(json);
+        },
+        
+        processTemplate: function (source, context, callback) {
+			var template = obj.template.compile(source);
+			var html = template(context);
+			callback(html);
         }
     };
 

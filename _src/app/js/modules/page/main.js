@@ -2,9 +2,9 @@
 	* Page Module
 */
 
-define(['jsonLoad!./config.json', 'underscore', 'lib/backstrapp/module', './router', 'core/facade'],
+define(['underscore', 'lib/backstrapp/module', './router', 'core/facade'],
 
-function (config, _, mod, router, facade) {
+function (_, mod, router, facade) {
 	var Module = new mod();
 
 	Module.extend({

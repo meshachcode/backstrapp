@@ -1,5 +1,14 @@
+<!--
     <a class="brand" href="#">BackStrapp</a>
     <ul class="nav" id="nav">
         <li id="nav_home" class="active"><a href="#/home">Home</a></li>
         <li id="nav_about"><a href="#/about">About</a></li>
+    </ul>
+-->
+
+    <a class="brand" href="#">{{meta.title}}</a>
+    <ul class="nav" id="nav">
+    	{{#pages}}
+			<li id="nav_{{id}}"><a href="#/{{id}}">{{title}}</a></li>
+		{{/pages}}
     </ul>

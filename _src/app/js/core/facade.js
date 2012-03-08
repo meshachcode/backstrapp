@@ -22,6 +22,18 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 		}
 	}
 
+	facade.getMeta = function () {
+		return mediator.config.meta;
+	}
+
+	facade.getPages = function () {
+		return mediator.config.pages;
+	}
+	
+	facade.processTemplate = function (html, obj, callback) {
+		mediator.util.processTemplate(html, obj, callback);
+	}
+
 	return facade;
 
 });

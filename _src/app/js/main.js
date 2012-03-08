@@ -5,6 +5,7 @@ require({
 		jquery: 		'lib/jquery/jquery-min',
 		underscore: 	'lib/underscore/underscore-min',
 		backbone: 		'lib/backbone/backbone-optamd3-min',
+		handlebars:		'lib/handlebars/handlebars',
 		text: 			'lib/require/text',
 		jsonLoad:		'lib/require/json',
 		json:			'../json',

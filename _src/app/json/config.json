@@ -4,5 +4,26 @@
 		"version"		:		"0.0.1",
 		"codename"		:		"squirrel",
 		"description"	:		"Making better apps faster."
-	}
+	},
+
+	"pages"	:	[
+		{
+			"id"			:		"home",
+			"title"			:		"Home",
+			"file"			:		"app/html/app/pages/home.html",
+			"description"	:		"Welcome to Backstrapp"
+		},
+		{
+			"id"			:		"about",
+			"title"			:		"About",
+			"file"			:		"app/html/app/pages/about.html",
+			"description"	:		"What the $#@% is Back$str.app?"
+		},
+		{
+			"id"			:		"todo",
+			"title"			:		"Todo",
+			"file"			:		"app/html/app/pages/todo.html",
+			"description"	:		"Obligatory ToDo application."
+		}
+	]
 }
