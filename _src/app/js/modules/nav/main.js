@@ -2,28 +2,14 @@
 	* Nav Module
 */
 define(['underscore', 'lib/backstrapp/module', 'core/facade'], function (_, mod, f) {
-	var Module = new mod();
+	var Module = new mod({ autoload: true });
 
 	Module.extend({
 		template: 'html/app/parts/nav.html',
-
-		init: function (item, params) {
-			_.bindAll(this, 'load', 'process', 'start');
-			// setup the module name and el
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-			this.base(item, params);
-			return this.exports();
-		},
 		
 		start: function () {
 			f.subscribe(this.name, 'pageModulePageReady', this.updateActive);
 			f.publish(this.name, this.events.loadReady);
-		},
-		
-		load: function () {
-			console.log('load ' + this.name, this.template);
-			require(['text!' + this.template], this.process);
 		},
 		
 		process: function (markup) {
@@ -42,6 +28,9 @@ define(['underscore', 'lib/backstrapp/module', 'core/facade'], function (_, mod,
 		}
 
 	});
+	// this is here to allow the module to pass 'autoload:true' to the constructor,
+	// and avoid the need for an extra init() call 
+	_.bindAll(Module, 'process', 'start');
 
 	return {
 		init: function (item, params) {

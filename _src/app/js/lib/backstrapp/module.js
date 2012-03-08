@@ -19,6 +19,7 @@ function (_, Backbone, m, f, builder, activator) {
 		template		: 	'default.html',
 		isValid			: 	false,
 		errors			:	[],
+		autoload		:	false,
 		events			:	{
 			renderReady 	: '',
 			renderComplete 	: '',
@@ -32,8 +33,9 @@ function (_, Backbone, m, f, builder, activator) {
 			* _bindAll() outside of init to avoid init be overridden 
 			* and breaking the parent class
 		*/
-		constructor: function () {
-			_.bindAll(this, 'render', 'publish', 'createEvent', 'start');
+		constructor: function (obj) {
+			_.extend(this, obj);
+			_.bindAll(this, 'render', 'publish', 'createEvent', 'load');
 		},
 		
 		/*
@@ -41,17 +43,24 @@ function (_, Backbone, m, f, builder, activator) {
 			* @return Object this.exports
 		*/
 		init: function(item, params) {
+			var n = $(item).attr('id');
+			this.set({ name: n, el: item });
+
 			// create all the module's basic events
 			_.each(this.events, this.createEvent);
 			f.subscribe(this.name, this.events.renderReady, this.render);
-			f.subscribe(this.name, this.events.initComplete, this.start);
 			f.subscribe(this.name, this.events.loadReady, this.load);
+
+			if (this.autoload) {
+				f.subscribe(this.name, this.events.initComplete, this.start);
+			}
+
 			f.publish(this.name, this.events.initComplete, params);
 			return this.exports();
 		},
 		
 		load: function () {
-			console.log('module.load');
+			console.log('module.load', this.template);
 			require(['text!' + this.template], this.process);
 		},
 		
