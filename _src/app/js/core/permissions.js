@@ -12,32 +12,46 @@ define([], function () {
 	var permissions = permissions || {};
 
 	permissions.rules = {
-		renderPageModule: {
+		// pageModule Events
+		pageModuleRenderReady: {
 			pageModule:true
 		},
 
-		routerPageModule: {
+		pageModuleRenderComplete: {
 			pageModule:true
 		},
 
-		renderPageModulePage: {
+		pageModuleInitComplete: {
+			pageModule:true
+		},
+
+		pageModuleLoadReady: {
+			pageModule:true
+		},
+
+		pageModuleRouterEvent: {
+			pageModule:true
+		},
+
+		pageModulePageReady: {
 			pageModule:true,
 			navModule:true
 		},
 
-		renderMessageModule:{
-			messageModule:true
+		// navModule Events
+		navModuleRenderReady: {
+			navModule:true
 		},
-		
-		renderSongList: {
-			songList: true
-		},
-		
-		renderNavModule: {
+
+		navModuleRenderComplete: {
 			navModule:true
 		},
 		
-		initComplete: {
+		navModuleInitComplete: {
+			navModule:true
+		},
+		
+		navModuleLoadReady: {
 			navModule:true
 		}
 	};

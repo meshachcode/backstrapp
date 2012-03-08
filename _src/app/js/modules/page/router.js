@@ -15,7 +15,6 @@ define(['underscore', 'backbone', 'core/facade'], function (_, Backbone, facade)
 				return;
 			}
 			_.extend(this, config);
-			console.log('router', this);
 		},
 
 		home: function () {
