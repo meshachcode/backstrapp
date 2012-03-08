@@ -14,8 +14,11 @@ function (_, Backbone, m, f, builder, activator) {
 
 	var e = Base.extend({
 		name			:	'Module',
-		renderEvent		:	'renderModule',
-		routerEvent		:	'routerModule',
+		events			:	{
+			init		:	'initComplete',
+			router		:	'routerModule'
+
+		},
 		el 				:	$('#content'),
 		html			:	'loading',
 		template		: 	'default.html',
@@ -72,10 +75,12 @@ function (_, Backbone, m, f, builder, activator) {
 			var n = $(item).attr('id');
 			this.set({ name: n, el: item });
 
-			this.renderEvent = 'render' + m.util.camelize(this.name);
-			f.subscribe(this.name, this.renderEvent, this.render);
+			this.events.render = 'render' + m.util.camelize(this.name);
+			f.subscribe(this.name, this.events.render, this.render);
+			f.subscribe(this.name, this.events.init, this.validate);
+			f.publish(this.name, this.events.init, params)
 
-			this.validate(params);
+/* 			this.validate(params); */
 			return this.exports();
 		},
 
@@ -89,7 +94,7 @@ function (_, Backbone, m, f, builder, activator) {
 				this.utils.loadView(param.template, this.publish, this);
 			} else {
 				this.set({ isValid: true });
-				this.publish(this.name, this.renderEvent, this.render);
+				this.publish(this.name, this.events.render, this.render);
 			}
 		},
 		
@@ -107,7 +112,7 @@ function (_, Backbone, m, f, builder, activator) {
 				html: response,
 				isValid: true
 			});
-			var e = renderEvent || this.renderEvent;
+			var e = renderEvent || this.events.render;
 			f.publish(this.name, e);
 		},
 		

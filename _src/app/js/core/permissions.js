@@ -35,6 +35,10 @@ define([], function () {
 		
 		renderNavModule: {
 			navModule:true
+		},
+		
+		initComplete: {
+			navModule:true
 		}
 	};
 

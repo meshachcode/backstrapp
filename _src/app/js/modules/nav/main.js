@@ -22,7 +22,7 @@ define(['underscore', 'lib/backstrapp/module', 'core/facade'], function (_, mod,
 		render: function () {
 			require(['text!' + this.template], this.processHtml);
 		},
-		
+
 		processHtml: function (markup) {
 			facade.subscribe(this.name, 'renderPageModulePage', this.updateActive);
 			var obj = {
