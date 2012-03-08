@@ -39,19 +39,28 @@ define([], function () {
 		},
 
 		// navModule Events
-		navModuleRenderReady: {
+		navModuleInitComplete		: {
 			navModule:true
 		},
-
-		navModuleRenderComplete: {
+		navModuleStartComplete		: {
 			navModule:true
 		},
-		
-		navModuleInitComplete: {
+		navModuleStopComplete		: {
 			navModule:true
 		},
-		
-		navModuleLoadReady: {
+		navModuleProcessComplete 	: {
+			navModule:true
+		},
+		navModuleLoadReady			: {
+			navModule:true
+		},
+		navModuleRenderReady		: {
+			navModule:true
+		},
+		navModuleRenderComplete		: {
+			navModule:true
+		},
+		navModuleRouteComplete		: {
 			navModule:true
 		}
 	};

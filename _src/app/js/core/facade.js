@@ -21,7 +21,15 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 			mediator.publish( channel, params );
 		}
 	}
+	
+	facade.require = function(plugin, source, callback) {
+		mediator.require(plugin, source, callback);
+	}
 
+	facade.processTemplate = function (html, data, callback) {
+		mediator.util.processTemplate(html, data, callback);
+	}
+	
 	facade.getMeta = function () {
 		return mediator.config.meta;
 	}
@@ -29,10 +37,8 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 	facade.getPages = function () {
 		return mediator.config.pages;
 	}
-	
-	facade.processTemplate = function (html, obj, callback) {
-		mediator.util.processTemplate(html, obj, callback);
-	}
+
+	facade.util = mediator.util;
 
 	return facade;
 

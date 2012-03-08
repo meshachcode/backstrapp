@@ -24,8 +24,16 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
 		}
 	};
 
+	obj.require = function (plugin, source, callback) {
+		var p = '';
+		if (plugin) { p = plugin + '!' }
+		require([p + source], callback);
+	};
+
     obj.util = {
         each: _.each,
+        isFunction: _.isFunction,
+        bindAll: _.bindAll,
 
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
