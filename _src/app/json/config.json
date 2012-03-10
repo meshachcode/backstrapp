@@ -22,7 +22,7 @@
 		{
 			"id"			:		"todo",
 			"title"			:		"Todo",
-			"file"			:		"app/html/app/pages/todo.html",
+			"file"			:		"app/html/modules/todo/todo.html",
 			"description"	:		"Obligatory ToDo application."
 		}
 	]
