@@ -54,7 +54,6 @@ function (Backbone, f, builder, activator) {
 			// set this.name
 			n = $(item).attr('id');
 			name = this.set({ name: n, el: item }).name;
-			e = new this.defaultEvents();
 			events = this.initEvents(this.name);
 			f.registerModule(this.name, events);
 			if (this.autoload === true) {
