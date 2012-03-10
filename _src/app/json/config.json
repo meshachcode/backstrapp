@@ -10,20 +10,26 @@
 		{
 			"id"			:		"home",
 			"title"			:		"Home",
-			"file"			:		"app/html/app/pages/home.html",
+			"file"			:		"app/pages/home.html",
 			"description"	:		"Welcome to Backstrapp"
 		},
 		{
 			"id"			:		"about",
 			"title"			:		"About",
-			"file"			:		"app/html/app/pages/about.html",
+			"file"			:		"app/pages/about.html",
 			"description"	:		"What the $#@% is Back$str.app?"
 		},
 		{
 			"id"			:		"todo",
 			"title"			:		"Todo",
-			"file"			:		"app/html/modules/todo/todo.html",
+			"file"			:		"modules/todo/todo.html",
 			"description"	:		"Obligatory ToDo application."
+		},
+		{
+			"id"			:		"module",
+			"title"			:		"Module Factory",
+			"file"			:		"modules/dev/module.html",
+			"description"	:		"Module Factory."
 		}
 	]
 }

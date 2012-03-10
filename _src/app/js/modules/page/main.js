@@ -10,9 +10,9 @@ function (mod, router, f) {
 	Module.extend({
 		autoload			: true,
 		/* @property sourceDir (NO TRAILING SLASH) */
-		sourceDir			: 'html/app/pages',
+		sourceDir			: 'html',
 		/* @property view (FULL PATH) */
-		view				: 'html/app/pages/home.html',
+/* 		view				: 'html/app/pages/home.html', */
 
 		/*
 			* @method start
@@ -47,8 +47,9 @@ function (mod, router, f) {
 			* this sets the view to the selected page
 		*/
 		getPage: function (page) {
-			this.set({ page: page });
-			this.view = this.sourceDir + '/' + page + '.html';
+			var p = f.getPage(page);
+			this.set({ page: p.id });
+			this.view = this.sourceDir + '/' + p.file;
 			this.publish(this.name, this.events.loadReady);
 		}
 	});

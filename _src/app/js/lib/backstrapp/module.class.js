@@ -54,7 +54,15 @@ function (Backbone, f, builder, activator) {
 			// set this.name
 			n = $(item).attr('id');
 			name = this.set({ name: n, el: item }).name;
-			return this.initEvents(this.name);
+			e = new this.defaultEvents();
+			events = this.initEvents(this.name);
+			f.registerModule(this.name, events);
+			if (this.autoload === true) {
+				console.log('subscribing initComplete to start');
+				this.subscribe(this.name, this.events.initComplete, this.start);
+			}
+			this.publish(this.name, this.events.initComplete);
+			return this.exports
 		},
 
 		initEvents: function(name) {
@@ -63,12 +71,7 @@ function (Backbone, f, builder, activator) {
 				events[i] = name + f.util.camelize(i);
 			}
 			this.events = events;
-			if (this.autoload === true) {
-/* 				console.log('subscribing initComplete to start'); */
-				this.subscribe(this.name, this.events.initComplete, this.start);
-			}
-			this.publish(this.name, this.events.initComplete);
-			return this.exports;
+			return this.events
 		},
 
 		/*
@@ -163,7 +166,7 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
-/* 			console.log('setHtml', this.name, arguments); */
+			console.log('setHtml', this.name, arguments);
 			this.set({ html: h });
 			this.publish(this.name, this.events.setHtmlComplete);
 		},
@@ -173,7 +176,7 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
-/* 			console.log(this.name, 'render!', this.page); */
+			console.log(this.name, 'render!', this.page);
 			var e = el || this.el;
 			var h = html || this.html;
 			if (this.isValid) {
@@ -283,11 +286,11 @@ function (Backbone, f, builder, activator) {
 			f.util.each(arr, function(err) {
 				msg += "ERROR: " + err + "<br />";
 			});
-/* 			console.warn('msg', msg); */
+			console.warn('msg', msg);
 			return msg;
 		}
 	});
 
 	return e;
 
-	});
+});

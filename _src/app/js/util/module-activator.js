@@ -9,6 +9,9 @@ define(['jquery', 'util/loadcss'], function ($, loadcss) {
 		var pObj = {},
 			pArr = [],
 			iArr = [];
+		if (paramStr == undefined && paramStr == null) {
+			return pObj;
+		}
 		pArr = paramStr.split(',');
 		$.each(pArr, function (k, v) {
 			iArr = v.split(':');

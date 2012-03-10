@@ -8,8 +8,21 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
 
 	var channels = {};
 	var obj = {};
-	obj.config = config;
+
+	obj.config = config || {};
+
 	obj.template = handlebars;
+	
+	obj.getConfigObj = function (obj, key, val) {
+		console.log('getConfigObj', config, arguments);
+		var ret = false, haystack = config[obj];
+		_.each(haystack, function (i) {
+			if (i[key] == val) {
+				ret = i;
+			}
+		});
+		return ret;
+	}
 
 	obj.subscribe = function (channel, subscription) {
 		if (!channels[channel]) channels[channel] = [];
@@ -32,6 +45,7 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
 
     obj.util = {
         each: _.each,
+        extend: _.extend,
         isFunction: _.isFunction,
         bindAll: _.bindAll,
 
