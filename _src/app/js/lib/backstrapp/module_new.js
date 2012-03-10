@@ -16,49 +16,58 @@ function (Backbone, f, builder, activator) {
 		autoload		:	false,
 		name			:	'backstrappModule',
 		html			: 	'',
-		template		: 	'',
+		view			: 	'',
 		el 				:	$('#content'),
 		errors			:	[],
 		exports			:	{},
-		events			:	{
-			initComplete	: '',
-			startComplete	: '',
-			stopComplete	: '',
-			loadReady		: '',
-			processComplete : '',
-			renderReady		: '',
-			renderComplete	: '',
-			routeComplete	: ''
+		events			:	{},
+		defaultEvents	: 	function () {
+			return {
+				initComplete		: '',
+				startComplete		: '',
+				stopComplete		: '',
+				loadReady			: '',
+				loadViewComplete	: '',
+				processComplete 	: '',
+				activateComplete	: '',
+				viewReady			: '',
+				setHtmlComplete		: '',
+				renderComplete		: '',
+				routeComplete		: ''
+			}
 		},
-		
+
 		/*
 			* @method constructor
 		*/
 		constructor: function (obj) {
-			f.util.bindAll(this, 
-				'start', 
-				'stop', 
-				'process', 
-				'render', 
-				'activate', 
-				'deactivate', 
-				'loadHtml', 
-				'setHtml',
-				'initEvents', 
-				'createEvent'
-			);
+			f.util.bindAll(this, 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents');
 			this.set(obj);
 		},
 
 		/*
 			* @method init
 		*/
-		init: function (item, params) {
+		_init: function (item, params) {
+			var n, name, me;
+			me = this;
 			// set this.name
-			var n = $(item).attr('id');
-			this.set({ name: n, el: item });
-			this.initEvents();
-			this.publish('initComplete', params);
+			n = $(item).attr('id');
+			name = this.set({ name: n, el: item }).name;
+			console.log(this.name);
+			return this.initEvents(this.name);
+		},
+
+		initEvents: function(name) {
+			events = new this.defaultEvents();
+			for ( var i in events ) {
+				events[i] = name + f.util.camelize(i);
+			}
+			this.events = events;
+			if (this.autoload) {
+				this.subscribe(this.name, this.events.initComplete, this.start);
+			}
+			this.publish(this.name, this.events.initComplete);
 			return this.exports;
 		},
 
@@ -69,7 +78,7 @@ function (Backbone, f, builder, activator) {
 			this.set({
 				isActive: true
 			});
-			this.publish('startComplete', params);
+			this.publish(this.name, this.events.startComplete, params);
 		},
 
 		/*
@@ -79,7 +88,7 @@ function (Backbone, f, builder, activator) {
 			this.set({
 				isActive: false
 			});
-			this.publish('stopComplete', params);
+			this.publish(this.name, this.events.stopComplete, params);
 		},
 
 		/*
@@ -103,13 +112,17 @@ function (Backbone, f, builder, activator) {
 			for (i in obj) {
 				this[i] = obj[i];
 			}
+			return obj;
 		},
 
 		/*
-			* @method load
+			* @method loadView
 		*/
-		load: function () {
-			this.loadHtml(this.template, this.process);
+		loadView: function () {
+			var me = this;
+			this.loadHtml(this.view, function (html) {
+				me.publish(me.name, me.events.loadViewComplete);
+			});
 		},
 
 		/*
@@ -129,9 +142,15 @@ function (Backbone, f, builder, activator) {
 		/*
 			* @method process
 		*/
+		/*
 		process: function (html) {
-			this.processTemplate(html, this.exports, this.activate);
+			var me = this;
+			this.processTemplate(html, this.exports, function (html) {
+				console.log('process', arguments);
+				me.publish(me.name, me.events.processComplete, html);
+			});
 		},
+		*/
 
 		/*
 			* @method processTemplate
@@ -146,8 +165,9 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
+/* 			console.log('setHtml', this, arguments); */
 			this.set({ html: h });
-			this.publish('renderReady');
+			this.publish(this.name, this.events.setHtmlComplete);
 		},
 
 		/*
@@ -155,6 +175,7 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
+			console.log(this.name, 'render!');
 			var e = el || this.el;
 			var h = html || this.html;
 			if (this.isValid) {
@@ -166,7 +187,7 @@ function (Backbone, f, builder, activator) {
 				var eMsg = this.printErrors(this.errors);
 				$(el).html(eMsg);
 			}
-			this.publish('renderComplete');
+			this.publish(this.name, this.events.renderComplete);
 		},
 
 		/*
@@ -178,7 +199,7 @@ function (Backbone, f, builder, activator) {
 				isValid: false
 			});
 			this.el.html(this.name + 'destroyed');
-			this.publish('destroyComplete');
+			this.publish(this.name, this.events.destroyComplete);
 		},
 
 		/*
@@ -189,7 +210,7 @@ function (Backbone, f, builder, activator) {
 			this.set({
 				isValid: true
 			});
-			this.publish('restoreComplete');
+			this.publish(this.name, this.events.restoreComplete);
 		},		
 		
 		/*
@@ -212,7 +233,8 @@ function (Backbone, f, builder, activator) {
 				isValid: true,
 				isActive: true
 			});
-			this.setHtml(h);
+			this.publish(this.name, this.events.activateComplete)
+/* 			this.setHtml(h); */
 		},
 		
 		/*
@@ -220,43 +242,31 @@ function (Backbone, f, builder, activator) {
 			* NOT USED YET
 		*/
 		save: function () {
-			this.publish('saveComplete');
+			this.publish(this.name, this.events.saveComplete);
 		},
 		
 		/*
 			* @method publish
 		*/
-		publish: function (event, params) {
-			f.publish(this.name, this.events[event], params);
+		publish: function (name, event, params) {
+			console.log('PPPub', arguments);
+			f.publish(name, event, params);
 		},
 		
 		/*
 			* @method subscribe
 		*/
-		subscribe: function (event, callback) {
-			f.subscribe(this.name, this.events[event], callback);
-		},
-
-		/*
-			* @method initEvents
-			* loops through the events array and generates custom events which include the module name
-		*/
-		initEvents: function () {
-			// set all events
-			f.util.each(this.events, this.createEvent);
-			if (this.autoload) {
-				this.subscribe('initComplete', this.start);
-			}
-			this.subscribe('loadReady', this.load);
-			this.subscribe('renderReady', this.render);
+		subscribe: function (name, event, callback) {
+/* 			console.log('SSSub', arguments); */
+			f.subscribe(name, event, callback);
 		},
 
 		/*
 			* @method createEvent
 		*/
-		createEvent: function (v, k, context) {
+		createEvent: function (v, k) {
 			var event = this.name + f.util.camelize(k);
-			context[k] = event;
+			this.events[k] = event;
 		},
 		
 		/*
@@ -283,4 +293,4 @@ function (Backbone, f, builder, activator) {
 
 	return e;
 
-});
+	});

@@ -13,29 +13,40 @@ define([], function () {
 
 	permissions.rules = {
 		// pageModule Events
-		pageModuleRenderReady: {
+		pageModuleInitComplete		: {
 			pageModule:true
 		},
-
-		pageModuleRenderComplete: {
+		pageModuleStartComplete		: {
 			pageModule:true
 		},
-
-		pageModuleInitComplete: {
+		pageModuleStopComplete		: {
 			pageModule:true
 		},
-
-		pageModuleLoadReady: {
+		pageModuleProcessComplete 	: {
 			pageModule:true
 		},
-
-		pageModuleRouterEvent: {
+		pageModuleLoadReady			: {
 			pageModule:true
 		},
-
-		pageModulePageReady: {
+		pageModuleLoadViewComplete	: {
+			pageModule:true
+		},
+		pageModuleActivateComplete	: {
+			pageModule:true
+		},
+		pageModuleViewReady			: {
+			// this is fired when the page module changes it's view
 			pageModule:true,
 			navModule:true
+		},
+		pageModuleSetHtmlComplete	: {
+			pageModule:true
+		},
+		pageModuleRenderComplete	: {
+			pageModule:true
+		},
+		pageModuleRouteComplete		: {
+			pageModule:true
 		},
 
 		// navModule Events
@@ -54,7 +65,16 @@ define([], function () {
 		navModuleLoadReady			: {
 			navModule:true
 		},
-		navModuleRenderReady		: {
+		navModuleLoadViewComplete	: {
+			navModule:true
+		},
+		navModuleActivateComplete	: {
+			navModule:true
+		},
+		navModuleViewReady			: {
+			navModule:true
+		},
+		navModuleSetHtmlComplete	: {
 			navModule:true
 		},
 		navModuleRenderComplete		: {

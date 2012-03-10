@@ -1,7 +1,7 @@
 /**
 	* Nav Module
 */
-define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, mod, f) {
+define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 	var Module = new mod();
 
 	Module.extend({
@@ -12,10 +12,10 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 		autoload: true,
 
 		/*
-			* @property template
+			* @property view
 			* this is used by Module.load(), which calls 'process()' as a callback
 		*/
-		template: 'html/app/parts/nav.html',
+		view: 'html/app/parts/nav.html',
 		
 		/*
 			* @method start
@@ -25,10 +25,13 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 			* based on some outside event
 		*/
 		start: function () {
-			this.newEvent('pageModulePageReady');
-			this.subscribe('pageModulePageReady', this.updateActive);
-			this.subscribe('processComplete', this.activate);
-			this.subscribe('startComplete', this.load);
+			console.log(this.name, this.events);
+			this.subscribe(this.name, this.events.processComplete, this.activate);
+			this.subscribe(this.name, this.events.activateComplete, this.setHtml);
+			this.subscribe(this.name, this.events.startComplete, this.loadView);
+			this.subscribe(this.name, this.events.setHtmlComplete, this.render);
+			this.newEvent('pageModuleRenderComplete');
+			this.subscribe(this.name, this.events.pageModuleRenderComplete, this.updateActive);
 			this.base();
 		},
 		
@@ -62,8 +65,8 @@ define(['underscore', 'lib/backstrapp/module_new', 'core/facade'], function (_, 
 		init: function (item, params) {
 			// bindAll here to allow the module to pass 'autoload:true' to the constructor,
 			// and avoid the need for an extra init() call 
-			_.bindAll(Module, 'process', 'load', 'start', 'activate', 'updateActive');
-			return Module.init(item, params);
+			f.util.bindAll(Module, 'start', 'process');
+			return Module._init(item, params);
 		}
 	};
 });
