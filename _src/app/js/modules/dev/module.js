@@ -1,10 +1,13 @@
-define(['lib/backstrapp/module'], function (ModuleClass) {
+/*
+	Dev Module
+*/
+define(['lib/backstrapp/module'], function (SimpleModule) {
 
-	var SimpleModule = ModuleClass.extend({});
+	var Module = new SimpleModule();
 
 	return {
 		init: function (item, params) {
-			return SimpleModule._init(item, params);
+			return Module._init(item, params);
 		}
 	}
 });

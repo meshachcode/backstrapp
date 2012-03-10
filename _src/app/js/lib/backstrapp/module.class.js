@@ -248,7 +248,7 @@ function (Backbone, f, builder, activator) {
 			* @method publish
 		*/
 		publish: function (name, event, params) {
-/* 			console.log('PPPub', arguments); */
+			console.log('PPPub', arguments);
 			f.publish(name, event, params);
 		},
 		
@@ -256,7 +256,7 @@ function (Backbone, f, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (name, event, callback) {
-/* 			console.log('SSSub', arguments); */
+			console.log('SSSub', arguments);
 			f.subscribe(name, event, callback);
 		},
 
@@ -287,6 +287,10 @@ function (Backbone, f, builder, activator) {
 			});
 			console.warn('msg', msg);
 			return msg;
+		},
+		
+		util: {
+			bindAll: f.util.bindAll
 		}
 	});
 
