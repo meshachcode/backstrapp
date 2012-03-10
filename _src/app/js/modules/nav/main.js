@@ -25,11 +25,10 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			* based on some outside event
 		*/
 		start: function () {
-			console.log(this.name, this.events);
-			this.subscribe(this.name, this.events.processComplete, this.activate);
-			this.subscribe(this.name, this.events.activateComplete, this.setHtml);
 			this.subscribe(this.name, this.events.startComplete, this.loadView);
-			this.subscribe(this.name, this.events.setHtmlComplete, this.render);
+			this.subscribe(this.name, this.events.loadViewComplete, this.process);
+			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
+			this.subscribe(this.name, this.events.activateComplete, this.render);
 			this.newEvent('pageModuleRenderComplete');
 			this.subscribe(this.name, this.events.pageModuleRenderComplete, this.updateActive);
 			this.base();
@@ -46,7 +45,7 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 				meta: f.getMeta(),
 				pages: f.getPages()
 			}
-			this.processTemplate(html, obj, this.activate);
+			this.processTemplate(html, obj, this.setHtml);
 		},
 
 		/*
@@ -54,7 +53,7 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			* 
 		*/
 		updateActive: function (page) {
-			console.log('updateActive', page);
+			console.log('updateActive', arguments);
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}

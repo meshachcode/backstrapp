@@ -34,16 +34,12 @@ define([], function () {
 		pageModuleActivateComplete	: {
 			pageModule:true
 		},
-		pageModuleViewReady			: {
-			// this is fired when the page module changes it's view
-			pageModule:true,
-			navModule:true
-		},
 		pageModuleSetHtmlComplete	: {
 			pageModule:true
 		},
 		pageModuleRenderComplete	: {
-			pageModule:true
+			pageModule:true,
+			navModule:true
 		},
 		pageModuleRouteComplete		: {
 			pageModule:true
@@ -69,9 +65,6 @@ define([], function () {
 			navModule:true
 		},
 		navModuleActivateComplete	: {
-			navModule:true
-		},
-		navModuleViewReady			: {
 			navModule:true
 		},
 		navModuleSetHtmlComplete	: {

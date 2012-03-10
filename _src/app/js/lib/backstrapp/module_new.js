@@ -41,7 +41,7 @@ function (Backbone, f, builder, activator) {
 			* @method constructor
 		*/
 		constructor: function (obj) {
-			f.util.bindAll(this, 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents');
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents', 'process');
 			this.set(obj);
 		},
 
@@ -64,7 +64,8 @@ function (Backbone, f, builder, activator) {
 				events[i] = name + f.util.camelize(i);
 			}
 			this.events = events;
-			if (this.autoload) {
+			if (this.autoload === true) {
+				console.log('subscribing initComplete to start');
 				this.subscribe(this.name, this.events.initComplete, this.start);
 			}
 			this.publish(this.name, this.events.initComplete);
@@ -121,7 +122,7 @@ function (Backbone, f, builder, activator) {
 		loadView: function () {
 			var me = this;
 			this.loadHtml(this.view, function (html) {
-				me.publish(me.name, me.events.loadViewComplete);
+				me.publish(me.name, me.events.loadViewComplete, html);
 			});
 		},
 
@@ -142,15 +143,13 @@ function (Backbone, f, builder, activator) {
 		/*
 			* @method process
 		*/
-		/*
 		process: function (html) {
 			var me = this;
 			this.processTemplate(html, this.exports, function (html) {
-				console.log('process', arguments);
 				me.publish(me.name, me.events.processComplete, html);
 			});
 		},
-		*/
+		
 
 		/*
 			* @method processTemplate
@@ -165,7 +164,7 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
-/* 			console.log('setHtml', this, arguments); */
+			console.log('setHtml', this.name, arguments);
 			this.set({ html: h });
 			this.publish(this.name, this.events.setHtmlComplete);
 		},
@@ -175,7 +174,7 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
-			console.log(this.name, 'render!');
+			console.log(this.name, 'render!', this.page);
 			var e = el || this.el;
 			var h = html || this.html;
 			if (this.isValid) {
@@ -187,7 +186,7 @@ function (Backbone, f, builder, activator) {
 				var eMsg = this.printErrors(this.errors);
 				$(el).html(eMsg);
 			}
-			this.publish(this.name, this.events.renderComplete);
+			this.publish(this.name, this.events.renderComplete, this.page);
 		},
 
 		/*
@@ -233,8 +232,7 @@ function (Backbone, f, builder, activator) {
 				isValid: true,
 				isActive: true
 			});
-			this.publish(this.name, this.events.activateComplete)
-/* 			this.setHtml(h); */
+			this.publish(this.name, this.events.activateComplete);
 		},
 		
 		/*
@@ -257,7 +255,7 @@ function (Backbone, f, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (name, event, callback) {
-/* 			console.log('SSSub', arguments); */
+			console.log('SSSub', arguments);
 			f.subscribe(name, event, callback);
 		},
 

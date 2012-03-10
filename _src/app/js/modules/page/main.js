@@ -22,12 +22,12 @@ function (mod, router, f) {
 			* based on some outside event
 		*/
 		start: function () {
-			console.log(this.name, this.events);
-			this.subscribe(this.name, this.events.processComplete, this.activate);
-			this.subscribe(this.name, this.events.activateComplete, this.setHtml);
-			this.subscribe(this.name, this.events.loadReady, this.loadView);
 			this.subscribe(this.name, this.events.routeComplete, this.getPage);
-			this.subscribe(this.name, this.events.setHtmlComplete, this.render);
+			this.subscribe(this.name, this.events.loadReady, this.loadView);
+			this.subscribe(this.name, this.events.loadViewComplete, this.process);
+			this.subscribe(this.name, this.events.processComplete, this.setHtml);
+			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
+			this.subscribe(this.name, this.events.activateComplete, this.render);
 			this.router = this.initRouter();
 			// no need to call this.base(), 'cause getPage handles load from the router
 		},
@@ -47,6 +47,7 @@ function (mod, router, f) {
 			* this sets the view to the selected page
 		*/
 		getPage: function (page) {
+			this.set({ page: page });
 			this.view = this.sourceDir + '/' + page + '.html';
 			this.publish(this.name, this.events.loadReady);
 		}
