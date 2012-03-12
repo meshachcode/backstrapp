@@ -1,13 +1,13 @@
 /*
-	Dev Module
+	Test Module
 */
-define(['lib/backstrapp/module'], function (SimpleModule) {
 
-	var Module = new SimpleModule();
+define(['lib/backstrapp/module'], function (SimpleModule) {
 
 	return {
 		init: function (item, params) {
-			return Module._init(item, params);
+			return SimpleModule._init(item, params);
 		}
 	}
+
 });

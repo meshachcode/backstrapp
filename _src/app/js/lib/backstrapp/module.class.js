@@ -10,7 +10,9 @@ define([
 ],
 function (Backbone, f, builder, activator) {
 
-	var e = Base.extend({
+	var ModuleClass = ModuleClass || {};
+
+	ModuleClass = Base.extend({
 		isValid			: 	false,
 		isActive		:	false,
 		autoload		:	false,
@@ -41,6 +43,7 @@ function (Backbone, f, builder, activator) {
 			* @method constructor
 		*/
 		constructor: function (obj) {
+/* 			console.log('ModuleClass constructor'); */
 			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents', 'process');
 			this.set(obj);
 		},
@@ -77,6 +80,7 @@ function (Backbone, f, builder, activator) {
 			* @method start
 		*/
 		start: function (params) {
+			console.log('ModuleClass start');
 			this.set({
 				isActive: true
 			});
@@ -165,7 +169,6 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
-			console.log('setHtml', this.name, arguments);
 			this.set({ html: h });
 			this.publish(this.name, this.events.setHtmlComplete);
 		},
@@ -175,7 +178,6 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
-			console.log(this.name, 'render!', this.page);
 			var e = el || this.el;
 			var h = html || this.html;
 			if (this.isValid) {
@@ -248,7 +250,7 @@ function (Backbone, f, builder, activator) {
 			* @method publish
 		*/
 		publish: function (name, event, params) {
-			console.log('PPPub', arguments);
+/* 			console.log('PPPub', arguments); */
 			f.publish(name, event, params);
 		},
 		
@@ -256,7 +258,7 @@ function (Backbone, f, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (name, event, callback) {
-			console.log('SSSub', arguments);
+/* 			console.log('SSSub', arguments); */
 			f.subscribe(name, event, callback);
 		},
 
@@ -294,6 +296,6 @@ function (Backbone, f, builder, activator) {
 		}
 	});
 
-	return e;
+	return ModuleClass;
 
 });

@@ -38,5 +38,14 @@ define(['./module.class'], function(ModClass) {
 		}
 	});
 	
-	return Module;
+	var instance = null;
+	return new function () {
+		console.log('### Simple Module return');
+		if (instance == null) {
+			console.log('### Simple Module New Instance');
+			instance = new Module();
+			instance.constructor = null;
+		}
+		return instance;
+	}
 });

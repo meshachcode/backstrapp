@@ -1,9 +1,16 @@
 /**
 	* Nav Module
 */
-define(['lib/backstrapp/module', 'core/facade'], function (Module, f) {
+define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
+	var Module = new mod();
 
 	Module.extend({
+		/*
+			* @property autoload
+			* this tells the Module super class to call 'start()' on 'initComplete'
+		*/
+		autoload: true,
+
 		/*
 			* @property view
 			* this is used by Module.load(), which calls 'process()' as a callback
@@ -18,6 +25,10 @@ define(['lib/backstrapp/module', 'core/facade'], function (Module, f) {
 			* based on some outside event
 		*/
 		start: function () {
+			this.subscribe(this.name, this.events.startComplete, this.loadView);
+			this.subscribe(this.name, this.events.loadViewComplete, this.process);
+			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
+			this.subscribe(this.name, this.events.activateComplete, this.render);
 			this.newEvent('pageModuleRenderComplete');
 			this.subscribe(this.name, this.events.pageModuleRenderComplete, this.updateActive);
 			this.base();
@@ -42,6 +53,7 @@ define(['lib/backstrapp/module', 'core/facade'], function (Module, f) {
 			* 
 		*/
 		updateActive: function (page) {
+			console.log('updateActive', arguments);
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}

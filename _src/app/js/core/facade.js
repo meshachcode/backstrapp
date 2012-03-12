@@ -43,14 +43,10 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 	}
 	
 	facade.registerModule = function (module, rules) {
+		console.log('registering Module', arguments);
 		for (var i in rules) {
-			facade.setPermission(rules[i], module);
+			permissions.setPermission(rules[i], module);
 		}
-	}
-	
-	facade.setPermission = function (rule, module) {
-		permissions.rules[rule] = {};
-		permissions.rules[rule][module] = true;
 	}
 
 	facade.util = mediator.util;

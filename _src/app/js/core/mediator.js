@@ -49,6 +49,9 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
         isFunction: _.isFunction,
         bindAll: _.bindAll,
 
+        has: function () {
+        },
+
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
             return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();

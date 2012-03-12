@@ -43,38 +43,6 @@ define([], function () {
 		},
 		pageModuleRouteComplete		: {
 			pageModule:true
-		},
-
-		// navModule Events
-		navModuleInitComplete		: {
-			navModule:true
-		},
-		navModuleStartComplete		: {
-			navModule:true
-		},
-		navModuleStopComplete		: {
-			navModule:true
-		},
-		navModuleProcessComplete 	: {
-			navModule:true
-		},
-		navModuleLoadReady			: {
-			navModule:true
-		},
-		navModuleLoadViewComplete	: {
-			navModule:true
-		},
-		navModuleActivateComplete	: {
-			navModule:true
-		},
-		navModuleSetHtmlComplete	: {
-			navModule:true
-		},
-		navModuleRenderComplete		: {
-			navModule:true
-		},
-		navModuleRouteComplete		: {
-			navModule:true
 		}
 	};
 
@@ -86,6 +54,21 @@ define([], function () {
 		var test = permissions.rules[channel][subscriber];
 		return test === undefined ? false : test;
 	};
+	
+	permissions.setPermission = function (rule, module) {
+		if (!permissions.rules[rule] || permissions.rules[rule] == undefined) {
+			permissions.rules[rule] = {};
+			permissions.rules[rule][module] = true;
+		} else {
+			if (!permissions.rules[rule].count || permissions.rules[rule].count == undefined) {
+				permissions.rules[rule].count = 1;
+			} else {
+				permissions.rules[rule].count += 1;
+			}
+		}
+		console.log('set Permission', permissions.rules, rule, module, permissions.rules[rule]);
+		return permissions.rules[rule];
+	}	
 
 	return permissions;
 });
