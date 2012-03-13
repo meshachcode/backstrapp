@@ -12,37 +12,6 @@ define([], function () {
 	var permissions = permissions || {};
 
 	permissions.rules = {
-		// navModule Events
-		navModuleInitComplete		: {
-			navModule:true
-		},
-		navModuleStartComplete		: {
-			navModule:true
-		},
-		navModuleStopComplete		: {
-			navModule:true
-		},
-		navModuleProcessComplete 	: {
-			navModule:true
-		},
-		navModuleLoadReady			: {
-			navModule:true
-		},
-		navModuleLoadViewComplete	: {
-			navModule:true
-		},
-		navModuleActivateComplete	: {
-			navModule:true
-		},
-		navModuleSetHtmlComplete	: {
-			navModule:true
-		},
-		navModuleRenderComplete	: {
-			navModule:true
-		},
-		navModuleRouteComplete		: {
-			navModule:true
-		},
 		// pageModule Events
 		pageModuleInitComplete		: {
 			pageModule:true
@@ -69,8 +38,7 @@ define([], function () {
 			pageModule:true
 		},
 		pageModuleRenderComplete	: {
-			pageModule:true,
-			navModule:true
+			pageModule:true
 		},
 		pageModuleRouteComplete		: {
 			pageModule:true
