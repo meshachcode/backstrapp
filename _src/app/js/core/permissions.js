@@ -10,6 +10,20 @@ define([], function () {
 	// them to clear. This enforces a light 
 	// security layer for your application.
 	var permissions = permissions || {};
+	
+	permissions.defaultRules = [
+		'initComplete',
+		'startComplete',
+		'stopComplete',
+		'loadReady',
+		'loadViewComplete',
+		'processComplete',
+		'activateComplete',
+		'viewReady',
+		'setHtmlComplete',
+		'renderComplete',
+		'routeComplete'
+	]
 
 	permissions.rules = {
 		// pageModule Events

@@ -23,27 +23,11 @@ function (Backbone, f, builder, activator) {
 		errors			:	[],
 		exports			:	{},
 		events			:	{},
-		defaultEvents	: 	function () {
-			return {
-				initComplete		: '',
-				startComplete		: '',
-				stopComplete		: '',
-				loadReady			: '',
-				loadViewComplete	: '',
-				processComplete 	: '',
-				activateComplete	: '',
-				viewReady			: '',
-				setHtmlComplete		: '',
-				renderComplete		: '',
-				routeComplete		: ''
-			}
-		},
 
 		/*
 			* @method constructor
 		*/
 		constructor: function (obj) {
-/* 			console.log('ModuleClass constructor'); */
 			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents', 'process');
 			this.set(obj);
 		},
@@ -53,18 +37,23 @@ function (Backbone, f, builder, activator) {
 		*/
 		_init: function (item, params) {
 			var n, name, me;
-			me = this;
 			// set this.name
 			n = $(item).attr('id');
 			name = this.set({ name: n, el: item }).name;
-			events = this.initEvents(this.name);
-			f.registerModule(this.name, events);
+			console.log('registering: ', this.name);
+			me = f.registerModule(this);
+			console.log('me', me);
+
+/* 			events = this.initEvents(this.name); */
+
+/*
 			if (this.autoload === true) {
 				console.log('subscribing initComplete to start');
 				this.subscribe(this.name, this.events.initComplete, this.start);
 			}
 			this.publish(this.name, this.events.initComplete);
 			return this.exports
+*/
 		},
 
 		initEvents: function(name) {
