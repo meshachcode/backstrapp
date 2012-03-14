@@ -43,17 +43,6 @@ function (Backbone, f, builder, activator) {
 			console.log('registering: ', this.name);
 			me = f.registerModule(this);
 			console.log('me', me);
-
-/* 			events = this.initEvents(this.name); */
-
-/*
-			if (this.autoload === true) {
-				console.log('subscribing initComplete to start');
-				this.subscribe(this.name, this.events.initComplete, this.start);
-			}
-			this.publish(this.name, this.events.initComplete);
-			return this.exports
-*/
 		},
 
 		initEvents: function(name) {

@@ -1,7 +1,7 @@
 /*
 	* Simple Module
 */
-define(['./module.class'], function(ModClass) {
+define(['./module_new'], function(ModClass) {
 
 	var Module = ModClass.extend({
 		/*
@@ -29,11 +29,11 @@ define(['./module.class'], function(ModClass) {
 			* based on some outside event
 		*/
 		start: function () {
-			this.subscribe(this.name, this.events.startComplete, this.loadView);
-			this.subscribe(this.name, this.events.loadViewComplete, this.process);
-			this.subscribe(this.name, this.events.processComplete, this.setHtml);
-			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
-			this.subscribe(this.name, this.events.activateComplete, this.render);
+			this.subscribe('startComplete', this.loadView);
+			this.subscribe('loadViewComplete', this.process);
+			this.subscribe('processComplete', this.setHtml);
+			this.subscribe('setHtmlComplete', this.activate);
+			this.subscribe('activateComplete', this.render);
 			this.base();
 		}
 	});

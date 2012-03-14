@@ -1,7 +1,7 @@
 /**
 	* Nav Module
 */
-define(['lib/backstrapp/module', 'core/facade'], function (Module, f) {
+define(['lib/backstrapp/module_new', 'core/facade'], function (Module, f) {
 
 	Module.extend({
 		/*

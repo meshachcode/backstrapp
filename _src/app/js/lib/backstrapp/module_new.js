@@ -262,6 +262,10 @@ function (Backbone, f, builder, activator) {
 			});
 /* 			console.warn('msg', msg); */
 			return msg;
+		},
+		
+		util: {
+			bindAll: f.util.bindAll
 		}
 	});
 
