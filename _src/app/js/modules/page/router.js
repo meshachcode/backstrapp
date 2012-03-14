@@ -22,6 +22,7 @@ define(['underscore', 'backbone', 'core/facade'], function (_, Backbone, facade)
 		},
 
 		page: function (p) {
+			console.log('router.page', arguments, this.event);
 			facade.publish(this.name, this.event, p);
 		},
 

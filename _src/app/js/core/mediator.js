@@ -4,7 +4,7 @@
 	This is the application core. It's private, and should drive the application-wide functionality.
 */
 
-define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (config, _, handlebars) {
+define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], function (config, $, _, handlebars) {
 
 	var channels = {};
 	var obj = {};
@@ -25,11 +25,13 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
 	}
 
 	obj.subscribe = function (channel, subscription) {
+/* 		console.log('mediator subscribe', arguments); */
 		if (!channels[channel]) channels[channel] = [];
 		channels[channel].push(subscription);
 	};
 
 	obj.publish = function (channel) {
+/* 		console.log('mediator publish', arguments); */
 		if (!channels[channel]) return;
 		var args = [].slice.call(arguments, 1);
 		for (var i = 0, l = channels[channel].length; i < l; i++) {
@@ -48,9 +50,10 @@ define(['jsonLoad!json/config.json', 'underscore', 'handlebars'], function (conf
         extend: _.extend,
         isFunction: _.isFunction,
         bindAll: _.bindAll,
-
-        has: function () {
-        },
+        isIn: $.inArray,
+		has: function(obj, key) {
+			return hasOwnProperty.call(obj, key);
+		},
 
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;

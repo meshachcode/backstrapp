@@ -5,6 +5,7 @@
 define(['lib/backstrapp/module_new', './router', 'core/facade'],
 
 function (mod, router, f) {
+	
 	var Module = new mod();
 
 	Module.extend({
@@ -22,12 +23,12 @@ function (mod, router, f) {
 			* based on some outside event
 		*/
 		start: function () {
-			this.subscribe(this.name, this.events.routeComplete, this.getPage);
-			this.subscribe(this.name, this.events.loadReady, this.loadView);
-			this.subscribe(this.name, this.events.loadViewComplete, this.process);
-			this.subscribe(this.name, this.events.processComplete, this.setHtml);
-			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
-			this.subscribe(this.name, this.events.activateComplete, this.render);
+			this.subscribe('routeComplete', this.getPage);
+			this.subscribe('loadReady', this.loadView);
+			this.subscribe('loadViewComplete', this.process);
+			this.subscribe('processComplete', this.setHtml);
+			this.subscribe('setHtmlComplete', this.activate);
+			this.subscribe('activateComplete', this.render);
 			this.router = this.initRouter();
 			// no need to call this.base(), 'cause getPage handles load from the router
 		},
@@ -37,7 +38,8 @@ function (mod, router, f) {
 			* start the router and tell it how to trigger an event
 		*/
 		initRouter: function () {
-			var r = new router({ name: this.name, event: this.events.routeComplete });
+			var e = this.name + 'RouteComplete';
+			var r = new router({ name: this.name, event: e });
 			r.start();
 			return r;
 		},
@@ -50,7 +52,7 @@ function (mod, router, f) {
 			var p = f.getPage(page);
 			this.set({ page: p.id });
 			this.view = this.sourceDir + '/' + p.file;
-			this.publish(this.name, this.events.loadReady);
+			this.publish('loadReady');
 		}
 	});
 

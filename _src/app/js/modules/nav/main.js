@@ -25,12 +25,11 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			* based on some outside event
 		*/
 		start: function () {
-			this.subscribe(this.name, this.events.startComplete, this.loadView);
-			this.subscribe(this.name, this.events.loadViewComplete, this.process);
-			this.subscribe(this.name, this.events.setHtmlComplete, this.activate);
-			this.subscribe(this.name, this.events.activateComplete, this.render);
-			this.newEvent('pageModuleRenderComplete');
-			this.subscribe(this.name, this.events.pageModuleRenderComplete, this.updateActive);
+			this.subscribe('startComplete', this.loadView);
+			this.subscribe('loadViewComplete', this.process);
+			this.subscribe('setHtmlComplete', this.activate);
+			this.subscribe('activateComplete', this.render);
+			this.subscribe('renderComplete', this.updateActive, 'pageModule');
 			this.base();
 		},
 		

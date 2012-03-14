@@ -24,6 +24,26 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 		}
 	}
 	
+	facade.subscribeNew = function(request){
+		request.request = 'subscribe';
+		var result = {}, channel = request.event + mediator.util.camelize(request.state);
+		if( result = permissions.validate( request ).isValid ){
+			mediator.subscribe( channel, request.callback );
+		} else {
+			console.warn('facade.subscribe validation failed', result, request);
+		}
+	}
+
+	facade.publishNew = function(request){
+		request.request = 'publish';
+		var result = {}, channel = request.event + mediator.util.camelize(request.state);
+		if( result = permissions.validate( request ).isValid ){
+			mediator.publish( channel );
+		} else {
+			console.warn('facade.publish validation failed', result, request);
+		}
+	}
+	
 	facade.require = function(plugin, source, callback) {
 		mediator.require(plugin, source, callback);
 	}
