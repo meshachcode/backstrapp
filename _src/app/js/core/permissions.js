@@ -27,6 +27,7 @@ define(['jquery', 'core/mediator'], function ($, m) {
 			'process',
 			'activate',
 			'deactivate',
+			'restore',
 			'route',
 			'render',
 			'destroy',

@@ -15,10 +15,10 @@ define(['./module_new'], function(ModClass) {
 			* this is used by Module.load(), which calls 'process()' as a callback
 		*/
 		view: 'html/modules/dev/parts/msg.html',
-		
-		constructor: function (params) {
+
+		constructor: function (obj) {
 			this.util.bindAll(this, 'start');
-			this.base(params);
+			this.base(obj);
 		},
 
 		/*
@@ -29,6 +29,7 @@ define(['./module_new'], function(ModClass) {
 			* based on some outside event
 		*/
 		start: function () {
+			this.subscribe('restoreComplete', this.loadView);
 			this.subscribe('startComplete', this.loadView);
 			this.subscribe('loadViewComplete', this.process);
 			this.subscribe('processComplete', this.setHtml);
@@ -38,14 +39,5 @@ define(['./module_new'], function(ModClass) {
 		}
 	});
 	
-	var instance = null;
-	return new function () {
-		console.log('### Simple Module return');
-		if (instance == null) {
-			console.log('### Simple Module New Instance');
-			instance = new Module();
-			instance.constructor = null;
-		}
-		return instance;
-	}
+	return Module
 });

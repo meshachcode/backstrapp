@@ -7,29 +7,29 @@
 define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], function (config, $, _, handlebars) {
 
 	var channels = {};
-	var obj = {};
+	var mediator = {};
 
-	obj.config = config || {};
+	mediator.config = config || {};
 
-	obj.template = handlebars;
-	
-	obj.getConfigObj = function (obj, key, val) {
-		console.log('getConfigObj', config, arguments);
-		var ret = false, haystack = config[obj];
+	mediator.template = handlebars;
+	mediator.modules = {};
+
+	mediator.getConfigObj = function (obj, key, val, callback) {
+		var ret = false, haystack = mediator.config[obj];
 		_.each(haystack, function (i) {
 			if (i[key] == val) {
 				ret = i;
 			}
 		});
-		return ret;
+		callback(ret);
 	}
 
-	obj.subscribe = function (channel, callback, context) {
+	mediator.subscribe = function (channel, callback, context) {
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
 	};
 
-	obj.publish = function (channel) {
+	mediator.publish = function (channel) {
 /* 		console.log('mediator publish', arguments); */
 		if (!channels[channel]) return;
 		var args = [].slice.call(arguments, 1);
@@ -38,20 +38,34 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 		}
 	};
 
-	obj.require = function (plugin, source, callback) {
+	mediator.require = function (plugin, source, callback) {
 		var p = '';
 		if (plugin) { p = plugin + '!' }
 		require([p + source], callback);
 	};
+	
+	mediator.startModule = function (request) {
+/* 		console.log('--- Returning Module Instance', mediator.modules[request.name]); */
+		mediator.modules[request.name].restore(request.dom, request.arg);
+	}
 
-    obj.util = {
+	mediator.loadModule = function (request, callback) {
+/* 		console.log('--- Loading New Module', mediator.modules, request.name); */
+		var mod = require([request.mod], function (m) {
+			mediator.modules[request.name] = m;
+			mediator.modules[request.name].init(request.dom, request.arg);
+			callback(mediator.modules[request.name], request.dom);
+		});
+	}	
+
+    mediator.util = {
         each: _.each,
         extend: _.extend,
         isFunction: _.isFunction,
         bindAll: _.bindAll,
         isIn: $.inArray,
-		has: function(obj, key) {
-			return hasOwnProperty.call(obj, key);
+		has: function(mediator, key) {
+			return hasOwnProperty.call(mediator, key);
 		},
 
         decamelize: function (camelCase, delimiter) {
@@ -71,9 +85,9 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 
         /**
          * Always returns the fn within the context
-         * @param {object} fn Method to call
-         * @param {object} context Context in which to call method
-         * @returns {object} Fn with the correct context
+         * @param {mediatorect} fn Method to call
+         * @param {mediatorect} context Context in which to call method
+         * @returns {mediatorect} Fn with the correct context
          */
         method: function (fn, context) {
             return $.proxy(fn, context);
@@ -84,11 +98,11 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
         },
         
         processTemplate: function (source, context, callback) {
-			var template = obj.template.compile(source);
+			var template = mediator.template.compile(source);
 			var html = template(context);
 			callback(html);
         }
     };
 
-	return obj;
+	return mediator;
 });

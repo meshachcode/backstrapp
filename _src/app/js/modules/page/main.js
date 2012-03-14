@@ -49,10 +49,12 @@ function (mod, router, f) {
 			* this sets the view to the selected page
 		*/
 		getPage: function (page) {
-			var p = f.getPage(page);
-			this.set({ page: p.id });
-			this.view = this.sourceDir + '/' + p.file;
-			this.publish('loadReady');
+			var me = this;
+			f.getPage(page, function (p) {
+				me.set({ page: p.id });
+				me.view = me.sourceDir + '/' + p.file;
+				me.publish('loadReady');
+			});
 		}
 	});
 

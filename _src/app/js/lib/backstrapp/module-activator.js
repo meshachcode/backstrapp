@@ -19,6 +19,17 @@ define(['jquery', 'util/loadcss', 'core/facade'], function ($, loadcss, f) {
 		});
 		return pObj;
 	}
+	
+
+	var postProcess = function (mod, item) {
+		console.log('postProcess', mod);
+		if (mod.css) {
+			loadcss(mod.css, item);
+		} else {
+			item.css('visibility', 'visible');
+		}
+	}
+
 
 	var e = {};
 
@@ -32,27 +43,19 @@ define(['jquery', 'util/loadcss', 'core/facade'], function ($, loadcss, f) {
 		});
 
 		$("[data-module]", element).each(function () {
-			var item = $(this),
+			var request,
+				item = $(this),
+				name = item.attr('id'),
 				module = item.data("module"),
-				parameters = objectifyParams(item.data("module-parameters"));
-
-			require([module], function (mod) {
-/* 				console.log('Module Loaded:', mod, module, parameters); */
-				if (mod.css) {
-					loadcss(mod.css, item);
-				} else {
-					item.css('visibility', 'visible');
-				}
-				if (mod.init) {
-					var m = mod.init(item, parameters);
-					f.registerModule(m);
-					delete m;
-					delete mod;
-/* 					console.log('module init', m, mod, f.modules) */
-				}
-			});
+				params = objectifyParams(item.data("module-parameters"));
+			request = {
+				name: name,
+				dom: item,
+				mod: module,
+				arg: params
+			};
+			f.getModule(request, postProcess);
 		});
-/* 		console.log('e.execute just ran', e); */
 	};
 	
 

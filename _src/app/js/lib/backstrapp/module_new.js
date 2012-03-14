@@ -5,7 +5,7 @@ define([
 	'backbone',
 	'core/facade',
 	'util/content-builder',
-	'util/module-activator',
+	'backstrapp/module-activator',
 	'util/base'
 ],
 function (Backbone, f, builder, activator) {
@@ -20,12 +20,19 @@ function (Backbone, f, builder, activator) {
 		el 				:	$('#content'),
 		errors			:	[],
 		exports			:	{},
+		debug			:	{},
 
 		/*
 			* @method constructor
 		*/
 		constructor: function (obj) {
+			console.log('constructor', obj, arguments);
 			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process');
+			if (obj != undefined) {
+				if (obj.debug != undefined) {
+					console.log('debugging', obj.debug);
+				}
+			}
 			this.set(obj);
 		},
 
@@ -63,7 +70,7 @@ function (Backbone, f, builder, activator) {
 			});
 			this.publish('stopComplete', params);
 		},
-
+		
 		/*
 			* @method get
 		*/
@@ -146,7 +153,9 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
-/* 			console.log(this.name, 'render!', this.page); */
+			if (this.debug.render) {
+				console.log(this.name, 'render!', this.el, this.html);
+			}
 			var e = el || this.el;
 			var h = html || this.html;
 			if (this.isValid) {
@@ -177,12 +186,12 @@ function (Backbone, f, builder, activator) {
 			* @method restore
 			* 
 		*/
-		restore: function () {
+		restore: function (params) {
 			this.set({
 				isValid: true
 			});
-			this.publish('restoreComplete');
-		},		
+			this.publish('restoreComplete', params);
+		},
 		
 		/*
 			* @method deactivate
@@ -220,7 +229,9 @@ function (Backbone, f, builder, activator) {
 			* @method publish
 		*/
 		publish: function (event, params) {
-/* 			console.log('PPPub', arguments); */
+			if (this.debug.publish) {
+				console.log('PPPub', arguments);
+			}
 			var channel = this.name + f.util.camelize(event);
 			f.publish(this.name, channel, params);
 		},
@@ -229,7 +240,9 @@ function (Backbone, f, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (event, callback, context) {
-/* 			console.log('SSSub', arguments); */
+			if (this.debug.subscribe) {
+				console.log('SSSub', arguments);
+			}
 			var me = context || this.name;
 			var channel = me + f.util.camelize(event);
 			f.subscribe(this.name, channel, callback);

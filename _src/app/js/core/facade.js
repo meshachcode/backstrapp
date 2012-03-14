@@ -8,8 +8,6 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};
 	
-	facade.modules = {};
-
 	facade.subscribe = function(subscriber, channel, callback){
 /* 		console.log('subscribe', arguments); */
 		if(permissions.validate('subscribe', subscriber, channel)){
@@ -60,16 +58,16 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 		return mediator.config.pages;
 	}
 	
-	facade.getPage = function (page) {
-		return mediator.getConfigObj('pages', 'id', page);
+	facade.getPage = function (page, callback) {
+		mediator.getConfigObj('pages', 'id', page, callback);
 	}
-
-	facade.registerModule = function (module) {
-		console.log('registerModule', module.name, facade.modules);
-		if (!facade.modules[module.name]) {
-			facade.modules[module.name] = module;
+	
+	facade.getModule = function (request, callback) {
+		if (mediator.modules[request.name]) {
+			mediator.startModule(request);
+		} else {
+			mediator.loadModule(request, callback);
 		}
-		return facade.modules[module.name];
 	}
 
 	facade.util = mediator.util;
