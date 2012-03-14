@@ -63,18 +63,13 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 	facade.getPage = function (page) {
 		return mediator.getConfigObj('pages', 'id', page);
 	}
-	
+
 	facade.registerModule = function (module) {
 		console.log('registerModule', module.name, facade.modules);
 		if (!facade.modules[module.name]) {
 			facade.modules[module.name] = module;
 		}
 		return facade.modules[module.name];
-/*
-		for (var i in rules) {
-			permissions.setPermission(rules[i], module);
-		}
-*/
 	}
 
 	facade.util = mediator.util;

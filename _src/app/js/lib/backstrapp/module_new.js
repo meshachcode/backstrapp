@@ -40,6 +40,8 @@ function (Backbone, f, builder, activator) {
 			if (this.autoload === true) {
 				this.subscribe('initComplete', this.start);
 			}
+			this.exports.isValid = true;
+			this.exports.name = this.name;
 			this.publish('initComplete');
 			return this.exports;
 		},
@@ -200,7 +202,7 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		activate: function (h) {
-			console.log('activate', h);
+/* 			console.log('activate', h); */
 			this.set({
 				isValid: true,
 				isActive: true
@@ -220,7 +222,7 @@ function (Backbone, f, builder, activator) {
 			* @method publish
 		*/
 		publish: function (event, params) {
-			console.log('PPPub', arguments);
+/* 			console.log('PPPub', arguments); */
 			var channel = this.name + f.util.camelize(event);
 			f.publish(this.name, channel, params);
 		},
@@ -229,7 +231,7 @@ function (Backbone, f, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (event, callback, context) {
-			console.log('SSSub', arguments);
+/* 			console.log('SSSub', arguments); */
 			var me = context || this;
 			var channel = this.name + f.util.camelize(event);
 			f.subscribe(me.name, channel, callback);

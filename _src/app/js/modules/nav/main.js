@@ -64,7 +64,9 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			// bindAll here to allow the module to pass 'autoload:true' to the constructor,
 			// and avoid the need for an extra init() call 
 			f.util.bindAll(Module, 'start', 'process');
-			return Module._init(item, params);
+			var ret = Module._init(item, params);
+			console.log('ret', ret);
+			return ret;
 		}
 	};
 });
