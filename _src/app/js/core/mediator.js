@@ -24,10 +24,9 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 		return ret;
 	}
 
-	obj.subscribe = function (channel, subscription) {
-/* 		console.log('mediator subscribe', arguments); */
-		if (!channels[channel]) channels[channel] = [];
-		channels[channel].push(subscription);
+	obj.subscribe = function (channel, callback, context) {
+        channels[channel] = (!channels[channel]) ? [] : channels[channel];
+        channels[channel].push(this.util.method(callback, context));
 	};
 
 	obj.publish = function (channel) {

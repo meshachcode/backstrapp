@@ -37,7 +37,7 @@ define(['jquery', 'util/loadcss', 'core/facade'], function ($, loadcss, f) {
 				parameters = objectifyParams(item.data("module-parameters"));
 
 			require([module], function (mod) {
-				console.log('Module Loaded:', mod, module, parameters);
+/* 				console.log('Module Loaded:', mod, module, parameters); */
 				if (mod.css) {
 					loadcss(mod.css, item);
 				} else {
@@ -45,12 +45,14 @@ define(['jquery', 'util/loadcss', 'core/facade'], function ($, loadcss, f) {
 				}
 				if (mod.init) {
 					var m = mod.init(item, parameters);
-					console.log('mod.init', mod, m);
 					f.registerModule(m);
+					delete m;
+					delete mod;
+/* 					console.log('module init', m, mod, f.modules) */
 				}
 			});
 		});
-		console.log('e.execute just ran', e);
+/* 		console.log('e.execute just ran', e); */
 	};
 	
 

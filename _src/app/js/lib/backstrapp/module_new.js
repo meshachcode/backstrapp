@@ -40,10 +40,8 @@ function (Backbone, f, builder, activator) {
 			if (this.autoload === true) {
 				this.subscribe('initComplete', this.start);
 			}
-			this.exports.isValid = true;
-			this.exports.name = this.name;
 			this.publish('initComplete');
-			return this.exports;
+			return this;
 		},
 
 		/*
@@ -232,9 +230,9 @@ function (Backbone, f, builder, activator) {
 		*/
 		subscribe: function (event, callback, context) {
 /* 			console.log('SSSub', arguments); */
-			var me = context || this;
-			var channel = this.name + f.util.camelize(event);
-			f.subscribe(me.name, channel, callback);
+			var me = context || this.name;
+			var channel = me + f.util.camelize(event);
+			f.subscribe(this.name, channel, callback);
 		},
 
 		/*
@@ -269,4 +267,4 @@ function (Backbone, f, builder, activator) {
 
 	return e;
 
-	});
+});

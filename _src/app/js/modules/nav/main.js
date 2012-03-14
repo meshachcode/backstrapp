@@ -52,7 +52,7 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			* 
 		*/
 		updateActive: function (page) {
-			console.log('updateActive', arguments);
+/* 			console.log('updateActive', arguments); */
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}
@@ -65,7 +65,6 @@ define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
 			// and avoid the need for an extra init() call 
 			f.util.bindAll(Module, 'start', 'process');
 			var ret = Module._init(item, params);
-			console.log('ret', ret);
 			return ret;
 		}
 	};

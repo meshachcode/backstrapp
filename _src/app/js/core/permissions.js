@@ -14,7 +14,8 @@ define(['jquery', 'core/mediator'], function ($, m) {
 	permissions.defaultRules = {
 		module: [
 			'navModule',
-			'pageModule'
+			'pageModule',
+			'testModule'
 		],
 		event: [
 			'init',
@@ -43,18 +44,14 @@ define(['jquery', 'core/mediator'], function ($, m) {
 		]
 	};
 
-	permissions.rules = {};
-	
-	permissions.newRule = function (rule, modules) {
-		if (!permissions.rules[rule]) {
-			permissions.rules[rule] = {};
-			for (var i in modules) {
-				permissions.rules[rule][modules[i]] = true;
+	permissions.rules = {
+		pageModuleRenderComplete: {
+			navModule: {
+				subscribe:true
 			}
 		}
-		console.log('new rule', permissions.rules[rule], permissions.rules);
-	}
-	
+	};
+		
 	/*
 		* @method permissions.initRules
 		* it's ugly, but it works for now. saves hard-coding new modules in batches, 
@@ -63,15 +60,23 @@ define(['jquery', 'core/mediator'], function ($, m) {
 		* to pub/sub with themselves. Cross-polinating modules should be hard-coded into 
 		* the .rules object to keep things easy to find for now.
 	*/
-	permissions.getDefaultRules = function () {
+	permissions.newRules = function (rules) {
 		var ret = {};
-		for (var i in permissions.defaultRules.module) {
-			for (var j in permissions.defaultRules.event) {
-				var event = permissions.defaultRules.module[i] + m.util.camelize(permissions.defaultRules.event[j]);
-				for (var k in permissions.defaultRules.state) {
-					var rule = event + m.util.camelize(permissions.defaultRules.state[k]);
-					ret[rule] = {};
-					ret[rule][permissions.defaultRules.module[i]] = true;
+		for (var i in rules.module) {
+			for (var j in rules.event) {
+				var event = rules.module[i] + m.util.camelize(rules.event[j]);
+				for (var k in rules.state) {
+					var rule = event + m.util.camelize(rules.state[k]);
+					var module = {};
+					module[rules.module[i]] = {
+						publish: true,
+						subscribe: true
+					};
+					ret[rule] = module;
+					if (permissions.rules[rule]) {
+/* 						console.log('###', rule, permissions.rules[rule]); */
+						m.util.extend(ret[rule], permissions.rules[rule]);
+					}
 				}
 			}
 		}
@@ -82,16 +87,16 @@ define(['jquery', 'core/mediator'], function ($, m) {
      * @param {string} subscriber Module name
      * @param {string} channel Event name
      */
-	permissions.validate = function(subscriber, channel){
-/* 		console.log('validate', arguments); */
-		var test = permissions.rules[channel][subscriber];
+	permissions.validate = function(request, subscriber, channel){
+/* 		console.log('validate', arguments, permissions.rules); */
+		var test = permissions.rules[channel][subscriber][request];
 		return test === undefined ? false : test;
 	};
-	
+
 	permissions.init = function () {
-		var defaultRules = permissions.getDefaultRules();
-		permissions.rules = m.util.extend(permissions.rules, defaultRules);
-		console.log('rules', permissions.rules);
+		var rules = permissions.newRules(permissions.defaultRules);
+		m.util.extend(permissions.rules, rules);
+/* 		console.log('init rules', permissions.rules); */
 	};
 	
 	permissions.init();
