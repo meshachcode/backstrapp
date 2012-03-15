@@ -64,7 +64,7 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 	
 	facade.getModule = function (request, callback) {
 		if (mediator.modules[request.name]) {
-			mediator.startModule(request);
+			mediator.restoreModule(request);
 		} else {
 			mediator.loadModule(request, callback);
 		}

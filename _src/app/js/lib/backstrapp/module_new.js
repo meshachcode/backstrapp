@@ -27,7 +27,7 @@ function (Backbone, f, builder, activator) {
 		*/
 		constructor: function (obj) {
 			console.log('constructor', obj, arguments);
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process');
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore');
 			if (obj != undefined) {
 				if (obj.debug != undefined) {
 					console.log('debugging', obj.debug);
@@ -143,7 +143,9 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
-/* 			console.log('setHtml', this.name, arguments); */
+			if (this.debug.setHtml) {
+				console.log('setHtml', this.name, arguments);
+			}
 			this.set({ html: h });
 			this.publish('setHtmlComplete', h);
 		},
@@ -153,13 +155,16 @@ function (Backbone, f, builder, activator) {
 			* takes el and html params to allow for rendering small sections if needed
 		*/
 		render: function (el, html) {
-			if (this.debug.render) {
-				console.log(this.name, 'render!', this.el, this.html);
-			}
 			var e = el || this.el;
 			var h = html || this.html;
+			if (this.debug.render) {
+				console.log(this.name, 'render!', e, h, this);
+			}
 			if (this.isValid) {
 				$(e).html(h);
+				if (this.debug.render) {
+					console.log('e', e);
+				}
 			    builder.execute(e);
 			    activator.execute(e);
 			} else {
@@ -186,9 +191,14 @@ function (Backbone, f, builder, activator) {
 			* @method restore
 			* 
 		*/
-		restore: function (params) {
+		restore: function (target, params) {
+			if (this.debug.restore) {
+				console.log('restore', arguments);
+			}
 			this.set({
-				isValid: true
+				isValid: true,
+				isActive: true,
+				el: $(target)
 			});
 			this.publish('restoreComplete', params);
 		},

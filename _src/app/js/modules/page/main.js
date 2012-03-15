@@ -4,9 +4,9 @@
 
 define(['lib/backstrapp/module_new', './router', 'core/facade'],
 
-function (mod, router, f) {
+function (ModuleClass, router, f) {
 	
-	var Module = new mod();
+	var Module = new ModuleClass();
 
 	Module.extend({
 		autoload			: true,
