@@ -30,6 +30,12 @@
 			"title"			:		"Module Factory",
 			"file"			:		"modules/dev/module.html",
 			"description"	:		"Module Factory."
+		},
+		{
+			"id"			:		"modgroup",
+			"title"			:		"Module Group Test",
+			"file"			:		"modules/dev/module_group.html",
+			"description"	:		"Module Group Test."
 		}
 	]
 }

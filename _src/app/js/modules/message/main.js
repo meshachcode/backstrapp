@@ -1,13 +1,23 @@
-define(['underscore', 'lib/backstrapp/module_new'], function (_, mod) {
-	var Module = new mod();
+/*
+	Message Module
+*/
 
-	Module.extend({
-		init: function (item, params) {
-			var n = $(item).attr('id');
-			Module.set({ name: n, el: item });
-			Module.base(params);
-			return Module.exports;
+define(['lib/backstrapp/module'], function (ModuleClass) {
+
+	var MessageModule = ModuleClass.extend({
+		view: 'html/modules/dev/parts/msg.html',
+		animation: {
+			time: 250
 		}
 	});
-	return Module;
+
+	return {
+		instance: new MessageModule(),
+		init: function (item, params) {
+			return this.instance._init(item, params);
+		},
+		restore: function (item, params) {
+			return this.instance.restore(item, params);
+		}
+	}
 });

@@ -15,7 +15,9 @@ define(['jquery', 'core/mediator'], function ($, m) {
 		module: [
 			'navModule',
 			'pageModule',
-			'testModule'
+			'testModule',
+			'testModule1',
+			'testModule2'
 		],
 		event: [
 			'init',
