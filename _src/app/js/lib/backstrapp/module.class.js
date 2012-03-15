@@ -22,6 +22,9 @@ function ($, Backbone, f, builder, activator) {
 		errors			:	[],
 		exports			:	{},
 		debug			:	{},
+		animation		:	{
+			time: 250
+		},
 
 		/*
 			* @method constructor

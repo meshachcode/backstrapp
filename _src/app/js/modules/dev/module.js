@@ -3,6 +3,7 @@
 */
 
 define(['lib/backstrapp/module'], function (ModuleClass) {
+
 	var SimpleModule = ModuleClass.extend({
 		view: 'html/modules/dev/parts/msg.html',
 		animation: {

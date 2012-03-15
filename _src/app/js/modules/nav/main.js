@@ -1,43 +1,32 @@
 /**
 	* Nav Module
 */
-define(['lib/backstrapp/module.class', 'core/facade'], function (mod, f) {
-	var Module = new mod();
+define(['lib/backstrapp/module', 'core/facade'], function (ModuleClass, f) {
 
-	Module.extend({
-		/*
-			* @property autoload
-			* this tells the Module super class to call 'start()' on 'initComplete'
-		*/
-		autoload: true,
-
+	var NavModule = ModuleClass.extend({
 		/*
 			* @property view
-			* this is used by Module.load(), which calls 'process()' as a callback
 		*/
 		view: 'html/app/parts/nav.html',
+		animation: {
+			time: 250
+		},
+		
+		constructor: function (obj) {
+			this.util.bindAll(this, 'start', 'process', 'updateActive');			
+			this.base(obj);
+		},
 		
 		/*
 			* @method start
-			* this is either called by the super class (autoload),
-			* or, you may call it yourself (from the exports object below),
-			* or, you can leave it uncalled, and let the facade start / stop it, 
-			* based on some outside event
 		*/
 		start: function () {
-			this.subscribe('startComplete', this.loadView);
-			this.subscribe('loadViewComplete', this.process);
-			this.subscribe('setHtmlComplete', this.activate);
-			this.subscribe('activateComplete', this.render);
 			this.subscribe('renderComplete', this.updateActive, 'pageModule');
 			this.base();
 		},
 		
 		/*
 			* @method process
-			* called by load() with the loaded html from this.template
-			* the super version of this method just runs the following:
-				* this.processTemplate(html, this.exports, this.activate)
 		*/
 		process: function (html) {
 			var obj = {
@@ -49,23 +38,20 @@ define(['lib/backstrapp/module.class', 'core/facade'], function (mod, f) {
 
 		/*
 			* @method updateActive
-			* 
 		*/
 		updateActive: function (page) {
-/* 			console.log('updateActive', arguments); */
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}
-
 	});
 
 	return {
+		instance: new NavModule(),
 		init: function (item, params) {
-			// bindAll here to allow the module to pass 'autoload:true' to the constructor,
-			// and avoid the need for an extra init() call 
-			f.util.bindAll(Module, 'start', 'process');
-			var ret = Module._init(item, params);
-			return ret;
+			return this.instance._init(item, params);
+		},
+		restore: function (item, params) {
+			return this.instance.restore(item, params);
 		}
 	};
 });
