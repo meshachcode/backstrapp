@@ -2,17 +2,16 @@
 	* Backstrapp Module Class
 */
 define([
+	'jquery',
 	'backbone',
 	'core/facade',
-	'util/content-builder',
-	'util/module-activator',
+	'backstrapp/content-builder',
+	'backstrapp/module-activator',
 	'util/base'
 ],
-function (Backbone, f, builder, activator) {
+function ($, Backbone, f, builder, activator) {
 
-	var ModuleClass = ModuleClass || {};
-
-	ModuleClass = Base.extend({
+	var e = Base.extend({
 		isValid			: 	false,
 		isActive		:	false,
 		autoload		:	false,
@@ -22,13 +21,19 @@ function (Backbone, f, builder, activator) {
 		el 				:	$('#content'),
 		errors			:	[],
 		exports			:	{},
-		events			:	{},
+		debug			:	{},
 
 		/*
 			* @method constructor
 		*/
 		constructor: function (obj) {
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'initEvents', 'process');
+			console.log('constructor', obj, arguments);
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show');
+			if (obj != undefined) {
+				if (obj.debug != undefined) {
+					console.log('debugging', obj.debug);
+				}
+			}
 			this.set(obj);
 		},
 
@@ -36,33 +41,25 @@ function (Backbone, f, builder, activator) {
 			* @method init
 		*/
 		_init: function (item, params) {
-			var n, name, me;
+			var n, name;
 			// set this.name
 			n = $(item).attr('id');
 			name = this.set({ name: n, el: item }).name;
-			console.log('registering: ', this.name);
-			me = f.registerModule(this);
-			console.log('me', me);
-		},
-
-		initEvents: function(name) {
-			events = new this.defaultEvents();
-			for ( var i in events ) {
-				events[i] = name + f.util.camelize(i);
+			if (this.autoload === true) {
+				this.subscribe('initComplete', this.start);
 			}
-			this.events = events;
-			return this.events
+			this.publish('initComplete');
+			return this;
 		},
 
 		/*
 			* @method start
 		*/
 		start: function (params) {
-			console.log('ModuleClass start');
 			this.set({
 				isActive: true
 			});
-			this.publish(this.name, this.events.startComplete, params);
+			this.publish('startComplete', params);
 		},
 
 		/*
@@ -72,9 +69,9 @@ function (Backbone, f, builder, activator) {
 			this.set({
 				isActive: false
 			});
-			this.publish(this.name, this.events.stopComplete, params);
+			this.publish('stopComplete', params);
 		},
-
+		
 		/*
 			* @method get
 		*/
@@ -98,6 +95,20 @@ function (Backbone, f, builder, activator) {
 			}
 			return obj;
 		},
+		
+		/*
+			* @method hide
+		*/
+		hide: function () {
+			$(this.el).hide();
+		},
+				
+		/*
+			* @method show
+		*/
+		show: function (time) {
+			$(this.el).fadeIn(time);
+		},
 
 		/*
 			* @method loadView
@@ -105,7 +116,7 @@ function (Backbone, f, builder, activator) {
 		loadView: function () {
 			var me = this;
 			this.loadHtml(this.view, function (html) {
-				me.publish(me.name, me.events.loadViewComplete, html);
+				me.publish('loadViewComplete', html);
 			});
 		},
 
@@ -129,7 +140,7 @@ function (Backbone, f, builder, activator) {
 		process: function (html) {
 			var me = this;
 			this.processTemplate(html, this.exports, function (html) {
-				me.publish(me.name, me.events.processComplete, html);
+				me.publish('processComplete', html);
 			});
 		},
 		
@@ -147,8 +158,11 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		setHtml: function (h) {
+			if (this.debug.setHtml) {
+				console.log('setHtml', this.name, arguments);
+			}
 			this.set({ html: h });
-			this.publish(this.name, this.events.setHtmlComplete);
+			this.publish('setHtmlComplete', h);
 		},
 
 		/*
@@ -158,8 +172,14 @@ function (Backbone, f, builder, activator) {
 		render: function (el, html) {
 			var e = el || this.el;
 			var h = html || this.html;
+			if (this.debug.render) {
+				console.log(this.name, 'render!', e, h, this);
+			}
 			if (this.isValid) {
 				$(e).html(h);
+				if (this.debug.render) {
+					console.log('e', e);
+				}
 			    builder.execute(e);
 			    activator.execute(e);
 			} else {
@@ -167,7 +187,7 @@ function (Backbone, f, builder, activator) {
 				var eMsg = this.printErrors(this.errors);
 				$(el).html(eMsg);
 			}
-			this.publish(this.name, this.events.renderComplete, this.page);
+			this.publish('renderComplete', this.page);
 		},
 
 		/*
@@ -179,19 +199,24 @@ function (Backbone, f, builder, activator) {
 				isValid: false
 			});
 			this.el.html(this.name + 'destroyed');
-			this.publish(this.name, this.events.destroyComplete);
+			this.publish('destroyComplete');
 		},
 
 		/*
 			* @method restore
 			* 
 		*/
-		restore: function () {
+		restore: function (target, params) {
+			if (this.debug.restore) {
+				console.log('restore', arguments);
+			}
 			this.set({
-				isValid: true
+				isValid: true,
+				isActive: true,
+				el: $(target)
 			});
-			this.publish(this.name, this.events.restoreComplete);
-		},		
+			this.publish('restoreComplete', params);
+		},
 		
 		/*
 			* @method deactivate
@@ -209,11 +234,12 @@ function (Backbone, f, builder, activator) {
 			* 
 		*/
 		activate: function (h) {
+/* 			console.log('activate', h); */
 			this.set({
 				isValid: true,
 				isActive: true
 			});
-			this.publish(this.name, this.events.activateComplete);
+			this.publish('activateComplete');
 		},
 		
 		/*
@@ -221,23 +247,30 @@ function (Backbone, f, builder, activator) {
 			* NOT USED YET
 		*/
 		save: function () {
-			this.publish(this.name, this.events.saveComplete);
+			this.publish('saveComplete');
 		},
 		
 		/*
 			* @method publish
 		*/
-		publish: function (name, event, params) {
-/* 			console.log('PPPub', arguments); */
-			f.publish(name, event, params);
+		publish: function (event, params) {
+			if (this.debug.publish) {
+				console.log('PPPub', arguments);
+			}
+			var channel = this.name + f.util.camelize(event);
+			f.publish(this.name, channel, params);
 		},
 		
 		/*
 			* @method subscribe
 		*/
-		subscribe: function (name, event, callback) {
-/* 			console.log('SSSub', arguments); */
-			f.subscribe(name, event, callback);
+		subscribe: function (event, callback, context) {
+			if (this.debug.subscribe) {
+				console.log('SSSub', arguments);
+			}
+			var me = context || this.name;
+			var channel = me + f.util.camelize(event);
+			f.subscribe(this.name, channel, callback);
 		},
 
 		/*
@@ -265,7 +298,7 @@ function (Backbone, f, builder, activator) {
 			f.util.each(arr, function(err) {
 				msg += "ERROR: " + err + "<br />";
 			});
-			console.warn('msg', msg);
+/* 			console.warn('msg', msg); */
 			return msg;
 		},
 		
@@ -274,6 +307,6 @@ function (Backbone, f, builder, activator) {
 		}
 	});
 
-	return ModuleClass;
+	return e;
 
 });

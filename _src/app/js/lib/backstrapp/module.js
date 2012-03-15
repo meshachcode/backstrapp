@@ -1,7 +1,7 @@
 /*
 	* Simple Module
 */
-define(['./module_new'], function(ModClass) {
+define(['./module.class'], function(ModClass) {
 
 	var Module = ModClass.extend({
 		/*
@@ -40,7 +40,7 @@ define(['./module_new'], function(ModClass) {
 		render: function (el, html) {
 			this.hide();
 			this.base(el, html);
-			this.show(500);
+			this.show(this.animation.time);
 		}
 	});
 	

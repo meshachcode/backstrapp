@@ -2,7 +2,7 @@
 	* Page Module
 */
 
-define(['lib/backstrapp/module_new', './router', 'core/facade'],
+define(['lib/backstrapp/module.class', './router', 'core/facade'],
 
 function (ModuleClass, router, f) {
 	
