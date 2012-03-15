@@ -12,8 +12,9 @@ define(['lib/backstrapp/module'], function (ModuleClass) {
 	});
 
 	return {
-		instance: new SimpleModule(),
+		instance: {},
 		init: function (item, params) {
+			this.instance = new SimpleModule({debug:{publish:false,subscribe:false,render:false}});
 			return this.instance._init(item, params);
 		},
 		restore: function (item, params) {
