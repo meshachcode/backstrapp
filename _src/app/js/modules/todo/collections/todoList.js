@@ -2,7 +2,7 @@ define(["underscore", "backbone", "../models/todo", "lib/backbone/localStorage"]
 
     var TodoList = Backbone.Collection.extend({
         model: Todo,
-        localStorage: new Store("b$-Todos"),
+        localStorage: new Store("backstrappTodos"),
         done: function () {
             return this.filter(function (todo) {
                 return todo.get('done');
@@ -18,8 +18,6 @@ define(["underscore", "backbone", "../models/todo", "lib/backbone/localStorage"]
         comparator: function (todo) {
             return todo.get('order');
         }
-
-
     });
 
     return new TodoList;

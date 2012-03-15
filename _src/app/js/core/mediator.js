@@ -52,6 +52,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 	mediator.loadModule = function (request, callback) {
 		console.log('--- Loading New ' + request.name, mediator.modules);
 		var mod = require([request.mod], function (m) {
+			console.log('m', m);
 			mediator.modules[request.name] = m;
 			mediator.modules[request.name].init(request.dom, request.arg);
 			callback(mediator.modules[request.name], request.dom);

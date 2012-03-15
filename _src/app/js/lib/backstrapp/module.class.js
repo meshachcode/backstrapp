@@ -20,10 +20,16 @@ function ($, Backbone, f, builder, activator) {
 		view			: 	'',
 		el 				:	$('#content'),
 		errors			:	[],
-		exports			:	{},
 		debug			:	{},
 		animation		:	{
 			time: 250
+		},
+		exports			:	function () {
+			return {
+				isActive: this.isActive,
+				isValid: this.isValid,
+				name: this.name
+			}
 		},
 
 		/*
@@ -31,7 +37,7 @@ function ($, Backbone, f, builder, activator) {
 		*/
 		constructor: function (obj) {
 			console.log('constructor', obj, arguments);
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show');
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
 			if (obj != undefined) {
 				if (obj.debug != undefined) {
 					console.log('debugging', obj.debug);
@@ -52,7 +58,7 @@ function ($, Backbone, f, builder, activator) {
 				this.subscribe('initComplete', this.start);
 			}
 			this.publish('initComplete');
-			return this;
+			return this.exports();
 		},
 
 		/*
