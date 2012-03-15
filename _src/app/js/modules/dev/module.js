@@ -3,16 +3,17 @@
 */
 
 define(['lib/backstrapp/module'], function (ModuleClass) {
-	console.log('creating new ModuleClass()');
-	var SimpleModule = new ModuleClass();
+	var SimpleModule = ModuleClass.extend({
+		view: 'html/modules/dev/parts/msg.html'
+	});
 
 	return {
+		instance: new SimpleModule(),
 		init: function (item, params) {
-			return SimpleModule._init(item, params);
+			return this.instance._init(item, params);
 		},
 		restore: function (item, params) {
-			return SimpleModule.restore(item, params);
+			return this.instance.restore(item, params);
 		}
 	}
-
 });

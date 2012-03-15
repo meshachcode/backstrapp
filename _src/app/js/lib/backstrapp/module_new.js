@@ -2,13 +2,14 @@
 	* Backstrapp Module Class
 */
 define([
+	'jquery',
 	'backbone',
 	'core/facade',
-	'util/content-builder',
+	'backstrapp/content-builder',
 	'backstrapp/module-activator',
 	'util/base'
 ],
-function (Backbone, f, builder, activator) {
+function ($, Backbone, f, builder, activator) {
 
 	var e = Base.extend({
 		isValid			: 	false,
@@ -27,7 +28,7 @@ function (Backbone, f, builder, activator) {
 		*/
 		constructor: function (obj) {
 			console.log('constructor', obj, arguments);
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore');
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show');
 			if (obj != undefined) {
 				if (obj.debug != undefined) {
 					console.log('debugging', obj.debug);
@@ -93,6 +94,20 @@ function (Backbone, f, builder, activator) {
 				this[i] = obj[i];
 			}
 			return obj;
+		},
+		
+		/*
+			* @method hide
+		*/
+		hide: function () {
+			$(this.el).hide();
+		},
+				
+		/*
+			* @method show
+		*/
+		show: function (time) {
+			$(this.el).fadeIn(time);
 		},
 
 		/*

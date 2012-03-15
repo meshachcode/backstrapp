@@ -14,10 +14,9 @@ define(['./module_new'], function(ModClass) {
 			* @property view
 			* this is used by Module.load(), which calls 'process()' as a callback
 		*/
-		view: 'html/modules/dev/parts/msg.html',
 
 		constructor: function (obj) {
-			this.util.bindAll(this, 'start');
+			this.util.bindAll(this, 'start', 'render');
 			this.base(obj);
 		},
 
@@ -36,6 +35,12 @@ define(['./module_new'], function(ModClass) {
 			this.subscribe('setHtmlComplete', this.activate);
 			this.subscribe('activateComplete', this.render);
 			this.base();
+		},
+		
+		render: function (el, html) {
+			this.hide();
+			this.base(el, html);
+			this.show(500);
 		}
 	});
 	
