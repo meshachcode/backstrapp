@@ -30,7 +30,6 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 	};
 
 	mediator.publish = function (channel) {
-/* 		console.log('mediator publish', arguments); */
 		if (!channels[channel]) return;
 		var args = [].slice.call(arguments, 1);
 		for (var i = 0, l = channels[channel].length; i < l; i++) {
@@ -65,21 +64,30 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
         isFunction: _.isFunction,
         bindAll: _.bindAll,
         isIn: $.inArray,
-		has: function(mediator, key) {
-			return hasOwnProperty.call(mediator, key);
+		has: function(obj, key) {
+			return hasOwnProperty.call(obj, key);
 		},
 
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
-            return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
-        },
+            var ret = camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
+            if (ret.substr(0, 1) == delimiter) {
+            	ret = ret.substr(1);
+            }
+            return ret;
+        },        
 
         /**
          * @link <a href="https://gist.github.com/827679">camelize.js</a>
          * @param {string} str String to make camelCase
          */
-        camelize: function (str) {
-            return str.replace (/(?:^|[-_])(\w)/g, function (delimiter, c) {
+        camelize: function (str, lowerFirst) {
+        	lowerFirst = (lowerFirst === undefined) ? false : lowerFirst;
+        	var reg = /(?:^|[-_])(\w)/g;
+        	if (lowerFirst) {
+        		reg = /[-_]([a-z])/ig;
+        	}
+            return str.replace (reg, function (delimiter, c) {
                 return c ? c.toUpperCase () : '';
             });
         },

@@ -14,7 +14,10 @@ require({
 		modules:		'modules',
 		modules_js:		'modules',
 		modules_html:	'../html/modules',
-		core:			'core'
+		loadcss:		'util/loadcss',
+		cookie:			'util/cookie',
+		base:			'util/base',
+		core:			'./core'
     }
 },
 ['backstrapp/content-builder', 'backstrapp/module-activator'], function (builder, activator) {

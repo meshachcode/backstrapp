@@ -7,7 +7,7 @@ define([
 	'core/facade',
 	'backstrapp/content-builder',
 	'backstrapp/module-activator',
-	'util/base'
+	'base'
 ],
 function ($, Backbone, f, builder, activator) {
 
@@ -24,6 +24,7 @@ function ($, Backbone, f, builder, activator) {
 		animation		:	{
 			time: 250
 		},
+
 		exports			:	function () {
 			return {
 				isActive: this.isActive,

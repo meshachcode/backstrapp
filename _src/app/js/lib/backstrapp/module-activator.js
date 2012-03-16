@@ -3,7 +3,7 @@
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 */
 
-define(['jquery', 'util/loadcss', 'core/facade'], function ($, loadcss, f) {
+define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 
 	var objectifyParams = function (paramStr) {
 		var pObj = {},

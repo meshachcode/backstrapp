@@ -7,7 +7,8 @@
 define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};
-	
+	permissions.init();	
+
 	facade.subscribe = function(subscriber, channel, callback){
 /* 		console.log('subscribe', arguments); */
 		if(permissions.validate('subscribe', subscriber, channel)){
