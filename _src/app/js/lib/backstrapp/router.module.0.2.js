@@ -2,9 +2,7 @@
 	* Backstrapp Router Module
 */
 
-define(['lib/backstrapp/module.class.0.2', './router.0.2', 'core/facade'],
-
-function (ModuleClass, router, f) {
+define(['./module.class.0.2', './router.0.2', 'core/facade'], function (ModuleClass, router, f) {
 
 	var BackstrappRouterModule = ModuleClass.extend({
 		autoload			: true,
@@ -55,9 +53,9 @@ function (ModuleClass, router, f) {
 		/*
 			* @method render
 		*/
-		render: function (el, html) {
+		render: function () {
 			this.hide();
-			this.base(el, html);
+			this.base();
 			this.show(this.animation.time);
 		}
 	});

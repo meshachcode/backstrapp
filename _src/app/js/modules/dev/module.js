@@ -14,7 +14,6 @@ define(['lib/backstrapp/module.0.2'], function (ModuleClass) {
 	return {
 		instance: {},
 		init: function (request) {
-			console.log('testModule init', request);
 			this.instance = new SimpleModule(request);
 			return this.instance;
 		},
@@ -22,4 +21,5 @@ define(['lib/backstrapp/module.0.2'], function (ModuleClass) {
 			return this.instance.restore(request);
 		}
 	}
+
 });

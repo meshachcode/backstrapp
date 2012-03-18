@@ -55,7 +55,6 @@ function ($, Backbone, f, builder, activator) {
 		*/
 		loadSubscriptions: function (events) {
 			for (var i in events) {
-				console.log('events', i, events[i]);
 				this.subscribe(i, this[events[i]]);
 			}
 		},

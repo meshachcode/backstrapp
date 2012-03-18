@@ -2,9 +2,7 @@
 	* Page Module
 */
 
-define(['lib/backstrapp/router.module.0.2'],
-
-function (RouterModuleClass, router) {
+define(['lib/backstrapp/router.module.0.2'], function (RouterModuleClass, router) {
 
 	var PageModule = RouterModuleClass.extend({
 		routes: {

@@ -40,6 +40,7 @@ define(['lib/backstrapp/module.0.2', 'core/facade'], function (ModuleClass, f) {
 			* @method updateActive
 		*/
 		updateActive: function (page) {
+			console.log('updateActive called', page);
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}

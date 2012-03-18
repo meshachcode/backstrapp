@@ -1,9 +1,9 @@
 /*
 	* Simple Module
 */
-define(['./module.class.0.2'], function(ModClass) {
+define(['./module.class.0.2'], function(ModuleClass) {
 
-	var Module = ModClass.extend({
+	var Module = ModuleClass.extend({
 		autoload				: true,
 		inheritEvents			: true,
 		events: {
@@ -16,13 +16,16 @@ define(['./module.class.0.2'], function(ModClass) {
 		},
 
 		/*
-			* @property constructor
+			* @method constructor
 		*/
 		constructor: function (request) {
 			this.util.bindAll(this, 'start', 'render');
 			return this.base(request);
 		},
 
+		/*
+			* @method render
+		*/
 		render: function (el, html) {
 			this.hide();
 			this.base(el, html);

@@ -25,11 +25,13 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 	}
 
 	mediator.subscribe = function (channel, callback, context) {
+/* 		console.log('mediator.subscribe', arguments); */
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
 	};
 
 	mediator.publish = function (channel) {
+/* 		console.log('mediator.publish', arguments); */
 		if (!channels[channel]) return;
 		var args = [].slice.call(arguments, 1);
 		for (var i = 0, l = channels[channel].length; i < l; i++) {
@@ -45,7 +47,12 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 
 	mediator.restoreModule = function (request, callback) {
 		console.log('--- Returning ' + request.name + ' Instance', mediator.modules[request.name]);
-		mediator.modules[request.name].restore(request);
+		
+		if (typeof mediator.modules[request.name].restore == 'function') {
+			mediator.modules[request.name].restore(request);
+		} else {
+			mediator.modules[request.name].init(request);
+		}
 		if (typeof callback == 'function') {
 			callback(mediator.modules[request.name]);
 		}
@@ -56,7 +63,6 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 		var mod = require([request.mod], function (m) {
 			mediator.modules[request.name] = m;
 			mediator.modules[request.name].init(request);
-			console.log('module', mediator.modules[request.name]);
 			if (typeof callback == 'function') {
 				callback(mediator.modules[request.name]);
 			}

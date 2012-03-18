@@ -28,7 +28,6 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 	}
 	
 	var postProcess = function (mod) {
-		console.log('postProcess called with ', mod);
 	}
 
 	var e = {};
