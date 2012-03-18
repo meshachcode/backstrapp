@@ -45,7 +45,6 @@ define([], function () {
 
 	permissions.validate = function(subscriber, channel){
 		var test = permissions[channel][subscriber];
-		console.log(test);
 		return test===undefined? false: test;
 	};
 

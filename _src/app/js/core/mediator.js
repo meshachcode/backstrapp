@@ -47,7 +47,6 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 
 	mediator.restoreModule = function (request, callback) {
 		console.log('--- Returning ' + request.name + ' Instance', mediator.modules[request.name]);
-		
 		if (typeof mediator.modules[request.name].restore == 'function') {
 			mediator.modules[request.name].restore(request);
 		} else {

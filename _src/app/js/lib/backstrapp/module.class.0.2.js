@@ -213,16 +213,16 @@ function ($, Backbone, f, builder, activator) {
 			* @method restore
 			* 
 		*/
-		restore: function (target, params) {
+		restore: function (request) {
 			if (this.debug.restore) {
 				console.log('restore', arguments);
 			}
 			this.set({
 				isValid: true,
 				isActive: true,
-				el: $(target)
+				el: $(request.dom)
 			});
-			this.publish('restoreComplete', params);
+			this.publish('restoreComplete', request.arg);
 		},
 		
 		/*

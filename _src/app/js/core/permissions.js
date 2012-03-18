@@ -63,7 +63,6 @@ define(['jquery', 'core/mediator'], function ($, m) {
 			permissions.rules[channel] = rule;
 			ret = permissions.rules[channel];
 		}
-		console.log('newRule', ret);
 		return ret;
 	};
 	
