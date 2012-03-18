@@ -20,6 +20,12 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 		return pObj;
 	}
 
+	postProcess = function (mod) {
+		if (mod.css) {
+			loadcss(mod.css);
+		}
+	}
+
 	var e = {};
 
 	e.execute = function (element) {
@@ -43,7 +49,7 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 				mod: module,
 				arg: params
 			};
-			f.getModule(request);
+			f.getModule(request, postProcess);
 		});
 	};
 	
