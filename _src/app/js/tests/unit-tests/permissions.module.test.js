@@ -54,14 +54,12 @@ define(['../../core/permissions'], function (permissions) {
 				ok(!permissions.validate('subscribe', subscriber, channel), 'validate fails with bad request');
 				ok(!permissions.validate(request, 'testModule2', channel), 'validate fails with bad subscriber');
 				ok(!permissions.validate(request, subscriber, 'testModule2InitReady'), 'validate fails with bad channel');
-				QUnit.reset();
 			});
 
 			test('permissions.newRule', function () {
 				var channel = 'testModuleEvent', rule = {testModule: {subscribe: true}};
 				deepEqual(permissions.newRule(channel, rule), rule, 'rule created properly');
 				ok(!permissions.newRule(channel, 'someRule'), 'rule must be an object');
-				QUnit.reset();
 			});
 
 			test('permissions.concatArrays', 2, function () {
@@ -70,21 +68,20 @@ define(['../../core/permissions'], function (permissions) {
 			});
 
 			test('permissions.camelizeArray', function () {
-				deepEqual(permissions.camelizeArray(concated), camelized, 'camelizeArray properly runs');
+				deepEqual(permissions.camelizeArray(concated, false), camelized, 'camelizeArray properly runs');
 			});
 
 			test('permissions.newRules', function () {
 				deepEqual(permissions.newRules(rules), expected, 'new rules created properly');
-				QUnit.reset();
 			});
 
-/*
 			test('permissions.init', function () {
-				var rules = permissions.init();
-				deepEqual(permissions.rules, expected, 'permissions.rules properly created');
 				QUnit.reset();
+				permissions.rules = {};
+				permissions.defaultRules = rules;
+				var r = permissions.init();
+				deepEqual(r, expected, 'permissions.rules properly created');
 			});			
-*/
 		}
 	};
 });

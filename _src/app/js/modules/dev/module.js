@@ -2,7 +2,7 @@
 	Test Module
 */
 
-define(['lib/backstrapp/module'], function (ModuleClass) {
+define(['lib/backstrapp/module.0.2'], function (ModuleClass) {
 
 	var SimpleModule = ModuleClass.extend({
 		view: 'html/modules/dev/parts/msg.html',
@@ -13,12 +13,13 @@ define(['lib/backstrapp/module'], function (ModuleClass) {
 
 	return {
 		instance: {},
-		init: function (item, params) {
-			this.instance = new SimpleModule({debug:{publish:false,subscribe:false,render:false,restore:false}});
-			return this.instance._init(item, params);
+		init: function (request) {
+			console.log('testModule init', request);
+			this.instance = new SimpleModule(request);
+			return this.instance;
 		},
-		restore: function (item, params) {
-			return this.instance.restore(item, params);
+		restore: function (request) {
+			return this.instance.restore(request);
 		}
 	}
 });

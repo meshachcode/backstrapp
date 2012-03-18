@@ -1,13 +1,11 @@
-define(['../../lib/backstrapp/module.class'], function (m) {
+define(['../../lib/backstrapp/module.class.0.2'], function (m) {
 	return {
 
 		RunTests: function () {
 			module('ModuleClass');
 
-/*
-			test('ModuleClass', function () {
+			test('Module should be created', function () {
 			});
-*/
 		}
 	};
 });

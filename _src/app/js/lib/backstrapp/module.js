@@ -1,7 +1,7 @@
 /*
 	* Simple Module
 */
-define(['./module.class'], function(ModClass) {
+define(['./module.class.0.1'], function(ModClass) {
 
 	var Module = ModClass.extend({
 		/*

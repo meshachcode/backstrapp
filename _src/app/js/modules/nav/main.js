@@ -1,7 +1,7 @@
 /**
 	* Nav Module
 */
-define(['lib/backstrapp/module', 'core/facade'], function (ModuleClass, f) {
+define(['lib/backstrapp/module.0.2', 'core/facade'], function (ModuleClass, f) {
 
 	var NavModule = ModuleClass.extend({
 		/*
@@ -12,9 +12,9 @@ define(['lib/backstrapp/module', 'core/facade'], function (ModuleClass, f) {
 			time: 250
 		},
 		
-		constructor: function (obj) {
-			this.util.bindAll(this, 'start', 'process', 'updateActive');			
-			this.base(obj);
+		constructor: function (request) {
+			this.util.bindAll(this, 'start', 'process', 'updateActive');
+			this.base(request);
 		},
 		
 		/*
@@ -46,12 +46,13 @@ define(['lib/backstrapp/module', 'core/facade'], function (ModuleClass, f) {
 	});
 
 	return {
-		instance: new NavModule(),
-		init: function (item, params) {
-			return this.instance._init(item, params);
+		instance: {},
+		init: function (request) {
+			this.instance = new NavModule(request);
+			return this.instance;
 		},
-		restore: function (item, params) {
-			return this.instance.restore(item, params);
+		restore: function (request) {
+			return this.instance.restore(request);
 		}
 	};
 });

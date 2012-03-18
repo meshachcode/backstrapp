@@ -36,30 +36,28 @@ function ($, Backbone, f, builder, activator) {
 		/*
 			* @method constructor
 		*/
-		constructor: function (obj) {
-			console.log('constructor', obj, arguments);
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
-			if (obj != undefined) {
-				if (obj.debug != undefined) {
-					console.log('debugging', obj.debug);
-				}
-			}
-			this.set(obj);
-		},
+		constructor: function (request) {
+			this.set({ name: request.name, el: request.dom });
 
-		/*
-			* @method init
-		*/
-		_init: function (item, params) {
-			var n, name;
-			// set this.name
-			n = $(item).attr('id');
-			name = this.set({ name: n, el: item }).name;
+			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
+
+			this.loadSubscriptions(this.events);
+
 			if (this.autoload === true) {
 				this.subscribe('initComplete', this.start);
 			}
 			this.publish('initComplete');
 			return this.exports();
+		},
+
+		/*
+			* @method loadSubscriptions
+		*/
+		loadSubscriptions: function (events) {
+			for (var i in events) {
+				console.log('events', i, events[i]);
+				this.subscribe(i, this[events[i]]);
+			}
 		},
 
 		/*
@@ -254,7 +252,6 @@ function ($, Backbone, f, builder, activator) {
 		
 		/*
 			* @method save
-			* NOT USED YET
 		*/
 		save: function () {
 			this.publish('saveComplete');

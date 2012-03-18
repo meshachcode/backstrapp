@@ -78,43 +78,40 @@ define(['jquery', 'core/mediator'], function ($, m) {
 		return ret;
 	};
 
-	permissions.camelizeArray = function (arr) {
+	permissions.camelizeArray = function (arr, lowerFirst) {
 		var ret = [];
 		for (var i in arr) {
-			ret.push(m.util.camelize(arr[i]));
+			ret.push(m.util.camelize(arr[i], lowerFirst));
 		}
 		return (ret == []) ? false : ret;
 	};
-
-	/*
-		* @method permissions.newRules
-		* it's ugly, but it works for now. saves hard-coding new modules in batches, 
-		* or having to manage multiple permissions files. Instead, this uses the 
-		* above permissions.defaultRules object, and assigns each module with permission
-		* to pub/sub with themselves. Cross-polinating modules should be hard-coded into 
-		* the .rules object to keep things easy to find for now.
-	*/
+	
+	permissions.combineArrays = function (arr1, arr2, lowerFirst) {
+		var ret = permissions.concatArrays(arr1, arr2);
+		ret = permissions.camelizeArray(ret, lowerFirst);
+		return ret;
+	};
+	
 	permissions.newRules = function (rules) {
-		var ret = {};
-		for (var i in rules.module) {
-			for (var j in rules.event) {
-				var event = rules.module[i] + m.util.camelize(rules.event[j]);
-				for (var k in rules.state) {
-					var rule = event + m.util.camelize(rules.state[k]);
-					var module = {};
-					module[rules.module[i]] = {};
-					for (var l in rules.request) {
-						module[rules.module[i]][rules.request[l]] = true;
-					}
-					ret[rule] = module;
-					if (permissions.rules[rule]) {
-						m.util.extend(ret[rule], permissions.rules[rule]);
+		var ret = false;
+		if (rules != undefined) {
+			ret = {};
+			var events = permissions.combineArrays(rules.event, rules.state, true);
+			var moduleEvents = permissions.combineArrays(rules.module, events, true);
+			for (var i in moduleEvents) {
+				ret[moduleEvents[i]] = {};
+				for (var j in rules.module) {
+					if (moduleEvents[i].indexOf(rules.module[j]) != -1) {
+						ret[moduleEvents[i]][rules.module[j]] = {};
+						for (var k in rules.request) {
+							ret[moduleEvents[i]][rules.module[j]][rules.request[k]] = true;
+						}
 					}
 				}
 			}
 		}
 		return ret;
-	}
+	};
 
 	/**
      * @param {string} subscriber Module name

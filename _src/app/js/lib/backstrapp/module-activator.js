@@ -19,17 +19,17 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 		});
 		return pObj;
 	}
-	
 
-	var postProcess = function (mod, item) {
-		console.log('postProcess', mod);
-		if (mod.css) {
-			loadcss(mod.css, item);
-		} else {
-			item.css('visibility', 'visible');
+	var preProcess = function (request, callback) {
+		if (request.mod.css) {
+			loadcss(request.mod.css, request.item);
 		}
+		callback(request, postProcess);
 	}
-
+	
+	var postProcess = function (mod) {
+		console.log('postProcess called with ', mod);
+	}
 
 	var e = {};
 
@@ -54,7 +54,7 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 				mod: module,
 				arg: params
 			};
-			f.getModule(request, postProcess);
+			preProcess(request, f.getModule);
 		});
 	};
 	

@@ -43,18 +43,23 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 		require([p + source], callback);
 	};
 
-	mediator.restoreModule = function (request) {
+	mediator.restoreModule = function (request, callback) {
 		console.log('--- Returning ' + request.name + ' Instance', mediator.modules[request.name]);
-		mediator.modules[request.name].restore("#" + request.name, request.arg);
+		mediator.modules[request.name].restore(request);
+		if (typeof callback == 'function') {
+			callback(mediator.modules[request.name]);
+		}
 	}
 
 	mediator.loadModule = function (request, callback) {
 		console.log('--- Loading New ' + request.name, mediator.modules);
 		var mod = require([request.mod], function (m) {
-			console.log('m', m);
 			mediator.modules[request.name] = m;
-			mediator.modules[request.name].init(request.dom, request.arg);
-			callback(mediator.modules[request.name], request.dom);
+			mediator.modules[request.name].init(request);
+			console.log('module', mediator.modules[request.name]);
+			if (typeof callback == 'function') {
+				callback(mediator.modules[request.name]);
+			}
 		});
 	}	
 
