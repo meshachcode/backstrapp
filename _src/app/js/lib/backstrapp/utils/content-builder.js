@@ -12,8 +12,7 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
         },
         authorizedCookieKey = 'authorized';
 
-    exports.execute = function (element, facade, activator, callback) {
-    	console.log('builder', activator);
+    exports.execute = function (element, facade, callback) {
         $('div[data-dynamic-uri], div[data-auth-uri]', element).css('visibility', 'hidden').each(function () {
             var element = $(this),
                 load = element.data('dynamic-load'),

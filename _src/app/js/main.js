@@ -6,7 +6,6 @@ require({
 		underscore: 	'lib/underscore/underscore-min',
 		backbone: 		'lib/backbone/backbone-optamd3-min',
 		handlebars:		'lib/handlebars/handlebars',
-		b$:				'lib/backstrapp/main',
 		backstrapp:		'lib/backstrapp',
 		text: 			'lib/require/text',
 		jsonLoad:		'lib/require/json',
@@ -21,9 +20,9 @@ require({
 		core:			'./core'
     }
 },
-['b$'], function (b$) {
+['backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'core/facade'], function (activator, builder, facade) {
 
-	b$.Activator();
-	b$.Builder();
+	activator.execute( );
+	builder.execute( );
 
 });

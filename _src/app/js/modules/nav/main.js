@@ -1,9 +1,9 @@
 /**
 	* Nav Module
 */
-define(['b$'], function (b$) {
+define(['backstrapp/modules/module.0.2', 'core/facade'], function (Module, facade) {
 
-	var NavModule = b$.Module.extend({
+	var NavModule = Module.extend({
 		/*
 			* @property view
 		*/
@@ -30,8 +30,8 @@ define(['b$'], function (b$) {
 		*/
 		process: function (html) {
 			var obj = {
-				meta: b$.Facade.getMeta(),
-				pages: b$.Facade.getPages()
+				meta: facade.getMeta(),
+				pages: facade.getPages()
 			}
 			this.processTemplate(html, obj, this.setHtml);
 		},

@@ -2,9 +2,9 @@
 	* Page Module
 */
 
-define(['b$'], function (b$) {
+define(['backstrapp/modules/router.module.0.2'], function (RouteModule) {
 
-	var PageModule = b$.RouteModule.extend({
+	var PageModule = RouteModule.extend({
 		routes: {
 			'test'		:		'testRoute'
 		}

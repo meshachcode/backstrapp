@@ -3,9 +3,9 @@
 */
 define([
 	'jquery',
-	'backstrapp/core/facade',
-	'backstrapp/utils/content-builder',
-	'backstrapp/utils/module-activator',
+	'core/facade',
+	'../utils/content-builder',
+	'../utils/module-activator',
 	'base'
 ],
 function ($, facade, builder, activator) {
