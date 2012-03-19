@@ -46,7 +46,6 @@ function ($, facade, builder, activator) {
 				this.subscribe('initComplete', this.start);
 			}
 			this.publish('initComplete');
-			return this.exports();
 		},
 
 		/*

@@ -21,13 +21,13 @@ require({
     }
 },
 [
-	"unit-tests/permissions.module.test", 
-	"unit-tests/mediator.module.test",
-	"unit-tests/moduleClass.module.test"
+	'unit-tests/permissions.module.test', 
+	'unit-tests/mediator.module.test',
+	'unit-tests/moduleClass.module.test'
 ], 
-function (testModule, mediator, moduleClass) {
+function (permissions, mediator, moduleClass) {
 	QUnit.start();
-	testModule.RunTests();
+	permissions.RunTests();
 	mediator.RunTests();
 	moduleClass.RunTests();
 });
