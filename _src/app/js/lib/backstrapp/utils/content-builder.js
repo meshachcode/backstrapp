@@ -2,7 +2,9 @@
 	Backstrapp Content Builder.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 */
+
 define(['underscore', 'cookie', './module-activator'], function (_, cookie, activator) {
+
     var exports = {},
         replaceContent = function (element, content) {
             element[0].innerHTML = content;
@@ -10,7 +12,8 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
         },
         authorizedCookieKey = 'authorized';
 
-    exports.execute = function (element) {
+    exports.execute = function (element, facade, activator, callback) {
+    	console.log('builder', activator);
         $('div[data-dynamic-uri], div[data-auth-uri]', element).css('visibility', 'hidden').each(function () {
             var element = $(this),
                 load = element.data('dynamic-load'),
@@ -49,8 +52,9 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
                 url: uri,
                 success: function (resp) {
                     replaceContent(element, resp);
-                    activator.execute(element);
-                    exports.execute(element);
+				   	console.log('activator', activator);
+					activator.execute(element, callback);
+                    exports.execute(element, callback);
                 },
                 error: function (xhr) {
                     var authCookieChk = cookie(authorizedCookieKey);
@@ -66,5 +70,6 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
         });
     };
 
-    return exports;
+	return exports;
+
 });

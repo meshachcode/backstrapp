@@ -2,9 +2,9 @@
 	Test Module
 */
 
-define(['b$'], function (b$) {
-		
-	var SimpleModule = b$.Module.extend({
+define(['lib/backstrapp/modules/module.0.2'], function (ModuleClass) {
+
+	var SimpleModule = ModuleClass.extend({
 		view: 'html/modules/dev/parts/msg.html',
 		animation: {
 			time: 1000

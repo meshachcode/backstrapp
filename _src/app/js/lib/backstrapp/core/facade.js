@@ -7,6 +7,7 @@
 define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};
+	facade.modules = {};
 	permissions.init();	
 
 	facade.subscribe = function(subscriber, channel, callback){
@@ -63,16 +64,39 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 		mediator.getConfigObj('pages', 'id', page, callback);
 	}
 	
-	facade.getModule = function (request, callback) {
-		if (mediator.modules[request.name]) {
-			mediator.restoreModule(request, callback);
+	facade.restoreModule = function (request, callback) {
+		console.log('--- Returning ' + request.name + ' Instance', facade.modules[request.name]);
+		if (typeof facade.modules[request.name].restore == 'function') {
+			facade.modules[request.name].restore(request);
 		} else {
-			mediator.loadModule(request, callback);
+			facade.modules[request.name].init(request);
+		}
+		if (typeof callback == 'function') {
+			callback(facade.modules[request.name]);
+		}
+	}
+
+	facade.loadModule = function (request, callback) {
+		console.log('--- Loading New ' + request.name, facade.modules);
+		var mod = require([request.mod], function (m) {
+			facade.modules[request.name] = m;
+			facade.modules[request.name].init(request);
+			if (typeof callback == 'function') {
+				callback(facade.modules[request.name]);
+			}
+		});
+	}
+	
+	facade.getModule = function (request, callback) {
+		if (facade.modules[request.name]) {
+			facade.restoreModule(request, callback);
+		} else {
+			facade.loadModule(request, callback);
 		}
 	}
 
 	facade.util = mediator.util;
 
-	return facade;
+	return facade
 
 });

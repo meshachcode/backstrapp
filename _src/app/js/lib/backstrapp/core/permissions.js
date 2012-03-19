@@ -3,7 +3,7 @@
 	* NOTE: is it possible to load these from an external source? 
 	* Maybe this should all be handled at the server-level (eventually).
 */
-define(['jquery', 'core/mediator'], function ($, m) {
+define(['jquery', './mediator'], function ($, m) {
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing

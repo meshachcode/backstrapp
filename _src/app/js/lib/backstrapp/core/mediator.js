@@ -12,7 +12,6 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 	mediator.config = config || {};
 
 	mediator.template = handlebars;
-	mediator.modules = {};
 
 	mediator.getConfigObj = function (obj, key, val, callback) {
 		var ret = false, haystack = mediator.config[obj];
@@ -44,29 +43,6 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 		if (plugin) { p = plugin + '!' }
 		require([p + source], callback);
 	};
-
-	mediator.restoreModule = function (request, callback) {
-		console.log('--- Returning ' + request.name + ' Instance', mediator.modules[request.name]);
-		if (typeof mediator.modules[request.name].restore == 'function') {
-			mediator.modules[request.name].restore(request);
-		} else {
-			mediator.modules[request.name].init(request);
-		}
-		if (typeof callback == 'function') {
-			callback(mediator.modules[request.name]);
-		}
-	}
-
-	mediator.loadModule = function (request, callback) {
-		console.log('--- Loading New ' + request.name, mediator.modules);
-		var mod = require([request.mod], function (m) {
-			mediator.modules[request.name] = m;
-			mediator.modules[request.name].init(request);
-			if (typeof callback == 'function') {
-				callback(mediator.modules[request.name]);
-			}
-		});
-	}	
 
     mediator.util = {
         each: _.each,

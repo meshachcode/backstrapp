@@ -18,9 +18,9 @@ define(['./module.class.0.2'], function(ModuleClass) {
 		/*
 			* @method constructor
 		*/
-		constructor: function (request) {
+		constructor: function (request, f) {
 			this.util.bindAll(this, 'start', 'render');
-			return this.base(request);
+			return this.base(request, f);
 		},
 
 		/*
@@ -34,4 +34,5 @@ define(['./module.class.0.2'], function(ModuleClass) {
 	});
 	
 	return Module
+
 });

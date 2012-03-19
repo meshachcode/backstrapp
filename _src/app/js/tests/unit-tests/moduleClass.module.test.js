@@ -1,4 +1,4 @@
-define(['../../lib/backstrapp/module.class.0.2'], function (m) {
+define(['../../lib/backstrapp/modules/module.class.0.2'], function (m) {
 	return {
 
 		RunTests: function () {

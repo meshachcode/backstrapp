@@ -3,8 +3,7 @@
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 */
 
-define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
-
+define(['jquery', 'loadcss'], function ($, loadcss) {
 	var objectifyParams = function (paramStr) {
 		var pObj = {},
 			pArr = [],
@@ -20,7 +19,7 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 		return pObj;
 	}
 
-	postProcess = function (mod) {
+	var postProcess = function (mod) {
 		if (mod.css) {
 			loadcss(mod.css);
 		}
@@ -28,8 +27,8 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 
 	var e = {};
 
-	e.execute = function (element) {
-
+	e.execute = function (element, callback) {
+	
 		$("[data-module-cssonly]", element).each(function () {
 			console.log('loading css');
 			var item = $(this),
@@ -49,11 +48,10 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, f) {
 				mod: module,
 				arg: params
 			};
-			f.getModule(request, postProcess);
+			// called by... ?
+			if (typeof callback == 'function') { callback(request, postProcess); }
+			else { console.log('no callback called for execute') }
 		});
 	};
-	
-
-	return e;
-
+	return e
 });

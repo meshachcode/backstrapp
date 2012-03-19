@@ -3,13 +3,12 @@
 */
 define([
 	'jquery',
-	'backbone',
-	'core/facade',
-	'backstrapp/content-builder',
-	'backstrapp/module-activator',
+	'backstrapp/core/facade',
+	'backstrapp/utils/content-builder',
+	'backstrapp/utils/module-activator',
 	'base'
 ],
-function ($, Backbone, f, builder, activator) {
+function ($, facade, builder, activator) {
 
 	var e = Base.extend({
 		isValid			: 	false,
@@ -36,24 +35,27 @@ function ($, Backbone, f, builder, activator) {
 		/*
 			* @method constructor
 		*/
-		constructor: function (obj) {
-			f.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
-			this.set(obj);
-		},
+		constructor: function (request) {
+			this.set({ name: request.name, el: request.dom });
 
-		/*
-			* @method init
-		*/
-		_init: function (item, params) {
-			var n, name;
-			// set this.name
-			n = $(item).attr('id');
-			name = this.set({ name: n, el: item }).name;
+			facade.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
+
+			this.loadSubscriptions(this.events);
+
 			if (this.autoload === true) {
 				this.subscribe('initComplete', this.start);
 			}
 			this.publish('initComplete');
 			return this.exports();
+		},
+
+		/*
+			* @method loadSubscriptions
+		*/
+		loadSubscriptions: function (events) {
+			for (var i in events) {
+				this.subscribe(i, this[events[i]]);
+			}
 		},
 
 		/*
@@ -81,7 +83,7 @@ function ($, Backbone, f, builder, activator) {
 		*/
 		get: function (k) {
 			if (this[k] != undefined) {
-				if (f.util.isFunction(e[k])) {
+				if (facade.util.isFunction(e[k])) {
 					return this[k]();
 				} else {
 					return this[k];
@@ -128,14 +130,14 @@ function ($, Backbone, f, builder, activator) {
 			* @method loadHtml
 		*/
 		loadHtml: function (source, callback) {
-			f.require('text', source, callback);
+			facade.require('text', source, callback);
 		},
 
 		/*
 			* @method loadJson
 		*/
 		loadJson: function (source, callback) {
-			f.require('json', source, callback);
+			facade.require('json', source, callback);
 		},
 
 		/*
@@ -154,7 +156,7 @@ function ($, Backbone, f, builder, activator) {
 			* this is where you populate the template with any data
 		*/
 		processTemplate: function (html, data, callback) {
-			f.processTemplate(html, data, callback);
+			facade.processTemplate(html, data, callback);
 		},
 		
 		/*
@@ -210,16 +212,16 @@ function ($, Backbone, f, builder, activator) {
 			* @method restore
 			* 
 		*/
-		restore: function (target, params) {
+		restore: function (request) {
 			if (this.debug.restore) {
 				console.log('restore', arguments);
 			}
 			this.set({
 				isValid: true,
 				isActive: true,
-				el: $(target)
+				el: $(request.dom)
 			});
-			this.publish('restoreComplete', params);
+			this.publish('restoreComplete', request.arg);
 		},
 		
 		/*
@@ -248,7 +250,6 @@ function ($, Backbone, f, builder, activator) {
 		
 		/*
 			* @method save
-			* NOT USED YET
 		*/
 		save: function () {
 			this.publish('saveComplete');
@@ -261,8 +262,8 @@ function ($, Backbone, f, builder, activator) {
 			if (this.debug.publish) {
 				console.log('PPPub', arguments);
 			}
-			var channel = this.name + f.util.camelize(event);
-			f.publish(this.name, channel, params);
+			var channel = this.name + facade.util.camelize(event);
+			facade.publish(this.name, channel, params);
 		},
 		
 		/*
@@ -273,15 +274,15 @@ function ($, Backbone, f, builder, activator) {
 				console.log('SSSub', arguments);
 			}
 			var me = context || this.name;
-			var channel = me + f.util.camelize(event);
-			f.subscribe(this.name, channel, callback);
+			var channel = me + facade.util.camelize(event);
+			facade.subscribe(this.name, channel, callback);
 		},
 
 		/*
 			* @method createEvent
 		*/
 		createEvent: function (v, k) {
-			var event = this.name + f.util.camelize(k);
+			var event = this.name + facade.util.camelize(k);
 			this.events[k] = event;
 		},
 		
@@ -299,7 +300,7 @@ function ($, Backbone, f, builder, activator) {
 		*/
 		printErrors: function (arr) {
 			var msg;
-			f.util.each(arr, function(err) {
+			facade.util.each(arr, function(err) {
 				msg += "ERROR: " + err + "<br />";
 			});
 /* 			console.warn('msg', msg); */
@@ -307,7 +308,7 @@ function ($, Backbone, f, builder, activator) {
 		},
 		
 		util: {
-			bindAll: f.util.bindAll
+			bindAll: facade.util.bindAll
 		}
 	});
 

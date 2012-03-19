@@ -1,9 +1,9 @@
 /**
 	* Nav Module
 */
-define(['lib/backstrapp/module.0.2', 'core/facade'], function (ModuleClass, f) {
+define(['b$'], function (b$) {
 
-	var NavModule = ModuleClass.extend({
+	var NavModule = b$.Module.extend({
 		/*
 			* @property view
 		*/
@@ -30,8 +30,8 @@ define(['lib/backstrapp/module.0.2', 'core/facade'], function (ModuleClass, f) {
 		*/
 		process: function (html) {
 			var obj = {
-				meta: f.getMeta(),
-				pages: f.getPages()
+				meta: b$.Facade.getMeta(),
+				pages: b$.Facade.getPages()
 			}
 			this.processTemplate(html, obj, this.setHtml);
 		},
@@ -55,5 +55,5 @@ define(['lib/backstrapp/module.0.2', 'core/facade'], function (ModuleClass, f) {
 		restore: function (request) {
 			return this.instance.restore(request);
 		}
-	};
+	}
 });
