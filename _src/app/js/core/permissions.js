@@ -141,4 +141,5 @@ define(['jquery', './mediator'], function ($, m) {
 	};
 
 	return permissions
+
 });
