@@ -2,8 +2,8 @@
 	Test Module
 */
 
-define(['backstrapp/modules/module.0.2'], function (Module) {
-		
+define(['backstrapp/modules/module.0.2', './msgs.collection'], function (Module, MsgsCollection) {
+
 	var SimpleModule = Module.extend({
 		view: 'html/modules/dev/parts/msg.html',
 		animation: {

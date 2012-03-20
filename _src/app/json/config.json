@@ -8,34 +8,38 @@
 
 	"pages"	:	[
 		{
-			"id"			:		"home",
-			"title"			:		"Home",
+			"name"			:		"local",
+			"title"			:		"Local",
 			"file"			:		"app/pages/home.html",
-			"description"	:		"Welcome to Backstrapp"
+			"description"	:		"Welcome to Backstrapp",
+			"active"		: 		"true"
 		},
 		{
-			"id"			:		"about",
+			"name"			:		"about",
 			"title"			:		"About",
 			"file"			:		"app/pages/about.html",
-			"description"	:		"What the $#@% is Back$str.app?"
+			"description"	:		"What the $#@% is Back$str.app?",
+			"active"		: 		"true"
 		},
 		{
-			"id"			:		"todo",
+			"name"			:		"todo",
 			"title"			:		"Todo",
 			"file"			:		"modules/todo/todo.html",
-			"description"	:		"Obligatory ToDo application."
+			"description"	:		"Obligatory ToDo application.",
+			"active"		: 		"true"
 		},
 		{
-			"id"			:		"module",
+			"name"			:		"module",
 			"title"			:		"Module Factory",
 			"file"			:		"modules/dev/module.html",
 			"description"	:		"Module Factory."
 		},
 		{
-			"id"			:		"modgroup",
+			"name"			:		"modgroup",
 			"title"			:		"Module Group Test",
 			"file"			:		"modules/dev/module_group.html",
-			"description"	:		"Module Group Test."
+			"description"	:		"Module Group Test.",
+			"active"		: 		"true"
 		}
 	]
 }
