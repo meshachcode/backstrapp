@@ -6,6 +6,10 @@ define(['./module.class.0.2'], function(ModuleClass) {
 	var Module = ModuleClass.extend({
 		autoload				: true,
 		inheritEvents			: true,
+		/*
+			* @property events
+			* TODO: there is currently no way to blend outside objects with this one, or remove any of these links from outside of the class. Externalize a solution for that.
+		*/
 		events: {
 			'restoreComplete'	: 'loadView',
 			'startComplete'		: 'loadView',

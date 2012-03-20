@@ -2,6 +2,8 @@
 	Backstrapp Facade.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 	This is your sandbox. All modules will know about this module, so keep it clean, and secure. 
+	
+	TODO: refactor the facade object with pub/priv in mind. THINK TDD!!!
 */
 
 define(["./mediator" , "./permissions" ], function (mediator, permissions) {

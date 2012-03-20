@@ -2,6 +2,8 @@
 	Backstrapp Mediator.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 	This is the application core. It's private, and should drive the application-wide functionality.
+
+	TODO: refactor the mediator object with pub/priv in mind. THINK TDD!!!
 */
 
 define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], function (config, $, _, handlebars) {

@@ -2,6 +2,8 @@
 	* Backstrapp Permissions.
 	* NOTE: is it possible to load these from an external source? 
 	* Maybe this should all be handled at the server-level (eventually).
+
+	TODO: refactor the permissions object with pub/priv in mind. THINK TDD!!!
 */
 define(['jquery', './mediator'], function ($, m) {
 

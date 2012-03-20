@@ -1,6 +1,10 @@
 /*
 	Backstrapp Content Builder.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
+
+	TODO: refactor the builder object with pub/priv in mind. THINK TDD!! 
+			- Also, note the ugly use of .execute here. 
+			- It doesn't follow any standards we're using elsewhere, so maybe it should be rethought too?
 */
 
 define(['underscore', 'cookie', './module-activator'], function (_, cookie, activator) {
