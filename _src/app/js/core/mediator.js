@@ -24,7 +24,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'underscore', 'handlebars'], func
 	}
 
 	mediator.subscribe = function (channel, callback, context) {
-/* 		console.log('mediator.subscribe', arguments); */
+/* 		console.log('mediator.subscribe', channel, context); */
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
 	};

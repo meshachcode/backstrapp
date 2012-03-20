@@ -58,6 +58,9 @@ define(['jquery', './mediator'], function ($, m) {
 		pageModulePagesLoaded: {
 			navModule: {
 				subscribe:true
+			},
+			pageModule: {
+				publish:true
 			}
 		}
 	};
@@ -65,7 +68,11 @@ define(['jquery', './mediator'], function ($, m) {
 	permissions.newRule = function (channel, rule) {
 		var ret = false;
 		if (typeof rule == 'object' && typeof channel == 'string') {
-			permissions.rules[channel] = rule;
+			if (permissions.rules[channel] != undefined) {
+				m.util.extend(permissions.rules[channel], rule);
+			} else {
+				permissions.rules[channel] = rule;
+			}
 			ret = permissions.rules[channel];
 		}
 		return ret;
@@ -96,7 +103,7 @@ define(['jquery', './mediator'], function ($, m) {
 		return ret;
 	};
 	
-	permissions.newRules = function (rules) {
+	permissions.newRules = function (rules, callback) {
 		var ret = false;
 		if (rules != undefined) {
 			ret = {};
@@ -110,11 +117,12 @@ define(['jquery', './mediator'], function ($, m) {
 						for (var k in rules.request) {
 							ret[moduleEvents[i]][rules.module[j]][rules.request[k]] = true;
 						}
+						permissions.newRule(moduleEvents[i], ret[moduleEvents[i]]);
 					}
 				}
 			}
 		}
-		return ret;
+		callback(permissions.rules);
 	};
 
 	/**
@@ -124,16 +132,16 @@ define(['jquery', './mediator'], function ($, m) {
 	permissions.validate = function(request, subscriber, channel){
 		if (permissions.rules[channel] && permissions.rules[channel][subscriber]) {
 			var test = permissions.rules[channel][subscriber][request];
+		} else {
+			console.error('Permissions Validate Fail:', permissions.rules, request, subscriber, channel);
 		}
 		return test === undefined ? false : test;
 	};
 
 	permissions.initRules = function () {
-		var ret = false, rules = permissions.newRules(permissions.defaultRules);
-		if (m.util.extend(permissions.rules, rules)) {
-			ret = permissions.rules;
-		}
-		return ret;
+		permissions.newRules(permissions.defaultRules, function (rules) {
+			return rules;
+		});
 	};
 	
 	permissions.init = function () {

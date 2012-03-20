@@ -7,7 +7,7 @@ function (Module, facade, PagesCollection) {
 
 	var NavModule = Module.extend({
 		debug: {
-			subscribe: true
+/* 			subscribe: true */
 		},
 		/*
 			* @property view
@@ -16,6 +16,7 @@ function (Module, facade, PagesCollection) {
 		animation: {
 			time: 250
 		},
+		pages: [],
 		
 		constructor: function (request) {
 			this.util.bindAll(this, 'start', 'process', 'updateActive');
@@ -26,32 +27,26 @@ function (Module, facade, PagesCollection) {
 			* @method start
 		*/
 		start: function () {
-			this.subscribe('pagesLoaded', this.msg, 'pageModule');
 			this.subscribe('renderComplete', this.updateActive, 'pageModule');
+			this.subscribe('pagesLoaded', this.loadView, 'pageModule');
 			this.base();
 		},
-		
-		msg: function () {
-			console.log('hi!', arguments);
-		},
-		
-/*
+
 		loadView: function (pages) {
-			console.log('loadView', arguments);
+			console.log('nav.loadView', arguments);
 			if (pages != undefined) {
+				this.pages = pages;
 				this.base();
 			}
 		},
-*/
 
 		/*
 			* @method process
 		*/
 		process: function (html) {
-			var pgs = PagesCollection.getPages();
 			var obj = {
 				meta: facade.getMeta(),
-				pages: pgs
+				pages: this.pages
 			}
 			this.processTemplate(html, obj, this.setHtml);
 		},

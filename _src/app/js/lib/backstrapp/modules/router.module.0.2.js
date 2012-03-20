@@ -42,6 +42,7 @@ define(['./module.class.0.2', './router', 'core/facade'], function (ModuleClass,
 			* @method getPage
 		*/
 		getPage: function (page) {
+			console.log('getPage', page, arguments);
 			var me = this;
 			f.getPage(page, function (p) {
 				me.set({ page: p.id });

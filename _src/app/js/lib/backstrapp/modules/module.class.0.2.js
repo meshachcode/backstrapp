@@ -272,9 +272,9 @@ function ($, facade, builder, activator) {
 			var me = context || this.name;
 			var channel = me + facade.util.camelize(event);
 			if (this.debug.subscribe) {
-				console.log('SSSub', this.name, channel);
+				console.log('SSSub', this.name, channel, context);
 			}
-			facade.subscribe(this.name, channel, callback);
+			facade.subscribe(this.name, channel, callback, me);
 		},
 
 		/*

@@ -5,23 +5,36 @@
 define(['backstrapp/modules/router.module.0.2', 'modules/page/pages.collection'], function (RouteModule, PagesCollection) {
 
 	var PageModule = RouteModule.extend({
+		autoload: false,
 		debug: {
-			publish: true
+/* 			subscribe: true, */
+/* 			publish: true */
 		},
+
 		routes: {
 			'test'		:		'testRoute'
 		},
-		
+
 		constructor: function (request) {
-			this.util.bindAll(this, 'pagesLoaded');
+			this.util.bindAll(this, 'getPage');
 			PagesCollection.bind('reset', this.pagesLoaded, this);
 			PagesCollection.fetch();
 			this.base(request);
 		},
 		
 		pagesLoaded: function () {
-			var pages = PagesCollection.getPages();
-			this.publish('pagesLoaded', pages);
+			this.start();
+			this.publish('pagesLoaded', PagesCollection.getPages());
+		},
+		
+		getPage: function (page) {
+			var me = this;
+			PagesCollection.getPage(page, function (p) {
+				console.log('getPage', p);
+				me.set({ page: p.name });
+				me.view = me.sourceDir + '/' + p.file;
+				me.publish('loadReady');
+			});
 		}
 	});
 
