@@ -38,7 +38,7 @@ function ($, facade, builder, activator) {
 		constructor: function (request) {
 			this.set({ name: request.name, el: request.dom });
 
-			facade.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'createEvent', 'process', 'restore', 'hide', 'show', 'exports');
+			facade.util.bindAll(this, 'render', 'publish', 'subscribe', 'loadView', 'activate', 'setHtml', 'process', 'restore', 'hide', 'show', 'exports');
 
 			this.loadSubscriptions(this.events);
 
@@ -275,23 +275,6 @@ function ($, facade, builder, activator) {
 				console.log('SSSub', this.name, channel);
 			}
 			facade.subscribe(this.name, channel, callback);
-		},
-
-		/*
-			* @method createEvent
-		*/
-		createEvent: function (v, k) {
-			var event = this.name + facade.util.camelize(k);
-			this.events[k] = event;
-		},
-		
-		/*
-			* @method newEvent
-			* this is used when a module needs to 'listen' to the event of another module
-			* example: navModule needs to listen to pageModulePageReady, not navModulePageModulePageReady
-		*/
-		newEvent: function (e) {
-			this.events[e] = e;
 		},
 
 		/*
