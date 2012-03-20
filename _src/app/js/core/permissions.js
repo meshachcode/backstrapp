@@ -54,6 +54,11 @@ define(['jquery', './mediator'], function ($, m) {
 			navModule: {
 				subscribe:true
 			}
+		},
+		pageModulePagesLoaded: {
+			navModule: {
+				subscribe:true
+			}
 		}
 	};
 

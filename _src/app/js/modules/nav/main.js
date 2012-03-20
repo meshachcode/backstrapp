@@ -1,9 +1,14 @@
 /**
 	* Nav Module
 */
-define(['backstrapp/modules/module.0.2', 'core/facade'], function (Module, facade) {
+define(['backstrapp/modules/module.0.2', 'core/facade', 'modules/page/pages.collection'], 
+
+function (Module, facade, PagesCollection) {
 
 	var NavModule = Module.extend({
+		debug: {
+			subscribe: true
+		},
 		/*
 			* @property view
 		*/
@@ -16,22 +21,37 @@ define(['backstrapp/modules/module.0.2', 'core/facade'], function (Module, facad
 			this.util.bindAll(this, 'start', 'process', 'updateActive');
 			this.base(request);
 		},
-		
+
 		/*
 			* @method start
 		*/
 		start: function () {
+			this.subscribe('pagesLoaded', this.msg, 'pageModule');
 			this.subscribe('renderComplete', this.updateActive, 'pageModule');
 			this.base();
 		},
 		
+		msg: function () {
+			console.log('hi!', arguments);
+		},
+		
+/*
+		loadView: function (pages) {
+			console.log('loadView', arguments);
+			if (pages != undefined) {
+				this.base();
+			}
+		},
+*/
+
 		/*
 			* @method process
 		*/
 		process: function (html) {
+			var pgs = PagesCollection.getPages();
 			var obj = {
 				meta: facade.getMeta(),
-				pages: facade.getPages()
+				pages: pgs
 			}
 			this.processTemplate(html, obj, this.setHtml);
 		},

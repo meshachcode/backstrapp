@@ -258,10 +258,10 @@ function ($, facade, builder, activator) {
 			* @method publish
 		*/
 		publish: function (event, params) {
-			if (this.debug.publish) {
-				console.log('PPPub', arguments);
-			}
 			var channel = this.name + facade.util.camelize(event);
+			if (this.debug.publish) {
+				console.log('PPPub', event, this.name, channel);
+			}
 			facade.publish(this.name, channel, params);
 		},
 		
@@ -269,11 +269,11 @@ function ($, facade, builder, activator) {
 			* @method subscribe
 		*/
 		subscribe: function (event, callback, context) {
-			if (this.debug.subscribe) {
-				console.log('SSSub', arguments);
-			}
 			var me = context || this.name;
 			var channel = me + facade.util.camelize(event);
+			if (this.debug.subscribe) {
+				console.log('SSSub', this.name, channel);
+			}
 			facade.subscribe(this.name, channel, callback);
 		},
 
