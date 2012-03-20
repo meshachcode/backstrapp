@@ -8,8 +8,8 @@
 
 	"pages"	:	[
 		{
-			"name"			:		"local",
-			"title"			:		"Local",
+			"name"			:		"home",
+			"title"			:		"Home",
 			"file"			:		"app/pages/home.html",
 			"description"	:		"Welcome to Backstrapp",
 			"active"		: 		"true"

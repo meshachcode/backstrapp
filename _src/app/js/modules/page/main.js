@@ -31,7 +31,6 @@ function (config, RouteModule, PagesCollection) {
 		getPage: function (page) {
 			var me = this;
 			this.pages.getPage(page, function (p) {
-				console.log('getPage', p);
 				me.set({ page: p.name });
 				me.view = me.sourceDir + '/' + p.file;
 				me.publish('loadReady');
