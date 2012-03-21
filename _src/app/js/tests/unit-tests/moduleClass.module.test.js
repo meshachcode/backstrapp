@@ -32,14 +32,65 @@ define(['../../lib/backstrapp/modules/module.class.0.2', 'jsonLoad!unit-tests/mo
 	}
 );
 
-
 /** 
 	* Backstrapp Module Class
 
+			// modules
+			mod.facade
+				f.defaults: {
+					autoload: true,
+					name: '',
+					el: '',
+					html: '',
+					view: '',
+					animation: {},
+					debug: {},
+					errors: {},
+					events: {}
+				}
+				f.init( {el, name, events, autoload, view} ) // initEvents(), return util.extend(f.defaults, obj)
+				f.set( {obj} ) // return util.extend(f.defaults, obj)
+				f.get( 'key' ) // return this[key]
+				f.state: {
+					valid: true,
+					active: true,
+					visible: true
+				}
+				f.show() // if f.state.all { render() }
+				f.hide()
+
+			mod.mediator
+				m
+
+			nav
+				f.update( {currentItem} )
+
+			page
+				f.update( {currentPage} ) // f.set( {view: currentPage} )
+
+			hero
+			ticker
+			
+			// core
+			facade
+			mediator
+			permissions
+
+
+
+
 		props
 			isValid
+				// true: (data is good, dom is accessible, facade is communicative)
+				// false: (for any of the above reasons)
+					// - {errors} object should contain explanation
+					// - render() should load error view if available
+					// - 
 			isActive
 			isVisible
+				// true: 
+					// - show() renders the current view
+					// - 
 			autoload
 			name
 			html
@@ -48,53 +99,30 @@ define(['../../lib/backstrapp/modules/module.class.0.2', 'jsonLoad!unit-tests/mo
 			animation
 			debug
 			errors
-			
+
 		constructor: function (request) {},
-
 		loadSubscriptions: function (events) {},
-
 		start: function (params) {},
-
 		stop: function () {},
-		
 		get: function (k) {},
-
 		set: function (obj) {},
-		
 		hide: function () {},
-				
 		show: function (time) {},
-
 		loadView: function () {},
-
 		loadHtml: function (source, callback) {},
-
 		loadJson: function (source, callback) {},
-
 		process: function (html) {},
-
 		processTemplate: function (html, data, callback) {},
-		
 		setHtml: function (h) {},
-
 		render: function (el, html) {},
-
 		destroy: function () {},
-
 		restore: function (request) {},
-		
 		deactivate: function () {},
-
 		activate: function (h) {},
-		
 		save: function () {},
-
 		publish: function (event, params) {},
-		
 		subscribe: function (event, callback, context) {},
-
 		printErrors: function (arr) {},
-		
 		util: {
 			bindAll: facade.util.bindAll
 		}
