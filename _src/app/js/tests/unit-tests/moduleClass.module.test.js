@@ -1,11 +1,19 @@
-define(['../../lib/backstrapp/modules/module.class.0.2', 'jsonLoad!unit-tests/moduleClass.module.config.json'], function (m, config) {
+define(['../../lib/backstrapp/modules/module.class.0.3', 'jsonLoad!unit-tests/moduleClass.module.config.json'], 
+
+function (m, config) {
 	return {
 		RunTests: function () {
 			config.dom = $(config.dom);
 			module('ModuleClass');
 			
 			test('Initialized with proper request object', function () {
+				var mod = new m({
+					html: 'test'
+				});
+				console.log('mod', mod);
 			});
+			
+/*
 
 			test('CANNOT initialize with improper request object', function () {
 			});
@@ -28,12 +36,65 @@ define(['../../lib/backstrapp/modules/module.class.0.2', 'jsonLoad!unit-tests/mo
 				// test that isVisible gets set
 				// test that render happens as expected
 			});
+*/
 		}
 	}
-);
+});
 
 /** 
 	* Backstrapp Module Class
+	
+	
+		rules:	
+			1 - modules self-initiate
+				*	var _private = {
+				*		// ALL MOD-SPECIFIC CODE GOES HERE
+				*	};
+				*	var module = new ModuleClass({
+				*		// ALL OVERRIDES OF PUBLIC METHODS GO HERE
+				*		start: function () {
+				*			this.base(_private.someVar);
+				*		}
+				*	});
+				*	return module;
+
+			2 - modules DO NOT self-configure
+				*	WRONG: 
+				*		var module = new ModuleClass({
+				*			activeitem: 'someitem'
+				*		});
+				*	RIGHT: 
+				*		var module = new ModuleClass({
+				*			defaults: {
+				*				activeitem: 'someitem'
+				*			},
+				*			// no need to write this function if it's all you need. It's being done already.
+				*			// however, if you do override this method, 
+				*				- trigger this.base(obj) to have the parent constructor fire, 
+				*				- or this.base() to have the parent constructor ignore the request object (not recommended)
+				*			constructor: function (obj) {
+				*				this.activeitem = (obj.activeitem) ? obj.activeitem : this.defaults.activeitem;
+				*			}
+				*		});
+				*	This allows for outside configuration, easy testing, and easy blending of objects pre-construct, 
+				*	instead of having to override default objects in their entirety.
+			3 - modules depend on 'facade' to pub/sub, but the parent object includes it, so reference "this.f" to use it if you must
+			4 - modules NEVER touch global variables in any way. 
+			5 - call this.base() if you override any of the following methods: 
+					- get, set, start, stop, restore, show, hide
+					
+					
+					
+##		EXAMPLES
+			
+			- hello world...
+								define(['backstrapp.module'], function (bsModule) {
+									var module = new bsModule({
+										html: 'hello world'
+									});
+									return module;
+								});
+
 
 			// modules
 			mod.facade
