@@ -3,7 +3,7 @@
 	* (instance)
 */
 
-define(['backstrapp/modules/module.class.0.3'], function (Module) {
+define(['backstrapp/modules/module.facade.0.3'], function (Module) {
 
 	var SimpleModule = Module.extend({});
 
