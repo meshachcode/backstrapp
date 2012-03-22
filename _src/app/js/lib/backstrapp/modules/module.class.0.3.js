@@ -5,24 +5,27 @@
 */
 define(['base'], function () {
 
-	var _private = {
+	var _public = Base.extend({
+		autoload: true,
+		name: '',
+		html: '',
+		view: '',
+		el: $('<div></div>'),
+		active: true,
+		valid: true,
+		visible: true,
+		debug: {},
 		state: {},
 		errors: [],
 		store: ['autoload', 'name', 'html', 'el', 'view', 'debug', 'active', 'valid', 'visible'],
 		renderable: ['active', 'valid', 'visible'],
-		
-		save: function () {
-			for (var i in this.store) {
-				this.state[this.store[i]] = this[this.store[i]];
-			}
-			return this.state;
-		},
+		animation: {time: 100},
 
-		isRenderable: function (context) {
+		isRenderable: function () {
 			var ret = true;
 			for (var i in this.renderable) {
-				if (!context[this.renderable[i]]) {
-					this.newError('unrenderable', this.renderable[i], context[this.renderable[i]]);
+				if (!this[this.renderable[i]]) {
+					this.newError('unrenderable', this.renderable[i], this[this.renderable[i]]);
 					ret = false;
 				};
 			}
@@ -39,27 +42,28 @@ define(['base'], function () {
 		
 		newError: function (m, c, v) {
 			this.errors[m] = {msg: m + ' due to ' + c + ' having value of ' + v, context: c};
-		}
-	};
-
-	var _public = Base.extend({
-		autoload: true,
-		name: '',
-		html: '',
-		view: '',
-		el: $('<div></div>'),
-		active: true,
-		valid: true,
-		visible: true,
-		debug: {},
+		},
 
 		constructor: function (config) {
-			this.debug.init = this.set(config);
+			this.set(config);
 		},
 		
 		restore: function (config) {
-			this.debug.restore = this.set(config);
-			return this;
+			this.set(config);
+		},
+
+		show: function () {
+			this.hide();
+			if (this.isRenderable()) {
+				this.render();
+			} else {
+				this.render(undefined, this.printErrors(this.errors));
+			}
+			this.el.fadeIn(this.animation.time);
+		},
+
+		hide: function () {
+			this.el.hide();
 		},
 
 		set: function (obj) {
@@ -79,20 +83,20 @@ define(['base'], function () {
 		},
 		
 		get: function (str) {
-			return (this.public[str] != undefined) ? this.public[str] : {error: 'could not get ' + str};
+			return (this[str] != undefined) ? this[str] : {error: 'could not get ' + str};
 		},
 		
 		save: function () {
-			return _private.save();
+			for (var i in this.store) {
+				this.state[this.store[i]] = this[this.store[i]];
+			}
+			return this.state;
 		},
 
-		render: function (el) {
-			var dom = (el != undefined) ? el : this.el;
-			if (_private.isRenderable(this)){
-				$(dom).html(this.html);
-			} else {
-				$(dom).html(_private.printErrors(_private.errors));
-			}
+		render: function (el, html) {
+			var d = (el != undefined) ? el : this.get('el');
+			var h = (html != undefined) ? html : this.get('html');
+			$(d).html(h);
 		}
 
 	});
