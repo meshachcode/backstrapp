@@ -1,53 +1,47 @@
 /*
 	* Module Class 0.3
-	* (mediator)
-*/
-define(['base'], function () {
-
-	var bsModule = Base.extend({
-		public: {
+	* (facade)
+		f.defaults: {
 			autoload: true,
+			name: '',
+			el: '',
 			html: '',
 			view: '',
-			debug: {}
-		},
+			animation: {},
+			debug: {},
+			errors: {},
+			events: {}
+		}
+		f.init( {el, name, events, autoload, view} ) // initEvents(), return util.extend(f.defaults, obj)
+		f.set( {obj} ) // return util.extend(f.defaults, obj)
+		f.get( 'key' ) // return this[key]
+		f.state: {
+			valid: true,
+			active: true,
+			visible: true
+		}
+		f.show() // if f.state.all { render() }
+		f.hide()
+*/
+define(['./module.class.0.3'], function (ModuleClass) {
 
-		constructor: function (config) {
-			this.public.debug.init = this.set(config);
+	var Module = ModuleClass.extend({
+		constructor: function(config) {
+			this.base(config);
+
+			if (this.autoload) {
+				this.render(this.el);
+			}
 		},
 		
 		restore: function (config) {
-			this.public.debug.restore = this.set(config);
-		},
-
-		set: function (obj) {
-			var ret = {error: 'error setting obj'};
-			for (var i in obj) {
-				if (this.public[i] != undefined) {
-					ret.success = (!ret.success) ? {} : ret.success;
-					this[i] = obj[i];
-					ret.success[i] = this[i];
-				} else {
-					ret.notset = (!ret.notset) ? {} : ret.notset;
-					ret.notset[i] = obj[i];
-				}
+			if (this.autoload) {
+				this.render(this.el);
 			}
-			if (!ret.notset) {delete ret.error};
-			return ret;
-		},
-		
-		get: function (str) {
-			return (this.public[str] != undefined) ? this.public[str] : {error: 'could not get ' + str};
-		},
-
-		render: function (el) {
-			var dom = (el != undefined) ? el : this.el;
-			$(dom).html(this.html);
-			console.log('rendered', $(dom).html());
+			return this.base(config);
 		}
-
 	});
 
-	return bsModule;
+	return Module;
 
 });

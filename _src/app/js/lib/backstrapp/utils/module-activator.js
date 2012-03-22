@@ -30,7 +30,7 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, facade) {
 
 	var e = {};
 
-	e.execute = function (element, callback) {
+	e.execute = function (element) {
 		$("[data-module-cssonly]", element).each(function () {
 			console.log('loading css');
 			var item = $(this),

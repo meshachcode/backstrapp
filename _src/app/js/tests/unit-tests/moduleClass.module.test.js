@@ -3,143 +3,87 @@ define(['../../modules/dev/module.0.3', 'jsonLoad!unit-tests/moduleClass.module.
 function (m, config) {
 	return {
 		RunTests: function () {
-			config.dom = $(config.dom);
-			var testApp = {};
-
+			var testApp = {
+				requestA: {name: 'AAAAAAA', html: 'hello world', el: $('<div id="testA"></div>')},
+				requestB: {name: 'BBBBBBB', html: 'sneaky!', el: $('<div id="testA"></div>'), visible: false}
+			};
+			
 			module('ModuleClass', {
 				setup: function () {
-					testApp.requestA = {html: 'html A', autoload: false};
-					testApp.requestB = {html: 'html B'};
-					testApp.modA = m.init(testApp.requestA);
-					testApp.modB = m.init(testApp.requestB);
+					testApp.modA = new m(testApp.requestA);
+					testApp.modB = new m(testApp.requestB);
 				},
 				teardown: function () {
-					delete testApp.modA;
-					delete testApp.modB;
+					testApp.modA = new m(testApp.requestA);
+					testApp.modB = new m(testApp.requestB);
 				}
 			});
 			
-			
-			test('Testing Init', function () {
-				equal(testApp.modA.html, testApp.requestA.html, 'modA initialized with proper request object : ' + testApp.modA.html);
-				equal(testApp.modA.autoload, testApp.requestA.autoload, 'modA sets autoload properly : ' + testApp.modA.autoload);
-				equal(testApp.modB.html, testApp.requestB.html, 'modB initialize with proper request object : ' + testApp.modB.html);
-				equal(testApp.modA.html, testApp.requestA.html, 'modA is unchanged by running modB init : ' + testApp.modA.html);
+			test('Simple Hello World', function (){
+				var module = new m({ html: 'hello world' });
+				equal(module.html, 'hello world', 'module.html should be set');
+				equal(module.el.html(), 'hello world', 'module.el.html() should match ' + module.html);
 			});
 			
-			test('Testing Restore', function () {
-				testApp.modB = m.restore(testApp.requestB);
-				equal(testApp.modB.html, testApp.requestB.html, 'Restored with proper request object : ' + testApp.modB.html);
-				ok(!testApp.modA.autoload, 'modA still contains autoload == false');
-				ok(testApp.modB.autoload, 'modB has the default autoload' + testApp.modB.autoload);
-			});
-			
-/*
+			test('Proper Object Inheritence', function () {
+				equal(testApp.modA.name, testApp.requestA.name, 'modA.name should match testApp.requestA.name ' + testApp.modA.name);
 
-			test('CANNOT initialize with improper request object', function () {
-			});
+				var modB = testApp.modA.restore(testApp.requestB);
+				equal(modB.name, testApp.requestB.name, 'modB.name should match testApp.requestB.name ' + modB.name);
 
-			test('Starts as expected when isValid and isActive', function () {
-				// test that isActive gets set
-				// test that start() gets called
-			});
+				var modC = testApp.modA.restore();
+				equal(modC.name, testApp.requestB.name, 'modC.name should match testApp.requestB.name ' + modC.name);
 
-			test('Setting !isActive stops the module', function () {
-				// test that isActive gets set
-				// test that stop() gets called
+				var modD = new m(testApp.requestA);
+				equal(modD.name, testApp.requestA.name, 'modD.name should match testApp.requestA.name ' + modD.name);
 			});
 			
-			test('Setting isValid enables access to exports', function () {
-				// test that isValid gets set
+			test('Autoload triggers render', function () {
+				equal(testApp.modA.html, testApp.requestA.html, 'modA should have proper html set ' + testApp.modA.html);
+				equal(testApp.modA.el.html(), testApp.requestA.html, 'modA.el should have proper html value ' + testApp.modA.html);
 			});
 			
-			test('Setting isVisible renders the module', function () {
-				// test that isVisible gets set
-				// test that render happens as expected
+			test('Save allows for state management', function () {
+				var saved = testApp.modA.save();
+				// did all the passed params get set?
+				for (var i in testApp.requestA) {
+					equal(saved[i], testApp.requestA[i], 'modA.' + i + ' should match testApp.requestA.' + i + ' ' + saved[i]);
+				}
+
+				// are all the other params as expected?
+				ok(saved.active, 'saved.active should be ' + saved.active);
+				ok(saved.valid, 'saved.valid should be  ' + saved.valid);
+				ok(saved.visible, 'saved.visible should be  ' + saved.visible);
+				ok(saved.autoload, 'saved.autoload should be ' + saved.autoload);
+
+				saved.autoload = false;
+				var modB = testApp.modA.restore(saved);
+				ok(!modB.autoload, 'modB.autoload should be ' + modB.autoload);
+				ok(modB.active, 'modB.active should be ' + modB.active);
+				ok(modB.valid, 'modB.valid should be ' + modB.valid);
+				ok(modB.visible, 'modB.visible should be ' + modB.visible);
 			});
-*/
+			
+			test('Render should check state before writing html', function () {
+				equal(testApp.modB.el.html(), 'unrenderable : unrenderable due to visible having value of false', 'modB should not render because of visible being false');
+
+				var modC = new m(testApp.requestA);
+				modC.set({valid: false});
+				modC.restore();
+				equal(modC.el.html(), 'unrenderable : unrenderable due to valid having value of false', 'modC should not render because of valid being false');
+
+				var modD = new m(testApp.requestA);
+				modD.set({active: false});
+				modD.restore();
+				equal(modD.el.html(), 'unrenderable : unrenderable due to active having value of false', 'modD should not render because of active being false');
+			});
 		}
 	}
 });
 
 /** 
 	* Backstrapp Module Class
-	
-	
-		rules:	
-			1 - modules self-initiate
-				*	var _private = {
-				*		// ALL MOD-SPECIFIC CODE GOES HERE
-				*	};
-				*	var module = new ModuleClass({
-				*		// ALL OVERRIDES OF PUBLIC METHODS GO HERE
-				*		start: function () {
-				*			this.base(_private.someVar);
-				*		}
-				*	});
-				*	return module;
 
-			2 - modules DO NOT self-configure
-				*	WRONG: 
-				*		var module = new ModuleClass({
-				*			activeitem: 'someitem'
-				*		});
-				*	RIGHT: 
-				*		var module = new ModuleClass({
-				*			defaults: {
-				*				activeitem: 'someitem'
-				*			},
-				*			// no need to write this function if it's all you need. It's being done already.
-				*			// however, if you do override this method, 
-				*				- trigger this.base(obj) to have the parent constructor fire, 
-				*				- or this.base() to have the parent constructor ignore the request object (not recommended)
-				*			constructor: function (obj) {
-				*				this.activeitem = (obj.activeitem) ? obj.activeitem : this.defaults.activeitem;
-				*			}
-				*		});
-				*	This allows for outside configuration, easy testing, and easy blending of objects pre-construct, 
-				*	instead of having to override default objects in their entirety.
-			3 - modules depend on 'facade' to pub/sub, but the parent object includes it, so reference "this.f" to use it if you must
-			4 - modules NEVER touch global variables in any way. 
-			5 - call this.base() if you override any of the following methods: 
-					- get, set, start, stop, restore, show, hide
-					
-					
-					
-##		EXAMPLES
-			
-			- hello world...
-								define(['backstrtestApp.module'], function (bsModule) {
-									var module = new bsModule({
-										html: 'hello world'
-									});
-									return module;
-								});
-
-
-			// modules
-			mod.facade
-				f.defaults: {
-					autoload: true,
-					name: '',
-					el: '',
-					html: '',
-					view: '',
-					animation: {},
-					debug: {},
-					errors: {},
-					events: {}
-				}
-				f.init( {el, name, events, autoload, view} ) // initEvents(), return util.extend(f.defaults, obj)
-				f.set( {obj} ) // return util.extend(f.defaults, obj)
-				f.get( 'key' ) // return this[key]
-				f.state: {
-					valid: true,
-					active: true,
-					visible: true
-				}
-				f.show() // if f.state.all { render() }
-				f.hide()
 
 			mod.mediator
 				m

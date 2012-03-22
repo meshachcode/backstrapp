@@ -1,22 +1,15 @@
 /*
 	* Test Module 0.3
 	* (instance)
+	* single-use module configuration
 */
 
-define(['backstrapp/modules/module.facade.0.3'], function (Module) {
-
-	var SimpleModule = Module.extend({});
-
-	return {
-		instance: {},
-		init: function (request) {
-			this.instance = new SimpleModule(request);
-			return this.instance;
-		},
-		restore: function (request) {
-			this.instance.restore(request);
-			return this.instance;
-		}
+define(['backstrapp/modules/module.0.3'], function (Module) {
+	
+	var mod = Module.extend({});
+	
+	return function (config) {
+		return new mod(config);
 	}
 
 });
