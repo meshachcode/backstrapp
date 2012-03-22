@@ -14,29 +14,30 @@ define(['./module.class.0.3'], function (ModuleClass) {
 	});
 
 	return function (config) {
-		var instance = new Module(config);
+		var e = new Module(config);
+
 		return {
 			get: function (str) {
-				return instance.get(str);
+				return e.get(str);
 			},
 			set: function (obj) {
-				return instance.set(obj);
+				return e.set(obj);
 			},
 			restore: function (config) {
-				if (instance.get('autoload')) {
-					instance.show();
+				if (e.get('autoload')) {
+					e.show();
 				}
-				instance.restore(config);
+				e.restore(config);
 				return this;
 			},
 			save: function () {
-				return instance.save();
+				return e.save();
 			},
 			show: function () {
-				instance.show();
+				e.show();
 			},
 			hide: function () {
-				instance.hide();
+				e.hide();
 			}
 		}
 	}

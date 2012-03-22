@@ -21,7 +21,8 @@ define(['jquery', './mediator'], function ($, m) {
 			'testModuleA',
 			'testModuleB',
 			'testModuleC',
-			'testModuleD'
+			'testModuleD',
+			'Module3Test'
 		],
 		event: [
 			'init',
