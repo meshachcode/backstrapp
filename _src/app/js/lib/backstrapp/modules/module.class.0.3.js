@@ -5,7 +5,7 @@
 */
 define(['base'], function () {
 
-	var _public = Base.extend({
+	var ModuleClass = Base.extend({
 		autoload: true,
 		name: '',
 		html: '',
@@ -20,29 +20,6 @@ define(['base'], function () {
 		store: ['autoload', 'name', 'html', 'el', 'view', 'debug', 'active', 'valid', 'visible'],
 		renderable: ['active', 'valid', 'visible'],
 		animation: {time: 100},
-
-		isRenderable: function () {
-			var ret = true;
-			for (var i in this.renderable) {
-				if (!this[this.renderable[i]]) {
-					this.newError('unrenderable', this.renderable[i], this[this.renderable[i]]);
-					ret = false;
-				};
-			}
-			return ret;
-		},
-		
-		printErrors: function (errors) {
-			var ret = [];
-			for (var i in errors) {
-				ret.push(i + ' : ' + errors[i].msg);
-			}
-			return ret.join('<br/>');
-		},
-		
-		newError: function (m, c, v) {
-			this.errors[m] = {msg: m + ' due to ' + c + ' having value of ' + v, context: c};
-		},
 
 		constructor: function (config) {
 			this.set(config);
@@ -97,10 +74,32 @@ define(['base'], function () {
 			var d = (el != undefined) ? el : this.get('el');
 			var h = (html != undefined) ? html : this.get('html');
 			$(d).html(h);
+		},
+		
+		isRenderable: function () {
+			var ret = true;
+			for (var i in this.renderable) {
+				if (!this[this.renderable[i]]) {
+					this.newError('unrenderable', this.renderable[i], this[this.renderable[i]]);
+					ret = false;
+				};
+			}
+			return ret;
+		},
+		
+		printErrors: function (errors) {
+			var ret = [];
+			for (var i in errors) {
+				ret.push(i + ' : ' + errors[i].msg);
+			}
+			return ret.join('<br/>');
+		},
+		
+		newError: function (m, c, v) {
+			this.errors[m] = {msg: m + ' due to ' + c + ' having value of ' + v, context: c};
 		}
-
 	});
 
-	return _public;
+	return ModuleClass;
 
 });

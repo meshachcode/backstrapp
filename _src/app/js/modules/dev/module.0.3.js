@@ -6,8 +6,15 @@
 
 define(['backstrapp/modules/module.0.3'], function (Module) {
 
-	return function (config) {
-		return new Module(config);
-	};
+
+	return {
+		init: function (config) {
+			var e = new Module(config);
+			return e;
+		},
+		restore: function (config) {
+			return e.restore(config);
+		}
+	}
 
 });
