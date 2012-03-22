@@ -27,7 +27,7 @@ require({
 ], 
 function (permissions, mediator, moduleClass) {
 	QUnit.start();
-	permissions.RunTests();
+/* 	permissions.RunTests(); */
 	mediator.RunTests();
 	moduleClass.RunTests();
 });

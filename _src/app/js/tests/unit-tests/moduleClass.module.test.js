@@ -1,16 +1,37 @@
-define(['../../lib/backstrapp/modules/module.class.0.3', 'jsonLoad!unit-tests/moduleClass.module.config.json'], 
+define(['../../modules/dev/module.0.3', 'jsonLoad!unit-tests/moduleClass.module.config.json'], 
 
 function (m, config) {
 	return {
 		RunTests: function () {
 			config.dom = $(config.dom);
-			module('ModuleClass');
+			var testApp = {};
+
+			module('ModuleClass', {
+				setup: function () {
+					testApp.requestA = {html: 'html A', autoload: false};
+					testApp.requestB = {html: 'html B'};
+					testApp.modA = m.init(testApp.requestA);
+					testApp.modB = m.init(testApp.requestB);
+				},
+				teardown: function () {
+					delete testApp.modA;
+					delete testApp.modB;
+				}
+			});
 			
-			test('Initialized with proper request object', function () {
-				var mod = new m({
-					html: 'test'
-				});
-				console.log('mod', mod);
+			
+			test('Testing Init', function () {
+				equal(testApp.modA.html, testApp.requestA.html, 'modA initialized with proper request object : ' + testApp.modA.html);
+				equal(testApp.modA.autoload, testApp.requestA.autoload, 'modA sets autoload properly : ' + testApp.modA.autoload);
+				equal(testApp.modB.html, testApp.requestB.html, 'modB initialize with proper request object : ' + testApp.modB.html);
+				equal(testApp.modA.html, testApp.requestA.html, 'modA is unchanged by running modB init : ' + testApp.modA.html);
+			});
+			
+			test('Testing Restore', function () {
+				testApp.modB = m.restore(testApp.requestB);
+				equal(testApp.modB.html, testApp.requestB.html, 'Restored with proper request object : ' + testApp.modB.html);
+				ok(!testApp.modA.autoload, 'modA still contains autoload == false');
+				ok(testApp.modB.autoload, 'modB has the default autoload' + testApp.modB.autoload);
 			});
 			
 /*
@@ -88,7 +109,7 @@ function (m, config) {
 ##		EXAMPLES
 			
 			- hello world...
-								define(['backstrapp.module'], function (bsModule) {
+								define(['backstrtestApp.module'], function (bsModule) {
 									var module = new bsModule({
 										html: 'hello world'
 									});

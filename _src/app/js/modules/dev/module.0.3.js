@@ -1,12 +1,11 @@
 /*
-	Test Module
+	* Test Module 0.3
+	* (instance)
 */
 
-define(['backstrapp/modules/module.0.3'], function (Module) {
+define(['backstrapp/modules/module.class.0.3'], function (Module) {
 
-	var SimpleModule = Module.extend({
-		html: 'hello world'
-	});
+	var SimpleModule = Module.extend({});
 
 	return {
 		instance: {},
@@ -15,7 +14,8 @@ define(['backstrapp/modules/module.0.3'], function (Module) {
 			return this.instance;
 		},
 		restore: function (request) {
-			return this.instance.restore(request);
+			this.instance.restore(request);
+			return this.instance;
 		}
 	}
 
