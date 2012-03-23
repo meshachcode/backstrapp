@@ -28,9 +28,9 @@ function (config, RouteModule, PagesCollection) {
 			for (var i in pages) {
 				this.pages.add(pages[i]);
 			}
-			this.publish('pagesLoaded', this.pages.getPages());			
+			this.publish('pagesLoaded', this.pages.getPages());
 		},
-		
+
 		getPage: function (page) {
 			var me = this;
 			this.pages.getPage(page, function (p) {

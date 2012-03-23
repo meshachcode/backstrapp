@@ -33,10 +33,9 @@ function (Module, facade, PagesCollection) {
 		},
 
 		loadView: function (pages) {
-			console.log('pages', pages);
 			if (pages != undefined) {
 				for (var i in pages) {
-					this.pages.push({name: pages[i].name, title: pages[i].title, route: pages[i].name});
+					this.pages.push({name: pages[i].name, title: pages[i].title, route: '/' + pages[i].name});
 				}
 				this.base();
 			}
