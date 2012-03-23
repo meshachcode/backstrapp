@@ -17,17 +17,20 @@ function (config, RouteModule, PagesCollection) {
 		},
 
 		constructor: function (request) {
-			this.util.bindAll(this, 'getPage', 'pagesLoaded');
-			this.pages = new PagesCollection(config.pages);
+			this.util.bindAll(this, 'getPage');
+			this.pages = new PagesCollection();
 /* 			this.pages.fetch({ success: this.pagesLoaded }); */
 			this.base(request);
+			this.loadPages(config.pages);
 		},
 		
-		pagesLoaded: function () {
-			console.log('pagesLoaded');
-			this.publish('pagesLoaded', this.pages.getPages());
+		loadPages: function (pages) {
+			for (var i in pages) {
+				this.pages.add(pages[i]);
+			}
+			this.publish('pagesLoaded', this.pages.getPages());			
 		},
-
+		
 		getPage: function (page) {
 			var me = this;
 			this.pages.getPage(page, function (p) {

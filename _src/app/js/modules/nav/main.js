@@ -33,7 +33,6 @@ function (Module, facade, PagesCollection) {
 		},
 
 		loadView: function (pages) {
-			console.log('nav.loadView', arguments);
 			if (pages != undefined) {
 				this.pages = pages;
 				this.base();
@@ -55,7 +54,6 @@ function (Module, facade, PagesCollection) {
 			* @method updateActive
 		*/
 		updateActive: function (page) {
-			console.log('updateActive called', page);
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}
