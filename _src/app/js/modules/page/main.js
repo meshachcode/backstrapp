@@ -19,7 +19,7 @@ function (config, RouteModule, PagesCollection) {
 		constructor: function (request) {
 			this.util.bindAll(this, 'getPage', 'pagesLoaded');
 			this.pages = new PagesCollection(config.pages);
-			this.pages.fetch({ success: this.pagesLoaded });
+/* 			this.pages.fetch({ success: this.pagesLoaded }); */
 			this.base(request);
 		},
 		
