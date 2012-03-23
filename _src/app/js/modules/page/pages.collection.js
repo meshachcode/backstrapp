@@ -2,7 +2,7 @@ define(['backbone', 'core/facade'], function (Backbone, f) {
 
 	var PagesCollection = Backbone.Collection.extend({
 		pagesLoaded: false,
-/* 		url: "https://api.mongolab.com/api/1/databases/test/collections/pages?apiKey=4f67b8c4e4b0145e2b31d0d1", */
+		url: "https://api.mongolab.com/api/1/databases/test/collections/pages?apiKey=4f67b8c4e4b0145e2b31d0d1",
 
 		initialize: function () {
 			f.util.bindAll(this, 'getPage', 'getPages');
