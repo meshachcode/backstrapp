@@ -23,7 +23,7 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 
 		render: function () {
 			util.debug('render!!!');
-			$(this.model.get('el')).html(this.model.get('name') + ' : ' + this.model.get('html'));
+			$(this.model.get('el')).html(this.model.get('html'));
 		},
 		
 		processParams: function () {
