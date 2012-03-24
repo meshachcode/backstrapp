@@ -17,7 +17,9 @@ require({
 		loadcss:		'util/loadcss',
 		cookie:			'util/cookie',
 		base:			'util/base',
-		core:			'./core'
+		core:			'./core',
+		util:			'lib/backstrapp/util',
+		template: 		'lib/backstrapp/modules/template.0.1'
     }
 },
 ['backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'core/facade'], function (activator, builder, facade) {

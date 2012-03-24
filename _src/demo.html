@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Back$trapp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="app/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container" style="display: block">
+	    <div id="content" class="row">
+
+			<div data-module="modules_js/demoModB/main" data-module-parameters="msg:hello!!hello!!hello!!hello!!" id="demoModB" class="span5"></div>
+
+			<div data-module="modules_js/demoModA/main" data-module-parameters="template:html/demo/parts/template.html,msg:Was it,msgA:something I,msgB:said?" id="demoModA" class="span5"></div>
+
+	    </div><!-- /content -->
+	
+	    <footer>
+	        <div data-dynamic-uri="app/html/app/parts/footer.html" id="footerModule"></div><!-- /footerModule -->
+	    </footer><!-- /footer -->
+	</div><!-- /container -->
+
+    <script type="text/javascript" src="app/js/lib/modernizr-1.6.min.js"></script>
+    <script type="text/javascript" data-main="app/js/main" src="app/js/lib/require/require.js"></script>
+
+</body>
+</html>
