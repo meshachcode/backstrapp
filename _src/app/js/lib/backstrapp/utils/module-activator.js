@@ -46,7 +46,7 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, facade) {
 				params = objectifyParams(item.data("module-parameters"));
 			request = {
 				name: name,
-				dom: item,
+				el: item,
 				mod: module,
 				arg: params
 			};
