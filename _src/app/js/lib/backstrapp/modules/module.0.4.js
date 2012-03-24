@@ -4,10 +4,11 @@
 	* on init, the module should try to load :view as an html file
 	* once :view is loaded, :msg should be applied to it as a template var
 	* 
-	* TODO: this is a smashing success, and an excellent start to dealing with module
+	* TODO: This is a smashing success, and an excellent start to dealing with module
 	* independence and sandboxing. However, it's a bit bulky, no?
 	* Clean it up, test the hell out of the idea that this can be reasonably extended 
-	* by only passing parameters (for example, what happens when you run model.set({somefunction: function (...?
+	* by only passing parameters (for example, what happens when you run 
+	* model.set({somefunction: function (...?
 */
 define(['jquery', 'template', '../classes/module.class.0.4', '../classes/module.face.0.1'], 
 
@@ -18,6 +19,7 @@ function ($, t, ModuleClass, ModuleFace) {
 			* @property params
 			* this is just like a validation object, 
 			* BUT ... EVERY ITEM is an asynchronous method
+			* TODO: refactor?
 		*/
 		params: {
 			template: function (v, callback) {
@@ -48,6 +50,7 @@ function ($, t, ModuleClass, ModuleFace) {
 			* @method processParams
 			* receives data-module-parameters as 2nd argument (objectified by activator)
 			* the object here has already passed model validation rules
+			* TODO: 3 methods and a 3 arrays to handle params, really? There's gotta be a lighter-weight solution, no?
 		*/
 		processParams: function (o, paramObj) {
 			this.processed = [];
@@ -60,7 +63,7 @@ function ($, t, ModuleClass, ModuleFace) {
 		},
 		
 		processParamRules: function (paramObj, callback) {
-			// loop through private.params, and see if you have any rules for them
+			// loop through paramObj, and see if you have any rules for them
 			for (var i in paramObj) {
 				this.processed.push(i);
 				if (_private.params[i]) {
@@ -83,17 +86,24 @@ function ($, t, ModuleClass, ModuleFace) {
 				this.model.trigger('complete:params');
 			}
 		},
-		
+		/*
+			* @method setHtml
+			* set model.html, based on the information available.
+				- is there a template? 
+					- if so, process it with the model
+					- if not, pick a parameter, any parameter...?
+		*/
 		setHtml: function () {
 			var html = this.model.get('html');
 			if (this.model.get('template') != this.model.defaults.template) {
 				var o = this.model.toJSON();
 				html = t.process(o, this.model.get('template'));
 			} else {
-				// set html to the msg val
+				// set html to the msg val for now...
+				// TODO: maybe this is defined by the module instance?
 				html = this.model.get('msg');
 			}
-			console.log('setting HTML', html);
+/* 			console.log('setting HTML', html); */
 			this.model.set({html: html});
 		}
 	});
