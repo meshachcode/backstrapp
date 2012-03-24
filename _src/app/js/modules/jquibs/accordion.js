@@ -4,7 +4,7 @@ define(['lib/backstrapp/jquibs.module.factory.0.1'],
 function (ModuleFactory) {
 
 	var config = {
-		id: 'accordion', 
+		id: 'somethingelse', 
 		header: 'h3', 
 		slides: [
 			{header: 'slide 1', body: 'AAAAAAA'},

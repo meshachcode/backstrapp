@@ -1,0 +1,14 @@
+	<h2 class="demoHeaders">{{title}}</h2>
+
+	<div id="{{id}}">
+	  <ul>
+		{{#slides}}
+		    <li><a href="#{{id}}">{{header}}</a></li>
+		{{/slides}}
+	  </ul>
+
+	  {{#slides}}
+		  <div id="{{id}}">{{body}}</div>
+	  {{/slides}}
+
+	</div>
