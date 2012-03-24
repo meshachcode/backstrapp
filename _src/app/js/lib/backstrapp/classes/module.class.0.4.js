@@ -16,6 +16,9 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 			// The params args are set by module.instance.init (module.face)
 			this.model.bind('change:arg', this.processParams, this);
 			this.model.bind('change:html', this.render, this);
+			if (this.defaults) {
+				this.model.set(this.defaults);
+			}
 		},
 
 		render: function () {
