@@ -71,8 +71,11 @@ define(['../../core/permissions'], function (permissions) {
 				deepEqual(permissions.camelizeArray(concated, false), camelized, 'camelizeArray properly runs');
 			});
 
-			test('permissions.newRules', function () {
-				deepEqual(permissions.newRules(rules), expected, 'new rules created properly');
+			asyncTest('permissions.newRules', function () {
+				permissions.newRules(rules, function (r) {
+					deepEqual(rules, expected, 'new rules created properly');
+					QUnit.start();
+				});
 			});
 
 			test('permissions.init', function () {
