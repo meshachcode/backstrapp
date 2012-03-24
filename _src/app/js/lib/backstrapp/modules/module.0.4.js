@@ -3,6 +3,11 @@
 	* This module should receive 2 params (msg & view)
 	* on init, the module should try to load :view as an html file
 	* once :view is loaded, :msg should be applied to it as a template var
+	* 
+	* TODO: this is a smashing success, and an excellent start to dealing with module
+	* independence and sandboxing. However, it's a bit bulky, no?
+	* Clean it up, test the hell out of the idea that this can be reasonably extended 
+	* by only passing parameters (for example, what happens when you run model.set({somefunction: function (...?
 */
 define(['jquery', 'template', '../classes/module.class.0.4', '../classes/module.face.0.1'], 
 

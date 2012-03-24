@@ -2,6 +2,8 @@
 	* Module Class 0.4
 		* core functionality
 		* communication with Facade
+		* TODO: Needs to communicate with the facade.
+		* TODO: UNIT TEST THIS MOFO!!!!
 */
 define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backbone, ModuleModel) {
 	
@@ -17,21 +19,12 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 		},
 
 		render: function () {
-			this.debug('render!!!');
+			util.debug('render!!!');
 			$(this.model.get('el')).html(this.model.get('name') + ' : ' + this.model.get('html'));
 		},
 		
 		processParams: function () {
-			this.debug('processParams Not Set by Module Instance');
-		},
-
-		debug: function () {
-			console.warn('<Debug ---------------------');
-			for (var i in arguments) {
-				console.warn('### argument', arguments[i]);
-			}
-			console.warn('### this.model.attributes', this.model.attributes);
-			console.warn('-------------------- /Debug>');
+			util.debug('processParams Not Set by Module Instance');
 		},
 
 		set: function (obj) {

@@ -19,6 +19,14 @@ define(['underscore'], function (_) {
         		}
         	}
 			return result;
+		},
+		
+		debug: function () {
+			console.warn('<Debug ---------------------');
+			for (var i in arguments) {
+				console.warn('--- arg ' + i, arguments[i]);
+			}
+			console.warn('-------------------- /Debug>');
 		}
 	});
 
