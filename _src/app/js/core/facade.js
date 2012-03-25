@@ -10,7 +10,6 @@ define(["./mediator" , "./permissions" ], function (mediator, permissions) {
 
 	var facade = facade || {};
 	facade.modules = {};
-	permissions.init();	
 
 	facade.subscribe = function(subscriber, channel, callback, context){
 /* 		console.log('subscribe', arguments); */

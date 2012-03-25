@@ -17,19 +17,22 @@ require({
 		loadcss:		'../util/loadcss',
 		cookie:			'../util/cookie',
 		base:			'../util/base',
-		core:			'../core'
+		core:			'../core',
+		tests:			'../tests'
     }
 },
 [
-	'unit-tests/permissions.test', 
-	'unit-tests/mediator.test',
-	'unit-tests/moduleClass.test',
-	'unit-tests/testModule.test'
+	'tests/unit-tests/permissions.test',
+	'tests/unit-tests/mediator.test'
+/* 	'tests/unit-tests/moduleClass.test', */
+/* 	'tests/unit-tests/testModule.test' */
 ], 
-function (permissions, mediator, moduleClass, testModule) {
+function (permissions, mediator /* moduleClass, */ /* testModule */) {
 	QUnit.start();
-/* 	permissions.RunTests(); */
+	permissions.RunTests();
 	mediator.RunTests();
+/*
 	moduleClass.RunTests();
 	testModule.RunTests();
+*/
 });
