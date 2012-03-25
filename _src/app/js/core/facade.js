@@ -6,15 +6,21 @@
 	TODO: refactor the facade object with pub/priv in mind. THINK TDD!!!
 */
 
-define(["./mediator" , "./permissions" ], function (Mediator, permissions) {
+define(["./mediator" , "./permissions" ], function (M, permissions) {
+
+	var Mediator = new M();
 
 	var Facade = {
 		subscribe: function(subscriber, channel, callback, context){
-			if (!Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is Off!'} };
+			if (!Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
 			/* console.log('subscribe', arguments); */
-			var me = Mediator.modules[context];
+/* 			var me = Mediator.modules[context]; */
 			if(permissions.validate('subscribe', subscriber, channel)){
-				Mediator.subscribe( channel, callback, me );
+				var sub = Mediator.subscribe( channel, callback/* , me  */);
+				sub.s = subscriber;
+				return sub;
+			} else {
+				return {error: 'Permission Failed', s: subscriber, ch: channel};
 			}
 		},
 	
@@ -22,18 +28,12 @@ define(["./mediator" , "./permissions" ], function (Mediator, permissions) {
 			if (!Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
 			/* console.log('publish', arguments); */
 			if(permissions.validate('publish', subscriber, channel)){
-				Mediator.publish( channel, params );
+				var pub = Mediator.publish( channel, params );
+				pub.s = subscriber;
+				return pub;
+			} else {
+				return {error: 'Permission Failed', s: subscriber, ch: channel};
 			}
-		},
-
-		getModule: Mediator.getModule,
-		
-		require: function(plugin, source, callback) {
-			Mediator.require(plugin, source, callback);
-		},
-
-		processTemplate: function (html, data, callback) {
-			Mediator.processTemplate(html, data, callback);
 		},
 
 		get: function (str) {
@@ -42,9 +42,17 @@ define(["./mediator" , "./permissions" ], function (Mediator, permissions) {
 		
 		set: function (obj) {
 			return Mediator.set(obj);
-		}
+		},
+
+		require: Mediator.require,
+		getModule: Mediator.getModule,
+		processTemplate: Mediator.processTemplate
+
 	};
 
-	return Facade;
+	return function () {
+		var f = Facade;
+		return f;
+	};
 
 });

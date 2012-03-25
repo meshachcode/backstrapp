@@ -1,11 +1,11 @@
-define(['jsonLoad!./config.test.json', 'core/mediator'], function (conf, m) {
+define(['jsonLoad!./config.test.json', 'core/mediator'], function (conf, Mediator) {
 	return {
 
 		RunTests: function () {
 			var testObj = {};
-			var mediator = m;
+			var m = new Mediator();
 
-			module('Core: Mediator', {
+			module('Core: Mediator: Init', {
 				setup: function () {
 					testObj = { test: true };
 				},

@@ -68,7 +68,8 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 		subscribe: function (channel, callback, context) {
 			/* console.log('Mediator.subscribe', channel, context); */
 	        _private.channels[channel] = (!_private.channels[channel]) ? [] : _private.channels[channel];
-	        _private.channels[channel].push(this.util.method(callback, context));
+	        _private.channels[channel].push(_private.util.method(callback, context));
+	        return {success: 'subscription set', ch: channel};
 		},
 
 		publish: function (channel) {
@@ -78,6 +79,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 			for (var i = 0, l = _private.channels[channel].length; i < l; i++) {
 				_private.channels[channel][i].apply(this, args);
 			}
+			return {success: 'published event', ch: channel};
 		},
 
 		/* TODO: maybe this should just be a facade method to the module factory? */
@@ -101,6 +103,9 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 		}
 	}
 
-	return Mediator;
+	return function() {
+		var m = Mediator;
+		return m;
+	};
 
 });
