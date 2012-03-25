@@ -27,7 +27,44 @@ define(['underscore'], function (_) {
 				console.warn('--- arg ' + i, arguments[i]);
 			}
 			console.warn('-------------------- /Debug>');
-		}
+		},
+
+        each: _.each,
+        extend: _.extend,
+        isFunction: _.isFunction,
+        bindAll: _.bindAll,
+        isIn: $.inArray,
+		has: function(obj, key) {
+			return hasOwnProperty.call(obj, key);
+		},
+
+        decamelize: function (camelCase, delimiter) {
+            delimiter = (delimiter === undefined) ? "_" : delimiter;
+            var ret = camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
+            if (ret.substr(0, 1) == delimiter) {
+            	ret = ret.substr(1);
+            }
+            return ret;
+        },        
+
+        /**
+         * @link <a href="https://gist.github.com/827679">camelize.js</a>
+         * @param {string} str String to make camelCase
+         */
+        camelize: function (str, lowerFirst) {
+        	lowerFirst = (lowerFirst === undefined) ? false : lowerFirst;
+        	var reg = /(?:^|[-_])(\w)/g;
+        	if (lowerFirst) {
+        		reg = /[-_]([a-z])/ig;
+        	}
+            return str.replace (reg, function (delimiter, c) {
+                return c ? c.toUpperCase () : '';
+            });
+        },
+
+        parseJson: function (json) {
+            return $.parseJSON(json);
+        }
 	});
 
 	return _;
