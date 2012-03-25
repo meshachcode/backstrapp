@@ -7,6 +7,7 @@ require({
 		backbone: 		'../lib/backbone/backbone-optamd3-min',
 		handlebars:		'../lib/handlebars/handlebars-min',
 		backstrapp:		'../lib/backstrapp',
+		util:			'../lib/backstrapp/util',
 		text: 			'../lib/require/text',
 		jsonLoad:		'../lib/require/json',
 		json:			'../../json',
@@ -18,21 +19,18 @@ require({
 		cookie:			'../util/cookie',
 		base:			'../util/base',
 		core:			'../core',
-		tests:			'../tests'
+		tests:			'../tests',
+		template: 		'../lib/backstrapp/modules/template.0.1'
     }
 },
 [
 	'tests/unit-tests/permissions.test',
-	'tests/unit-tests/mediator.test'
-/* 	'tests/unit-tests/moduleClass.test', */
-/* 	'tests/unit-tests/testModule.test' */
-], 
-function (permissions, mediator /* moduleClass, */ /* testModule */) {
+	'tests/unit-tests/mediator.test',
+	'tests/unit-tests/module.factory.test'
+],
+function (permissions, mediator, factory) {
 	QUnit.start();
 	permissions.RunTests();
 	mediator.RunTests();
-/*
-	moduleClass.RunTests();
-	testModule.RunTests();
-*/
+	factory.RunTests();
 });
