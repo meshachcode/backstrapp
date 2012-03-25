@@ -22,7 +22,7 @@ require({
     }
 },
 [
-	'tests/unit-tests/permissions.test', 
+	'tests/unit-tests/permissions.test',
 	'tests/unit-tests/mediator.test'
 /* 	'tests/unit-tests/moduleClass.test', */
 /* 	'tests/unit-tests/testModule.test' */

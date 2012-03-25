@@ -1,0 +1,55 @@
+{
+	"defaults": {
+		"module": [
+			"navModule",
+			"pageModule",
+			"testModule",
+			"testModuleA",
+			"testModuleB",
+			"testModuleC",
+			"testModuleD",
+			"Module3Test"
+		],
+		"event": [
+			"init",
+			"start",
+			"stop",
+			"load",
+			"loadView",
+			"setHtml",
+			"process",
+			"activate",
+			"deactivate",
+			"restore",
+			"route",
+			"render",
+			"destroy",
+			"click",
+			"mouseon",
+			"mouseoff"
+		],
+		"state": [
+			"complete",
+			"ready"
+		],
+		"request": [
+			"publish",
+			"subscribe"
+		]
+	},
+	"rules": {
+		"pageModuleRenderComplete": {
+			"navModule": {
+				"subscribe": "true"
+			}
+		},
+		"pageModulePagesLoaded": {
+			"navModule": {
+				"subscribe": "true"
+			},
+			"pageModule": {
+				"publish": "true"
+			}
+		}
+	}
+}
