@@ -1,6 +1,5 @@
 define(function () {
 	return function (instance) {
-		console.log('face', arguments);
 		return {
 			/*
 				# public methods accessible by facade

@@ -10,7 +10,7 @@
 	* by only passing parameters (for example, what happens when you run 
 	* model.set({somefunction: function (...?
 */
-define(['jquery', 'template', '../classes/module.class.0.4'], 
+define(['jquery', 'template', 'backstrapp/classes/module.class.0.4'], 
 
 function ($, t, ModuleClass) {
 
@@ -23,6 +23,8 @@ function ($, t, ModuleClass) {
 		*/
 		params: {
 			template: function (v, callback) {
+				console.log('processing template', arguments);
+				/* TODO: Catch errors when the template can't load */
 				require(['text!' + v], function (f) {
 					callback('template', f);
 				});
@@ -53,6 +55,7 @@ function ($, t, ModuleClass) {
 			* TODO: 3 methods and a 3 arrays to handle params, really? There's gotta be a lighter-weight solution, no?
 		*/
 		processParams: function (o, paramObj) {
+			console.log('processParams', arguments);
 			this.processed = [];
 			this.processable = Object.keys(paramObj);
 			if (this.util.hasAllKeys(paramObj, this.required)) {
@@ -103,7 +106,7 @@ function ($, t, ModuleClass) {
 				// TODO: maybe this is defined by the module instance?
 				html = this.model.get('msg');
 			}
-			console.log('setting HTML', html, this.model.toJSON());
+/* 			console.log('setting HTML', html, this.model.toJSON()); */
 			this.model.set({html: html});
 		}
 	});
