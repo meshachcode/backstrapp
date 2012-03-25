@@ -10,6 +10,7 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 	var ModuleClass = Backbone.View.extend({
 
 		initialize: function (config) {
+			this.bindAll(this, 'activate', 'render', 'processParams');
 			// init the model here, so that it's a unique instance every time
 			this.model = new ModuleModel(config);
 			// This, effectively 'starts' your module.
@@ -20,11 +21,22 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 
 		render: function () {
 /* 			util.debug('render!!!'); */
-			$(this.model.get('el')).html(this.model.get('html'));
+			if (this.model.get('isValid')) {
+				$(this.model.get('el')).hide();
+				$(this.model.get('el')).html(this.model.get('html'));
+				$(this.model.get('el')).show('slow', this.activate);
+			} else {
+				var error = "Could not render because module is invalid!";
+				$(this.model.get('el')).html(error);
+			}
 		},
 		
 		processParams: function () {
 			util.debug('processParams Not Set by Module Instance');
+		},
+		
+		activate: function () {
+			this.model.set({isVisible: true, isActive: true});
 		},
 
 		set: function (obj) {

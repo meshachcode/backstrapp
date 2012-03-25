@@ -82,6 +82,7 @@ define(['core/facade'], function (Facade) {
 					console.log('result', result);
 					var mod = result.init(request);
 					ok(mod.model.get('isVisible'), 'Properly sets isVisible on Render :' + mod.model.get('isVisible'));
+					equal(mod.model.get('html'), request.name + ' : ' + mod.model.defaults.html, 'Properly sets default HTML if the setHtml method does not have proper values: ' + mod.model.get('html'));
 					QUnit.start();
 				});
 			});

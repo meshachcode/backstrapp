@@ -4,6 +4,7 @@
 	* on init, the module should try to load :view as an html file
 	* once :view is loaded, :msg should be applied to it as a template var
 	* 
+	* TODO: Reorganize the structure of backstrapp... it's getting messy
 	* TODO: This is a smashing success, and an excellent start to dealing with module
 	* independence and sandboxing. However, it's a bit bulky, no?
 	* Clean it up, test the hell out of the idea that this can be reasonably extended 
@@ -95,18 +96,17 @@ function ($, t, ModuleClass) {
 				- is there a template? 
 					- if so, process it with the model
 					- if not, pick a parameter, any parameter...?
+			* TODO: Error handling for this stuff...
+			If these tests fail, the module's el should print a debug statement in debug mode
 		*/
 		setHtml: function () {
-			var html = this.model.get('html');
+			// prepend name here to make sure change:html gets triggered
+			var html = this.model.get('name') + ' : ' + this.model.get('html');
 			if (this.model.get('template') != this.model.defaults.template) {
 				var o = this.model.toJSON();
 				html = t.process(o, this.model.get('template'));
-			} else {
-				// set html to the msg val for now...
-				// TODO: maybe this is defined by the module instance?
-				html = this.model.get('msg');
 			}
-/* 			console.log('setting HTML', html, this.model.toJSON()); */
+			/* console.log('setting HTML', html, this.model.toJSON()); */
 			this.model.set({html: html});
 		}
 	});

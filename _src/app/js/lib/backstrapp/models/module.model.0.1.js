@@ -7,6 +7,8 @@ define(['backbone'], function (Backbone) {
 
 		defaults: {
 			isValid: true,
+			isVisible: true,
+			isActive: true,
 			template: 'Model.defaults.template',
 			html:	  'Model.defaults.html',
 			viewData: {},
