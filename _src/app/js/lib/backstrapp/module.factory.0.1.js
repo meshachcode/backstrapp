@@ -1,3 +1,6 @@
+/* 	TODO: create module.0.5, with the factory in mind */
+
+
 define(['./classes/module.face.0.1',
 	// Modules
 	'./modules/module.0.4'
@@ -13,9 +16,9 @@ function (ModuleFace,
 	}
 
 	return function (type, config) {
-		console.log('factory', arguments);
 		// Singleton
 		var instance = new Module[type](config);
+		console.log('factory', arguments, instance);
 		return new ModuleFace(instance);
 	}
 
