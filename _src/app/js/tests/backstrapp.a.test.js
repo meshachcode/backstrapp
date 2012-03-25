@@ -26,11 +26,13 @@ require({
 [
 	'tests/unit-tests/permissions.test',
 	'tests/unit-tests/mediator.test',
+	'tests/unit-tests/facade.test',
 	'tests/unit-tests/module.factory.test'
 ],
-function (permissions, mediator, factory) {
+function (permissions, mediator, facade, factory) {
 	QUnit.start();
 	permissions.RunTests();
 	mediator.RunTests();
+	facade.RunTests();
 	factory.RunTests();
 });

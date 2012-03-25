@@ -29,10 +29,6 @@ define(['underscore'], function (_) {
 			console.warn('-------------------- /Debug>');
 		},
 
-        each: _.each,
-        extend: _.extend,
-        isFunction: _.isFunction,
-        bindAll: _.bindAll,
         isIn: $.inArray,
 		has: function(obj, key) {
 			return hasOwnProperty.call(obj, key);
