@@ -8,8 +8,6 @@ define(['../../core/permissions'], function (permissions) {
 
 			module('Permissions', {
 				setup: function () {
-					permissions.mode.publish = true;
-					permissions.mode.subscribe = true;
 				},
 				teardown: function () {
 				}
@@ -22,17 +20,6 @@ define(['../../core/permissions'], function (permissions) {
 					'CANNOT validate a request for another module by default');
 			});
 			
-			test('Quiet Mode.Subscribe Working Properly', function () {
-				permissions.mode.subscribe = false;
-				ok(!permissions.validate(request, subscriber, channel), 'CANNOT Subscribe if mode.Subscribe is false');
-				ok(permissions.validate('publish', subscriber, channel), 'Publish still works if mode.Subscribe is false');
-			});
-
-			test('Quiet Mode.Publish Working Properly', function () {
-				permissions.mode.publish = false;
-				ok(!permissions.validate('publish', subscriber, channel), 'CANNOT Publish if mode.Publish is false');
-				ok(permissions.validate(request, subscriber, channel), 'Subscribe still works if mode.Publish is false');
-			});
 		}
 	};
 });

@@ -9,12 +9,7 @@ function ($, Backbone, m) {
 	// against subscriptions prior to allowing
 	// them to clear. This enforces a light 
 	// security layer for your application.
-	var Permissions = Backbone.Collection.extend({
-
-		mode: {
-			subscribe: true,
-			publish: true
-		},
+	var Permissions = {
 
 		rules: {
 			pageModuleRenderComplete: {
@@ -41,15 +36,15 @@ function ($, Backbone, m) {
 	    	* @param {string} channel Event name
 	    */
 		validate: function(request, subscriber, channel){
-			if (this.isMine(channel, subscriber) && this.mode[request]) {
+			if (Permissions.isMine(channel, subscriber)) {
 				var test = true;
-			} else if (this.rules[channel] && this.rules[channel][subscriber] && this.mode[request]) {
-				var test = this.rules[channel][subscriber][request];
+			} else if (Permissions.rules[channel] && Permissions.rules[channel][subscriber]) {
+				var test = Permissions.rules[channel][subscriber][request];
 			}
 			return test === (undefined) ? false : test;
 		}
-	});
+	};
 
-	return new Permissions();
+	return Permissions;
 
 });
