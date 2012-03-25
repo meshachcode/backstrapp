@@ -8,15 +8,27 @@ define([
 function (ModuleFace, Accordion, Tabs, Message) {
 	
 	var Module = {
+/*
 		accordion: Accordion,
 		tabs: Tabs,
+*/
 		message: Message
 	}
 
 	return function (type, config) {
-		// Singleton
-		var instance = new Module[type](config);
-		return new ModuleFace(instance);
+		var ret = {};
+		if (Module[type] == undefined) {
+			ret = {error: 'Module is not defined', m: type};
+		} else {
+			// Singleton
+			var instance = new Module[type](config);
+			if (instance.model.get('isValid')) {
+				ret = new ModuleFace(instance);
+			} else {
+				ret = {error: 'Module is not valid', m: instance};
+			}
+		}
+		return ret;
 	}
 
 });

@@ -6,6 +6,7 @@ define(['backbone'], function (Backbone) {
 	var ModuleModel = Backbone.Model.extend({
 
 		defaults: {
+			isValid: true,
 			template: 'Model.defaults.template',
 			html:	  'Model.defaults.html',
 			viewData: {},

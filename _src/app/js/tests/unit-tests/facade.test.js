@@ -60,7 +60,7 @@ define(['core/facade'], function (Facade) {
 						name: 'testModule',
 						el: $('<div>test html</div>'),
 						mod: 'modules_js/jquibs/message',
-						arg: {msg: 'test message'}
+						arg: {title: 'test Title'}
 					};
 				},
 
@@ -69,9 +69,34 @@ define(['core/facade'], function (Facade) {
 				}
 			});
 
-			test('Properly retrieves module with valid request', function () {
-				console.log(facade.f.getModule(request));
+			asyncTest('Properly creates module with valid type', function () {
+				facade.f.getModule(request, function (result) {
+					var mod = result.init(request);
+					ok(mod.model.get('isValid'), 'Properly returns valid module with isValid : ' + result.isValid);
+					QUnit.start();
+				});
 			});
+			
+			asyncTest('Properly renders module with valid type in default mode', function () {
+				facade.f.getModule(request, function (result) {
+					console.log('result', result);
+					var mod = result.init(request);
+					ok(mod.model.get('isVisible'), 'Properly sets isVisible on Render :' + mod.model.get('isVisible'));
+					QUnit.start();
+				});
+			});
+
+/* 			TODO: This test will not pass until we implement error handling.  */
+/*
+			asyncTest('CANNOT create module with invalid request', function () {
+				request.mod = 'some/path/to/a/module/that/does/not/exist';
+				facade.f.getModule(request, function (result) {
+					console.log('result', result);
+					ok(result.error, 'Properly returns error message when an invalid module is requested');
+					QUnit.start();
+				});
+			});
+*/
 
 		}
 	};

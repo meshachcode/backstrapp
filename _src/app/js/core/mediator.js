@@ -34,6 +34,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 
 		// TODO: Maybe this is where I can catch errors?
 		// if all modules use facade.require, then all errors will be caught in the same place...?
+		// consider this solution: https://gist.github.com/1599546
 		require: function (source, callback, plugin) {
 			var p = '';
 			if (plugin) { p = plugin + '!' }
@@ -52,13 +53,20 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 			}
 		},
 	
+/* 		TODO: check for an error, and don't try to init if the module doesn't load */
 		loadModule: function (request, callback) {
 			console.log('--- Loading New ' + request.name, _private.modules);
 			var mod = require([request.mod], function (m) {
-				_private.modules[request.name] = m;
-				_private.modules[request.name].init(request);
+				console.log('required module', request.mod, m);
+				if (!m.error) {
+					_private.modules[request.name] = m;
+					_private.modules[request.name].init(request);
+					ret = _private.modules[request.name];
+				} else {
+					ret = m;
+				}
 				if (typeof callback == 'function') {
-					callback(_private.modules[request.name]);
+					callback(ret);
 				}
 			})
 		}
