@@ -1,11 +1,9 @@
 /** 
 	* Backstrapp Permissions.
-	* NOTE: is it possible to load these from an external source? 
-	* Maybe this should all be handled at the server-level (eventually).
 */
-define(['jsonLoad!./permissions.config.json', './rule.model', 'jquery', 'backbone',  './mediator'], 
+define(['jquery', 'backbone',  './mediator'], 
 
-function (config, Rule, $, Backbone, m) {
+function ($, Backbone, m) {
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing
