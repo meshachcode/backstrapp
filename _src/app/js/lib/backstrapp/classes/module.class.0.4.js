@@ -92,7 +92,7 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 				var o = this.model.toJSON();
 				html = t.process(o, this.model.get('template'));
 			}
-			/* console.log('setting HTML', html, this.model.toJSON()); */
+			console.log('setting HTML', html, this.model.toJSON());
 			this.model.set({html: html});
 		},
 		

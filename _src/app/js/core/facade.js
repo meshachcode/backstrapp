@@ -6,16 +6,36 @@
 	TODO: refactor the facade object with pub/priv in mind. THINK TDD!!!
 */
 
-define(["./mediator" , "./permissions" ], function (M, permissions) {
+define(['./mediator' , './permissions', 'core/collections/modules.collection' ], function (M, Permissions, ModulesCollection) {
 
 	var Mediator = new M();
 
 	var Facade = {
+		modules: new ModulesCollection(),
+
+		/* TODO: maybe this should just be a facade method to the module factory? */
+		getModule: function (request) {
+			if (Facade.modules[request.name]) {
+				Mediator.restoreModule(request, Facade.registerModule);
+			} else {
+				Mediator.loadModule(request, Facade.registerModule);
+			}
+		},
+		
+		registerModule: function (mod, col, args) {
+			console.log('registerModule', arguments);
+			Facade.modules.add(mod);
+		},
+		
+		processModule: function (mod) {
+			console.log('processModule', arguments);
+		},
+
 		subscribe: function(subscriber, channel, callback, context){
 			if (!Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
 			console.log('subscribe', arguments);
-/* 			var me = Mediator.modules[context]; */
-			if(permissions.validate('subscribe', subscriber, channel)){
+			var me = Facade.modules[context];
+			if(Permissions.validate('subscribe', subscriber, channel)){
 				var sub = Mediator.subscribe( channel, callback/* , me  */);
 				sub.s = subscriber;
 				return sub;
@@ -26,7 +46,7 @@ define(["./mediator" , "./permissions" ], function (M, permissions) {
 	
 		publish: function(subscriber, channel, params){
 			if (!Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
-			if(permissions.validate('publish', subscriber, channel)){
+			if(Permissions.validate('publish', subscriber, channel)){
 				console.log('channel', channel, subscriber);
 				var pub = Mediator.publish(channel, params);
 				console.log('pub', pub);
@@ -46,13 +66,13 @@ define(["./mediator" , "./permissions" ], function (M, permissions) {
 		},
 
 		require: Mediator.require,
-		getModule: Mediator.getModule,
 		processTemplate: Mediator.processTemplate
 
 	};
 
 	return function () {
 		var f = Facade;
+		f.modules.bind('add', f.processModule);
 		return f;
 	};
 

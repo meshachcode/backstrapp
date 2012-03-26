@@ -46,7 +46,6 @@ define(['core/facade'], function(Facade){
 	}
 
 	return function(err) {
-		console.log('err', arguments);
 		if (Error.debugMode) {
 			Error.process(err);
 		}

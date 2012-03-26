@@ -4,14 +4,13 @@
 	This is the application core. It's private, and should drive the application-wide functionality.
 	TODO: refactor the Mediator object with pub/priv in mind. THINK TDD!!!
 */
-define(['core/collections/modules.collection', 'jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
+define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
 
-function (ModulesCollection, config, $, _, template) {
+function (config, $, _, template) {
 
 	var _private = {
 		util: _,
 
-		modules: new ModulesCollection(),
 		channels: {},
 
 		subscribeMode: true,
@@ -34,41 +33,9 @@ function (ModulesCollection, config, $, _, template) {
 		// TODO: Maybe this is where I can catch errors?
 		// if all modules use facade.require, then all errors will be caught in the same place...?
 		// consider this solution: https://gist.github.com/1599546
-		require: function (source, callback, plugin) {
-			var p = '';
-			if (plugin) { p = plugin + '!' }
+		require: function (source, callback, p) {
+			p = (p != undefined) ? p + '!' : '' ;
 			require([p + source], callback);
-		},
-		
-		restoreModule: function (request, callback) {
-			console.log('--- Returning ' + request.name + ' Instance', _private.modules[request.name]);
-			if (typeof _private.modules[request.name].restore == 'function') {
-				_private.modules[request.name].restore(request);
-			} else {
-				_private.modules[request.name].init(request);
-			}
-			if (typeof callback == 'function') {
-				callback(_private.modules[request.name]);
-			}
-		},
-		
-		registerModule: function (model, collection, callback) {
-/* 			console.log('register module', arguments); */
-			callback(model.attributes, collection);
-		},
-	
-/* 		TODO: check for an error, and don't try to init if the module doesn't load */
-		loadModule: function (request, callback) {
-			console.log('--- Loading New ' + request.name, _private.modules);
-			_private.modules.bind('add', _private.registerModule);
-			require([request.mod], function (m) {
-				if (!m.error) {
-					_private.modules.add(m, callback);
-				} else {
-					ret = m;
-					callback(m);
-				}
-			});
 		}
 	};
 
@@ -90,13 +57,22 @@ function (ModulesCollection, config, $, _, template) {
 			return {success: 'published event', ch: channel};
 		},
 
-		/* TODO: maybe this should just be a facade method to the module factory? */
-		getModule: function (request, callback) {
-			if (_private.modules[request.name]) {
-				_private.restoreModule(request, callback);
+		restoreModule: function (request, callback, context) {
+			console.log('--- Returning ' + request.name + ' Instance', _private.modules[request.name]);
+			if (typeof _private.modules[request.name].restore == 'function') {
+				_private.modules[request.name].restore(request);
 			} else {
-				_private.loadModule(request, callback);
+				_private.modules[request.name].init(request);
 			}
+			if (typeof callback == 'function') {
+				callback(_private.modules[request.name]);
+			}
+		},
+	
+/* 		TODO: check for an error, and don't try to init if the module doesn't load */
+		loadModule: function (request, callback) {
+			console.log('--- Loading New ' + request.name);
+			_private.require([request.mod], callback);
 		},
 
 		processTemplate: template.process,

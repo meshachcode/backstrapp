@@ -8,6 +8,7 @@ define(['underscore'], function (_) {
          * @returns {mediatorect} Fn with the correct context
         */
     	method: function (fn, context) {
+/*     		console.log('method', arguments); */
             return $.proxy(fn, context);
 	    },
 
