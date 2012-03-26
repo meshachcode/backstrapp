@@ -1,5 +1,9 @@
-QUnit.config.autostart = false;
-require({
+require.config({
+	catchError: {
+		define: true
+	},
+	// Debug mode only!
+	waitSeconds: 1,
     paths: {
 		html:			'../html',
 		jquery: 		'../lib/jquery/jquery-min',
@@ -22,14 +26,20 @@ require({
 		tests:			'../tests',
 		template: 		'../lib/backstrapp/modules/template.0.1'
     }
-},
-[
+});
+
+QUnit.config.autostart = false;
+require([
+	'core/handler.error',
 	'tests/unit-tests/permissions.test',
 	'tests/unit-tests/mediator.test',
 	'tests/unit-tests/facade.test',
 	'tests/unit-tests/module.factory.test'
 ],
-function (permissions, mediator, facade, factory) {
+
+function (handler, permissions, mediator, facade, factory) {
+	require.onError = handler;
+
 	QUnit.start();
 	permissions.RunTests();
 	mediator.RunTests();

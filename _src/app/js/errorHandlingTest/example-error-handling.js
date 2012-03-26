@@ -3,12 +3,12 @@ require.config({
 		define: true
 	}
 });
-  
-require(['errorhandler'], function(handler) {
+
+require(['../core/handler.error'], function(handler) {
 	console.log('error handler loaded');
 	require.onError = handler;
 });
 
 require(['module-with-dependancy-issue'], function(mod) {
-	console.log(mod);
+	console.log('MWDI', mod);
 });

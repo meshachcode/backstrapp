@@ -2,12 +2,11 @@
 	Backstrapp Mediator.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 	This is the application core. It's private, and should drive the application-wide functionality.
-
 	TODO: refactor the Mediator object with pub/priv in mind. THINK TDD!!!
 */
+define(['core/handler.error', 'jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
 
-define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (config, $, _, template) {
-
+function (handler, config, $, _, template) {
 
 	var _private = {
 		util: _,
@@ -56,7 +55,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 /* 		TODO: check for an error, and don't try to init if the module doesn't load */
 		loadModule: function (request, callback) {
 			console.log('--- Loading New ' + request.name, _private.modules);
-			var mod = require([request.mod], function (m) {
+			require([request.mod], function (m) {
 				console.log('required module', request.mod, m);
 				if (!m.error) {
 					_private.modules[request.name] = m;
@@ -68,7 +67,7 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 				if (typeof callback == 'function') {
 					callback(ret);
 				}
-			})
+			}, {test: 'test'});
 		}
 	};
 
@@ -81,8 +80,8 @@ define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], function (co
 		},
 
 		publish: function (channel) {
-			/*	console.log('Mediator.publish', arguments); */
-			if (!_private.channels[channel]) return;
+			console.log('Mediator.publish', arguments, _private.channels);
+			if (!_private.channels[channel]) return {error: 'No Subscribers for this event', ch: channel};
 			var args = [].slice.call(arguments, 1);
 			for (var i = 0, l = _private.channels[channel].length; i < l; i++) {
 				_private.channels[channel][i].apply(this, args);

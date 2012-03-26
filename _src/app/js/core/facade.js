@@ -13,7 +13,7 @@ define(["./mediator" , "./permissions" ], function (M, permissions) {
 	var Facade = {
 		subscribe: function(subscriber, channel, callback, context){
 			if (!Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
-			/* console.log('subscribe', arguments); */
+			console.log('subscribe', arguments);
 /* 			var me = Mediator.modules[context]; */
 			if(permissions.validate('subscribe', subscriber, channel)){
 				var sub = Mediator.subscribe( channel, callback/* , me  */);
@@ -26,9 +26,10 @@ define(["./mediator" , "./permissions" ], function (M, permissions) {
 	
 		publish: function(subscriber, channel, params){
 			if (!Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
-			/* console.log('publish', arguments); */
 			if(permissions.validate('publish', subscriber, channel)){
-				var pub = Mediator.publish( channel, params );
+				console.log('channel', channel, subscriber);
+				var pub = Mediator.publish(channel, params);
+				console.log('pub', pub);
 				pub.s = subscriber;
 				return pub;
 			} else {

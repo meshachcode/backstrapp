@@ -30,6 +30,7 @@ define(['underscore'], function (_) {
 		},
 
         isIn: $.inArray,
+		
 		has: function(obj, key) {
 			return hasOwnProperty.call(obj, key);
 		},

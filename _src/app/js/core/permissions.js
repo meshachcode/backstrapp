@@ -24,6 +24,15 @@ function ($, Backbone, m) {
 				pageModule: {
 					publish: true
 				}
+			},
+			// errors
+			errorModulePath: {
+				testModule: {
+					subscribe: true
+				},
+				errorHandler: {
+					publish: true
+				}
 			}
 		},
 		

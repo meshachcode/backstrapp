@@ -6,11 +6,13 @@ define(['core/facade'], function (Facade) {
 			var request = {};
 			var testFunction = function () {
 				console.log('testFunction', arguments);
+				QUnit.start();
 			};
 
 			module('Core: Facade: Init', {
 				setup: function () {
 					facade.f = new Facade();
+					ok(facade.f, 'returns something!');
 					request = {s: 'testModule', ch: 'testModuleInitComplete', fn: testFunction};
 				},
 
@@ -20,7 +22,6 @@ define(['core/facade'], function (Facade) {
 			});
 			
 			test('Properly Instantiates', function () {
-				ok(facade.f, 'returns something!');
 				ok(facade.f.get('util'), 'util object is in place');
 				ok(facade.f.get('util').isFunction(facade.f.publish), 'publish is a function!');
 				ok(facade.f.get('util').isFunction(facade.f.subscribe), 'subscribe is a function!');
@@ -56,6 +57,7 @@ define(['core/facade'], function (Facade) {
 			module('Core: Facade: getModule', {
 				setup: function () {
 					facade.f = new Facade();
+					ok(facade.f, 'returns something!');
 					request = {
 						name: 'testModule',
 						el: $('<div>test html</div>'),
@@ -72,32 +74,35 @@ define(['core/facade'], function (Facade) {
 			asyncTest('Properly creates module with valid type', function () {
 				facade.f.getModule(request, function (result) {
 					var mod = result.init(request);
-					ok(mod.model.get('isValid'), 'Properly returns valid module with isValid : ' + result.isValid);
+					ok(mod.model.get('isValid'), 'Properly returns valid module with isValid : ' + mod.model.get('isValid'));
 					QUnit.start();
 				});
 			});
 			
 			asyncTest('Properly renders module with valid type in default mode', function () {
 				facade.f.getModule(request, function (result) {
-					console.log('result', result);
 					var mod = result.init(request);
+					console.log('mod', mod);
 					ok(mod.model.get('isVisible'), 'Properly sets isVisible on Render :' + mod.model.get('isVisible'));
 					equal(mod.model.get('html'), request.name + ' : ' + mod.model.defaults.html, 'Properly sets default HTML if the setHtml method does not have proper values: ' + mod.model.get('html'));
 					QUnit.start();
 				});
 			});
+			
+			asyncTest('Properly destroys module upon request', function () {
+				
+			});
 
-/* 			TODO: This test will not pass until we implement error handling.  */
-/*
 			asyncTest('CANNOT create module with invalid request', function () {
-				request.mod = 'some/path/to/a/module/that/does/not/exist';
+				request.mod = 'test/error/path';
+				var sub = facade.f.subscribe(request.name, 'errorModulePath', testFunction);
 				facade.f.getModule(request, function (result) {
 					console.log('result', result);
+					console.log(result.get('name'));
 					ok(result.error, 'Properly returns error message when an invalid module is requested');
 					QUnit.start();
 				});
 			});
-*/
 
 		}
 	};
