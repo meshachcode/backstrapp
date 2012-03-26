@@ -5,7 +5,7 @@
 		* TODO: Needs to communicate with the facade.
 		* TODO: UNIT TEST THIS MOFO!!!!
 */
-define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backbone, ModuleModel) {
+define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], function (util, Facade, Backbone, ModuleModel) {
 	
 	var ModuleClass = Backbone.View.extend({
 		processable: [],
@@ -14,13 +14,20 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 
 		initialize: function (config) {
 			this.bindAll(this, 'activate', 'render', 'processParams', 'setParams');
+			this.f = new Facade();
+
 			// init the model here, so that it's a unique instance every time
 			this.model = new ModuleModel(config);
-			// This, effectively 'starts' your module.
+			this.model.bind('change:name', this.initComplete, this);
+
 			// The params args are set by module.instance.init (module.face)
 			this.model.bind('change:arg', this.processParams, this);
 			this.model.bind('complete:params', this.setHtml, this);
 			this.model.bind('change:html', this.render, this);
+		},
+		
+		initComplete: function () {
+			this.publish('InitComplete', this.model.toJSON());
 		},
 
 		render: function () {
@@ -32,6 +39,7 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 				$(this.model.get('el')).html(error);
 			}
 			$(this.model.get('el')).show('slow', this.activate);
+			console.log('##### render', this.model.get('html'), this.model.get('el').html());
 		},
 		
 		/*
@@ -87,7 +95,7 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 		*/
 		setHtml: function () {
 			// prepend name here to make sure change:html gets triggered
-			var html = this.model.get('name') + ' : ' + this.model.get('html');
+			var html = this.model.defaultHtml();
 			if (this.model.get('template') != this.model.defaults.template) {
 				var o = this.model.toJSON();
 				html = t.process(o, this.model.get('template'));
@@ -98,6 +106,16 @@ define(['util', 'backbone', '../models/module.model.0.1'], function (util, Backb
 		
 		activate: function () {
 			this.model.set({isVisible: true, isActive: true});
+			this.publish('RenderComplete', this.model.toJSON());
+		},
+		
+		publish: function (event, params) {
+			console.log('publish', arguments);
+			this.f.publish(this.model.get('name'), this.model.get('name') + event, params);
+		},
+		
+		subscribe: function (event, callback) {
+			this.f.publish(this.model.get('name'), this.model.get('name') + event, callback, this);
 		},
 
 		set: function (obj) {

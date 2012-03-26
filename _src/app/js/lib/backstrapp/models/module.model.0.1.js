@@ -30,6 +30,14 @@ define(['backbone'], function (Backbone) {
 				}
 			}
 		},
+		
+		initialize: function () {
+			
+		},
+
+		defaultHtml: function () {
+			return this.get('name') + ' : ' + this.get('html')
+		},
 
 		/*
 			* this should only return false if: 

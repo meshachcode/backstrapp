@@ -72,19 +72,27 @@ define(['core/facade'], function (Facade) {
 			});
 
 			asyncTest('Properly creates module with valid type', function () {
-				facade.f.subscribe(request.name, request.name + 'InitReady', testFunction);
+				var testFunctionA = function (result) {
+					equal(result.name, request.name, 'Properly sets Module name to : ' + result.name);
+					console.log('result', result);
+					QUnit.start();
+				};
+				facade.f.subscribe(request.name, request.name + 'InitComplete', testFunctionA);
 				facade.f.getModule(request);
 			});
 
 /*
 			asyncTest('Properly renders module with valid type in default mode', function () {
-				facade.f.getModule(request, function (result, collection) {
-					console.log('result', result, collection);
-					var mod = result.init(request);
+				var testFunctionA = function (result) {
+					console.log('testFunctionA', arguments);
+					var mod = result.module;
 					ok(mod.get('isVisible'), 'Properly sets isVisible on Render :' + mod.get('isVisible'));
-					equal(mod.get('html'), request.name + ' : ' + mod.get('defaults').html, 'Properly sets default HTML if the setHtml method does not have proper values: ' + mod.get('html'));
+					console.log(mod.get('el'));
+					equal(mod.get('el').html(), mod.get('defaultHtml'), 'Properly sets default HTML if the setHtml method does not have proper values: ' + mod.get('html'));
 					QUnit.start();
-				});
+				};
+				facade.f.subscribe(request.name, request.name + 'RenderComplete', testFunctionA);
+				facade.f.getModule(request);
 			});
 */
 /*

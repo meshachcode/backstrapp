@@ -16,19 +16,16 @@ define(['./mediator' , './permissions', 'core/collections/modules.collection' ],
 		/* TODO: maybe this should just be a facade method to the module factory? */
 		getModule: function (request) {
 			if (Facade.modules[request.name]) {
-				Mediator.restoreModule(request, Facade.registerModule);
+				Mediator.restoreModule(request, function (mod) {
+					var i = mod.restore(request);
+					Facade.modules.add(i);
+				});
 			} else {
-				Mediator.loadModule(request, Facade.registerModule);
+				Mediator.loadModule(request, function (mod) {
+					var i = mod.init(request);
+					Facade.modules.add(i);
+				});
 			}
-		},
-		
-		registerModule: function (mod, col, args) {
-			console.log('registerModule', arguments);
-			Facade.modules.add(mod);
-		},
-		
-		processModule: function (mod) {
-			console.log('processModule', arguments);
 		},
 
 		subscribe: function(subscriber, channel, callback, context){
@@ -72,7 +69,6 @@ define(['./mediator' , './permissions', 'core/collections/modules.collection' ],
 
 	return function () {
 		var f = Facade;
-		f.modules.bind('add', f.processModule);
 		return f;
 	};
 
