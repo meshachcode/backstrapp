@@ -82,7 +82,6 @@ define(['core/facade'], function (Facade) {
 			asyncTest('Properly renders module with valid type in default mode', function () {
 				facade.f.getModule(request, function (result) {
 					var mod = result.init(request);
-					console.log('mod', mod);
 					ok(mod.model.get('isVisible'), 'Properly sets isVisible on Render :' + mod.model.get('isVisible'));
 					equal(mod.model.get('html'), request.name + ' : ' + mod.model.defaults.html, 'Properly sets default HTML if the setHtml method does not have proper values: ' + mod.model.get('html'));
 					QUnit.start();
@@ -90,8 +89,13 @@ define(['core/facade'], function (Facade) {
 			});
 			
 			asyncTest('Properly destroys module upon request', function () {
-				
+				facade.f.getModule(request, function (result) {
+					var mod = result.init(request);
+					console.log('d', mod);
+					var d = mod.destroy();
+				});
 			});
+/*
 
 			asyncTest('CANNOT create module with invalid request', function () {
 				request.mod = 'test/error/path';
@@ -103,6 +107,7 @@ define(['core/facade'], function (Facade) {
 					QUnit.start();
 				});
 			});
+*/
 
 		}
 	};

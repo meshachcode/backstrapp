@@ -13,17 +13,23 @@ define(function () {
 			*/
 			init: function (config) {
 				instance.model.set(config);
-				return instance;
+				return this;
 			},
 			restore: function (config) {
 				instance.model.set(config);
-				return instance;
+				return this;
 			},
 			set: function (obj) {
 				return instance.model.set(obj);
 			},
 			get: function (str) {
 				return instance.model.get(str);
+			},
+			destroy: function () {
+				return instance.destroy();
+			},
+			save: function () {
+				return {error: 'This method does nothing'};
 			}
 		}
 	}

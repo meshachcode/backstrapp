@@ -6,12 +6,15 @@ define(['core/facade'], function(Facade){
 		debugMode: true,
 		
 		process: function (err) {
-			err.mods = this.buildModNames(err.requireModules);
-			Error.debug(err);
-			for (var i in err.mods) {
-				// THIS WORKS!!! NOW SETUP THE MEDIATOR TO LISTEN FOR IT!!!
-				this.f.publish(this.name, 'errorModulePath', err);
+			// if it's a timeout error...
+			if (err.requireModules) {
+				err.mods = this.buildModNames(err.requireModules);
+				for (var i in err.mods) {
+					// THIS WORKS!!! NOW SETUP THE MEDIATOR TO LISTEN FOR IT!!!
+					this.f.publish(this.name, 'errorModulePath', err);
+				}
 			}
+			Error.debug(err);
 		},
 
 		buildModNames: function (modules) {

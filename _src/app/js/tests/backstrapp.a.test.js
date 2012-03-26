@@ -39,7 +39,6 @@ require([
 
 function (handler, permissions, mediator, facade, factory) {
 	require.onError = handler;
-
 	QUnit.start();
 	permissions.RunTests();
 	mediator.RunTests();
