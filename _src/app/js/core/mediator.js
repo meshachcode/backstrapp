@@ -4,14 +4,14 @@
 	This is the application core. It's private, and should drive the application-wide functionality.
 	TODO: refactor the Mediator object with pub/priv in mind. THINK TDD!!!
 */
-define(['core/handler.error', 'jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
+define(['core/collections/modules.collection', 'jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
 
-function (handler, config, $, _, template) {
+function (ModulesCollection, config, $, _, template) {
 
 	var _private = {
 		util: _,
 
-		modules: {},
+		modules: new ModulesCollection(),
 		channels: {},
 
 		subscribeMode: true,
@@ -58,7 +58,8 @@ function (handler, config, $, _, template) {
 			require([request.mod], function (m) {
 				console.log('required module', request.mod, m);
 				if (!m.error) {
-					_private.modules[request.name] = m;
+					_private.modules.add(m);
+/* 					_private.modules[request.name] = m; */
 					_private.modules[request.name].init(request);
 					ret = _private.modules[request.name];
 				} else {
