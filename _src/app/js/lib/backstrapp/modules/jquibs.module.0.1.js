@@ -15,7 +15,8 @@ define(['jquery', 'template', 'backstrapp/classes/module.class.0.4'],
 
 function ($, t, ModuleClass) {
 
-	var _private = {
+	/* Module-Type Specific Behaviors & Default Properties */
+	var Module = ModuleClass.extend({
 		/*
 			* @property params
 			* this is just like a validation object, 
@@ -30,84 +31,6 @@ function ($, t, ModuleClass) {
 					callback('template', f);
 				});
 			}
-		}
-	};
-
-	/* Module-Type Specific Behaviors & Default Properties */
-	var Module = ModuleClass.extend({
-		processable: [],
-		processed: [],
-		required: [],
-
-		/*
-			* @method initialize
-			* this is the minimum your method can have if it wants to call it's parent (send complaints to Backbone)	
-		*/
-		initialize: function (config) {
-			this.bindAll(this, 'setParams');
-			ModuleClass.prototype.initialize.call(this, config);
-			this.model.bind('complete:params', this.setHtml, this);
-		},
-
-		/*
-			* @method processParams
-			* receives data-module-parameters as 2nd argument (objectified by activator)
-			* the object here has already passed model validation rules
-			* TODO: 3 methods and a 3 arrays to handle params, really? There's gotta be a lighter-weight solution, no?
-		*/
-		processParams: function (o, paramObj) {
-			console.log('processParams', arguments);
-			this.processed = [];
-			this.processable = Object.keys(paramObj);
-			if (this.util.hasAllKeys(paramObj, this.required)) {
-				this.processParamRules(paramObj, this.setParams);
-			} else {
-				this.model.set({html: 'ERROR: Missing required param. Required params: ' + this.required.join(',')});
-			}
-		},
-		
-		processParamRules: function (paramObj, callback) {
-			// loop through paramObj, and see if you have any rules for them
-			for (var i in paramObj) {
-				this.processed.push(i);
-				if (_private.params[i]) {
-					_private.params[i].call(this, paramObj[i], callback);
-				} else {
-					callback(i, paramObj[i]);
-				}
-			}
-		},
-
-		/*
-			* @method setParams
-			* @param key
-			* @param value
-		*/
-		setParams: function (k, v) {
-			this.model.attributes[k] = v;
-			var diff = this.util.difference(this.processable, this.processed);
-			if (this.util.isEmpty(diff)) {
-				this.model.trigger('complete:params');
-			}
-		},
-		/*
-			* @method setHtml
-			* set model.html, based on the information available.
-				- is there a template? 
-					- if so, process it with the model
-					- if not, pick a parameter, any parameter...?
-			* TODO: Error handling for this stuff...
-			If these tests fail, the module's el should print a debug statement in debug mode
-		*/
-		setHtml: function () {
-			// prepend name here to make sure change:html gets triggered
-			var html = this.model.get('name') + ' : ' + this.model.get('html');
-			if (this.model.get('template') != this.model.defaults.template) {
-				var o = this.model.toJSON();
-				html = t.process(o, this.model.get('template'));
-			}
-			/* console.log('setting HTML', html, this.model.toJSON()); */
-			this.model.set({html: html});
 		}
 	});
 	

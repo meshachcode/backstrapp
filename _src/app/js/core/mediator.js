@@ -51,24 +51,24 @@ function (ModulesCollection, config, $, _, template) {
 				callback(_private.modules[request.name]);
 			}
 		},
+		
+		registerModule: function (model, collection, callback) {
+/* 			console.log('register module', arguments); */
+			callback(model.attributes, collection);
+		},
 	
 /* 		TODO: check for an error, and don't try to init if the module doesn't load */
 		loadModule: function (request, callback) {
 			console.log('--- Loading New ' + request.name, _private.modules);
+			_private.modules.bind('add', _private.registerModule);
 			require([request.mod], function (m) {
-				console.log('required module', request.mod, m);
 				if (!m.error) {
-					_private.modules.add(m);
-/* 					_private.modules[request.name] = m; */
-					_private.modules[request.name].init(request);
-					ret = _private.modules[request.name];
+					_private.modules.add(m, callback);
 				} else {
 					ret = m;
+					callback(m);
 				}
-				if (typeof callback == 'function') {
-					callback(ret);
-				}
-			}, {test: 'test'});
+			});
 		}
 	};
 

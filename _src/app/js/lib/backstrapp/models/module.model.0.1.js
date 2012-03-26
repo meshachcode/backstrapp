@@ -12,6 +12,7 @@ define(['backbone'], function (Backbone) {
 			template: 'Model.defaults.template',
 			html:	  'Model.defaults.html',
 			viewData: {},
+			errors: {},
 			/*
 				* TODO: move validation logic to a Backbone extension so other models can use it.
 				* TODO: UNIT TEST THIS MOFO!! Test the validation object being set externally. 
