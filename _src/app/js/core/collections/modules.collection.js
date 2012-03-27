@@ -4,11 +4,12 @@
 define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, Debug, Facade) {
 
 	var ModulesCollection = Backbone.Collection.extend({
+		moduleQueue: {},
 
 		initialize: function () {
 			util.bindAll(this, 'updateModuleInstances', 'handleSuccesses');
 			this.bind('reset', this.addModules, this);
-			this.bind('add', this.updateModuleInstances, this);
+/* 			this.bind('add', this.updateModuleInstances, this); */
 		},
 
 		addModules: function (collection) {
@@ -32,10 +33,13 @@ define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, D
 			}
 		},
 
-		loadModule: function (modulePath, callback) {
-			require([modulePath], function (m) {
+		loadModule: function (request, callback) {
+			var me = this;
+			require([request.path], function (m) {
+				var i = request;
+				i.instance = m;
 				if (typeof callback == 'function') {
-					callback(m);
+					callback(i);
 				}
 			});
 		},
@@ -66,10 +70,30 @@ define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, D
 			callback(Debug.buildResponseObject('error', 'moduleLoad', request));
 		},
 		
-		handleSuccesses: function (module) {
-			console.log('handleSuccess', arguments);
-/* 			this.add(request); */
-/* 			callback(Debug.buildResponseObject('success', 'moduleLoad', request)); */
+		handleSuccesses: function (module, request, callback) {
+/* 			this.add(module); */
+			console.log('handleSuccess', arguments, this.toJSON(), this.moduleQueue);
+			// TODO: build a module loading QUEUE, so the modules can be automatically added 
+			// to the queue upon request, then when they're loaded, a listener to on.add
+			// fires, and grabs all of the instance info to add to the module in the collection
+			var m = this.buildQueueString(module.path, module.name);
+			if (this.moduleQueue[m]) {
+				var response = Debug.buildResponseObject('success', 'moduleLoad', this.moduleQueue[m]);
+				console.log('module', response, m, module);
+				callback(response);
+			}
+		},
+		
+		buildQueueString: function (path, name) {
+			var p = path.replace(/\//g, '_');
+			var str = name + util.camelize(p);
+			return str;
+		},
+
+		addRequestToQueue: function (request) {
+			var str = this.buildQueueString(request.path, request.name);
+			this.moduleQueue[str] = request;
+			return this.moduleQueue;
 		},
 		
 		/*
@@ -92,13 +116,16 @@ define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, D
 				console.error('required params missing');
 				return Debug.buildResponseObject('error', 'badRequest', request);
 			}
-			Facade.subscribe('errorHandler', 'errorModulePath', this.handleErrors);
-			var ret = {}, mod = {};
 			if (mod = this.isModuleLoaded(request)) {
 				this.handleSuccesses(mod, request, callback);
 			} else {
+				var q = this.addRequestToQueue(request), me = this;
+				console.log('q', q);
+				Facade.subscribe('errorHandler', 'errorModulePath', this.handleErrors);
 				// try to load the module, and callback with the response
-				this.loadModule(request.path, this.handleSuccesses);
+				this.loadModule(request, function (mod) {
+					me.handleSuccesses(mod, request, callback);
+				});
 			}
 		}
 		

@@ -21,7 +21,7 @@ define(function () {
 		buildResponseObject: function (statusStr, messageType, requestObj) {
 			var ret = {
 				request: requestObj,
-				module: requestObj.mod
+				module: requestObj.instance
 			};
 			ret[statusStr] = this.messages[statusStr][messageType];
 			return ret;

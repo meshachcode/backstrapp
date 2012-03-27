@@ -13,7 +13,7 @@ function (Activator, Builder, ModulesCollection) {
 					and allow the module to 'do it's thang'
 			*/
 			success: function (result) {
-				console.log('success', arguments);
+				result.module.init(result.request);
 			},
 
 			/*
@@ -50,6 +50,7 @@ function (Activator, Builder, ModulesCollection) {
 		},
 		
 		processModule: function (result) {
+			console.log('processModule', result);
 			for (var i in App.results) {
 				if (result[i]) {
 					App.results[i].call(App, result);
