@@ -5,7 +5,7 @@ define(['backstrapp/core/facade'], function (Facade) {
 			var facade = {};
 			var request = {};
 			var testFunction = function () {
-				console.log('testFunction', arguments);
+/* 				console.log('Facade: testFunction', arguments); */
 				QUnit.start();
 			};
 
@@ -37,7 +37,7 @@ define(['backstrapp/core/facade'], function (Facade) {
 			test('Publish Works Properly with default settings', function () {
 				var sub = facade.f.subscribe(request.s, request.ch, request.fn);
 				if (sub.success) {
-					var result = facade.f.publish(sub.s, sub.ch);
+					var result = facade.f.publish(sub.s, sub.ch, {testParams: 'testValue'});
 					equal(result.success, 'published event', 'Subscribe returns success object : ' + result.success);
 					equal(result.ch, request.ch, 'Subscribe returns success object properly with channel : ' + result.ch);
 					equal(result.s, request.s, 'Subscribe returns success object properly with subscriber : ' + result.s);

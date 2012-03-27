@@ -16,7 +16,7 @@ define(['backstrapp/core/permissions'], function (permissions) {
 			test('Default Validation Rules Working Properly', function () {
 				ok(permissions.validate(request, subscriber, channel), 
 					'In default mode, all requests for modules to talk to themselves should pass');
-				ok(!permissions.validate(request, 'X', channel), 
+				ok(!permissions.validate(request, 'invalidTestSubscriber', channel), 
 					'CANNOT validate a request for another module by default');
 			});
 			

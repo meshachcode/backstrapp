@@ -13,7 +13,6 @@ define(['backstrapp/collections/modules.collection', 'backstrapp/core/facade'], 
 
 			module('Core: ModulesCollection', {
 				setup: function () {
-					console.count();
 					Modules = new ModulesCollection();
 					Modules.reset(testModules);
 					request = {
@@ -55,9 +54,9 @@ define(['backstrapp/collections/modules.collection', 'backstrapp/core/facade'], 
 			
 			test('Properly loads module when added to the collection', function () {
 				var testFunctionB = function () {
-					console.log('testFunctionB', arguments);
+					console.log('Modules Collection testFunctionB', arguments);
 				}
-				Facade.subscribe('modulesCollection', 'ModulesCollectionInitComplete', testFunctionB);
+				Facade.subscribe('modulesCollection', 'modulesCollectionNewModule', testFunctionB);
  				Modules.add(request);
 			});
 

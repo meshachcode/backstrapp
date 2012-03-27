@@ -50,6 +50,9 @@ function ($, Backbone, m) {
 			} else if (Permissions.rules[channel] && Permissions.rules[channel][subscriber]) {
 				var test = Permissions.rules[channel][subscriber][request];
 			}
+			if (!test) {
+				console.log('validation failed', arguments);
+			}
 			return test === (undefined) ? false : test;
 		}
 	};
