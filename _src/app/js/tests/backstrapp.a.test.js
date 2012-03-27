@@ -8,7 +8,7 @@ require.config({
 		html:			'../html',
 		jquery: 		'../lib/jquery/jquery-min',
 		underscore: 	'../lib/underscore/underscore-min',
-		backbone: 		'../lib/backbone/backbone-optamd3-min',
+		backbone: 		'../lib/backbone/backbone.0.9.2',
 		handlebars:		'../lib/handlebars/handlebars-min',
 		backstrapp:		'../lib/backstrapp',
 		util:			'../lib/backstrapp/util',
@@ -34,14 +34,18 @@ require([
 	'tests/unit-tests/permissions.test',
 	'tests/unit-tests/mediator.test',
 	'tests/unit-tests/facade.test',
-	'tests/unit-tests/module.factory.test'
+	'tests/unit-tests/module.factory.test',
+	'tests/unit-tests/modules.collection.test'
 ],
 
-function (handler, permissions, mediator, facade, factory) {
+function (handler, permissions, mediator, facade, factory, ModulesCollection) {
 	require.onError = handler;
 	QUnit.start();
+	ModulesCollection.RunTests();
+/*
 	permissions.RunTests();
 	mediator.RunTests();
 	facade.RunTests();
 	factory.RunTests();
+*/
 });

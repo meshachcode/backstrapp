@@ -10,8 +10,8 @@ define(['core/facade'], function(Facade){
 			if (err.requireModules) {
 				err.mods = this.buildModNames(err.requireModules);
 				for (var i in err.mods) {
-					// THIS WORKS!!! NOW SETUP THE MEDIATOR TO LISTEN FOR IT!!!
-					this.f.publish(this.name, 'errorModulePath', err);
+					var e = {error: 'Load Failed', e: err};
+					this.f.publish(this.name, 'errorModulePath', e);
 				}
 			}
 			Error.debug(err);

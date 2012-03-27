@@ -26,7 +26,9 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 			this.model.bind('change:html', this.render, this);
 		},
 		
+		// sets the defaultHtml value with current name, to make the init complete testable
 		initComplete: function () {
+			this.model.set({defaultHtml: this.model.defaultHtml()});
 			this.publish('InitComplete', this.model.toJSON());
 		},
 
@@ -110,7 +112,7 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 		},
 		
 		publish: function (event, params) {
-			console.log('publish', arguments);
+			console.log('publish', arguments, this.model.get('name'));
 			this.f.publish(this.model.get('name'), this.model.get('name') + event, params);
 		},
 		

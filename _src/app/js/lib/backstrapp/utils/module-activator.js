@@ -3,7 +3,7 @@
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 
 	TODO: refactor the activator object with pub/priv in mind. THINK TDD!!
-			- NOTE: the tight-coupling with facade isn't advised. Think through this.
+		- NOTE: the tight-coupling with facade isn't advised. Think through this.
 */
 
 define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, facade) {
@@ -50,7 +50,27 @@ define(['jquery', 'loadcss', 'core/facade'], function ($, loadcss, facade) {
 				mod: module,
 				arg: params
 			};
-			facade.getModule(request);
+			/*
+				* TODO: this should simply ask the ModulesCollection for the module.
+				* send request, callback, and context
+				* on callback, it will receive an object:
+
+				- success: the module was found or loaded, and may now be rendered
+					- this should simply fire the RenderReady event for the module,
+					and allow the module to 'do it's thang'
+
+				- error: the module either doesn't exist, or can't be validated
+					- this should check for a debug mode,
+					and try to print a friendly error message in the module's div
+
+				- promise: something was wrong, I'm trying to fix it, when I know, I'll get back
+					- this should check for a debug mode,
+					and try to print a friendly loading message in the module's div
+			*/
+			/*
+				// ... THE OLD WAY...
+				facade.getModule(request);
+			*/
 		});
 	};
 	return e

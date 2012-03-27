@@ -40,6 +40,7 @@ function (config, $, _, template) {
 	};
 
 	var Mediator = {
+		arbitraryVariable: 'mediator default',
 		subscribe: function (channel, callback, context) {
 			/* console.log('Mediator.subscribe', channel, context); */
 	        _private.channels[channel] = (!_private.channels[channel]) ? [] : _private.channels[channel];

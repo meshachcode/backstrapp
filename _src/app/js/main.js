@@ -4,7 +4,7 @@ require({
 		html:			'../html',
 		jquery: 		'lib/jquery/jquery-min',
 		underscore: 	'lib/underscore/underscore-min',
-		backbone: 		'lib/backbone/backbone-optamd3-min',
+		backbone: 		'lib/backbone/backbone.0.9.2',
 		handlebars:		'lib/handlebars/handlebars',
 		backstrapp:		'lib/backstrapp',
 		text: 			'lib/require/text',
