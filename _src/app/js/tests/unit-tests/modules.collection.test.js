@@ -51,6 +51,10 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 				var result = Modules.isModuleLoaded(request);
 				ok(!result, 'CANNOT verify unloaded module : ' + result);
 			});
+			
+			test('Properly loads module when added to the collection', function () {
+				Modules.add(request);
+			});
 
 		}
 	};

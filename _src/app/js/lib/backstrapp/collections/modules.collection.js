@@ -21,8 +21,9 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		modules: {},
 
 		initialize: function () {
-			util.bindAll(this, 'moduleLoaded');
+			util.bindAll(this, 'moduleLoaded', 'addModules', 'addModule');
 			this.bind('reset', this.addModules, this);
+			this.bind('add', this.addModule, this);
 		},
 		
 		initComplete: function () {
@@ -55,12 +56,16 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 			return str;
 		},
 		
-		addModules: function (collection) {
+		addModules: function () {
 			var me = this;
 			this.each(function (m) {
 				var request = m.toJSON();
 				me.getModule(request, me.moduleLoaded);
 			});
+		},
+		
+		addModule: function (m) {
+			this.getModule(m.toJSON(), this.moduleLoaded);
 		},
 
 		/*
