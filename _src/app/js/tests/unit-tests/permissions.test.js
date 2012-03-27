@@ -6,7 +6,7 @@ define(['../../core/permissions'], function (permissions) {
 			var subscriber = 'testModule';
 			var channel = 'testModuleInitComplete';
 
-			module('Permissions', {
+			module('Core: Permissions', {
 				setup: function () {
 				},
 				teardown: function () {

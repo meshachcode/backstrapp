@@ -29,7 +29,7 @@ define(function () {
 				return instance.destroy();
 			},
 			save: function () {
-				return {error: 'This method does nothing'};
+				return instance.model.toJSON();
 			}
 		}
 	}

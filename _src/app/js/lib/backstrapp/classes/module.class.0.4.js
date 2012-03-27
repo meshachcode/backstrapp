@@ -41,7 +41,7 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 				$(this.model.get('el')).html(error);
 			}
 			$(this.model.get('el')).show('slow', this.activate);
-			console.log('##### render', this.model.get('html'), this.model.get('el').html());
+/* 			console.log('##### render', this.model.get('html'), this.model.get('el').html()); */
 		},
 		
 		/*
@@ -51,7 +51,6 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 			* TODO: 3 methods and a 3 arrays to handle params, really? There's gotta be a lighter-weight solution, no?
 		*/
 		processParams: function (o, paramObj) {
-			console.log('processParams', arguments);
 			this.processed = [];
 			this.processable = Object.keys(paramObj);
 			if (this.util.hasAllKeys(paramObj, this.required)) {
@@ -102,7 +101,6 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 				var o = this.model.toJSON();
 				html = t.process(o, this.model.get('template'));
 			}
-			console.log('setting HTML', html, this.model.toJSON());
 			this.model.set({html: html});
 		},
 		
@@ -112,7 +110,6 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 		},
 		
 		publish: function (event, params) {
-			console.log('publish', arguments, this.model.get('name'));
 			this.f.publish(this.model.get('name'), this.model.get('name') + event, params);
 		},
 		

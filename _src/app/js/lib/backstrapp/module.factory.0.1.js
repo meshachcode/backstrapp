@@ -1,25 +1,29 @@
-/* 	TODO: create module.0.5, with the factory in mind */
+/* 	JQuibs ModuleFactory */
 
+define([
+	'backstrapp/classes/module.face.0.1', 
+	'backstrapp/modules/jquibs.accordion.module.0.1', 
+	'backstrapp/modules/jquibs.tabs.module.0.1', 
+	'backstrapp/modules/jquibs.message.module.0.1'
+],
 
-define(['./classes/module.face.0.1',
-	// Modules
-	'./modules/module.0.4'
-], 
-
-function (ModuleFace,
-	// Modules
-	Simple
-) {
+function (ModuleFace, Accordion, Tabs, Message) {
 	
 	var Module = {
-		simple: Simple
+		accordion: Accordion,
+		tabs: Tabs,
+		message: Message
 	}
 
 	return function (type, config) {
-		// Singleton
-		var instance = new Module[type](config);
-		console.log('factory', arguments, instance);
-		return new ModuleFace(instance);
+		var ret = {};
+		if (Module[type] == undefined) {
+			ret = {error: 'Module is not defined', m: type};
+		} else {
+			var instance = new Module[type](config);
+			ret = new ModuleFace(instance);
+		}
+		return ret;
 	}
 
 });

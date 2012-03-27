@@ -5,7 +5,7 @@ define(['jsonLoad!./config.test.json', 'core/mediator'], function (conf, Mediato
 			var testObj = {};
 			var m = new Mediator();
 
-			module('Core: Mediator: Init', {
+			module('Core: Mediator', {
 				setup: function () {
 					testObj = { test: true };
 				},
