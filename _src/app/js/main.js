@@ -1,9 +1,7 @@
 require.config({
-/*
 	catchError: {
 		define: true
 	},
-*/
     paths: {
 		html:			'../html',
 		jquery: 		'lib/jquery/jquery-min',
