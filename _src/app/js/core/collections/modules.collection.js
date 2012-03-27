@@ -1,13 +1,14 @@
 /*
 	* Modules Collection
 */
-define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
+define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, Debug, Facade) {
 
 	var ModulesCollection = Backbone.Collection.extend({
 
 		initialize: function () {
-			util.bindAll(this, 'updateModuleInstances');
+			util.bindAll(this, 'updateModuleInstances', 'handleSuccesses');
 			this.bind('reset', this.addModules, this);
+			this.bind('add', this.updateModuleInstances, this);
 		},
 
 		addModules: function (collection) {
@@ -23,16 +24,20 @@ define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 				return mod.get('instance') == undefined;
 			});
 
-			// add an instance of the current module
+			// add an instance of the current module to any with a matching path (moduletype)
 			for (var i in emptyMods) {
-				if (emptyMods[i].get('path').indexOf(m.get('path')) != -1) {
+				if (emptyMods[i].get('path') && emptyMods[i].get('path').indexOf(m.get('path')) != -1) {
 					this.getByCid(emptyMods[i].cid).set({instance: m});
 				}
 			}
 		},
 
 		loadModule: function (modulePath, callback) {
-			require([modulePath], callback);
+			require([modulePath], function (m) {
+				if (typeof callback == 'function') {
+					callback(m);
+				}
+			});
 		},
 	
 		getModuleByName: function (name) {
@@ -47,6 +52,24 @@ define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 				var mod = m.toJSON();
 				return mod.path == path;
 			});
+		},
+		
+			// match both name and path
+			// this is weak, but until I get a solid solution for querying a collection, it's the best I got
+		isModuleLoaded: function (request) {
+			var mBN = this.getModuleByName(request.name);
+			return (mBN && mBN.get('path') == request.path);
+		},
+		
+		handleErrors: function (request, callback) {
+			console.log('handleErrors', arguments);
+			callback(Debug.buildResponseObject('error', 'moduleLoad', request));
+		},
+		
+		handleSuccesses: function (module) {
+			console.log('handleSuccess', arguments);
+/* 			this.add(request); */
+/* 			callback(Debug.buildResponseObject('success', 'moduleLoad', request)); */
 		},
 		
 		/*
@@ -66,19 +89,16 @@ define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 		getModule: function (request, callback) {
 			// make sure all the required params are passed
 			if (!request || !callback || typeof request != 'object' || typeof callback != 'function') {
+				console.error('required params missing');
 				return Debug.buildResponseObject('error', 'badRequest', request);
 			}
-			var ret = {};
-			// match both name and path
-			// this is weak, but until I get a solid solution for querying a collection, it's the best I got
-			var mBN = this.getModuleByName(request.name);
-			if (mBN && mBN.get('path') == request.path) {
-				ret = Debug.buildResponseObject('success', 'moduleLoad', request);
+			Facade.subscribe('errorHandler', 'errorModulePath', this.handleErrors);
+			var ret = {}, mod = {};
+			if (mod = this.isModuleLoaded(request)) {
+				this.handleSuccesses(mod, request, callback);
 			} else {
-				ret = Debug.buildResponseObject('error', 'moduleLoad', request);
-			}
-			if (typeof callback == 'function') {
-				callback(ret);
+				// try to load the module, and callback with the response
+				this.loadModule(request.path, this.handleSuccesses);
 			}
 		}
 		

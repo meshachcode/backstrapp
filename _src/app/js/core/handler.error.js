@@ -11,6 +11,7 @@ define(['core/facade'], function(Facade){
 				err.mods = this.buildModNames(err.requireModules);
 				for (var i in err.mods) {
 					var e = {error: 'Load Failed', e: err};
+					console.log('process error', this.name, e);
 					this.f.publish(this.name, 'errorModulePath', e);
 				}
 			}

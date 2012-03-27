@@ -48,7 +48,7 @@ define(['jquery', 'loadcss'], function ($, loadcss) {
 				request = {
 					name: name,
 					el: item,
-					mod: module,
+					path: module,
 					arg: params
 				};
 				if (typeof callback == 'function') {
