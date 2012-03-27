@@ -15,9 +15,11 @@ function (M, Permissions) {
 
 	var Facade = {
 		Mediator: new M(),
+		subscribeMode: true,
+		publishMode: true,
 
 		subscribe: function(subscriber, channel, callback, context){
-			if (!this.Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
+			if (!Facade.subscribeMode) { return {error: 'Subscribe Mode is off'} };
 			if(Permissions.validate('subscribe', subscriber, channel)){
 				var sub = this.Mediator.subscribe( channel, callback );
 				sub.s = subscriber;
@@ -28,7 +30,7 @@ function (M, Permissions) {
 		},
 	
 		publish: function(subscriber, channel, params){
-			if (!this.Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
+			if (!Facade.publishMode) { return {error: 'Publish Mode is Off!'} };
 			if(Permissions.validate('publish', subscriber, channel)){
 				var pub = this.Mediator.publish(channel, params);
 				pub.s = subscriber;

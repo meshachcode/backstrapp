@@ -3,21 +3,26 @@ define(['jsonLoad!./config.test.json', 'core/mediator'], function (conf, Mediato
 
 		RunTests: function () {
 			var testObj = {};
-			var m = new Mediator();
+			var m = {};
 
 			module('Core: Mediator', {
 				setup: function () {
-					testObj = { test: true };
+					m = new Mediator();
+					ok(m, 'returns something!');
+					ok(m.get('util').isFunction(m.publish), 'publish is a function!');
+					ok(m.get('util').isFunction(m.subscribe), 'subscribe is a function!');
 				},
 				teardown: function () {
 				}
 			});
 			
-			test('Properly Instantiates', function () {
-				ok(m, 'returns something!');
-				ok(m.get('util').isFunction(m.publish), 'publish is a function!');
-				ok(m.get('util').isFunction(m.subscribe), 'subscribe is a function!');
+			test('Properly Instantiates', function () {});
+			
+			test('Properly subscribes', function () {
 			});
+			
+			test('Properly publishes', function () {
+			})
 		}
 	};
 });

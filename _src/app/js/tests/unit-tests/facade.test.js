@@ -47,13 +47,13 @@ define(['core/facade'], function (Facade) {
 			});
 
 			test('Quiet Mode.Subscribe Working Properly', function () {
-				var mode = facade.f.set({subscribeMode: false});
+				var mode = facade.f.subscribeMode = false;
 				var result = facade.f.subscribe(request.s, request.ch, request.fn);
 				equal(result.error, 'Subscribe Mode is off', 'Subscribe returns error object : ' + result.error);
 			});
 
 			test('Quiet Mode.Publish Working Properly', function () {
-				var mode = facade.f.set({publishMode: false});
+				var mode = facade.f.publishMode = false;
 				var result = facade.f.publish(request.s, request.ch, request.fn);
 				equal(result.error, 'Publish Mode is Off!', 'Publish returns error object : ' + result.error);
 			});
