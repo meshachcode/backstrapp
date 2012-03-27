@@ -43,27 +43,14 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 			});
 
 			test('Properly checks if a module is loaded', function () {
-				var modName = testModules[1].name;
-				var modB = Modules.getModuleByName(modName);
-				equal(modB.get('name'), modName, 'Properly returns module by name : ' + modB.get('name'));
+				var instanceName = Modules.buildModuleInstanceName(testModules[0].path, testModules[0].name);
+				var result = Modules.isModuleLoaded(instanceName);
+				ok(result, 'Properly returns success object for previously loaded module');
 
-				var modPath = testModules[1].path;
-				var modC = Modules.getModuleByPath(modPath);
-				equal(modC.get('path'), modPath, 'Properly returns module by path : ' + modC.get('path'));
-
-				var testFunctionB = function (result) {
-					console.log('testFunctionB', result);
-				};
-				var query = {name: modName, path: modPath};
-				var modC = Modules.getModule(query, testFunctionB);
-				console.log('modC', modC);
-				ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name'));
+				var instanceName = Modules.buildModuleInstanceName(request.path, request.name);
+				var result = Modules.isModuleLoaded(request);
+				ok(!result, 'CANNOT verify unloaded module : ' + result);
 			});
-
-/*
-			test('Properly checks if a module exists', function () {
-			});
-*/
 
 		}
 	};
