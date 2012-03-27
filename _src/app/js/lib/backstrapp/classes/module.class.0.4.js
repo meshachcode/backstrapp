@@ -5,8 +5,10 @@
 		* TODO: Needs to communicate with the facade.
 		* TODO: UNIT TEST THIS MOFO!!!!
 */
-define(['util', 'backstrapp/core/facade', 'backbone', '../models/module.model.0.1'], function (util, Facade, Backbone, ModuleModel) {
-	
+define(['util', 'template', 'backstrapp/core/facade', 'backbone', '../models/module.model.0.1'], 
+
+function (util, t, Facade, Backbone, ModuleModel) {
+
 	var ModuleClass = Backbone.View.extend({
 		processable: [],
 		processed: [],
@@ -97,9 +99,14 @@ define(['util', 'backstrapp/core/facade', 'backbone', '../models/module.model.0.
 		setHtml: function () {
 			// prepend name here to make sure change:html gets triggered
 			var html = this.model.defaultHtml();
+			console.count();
+			console.log('html temp', this.model.get('html'), this.model.get('template'));
 			if (this.model.get('template') != this.model.defaults.template) {
 				var o = this.model.toJSON();
+				console.log('trying to process', o, this.model.get('template'));
 				html = t.process(o, this.model.get('template'));
+			} else {
+				console.log('not processing template');
 			}
 			this.model.set({html: html});
 		},

@@ -1,9 +1,10 @@
 // Accordion Demo
-define(['lib/backstrapp/core/jquibs.module.factory.0.1'],
+define(['backstrapp/core/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
 
 	var config = {
+		path: 'jquibs/accordion',
 		id: 'somethingelse', 
 		header: 'h3', 
 		slides: [

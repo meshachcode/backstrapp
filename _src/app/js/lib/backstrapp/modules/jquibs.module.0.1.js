@@ -25,9 +25,9 @@ function ($, t, ModuleClass) {
 		*/
 		params: {
 			template: function (v, callback) {
-				console.log('processing template', arguments);
 				/* TODO: Catch errors when the template can't load */
 				require(['text!' + v], function (f) {
+					console.log('template found!', f);
 					callback('template', f);
 				});
 			}

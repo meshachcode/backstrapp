@@ -1,13 +1,13 @@
 require.config({
 	catchError: {
-		define: true
+/* 		define: true */
 	},
     paths: {
 		html:			'../html',
 		jquery: 		'lib/jquery/jquery-min',
 		underscore: 	'lib/underscore/underscore-min',
 		backbone: 		'lib/backbone/backbone-optamd3-min',
-		handlebars:		'lib/handlebars/handlebars-min',
+		handlebars:		'lib/handlebars/handlebars',
 		backstrapp:		'lib/backstrapp',
 		util:			'lib/backstrapp/core/util',
 		text: 			'lib/require/text',

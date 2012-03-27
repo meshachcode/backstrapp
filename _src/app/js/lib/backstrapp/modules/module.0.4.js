@@ -10,9 +10,9 @@
 	* by only passing parameters (for example, what happens when you run 
 	* model.set({somefunction: function (...?
 */
-define(['jquery', 'template', '../classes/module.class.0.4', '../classes/module.face.0.1'], 
+define(['jquery', '../classes/module.class.0.4', '../classes/module.face.0.1'], 
 
-function ($, t, ModuleClass, ModuleFace) {
+function ($, ModuleClass, ModuleFace) {
 
 	var _private = {
 		/*
@@ -85,26 +85,6 @@ function ($, t, ModuleClass, ModuleFace) {
 			if (this.util.isEmpty(diff)) {
 				this.model.trigger('complete:params');
 			}
-		},
-		/*
-			* @method setHtml
-			* set model.html, based on the information available.
-				- is there a template? 
-					- if so, process it with the model
-					- if not, pick a parameter, any parameter...?
-		*/
-		setHtml: function () {
-			var html = this.model.get('html');
-			if (this.model.get('template') != this.model.defaults.template) {
-				var o = this.model.toJSON();
-				html = t.process(o, this.model.get('template'));
-			} else {
-				// set html to the msg val for now...
-				// TODO: maybe this is defined by the module instance?
-				html = this.model.get('msg');
-			}
-/* 			console.log('setting HTML', html); */
-			this.model.set({html: html});
 		}
 	});
 

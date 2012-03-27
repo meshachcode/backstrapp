@@ -1,9 +1,10 @@
-// Accordion Demo
-define(['lib/backstrapp/core/jquibs.module.factory.0.1'],
+// Tabs Demo
+define(['backstrapp/core/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
 
 	var config = {
+		path: 'jquibs/tabs',
 		id: 'jquibTabs',
 		slides: [
 			{header: 'Slide A', body: 'AAAAAAA', id: 'slideA'},
