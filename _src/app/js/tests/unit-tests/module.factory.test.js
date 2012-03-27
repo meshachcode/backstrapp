@@ -1,4 +1,4 @@
-define(['backstrapp/jquibs.module.factory.0.1'], function (factory) {
+define(['backstrapp/core/jquibs.module.factory.0.1'], function (factory) {
 	return {
 
 		RunTests: function () {

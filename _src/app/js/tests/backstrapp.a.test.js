@@ -11,7 +11,7 @@ require.config({
 		backbone: 		'../lib/backbone/backbone-optamd3-min',
 		handlebars:		'../lib/handlebars/handlebars-min',
 		backstrapp:		'../lib/backstrapp',
-		util:			'../lib/backstrapp/util',
+		util:			'../lib/backstrapp/core/util',
 		text: 			'../lib/require/text',
 		jsonLoad:		'../lib/require/json',
 		json:			'../../json',

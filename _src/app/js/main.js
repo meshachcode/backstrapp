@@ -9,7 +9,7 @@ require.config({
 		backbone: 		'lib/backbone/backbone-optamd3-min',
 		handlebars:		'lib/handlebars/handlebars-min',
 		backstrapp:		'lib/backstrapp',
-		util:			'lib/backstrapp/util',
+		util:			'lib/backstrapp/core/util',
 		text: 			'lib/require/text',
 		jsonLoad:		'lib/require/json',
 		json:			'../json',
@@ -19,7 +19,7 @@ require.config({
 		loadcss:		'util/loadcss',
 		cookie:			'util/cookie',
 		base:			'util/base',
-		core:			'core',
+		core:			'backstrapp/core',
 		tests:			'tests',
 		template: 		'lib/backstrapp/modules/template.0.1',
 		debug:			'lib/backstrapp/classes/debug.class.0.1'

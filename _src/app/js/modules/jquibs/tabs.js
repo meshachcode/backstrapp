@@ -1,5 +1,5 @@
 // Accordion Demo
-define(['lib/backstrapp/jquibs.module.factory.0.1'],
+define(['lib/backstrapp/core/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
 

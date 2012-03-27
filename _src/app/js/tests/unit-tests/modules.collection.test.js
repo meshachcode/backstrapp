@@ -1,4 +1,4 @@
-define(['backstrapp/core/collections/modules.collection'], function (ModulesCollection) {
+define(['backstrapp/collections/modules.collection'], function (ModulesCollection) {
 	return {
 
 		RunTests: function () {
@@ -34,18 +34,6 @@ define(['backstrapp/core/collections/modules.collection'], function (ModulesColl
 				console.log('Modules', Modules.toJSON());
 			});
 			
-		/*
-	test('Properly returns messages from buildReturnObject', function () {
-				var e = Modules.buildReturnObject('error', 'moduleLoad', request);
-				equal(e.error, Modules.messages.error.moduleLoad, 'Error message properly returned: ' + e.error);
-
-				var p = Modules.buildReturnObject('promise', 'moduleLoad', request);
-				equal(p.promise, Modules.messages.promise.moduleLoad, 'Promise message properly returned: ' + p.promise);
-
-				var s = Modules.buildReturnObject('success', 'moduleLoad', request);
-				equal(s.success, Modules.messages.success.moduleLoad, 'Success message properly returned: ' + s.success);
-			});
-
 			asyncTest('Properly loads a module', function () {
 				var testFunction = function (mod) {
 					ok(mod, 'Properly returns an object');
@@ -56,7 +44,8 @@ define(['backstrapp/core/collections/modules.collection'], function (ModulesColl
 				Modules.loadModule(request.path, testFunction);
 			});
 
-		test('Properly checks if a module is loaded', function () {
+/*
+			test('Properly checks if a module is loaded', function () {
 				var modName = testModules[1].name;
 				var modB = Modules.getModuleByName(modName);
 				equal(modB.get('name'), modName, 'Properly returns module by name : ' + modB.get('name'));
