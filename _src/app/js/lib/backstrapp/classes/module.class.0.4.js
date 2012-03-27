@@ -5,7 +5,7 @@
 		* TODO: Needs to communicate with the facade.
 		* TODO: UNIT TEST THIS MOFO!!!!
 */
-define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], function (util, Facade, Backbone, ModuleModel) {
+define(['util', 'backstrapp/core/facade', 'backbone', '../models/module.model.0.1'], function (util, Facade, Backbone, ModuleModel) {
 	
 	var ModuleClass = Backbone.View.extend({
 		processable: [],

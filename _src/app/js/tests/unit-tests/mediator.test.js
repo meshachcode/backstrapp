@@ -1,4 +1,4 @@
-define(['jsonLoad!./config.test.json', 'core/mediator'], function (conf, Mediator) {
+define(['jsonLoad!./config.test.json', 'backstrapp/core/mediator'], function (conf, Mediator) {
 	return {
 
 		RunTests: function () {

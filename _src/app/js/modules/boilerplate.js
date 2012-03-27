@@ -1,7 +1,7 @@
 /**
 	* Boilerplate Module
 */
-define(['lib/backstrapp/module_new', 'core/facade'], function (mod, f) {
+define(['lib/backstrapp/module_new', 'backstrapp/core/facade'], function (mod, f) {
 	var Module = new mod();
 
 	Module.extend({

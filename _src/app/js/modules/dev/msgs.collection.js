@@ -1,4 +1,4 @@
-define(['backbone', './msg.model', 'core/facade'], function (Backbone, Msg, f) {
+define(['backbone', './msg.model', 'backstrapp/core/facade'], function (Backbone, Msg, f) {
 
 	var MsgsCollection = Backbone.Collection.extend({
 		msgs: [],

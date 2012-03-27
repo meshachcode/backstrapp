@@ -2,7 +2,7 @@
 	* Backstrapp Router Module
 */
 
-define(['../classes/module.class.0.2', '../utils/router', 'core/facade'], function (ModuleClass, router, f) {
+define(['../classes/module.class.0.2', '../utils/router', 'backstrapp/core/facade'], function (ModuleClass, router, f) {
 
 	var BackstrappRouterModule = ModuleClass.extend({
 		autoload			: true,

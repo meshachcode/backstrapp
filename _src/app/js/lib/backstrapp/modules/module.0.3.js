@@ -3,7 +3,7 @@
 	* (facade)
 	* this surfaces public behaviors for the module API
 */
-define(['./module.class.0.3', 'core/facade'], function (ModuleClass, facade) {
+define(['./module.class.0.3', 'backstrapp/core/facade'], function (ModuleClass, facade) {
 
 	var Module = ModuleClass.extend({
 		constructor: function (config) {

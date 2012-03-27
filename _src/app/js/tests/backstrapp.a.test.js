@@ -30,7 +30,7 @@ require.config({
 
 QUnit.config.autostart = false;
 require([
-	'core/handler.error',
+	'backstrapp/core/handler.error',
 	'tests/unit-tests/permissions.test',
 	'tests/unit-tests/mediator.test',
 	'tests/unit-tests/facade.test',

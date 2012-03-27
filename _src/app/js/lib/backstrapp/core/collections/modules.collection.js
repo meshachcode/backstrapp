@@ -1,7 +1,7 @@
 /*
 	* Modules Collection
 */
-define(['backbone', 'util', 'debug', 'core/facade'], function (Backbone, util, Debug, Facade) {
+define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbone, util, Debug, Facade) {
 
 	var ModulesCollection = Backbone.Collection.extend({
 		moduleQueue: {},

@@ -46,7 +46,7 @@
 */
 define([
 	'jquery',
-	'core/facade',
+	'backstrapp/core/facade',
 	'../utils/content-builder',
 	'../utils/module-activator',
 	'base'

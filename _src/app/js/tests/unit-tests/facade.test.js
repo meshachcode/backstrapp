@@ -1,4 +1,4 @@
-define(['core/facade'], function (Facade) {
+define(['backstrapp/core/facade'], function (Facade) {
 	return {
 
 		RunTests: function () {

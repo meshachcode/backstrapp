@@ -1,4 +1,4 @@
-define(['../../core/permissions'], function (permissions) {
+define(['backstrapp/core/permissions'], function (permissions) {
 	return {
 
 		RunTests: function () {

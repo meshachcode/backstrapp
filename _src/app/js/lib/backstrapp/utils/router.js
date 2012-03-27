@@ -2,7 +2,7 @@
 	* Backstrapp Router
 */
 
-define(['underscore', 'backbone', 'core/facade'], function (_, Backbone, facade) {
+define(['underscore', 'backbone', 'backstrapp/core/facade'], function (_, Backbone, facade) {
 
 	var BackstrappRouter = Backbone.Router.extend({
 

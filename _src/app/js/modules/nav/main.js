@@ -1,7 +1,7 @@
 /**
 	* Nav Module
 */
-define(['backstrapp/modules/module.0.2', 'core/facade', 'modules/page/pages.collection'], 
+define(['backstrapp/modules/module.0.2', 'backstrapp/core/facade', 'modules/page/pages.collection'], 
 
 function (Module, facade, PagesCollection) {
 

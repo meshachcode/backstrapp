@@ -1,4 +1,4 @@
-define(['backbone', 'core/facade'], function (Backbone, f) {
+define(['backbone', 'backstrapp/core/facade'], function (Backbone, f) {
 
 	var PagesCollection = Backbone.Collection.extend({
 		pagesLoaded: false,

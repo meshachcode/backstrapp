@@ -1,4 +1,4 @@
-define(['backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'core/collections/modules.collection'], 
+define(['backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'backstrapp/core/collections/modules.collection'], 
 
 function (Activator, Builder, ModulesCollection) {
 

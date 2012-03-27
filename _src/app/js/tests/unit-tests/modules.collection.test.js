@@ -1,4 +1,4 @@
-define(['core/collections/modules.collection'], function (ModulesCollection) {
+define(['backstrapp/core/collections/modules.collection'], function (ModulesCollection) {
 	return {
 
 		RunTests: function () {
