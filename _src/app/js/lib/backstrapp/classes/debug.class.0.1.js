@@ -19,9 +19,11 @@ define(function () {
 			* construct return object for all module requests
 		*/
 		buildResponseObject: function (statusStr, messageType, requestObj) {
+			var instance = requestObj.instance;
+			delete requestObj.instance;
 			var ret = {
 				request: requestObj,
-				module: requestObj.instance
+				module: instance
 			};
 			ret[statusStr] = this.messages[statusStr][messageType];
 			return ret;

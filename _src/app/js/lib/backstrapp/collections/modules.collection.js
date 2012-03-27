@@ -21,15 +21,11 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		modules: {},
 
 		initialize: function () {
-			util.bindAll(this, 'moduleLoaded', 'addModules', 'addModule');
+			util.bindAll(this, 'initModuleLoaded', 'addModules', 'addModule');
 			this.bind('reset', this.addModules, this);
 			this.bind('add', this.addModule, this);
 		},
 		
-		initComplete: function () {
-			console.log('initComplete');
-			Facade.publish('modulesCollection', 'modulesCollectionInitComplete', this.toJSON());
-		},
 		
 		/*
 			* @method moduleLoaded
@@ -37,12 +33,21 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 				loads the instancename and module result into the modules object
 				if there are no more models to load, fire initComplete
 		*/
-		moduleLoaded: function (result) {
+		initModuleLoaded: function (result) {
+			this.addLoadedModule(result);
+			if (util.keys(this.modules).length == this.models.length) {
+				Facade.publish('modulesCollection', 'modulesCollectionInitComplete', this.toJSON());
+			}
+		},
+		
+		newModuleLoaded: function (result) {
+			this.addLoadedModule(result);
+			Facade.publish('modulesCollection', 'modulesCollectionNewModule', result);
+		},
+		
+		addLoadedModule: function (result) {
 			this.modules[result.request.instanceName] = {};
 			this.modules[result.request.instanceName] = result;
-			if (util.keys(this.modules).length == this.models.length) {
-				this.initComplete();
-			}
 		},
 
 		/*
@@ -60,12 +65,12 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 			var me = this;
 			this.each(function (m) {
 				var request = m.toJSON();
-				me.getModule(request, me.moduleLoaded);
+				me.getModule(request, me.initModuleLoaded);
 			});
 		},
 		
 		addModule: function (m) {
-			this.getModule(m.toJSON(), this.moduleLoaded);
+			this.getModule(m.toJSON(), this.newModuleLoaded);
 		},
 
 		/*
