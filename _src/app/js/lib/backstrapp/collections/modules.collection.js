@@ -7,18 +7,22 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		moduleQueue: {},
 
 		initialize: function () {
-			util.bindAll(this, 'updateModuleInstances', 'handleSuccesses');
+			util.bindAll(this, 'handleSuccesses', 'addModules');
 			this.bind('reset', this.addModules, this);
-/* 			this.bind('add', this.updateModuleInstances, this); */
 		},
 
 		addModules: function (collection) {
 			var mods = collection.toJSON();
 			for (var i in mods) {
-				this.loadModule(mods[i].path, this.updateModuleInstances);
+				var q = this.addRequestToQueue(mods[i]), me = this;
+				Facade.subscribe('errorHandler', 'errorModulePath', this.handleErrors);
+				console.log('adding module', mods[i]);
+/* 				this.loadModule(mods[i], ); */
 			}
+			console.log('q', q);
 		},
 
+/*
 		updateModuleInstances: function (m) {
 			// find all models without a module instance
 			var emptyMods = this.filter(function (mod) {
@@ -32,6 +36,7 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 				}
 			}
 		},
+*/
 
 		loadModule: function (request, callback) {
 			var me = this;

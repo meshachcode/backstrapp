@@ -6,20 +6,20 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 			var request = {};
 			var listener = {};
 			var testModules = [
-				{ name: 'testModuleA', 	path: '/app/js/modules/jquibs/message.js'},
-				{ name: 'testModuleB', 	path: '/app/js/modules/jquibs/message.js'},
-				{ name: 'testModuleC', 	path: '/app/js/modules/jquibs/message.js'}
+				{ name: 'testModuleA', 	path: 'modules_js/jquibs/message'},
+				{ name: 'testModuleB', 	path: 'modules_js/jquibs/message'},
+				{ name: 'testModuleC', 	path: 'modules_js/jquibs/message'}
 			];
+			Modules = new ModulesCollection();
+			Modules.reset(testModules);
 
 			module('Core: ModulesCollection', {
 				setup: function () {
 					console.count();
-					Modules = new ModulesCollection();
-					Modules.reset(testModules);
 					request = {
 						name: 'testModuleA',
 						el: $('<div>Test Module</div>'),
-						path: '/app/js/modules/jquibs/message.js'
+						path: 'modules_js/jquibs/message'
 /* 						arg: {} */
 					};
 					ok(Modules, 'returns Object!');
@@ -29,22 +29,19 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 				teardown: function () {
 				}
 			});
-
-			test('Properly loads modules sent by reset', function () {
-				console.log('Modules', Modules.toJSON());
-			});
 			
 			asyncTest('Properly loads a module', function () {
-				var testFunction = function (mod) {
+				var testFunction = function (result) {
+					var mod = result.instance;
+					// this will not contain success/error property yet. getModule does that
 					ok(mod, 'Properly returns an object');
 					ok(mod.get('name'), 'Properly returns name: ' + mod.get('name'));
 					QUnit.start();
 				}
 				// loadModule takes the module path, and calls the callback
-				Modules.loadModule(request.path, testFunction);
+				Modules.loadModule(request, testFunction);
 			});
 
-/*
 			test('Properly checks if a module is loaded', function () {
 				var modName = testModules[1].name;
 				var modB = Modules.getModuleByName(modName);
@@ -55,14 +52,13 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 				equal(modC.get('path'), modPath, 'Properly returns module by path : ' + modC.get('path'));
 
 				var testFunctionB = function (result) {
-					console.log('result', result);
+					console.log('testFunctionB', result);
 				};
 				var query = {name: modName, path: modPath};
 				var modC = Modules.getModule(query, testFunctionB);
 				console.log('modC', modC);
-				//ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name'));
+				ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name'));
 			});
-*/
 
 /*
 			test('Properly checks if a module exists', function () {
