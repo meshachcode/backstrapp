@@ -21,7 +21,7 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		modules: {},
 
 		initialize: function () {
-			util.bindAll(this, 'initModuleLoaded', 'addModules', 'addModule');
+			util.bindAll(this, 'initModuleLoaded', 'newModuleLoaded', 'addModules', 'addModule');
 			this.bind('reset', this.addModules, this);
 			this.bind('add', this.addModule, this);
 		},
@@ -46,7 +46,6 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		},
 		
 		addLoadedModule: function (result) {
-			this.modules[result.request.instanceName] = {};
 			this.modules[result.request.instanceName] = result;
 		},
 
@@ -87,6 +86,7 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 					callback a success object containing the instance
 		*/
 		loadModule: function (request, callback) {
+			this.modules[request.instanceName] = {};
 			var me = this;
 			require([request.path], function (m) {
 				var i = request;
@@ -103,7 +103,9 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 				check for the existence of a module by the instance name
 		*/
 		isModuleLoaded: function (instanceName) {
-			return (this.modules[instanceName] == undefined) ? false : this.modules[instanceName];
+			var test = (this.modules[instanceName] == undefined) ? false : this.modules[instanceName];
+			var mods = this.modules;
+			return (test == undefined) ? false : test;
 		},
 		
 		handleErrors: function (request, callback) {
