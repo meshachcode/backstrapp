@@ -53,6 +53,7 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 			});
 			
 			test('Properly loads module when added to the collection', function () {
+/* 				Facade.subscribe('modulesCollection', 'ModulesCollectionInitComplete') */
 				Modules.add(request);
 			});
 

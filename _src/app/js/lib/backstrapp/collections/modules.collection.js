@@ -28,7 +28,7 @@ define(['backbone', 'util', 'debug', 'backstrapp/core/facade'], function (Backbo
 		
 		initComplete: function () {
 			console.log('initComplete');
-			Facade.publish('ModulesCollectionInitComplete', this.toJSON());
+			Facade.publish('modulesCollection', 'modulesCollectionInitComplete', this.toJSON());
 		},
 		
 		/*
