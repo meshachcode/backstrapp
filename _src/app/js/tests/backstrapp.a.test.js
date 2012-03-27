@@ -8,7 +8,7 @@ require.config({
 		html:			'../html',
 		jquery: 		'../lib/jquery/jquery-min',
 		underscore: 	'../lib/underscore/underscore-min',
-		backbone: 		'../lib/backbone/backbone.0.9.2',
+		backbone: 		'../lib/backbone/backbone-optamd3-min',
 		handlebars:		'../lib/handlebars/handlebars-min',
 		backstrapp:		'../lib/backstrapp',
 		util:			'../lib/backstrapp/util',

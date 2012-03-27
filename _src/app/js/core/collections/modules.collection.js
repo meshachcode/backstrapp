@@ -1,29 +1,52 @@
 /*
 	* Modules Collection
 */
-define(['backbone', 'util'], function (Backbone, util) {
+define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (Backbone, util, ModuleInstance) {
 
 	var ModulesCollection = Backbone.Collection.extend({
+		model: ModuleInstance,
+
 		messages: {
-			error: 'ERROR: Module either does not exist or cannot be loaded',
-			success: 'SUCCESS: Module was found and loaded, and may now be rendered',
-			promise: 'PROMISE: Something went wrong. Restarting the Module. Stay tuned...'
+			error: {
+				moduleLoad: 'ERROR: Module either does not exist or cannot be loaded',
+				badRequest: 'ERROR: Invalid Module Request'
+			},
+			success: {
+				moduleLoad: 'SUCCESS: Module was found and loaded, and may now be rendered',
+			},
+			promise: {
+				moduleLoad: 'PROMISE: Something went wrong. Restarting the Module. Stay tuned...'
+			}
 		},
 
 		initialize: function () {
-			util.bindAll(this, 'moduleLoaded');
+			util.bindAll(this, 'moduleLoaded', 'updateModuleInstance');
+			this.bind('reset', this.addModules, this);
 		},
-	
+		
+		addModules: function (collection) {
+			console.log('addModule', collection);
+			var mods = collection.toJSON();
+			for (var i in mods) {
+				this.loadModule(mods[i].path, this.updateModuleInstance);
+			}
+		},
+		
+		updateModuleInstance: function (m) {
+/* 			m.set({instance: m}); */
+			console.log('update', m);
+		},
+
 		/*
 			* @method buildReturnObject
 			* construct return object for all module requests
 		*/
-		buildReturnObject: function (statusStr, requestObj) {
+		buildReturnObject: function (statusStr, messageType, requestObj) {
 			var ret = {
 				request: requestObj,
 				module: requestObj.mod
 			};
-			ret[statusStr] = this.messages[statusStr];
+			ret[statusStr] = this.messages[statusStr][messageType];
 			return ret;
 		},
 
@@ -34,10 +57,19 @@ define(['backbone', 'util'], function (Backbone, util) {
 		moduleLoaded: function (mod) {
 			this.trigger('moduleLoaded', mod);
 		},
-		
-		isModuleLoaded: function (query) {
-			console.log(this);
-			return this.query(query);
+	
+		getModuleByName: function (name) {
+			return this.find(function (m) {
+				var mod = m.toJSON();
+				return mod.name == name;
+			});
+		},
+
+		getModuleByPath: function (path) {
+			return this.find(function (m) {
+				var mod = m.toJSON();
+				return mod.path == path;
+			});
 		},
 		
 		/*
@@ -55,7 +87,21 @@ define(['backbone', 'util'], function (Backbone, util) {
 				- promise: something was wrong, I'm trying to fix it, when I know, I'll get back
 			* @logic
 		*/
-		getModule: function (request, callback, context) {
+		getModule: function (request, callback) {
+			if (!request || !callback || typeof request != 'object' || typeof callback != 'function') {
+				return this.buildReturnObject('error', 'badRequest', request);
+			}
+			var ret = {};
+			// this is weak, but until I get a solid solution for querying a collection, it's the best I got
+			var mBN = this.getModuleByName(request.name);
+			if (mBN && mBN.get('path') == request.path) {
+				ret = this.buildReturnObject('success', 'moduleLoad', request);
+			} else {
+				ret = this.buildReturnObject('error', 'moduleLoad', request);
+			}
+			if (typeof callback == 'function') {
+				callback(ret);
+			}
 			/*
 				- check the collection for the existence of a module 
 				with the {model.name: request.name, && model.path: request.mod}
