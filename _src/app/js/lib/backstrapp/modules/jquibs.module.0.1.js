@@ -1,5 +1,5 @@
 /*
-	* JQUIBS Module 0.4 ("Jquery UI Bootstrap Module")
+	* JQUIBS Module 0.1 ("Jquery UI Bootstrap Module")
 	* This module should receive 2 params (msg & view)
 	* on init, the module should try to load :view as an html file
 	* once :view is loaded, :msg should be applied to it as a template var

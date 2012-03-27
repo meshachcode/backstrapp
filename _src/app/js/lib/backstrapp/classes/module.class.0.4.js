@@ -14,7 +14,7 @@ define(['util', 'core/facade', 'backbone', '../models/module.model.0.1'], functi
 
 		initialize: function (config) {
 			this.bindAll(this, 'activate', 'render', 'processParams', 'setParams');
-			this.f = new Facade();
+			this.f = Facade;
 
 			// init the model here, so that it's a unique instance every time
 			this.model = new ModuleModel(config);

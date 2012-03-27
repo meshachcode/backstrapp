@@ -9,88 +9,49 @@
 	* Remove all of the module-loading logic, and return to a simple, pub/sub and permissions management (duh!)
 */
 
-define(['./mediator' , './permissions', 'core/collections/modules.collection' ], 
+define(['./mediator' , './permissions'], 
 
-function (M, Permissions, ModulesCollection) {
+function (M, Permissions) {
 
-	var Facade = function () {
-		var Mediator = new M();
-		
-		modules = new ModulesCollection();
+	var Facade = {
+		Mediator: new M(),
 
-		getModule = function (request) {
-			console.log('arbitraryVariable', Mediator.arbitraryVariable);
-			if (this.modules.length >= 1 && this.isModuleLoaded(request.name)) {
-				console.log('restoring module');
-				Mediator.restoreModule(request, function (mod) {
-					var i = mod.restore(request);
-					Facade.modules.add(i);
-				});
-			} else {
-				console.log('loading Module');
-				Mediator.loadModule(request, function (mod) {
-					var i = mod.init(request);
-					Facade.modules.add(i);
-				});
-			}
-		};
-		
-		isModuleLoaded = function (name) {
-			this.modules.find(function (m) {
-				return (m.get('name') == name) ? m : false;
-			});
-		};
-
-		subscribe = function(subscriber, channel, callback, context){
-			if (!Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
-			console.log('subscribe', arguments);
-			var me = Facade.modules[context];
+		subscribe: function(subscriber, channel, callback, context){
+			if (!this.Mediator.get('subscribeMode')) { return {error: 'Subscribe Mode is off'} };
 			if(Permissions.validate('subscribe', subscriber, channel)){
-				var sub = Mediator.subscribe( channel, callback, me );
+				var sub = this.Mediator.subscribe( channel, callback );
 				sub.s = subscriber;
 				return sub;
 			} else {
 				return {error: 'Permission Failed', s: subscriber, ch: channel};
 			}
-		};
+		},
 	
-		publish = function(subscriber, channel, params){
-			if (!Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
-			console.log('publishing!!!', arguments);
+		publish: function(subscriber, channel, params){
+			if (!this.Mediator.get('publishMode')) { return {error: 'Publish Mode is Off!'} };
 			if(Permissions.validate('publish', subscriber, channel)){
-				console.log('channel', channel, subscriber);
-				var pub = Mediator.publish(channel, params);
-				console.log('pub', pub);
+				var pub = this.Mediator.publish(channel, params);
 				pub.s = subscriber;
 				return pub;
 			} else {
 				return {error: 'Permission Failed', s: subscriber, ch: channel};
 			}
-		};
+		},
 
-		processTemplate = Mediator.processTemplate;
-		
-		return {
-			publish: function (sub, ch, p) {
-				return Facade.publish(sub, ch, p);
-			},
+		processTemplate: function () {
+			var args = arguments.split(',');
+			return this.Mediator.processTemplate(args);
+		},
 
-			subscribe: function (sub, ch, cb, co) {
-				return Facade.subscribe(sub, ch, ch, co);
-			},
+		get: function (str) {
+			return this.Mediator.get(str);
+		},
 
-			get: function (str) {
-				return Mediator.get(str);
-			},
-
-			set: function (obj) {
-				return Mediator.set(obj);
-			}
+		set: function (obj) {
+			return this.Mediator.set(obj);
 		}
 	};
 
-	return function () {
-		return new Facade();
-	};
+	return Facade;
 
 });

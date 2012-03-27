@@ -6,9 +6,9 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 			var request = {};
 			var listener = {};
 			var testModules = [
-				{ name: 'testModuleA', 	path: 'modules_js/jquibs/message'},
-				{ name: 'testModuleB', 	path: 'modules_js/jquibs/message'},
-				{ name: 'testModuleC', 	path: 'modules_js/jquibs/accordion'}
+				{ name: 'testModuleA', 	path: '/app/js/modules/jquibs/message.js'},
+				{ name: 'testModuleB', 	path: '/app/js/modules/jquibs/message.js'},
+				{ name: 'testModuleC', 	path: '/app/js/modules/jquibs/message.js'}
 			];
 
 			module('Core: ModulesCollection', {
@@ -19,7 +19,7 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 					request = {
 						name: 'testModuleA',
 						el: $('<div>Test Module</div>'),
-						mod: 'modules_js/jquibs/message'
+						path: '/app/js/modules/jquibs/message.js'
 /* 						arg: {} */
 					};
 					ok(Modules, 'returns Object!');
@@ -31,7 +31,7 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 			});
 			
 			test('Properly loads modules sent by reset', function () {
-				
+				console.log('Modules', Modules);
 			});
 			
 			test('Properly returns messages from buildReturnObject', function () {
@@ -52,10 +52,10 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 					QUnit.start();
 				}
 				// loadModule takes the module path, and calls the callback
-				Modules.loadModule(request.mod, testFunction);
+				Modules.loadModule(request.path, testFunction);
 			});
-			
-			test('Properly checks if a module is loaded', function () {
+
+		test('Properly checks if a module is loaded', function () {
 				var modName = testModules[1].name;
 				var modB = Modules.getModuleByName(modName);
 				equal(modB.get('name'), modName, 'Properly returns module by name : ' + modB.get('name'));
@@ -64,14 +64,13 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 				var modC = Modules.getModuleByPath(modPath);
 				equal(modC.get('path'), modPath, 'Properly returns module by path : ' + modC.get('path'));
 
-/*
 				var testFunctionB = function (result) {
 					console.log('result', result);
 				};
 				var query = {name: modName, path: modPath};
 				var modC = Modules.getModule(query, testFunctionB);
-				ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name'));
-*/
+				console.log('modC', modC);
+/* 				ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name')); */
 			});
 
 /*

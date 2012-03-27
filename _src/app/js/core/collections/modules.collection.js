@@ -33,8 +33,8 @@ define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (
 		},
 		
 		updateModuleInstance: function (m) {
-/* 			m.set({instance: m}); */
-			console.log('update', m);
+			m.set({instance: m.init()});
+/* 			console.log('update', m); */
 		},
 
 		/*
@@ -51,6 +51,7 @@ define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (
 		},
 
 		loadModule: function (modulePath, callback) {
+			console.log('loadModule', arguments);
 			require([modulePath], callback);
 		},
 

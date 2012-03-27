@@ -2,7 +2,6 @@
 define(['backstrapp/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
-
 	var config = {
 		id: 'jquibMessage',
       	pars: [

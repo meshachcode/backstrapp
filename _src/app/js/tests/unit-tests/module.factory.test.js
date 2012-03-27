@@ -10,15 +10,12 @@ define(['backstrapp/jquibs.module.factory.0.1'], function (factory) {
 				setup: function () {
 					testObj = {msg: 'test', el: el, html: 'test Html', template:'path/to/some/template.html'};
 					message = new factory('message', testObj);
+					ok(factory, 'The Factory is Loaded!');
 				},
 				teardown: function () {
 				}
 			});
 
-			test('Properly Loads', function () {
-				ok(factory, 'The Factory is Loaded!');
-			});
-			
 			test('Properly sets/gets config object', function () {
 				for (var i in testObj) {
 					equal(message.get(i), testObj[i], 'Properly sets ' + i + ' to : ' + message.get(i));

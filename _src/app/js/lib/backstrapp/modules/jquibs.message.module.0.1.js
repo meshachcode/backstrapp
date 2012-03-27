@@ -1,6 +1,6 @@
-define(['jquery', 'backstrapp/modules/jquibs.module.0.1'], function ($, Module) {
+define(['backstrapp/modules/jquibs.module.0.1'], function (Module) {
 
-	var Accordion = Module.extend({});
+	var Message = Module.extend({});
 
-	return Accordion;
+	return Message;
 });

@@ -3,7 +3,7 @@ require.config({
 		define: true
 	},
 	// Debug mode only!
-	waitSeconds: 1,
+	waitSeconds: 2,
     paths: {
 		html:			'../html',
 		jquery: 		'../lib/jquery/jquery-min',
@@ -42,10 +42,10 @@ function (handler, permissions, mediator, facade, factory, ModulesCollection) {
 	require.onError = handler;
 	QUnit.start();
 	ModulesCollection.RunTests();
+	factory.RunTests();
 /*
 	permissions.RunTests();
 	mediator.RunTests();
 	facade.RunTests();
-	factory.RunTests();
 */
 });

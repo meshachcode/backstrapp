@@ -1,10 +1,10 @@
 define(['core/facade'], function(Facade){
 
 	var Error = {
-		f: new Facade(),
+		f: Facade,
 		name: 'errorHandler',
 		debugMode: true,
-		
+
 		process: function (err) {
 			// if it's a timeout error...
 			if (err.requireModules) {
