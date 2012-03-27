@@ -29,10 +29,11 @@ require.config({
 /* App Main */
 require(['core/handler.error', 'backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'core/facade'], 
 
-function (activator, builder, facade) {
+function (handler, activator, builder, facade) {
 	require.onError = handler;
 
 	activator.execute( );
 	builder.execute( );
+
 
 });
