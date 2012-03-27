@@ -15,7 +15,6 @@ require.config({
 		text: 			'../lib/require/text',
 		jsonLoad:		'../lib/require/json',
 		json:			'../../json',
-		aura:			'../lib/aura',
 		modules:		'../modules',
 		modules_js:		'../modules',
 		modules_html:	'../../html/modules',
@@ -24,7 +23,8 @@ require.config({
 		base:			'../util/base',
 		core:			'../core',
 		tests:			'../tests',
-		template: 		'../lib/backstrapp/modules/template.0.1'
+		template: 		'../lib/backstrapp/modules/template.0.1',
+		debug:			'../lib/backstrapp/classes/debug.class.0.1'
     }
 });
 
@@ -41,11 +41,9 @@ require([
 function (handler, permissions, mediator, facade, factory, ModulesCollection) {
 	require.onError = handler;
 	QUnit.start();
+	mediator.RunTests();
+	permissions.RunTests();
+	facade.RunTests();
 	ModulesCollection.RunTests();
 	factory.RunTests();
-/*
-	permissions.RunTests();
-	mediator.RunTests();
-	facade.RunTests();
-*/
 });

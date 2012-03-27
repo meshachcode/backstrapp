@@ -1,57 +1,37 @@
 /*
 	* Modules Collection
 */
-define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (Backbone, util, ModuleInstance) {
+define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 
 	var ModulesCollection = Backbone.Collection.extend({
-		model: ModuleInstance,
-
-		messages: {
-			error: {
-				moduleLoad: 'ERROR: Module either does not exist or cannot be loaded',
-				badRequest: 'ERROR: Invalid Module Request'
-			},
-			success: {
-				moduleLoad: 'SUCCESS: Module was found and loaded, and may now be rendered',
-			},
-			promise: {
-				moduleLoad: 'PROMISE: Something went wrong. Restarting the Module. Stay tuned...'
-			}
-		},
 
 		initialize: function () {
-			util.bindAll(this, 'updateModuleInstance');
+			util.bindAll(this, 'updateModuleInstances');
 			this.bind('reset', this.addModules, this);
 		},
-		
+
 		addModules: function (collection) {
-			console.log('addModule', collection);
 			var mods = collection.toJSON();
 			for (var i in mods) {
-				this.loadModule(mods[i].path, this.updateModuleInstance);
+				this.loadModule(mods[i].path, this.updateModuleInstances);
 			}
 		},
-		
-		updateModuleInstance: function (m) {
-			m.set({instance: m.init()});
-/* 			console.log('update', m); */
-		},
 
-		/*
-			* @method buildReturnObject
-			* construct return object for all module requests
-		*/
-		buildReturnObject: function (statusStr, messageType, requestObj) {
-			var ret = {
-				request: requestObj,
-				module: requestObj.mod
-			};
-			ret[statusStr] = this.messages[statusStr][messageType];
-			return ret;
+		updateModuleInstances: function (m) {
+			// find all models without a module instance
+			var emptyMods = this.filter(function (mod) {
+				return mod.get('instance') == undefined;
+			});
+
+			// add an instance of the current module
+			for (var i in emptyMods) {
+				if (emptyMods[i].get('path').indexOf(m.get('path')) != -1) {
+					this.getByCid(emptyMods[i].cid).set({instance: m});
+				}
+			}
 		},
 
 		loadModule: function (modulePath, callback) {
-			console.log('loadModule', arguments);
 			require([modulePath], callback);
 		},
 	
@@ -82,47 +62,24 @@ define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (
 				- success: the module was found or loaded, and may now be rendered
 				- error: the module either doesn't exist, or can't be validated
 				- promise: something was wrong, I'm trying to fix it, when I know, I'll get back
-			* @logic
 		*/
 		getModule: function (request, callback) {
+			// make sure all the required params are passed
 			if (!request || !callback || typeof request != 'object' || typeof callback != 'function') {
-				return this.buildReturnObject('error', 'badRequest', request);
+				return Debug.buildReturnObject('error', 'badRequest', request);
 			}
 			var ret = {};
+			// match both name and path
 			// this is weak, but until I get a solid solution for querying a collection, it's the best I got
 			var mBN = this.getModuleByName(request.name);
 			if (mBN && mBN.get('path') == request.path) {
-				ret = this.buildReturnObject('success', 'moduleLoad', request);
+				ret = Debug.buildReturnObject('success', 'moduleLoad', request);
 			} else {
-				ret = this.buildReturnObject('error', 'moduleLoad', request);
+				ret = Debug.buildReturnObject('error', 'moduleLoad', request);
 			}
 			if (typeof callback == 'function') {
 				callback(ret);
 			}
-			/*
-				- check the collection for the existence of a module 
-				with the {model.name: request.name, && model.path: request.mod}
-					- if it does not exist, try to load it
-						- subscribe to errorModulePath event for the requested module
-							(because try/catch doesn't work with require.js)
-							- callback: errorLoadingModule(request, callback, context)
-							- context: this
-					- if it exists, validate it's state
-						- if isValid,
-							- callback with success object containing...
-								- success: message
-								- module: module instance
-								- request: request object
-						- if !isValid,
-							- callback with promise object containing...
-								- promise: message
-								- request: request object
-							- try to init the module with the request obj
-								- if module returns error object
-									- destroy it, and callback with an error
-								- if the module returns success object
-									- callback with success object
-			*/
 		}
 		
 	});

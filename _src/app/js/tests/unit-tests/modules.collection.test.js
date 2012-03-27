@@ -29,12 +29,13 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 				teardown: function () {
 				}
 			});
-			
+
 			test('Properly loads modules sent by reset', function () {
-				console.log('Modules', Modules);
+				console.log('Modules', Modules.toJSON());
 			});
 			
-			test('Properly returns messages from buildReturnObject', function () {
+		/*
+	test('Properly returns messages from buildReturnObject', function () {
 				var e = Modules.buildReturnObject('error', 'moduleLoad', request);
 				equal(e.error, Modules.messages.error.moduleLoad, 'Error message properly returned: ' + e.error);
 
@@ -70,8 +71,9 @@ define(['core/collections/modules.collection'], function (ModulesCollection) {
 				var query = {name: modName, path: modPath};
 				var modC = Modules.getModule(query, testFunctionB);
 				console.log('modC', modC);
-/* 				ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name')); */
+				//ok(modC, 'Properly returns module with getModule and correct request : ' + modC.get('name'));
 			});
+*/
 
 /*
 			test('Properly checks if a module exists', function () {

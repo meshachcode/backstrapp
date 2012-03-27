@@ -10,10 +10,8 @@ define([
 function (ModuleFace, Accordion, Tabs, Message) {
 	
 	var Module = {
-/*
 		accordion: Accordion,
 		tabs: Tabs,
-*/
 		message: Message
 	}
 
@@ -22,7 +20,6 @@ function (ModuleFace, Accordion, Tabs, Message) {
 		if (Module[type] == undefined) {
 			ret = {error: 'Module is not defined', m: type};
 		} else {
-			console.log(new Module[type](config));
 			var instance = new Module[type](config);
 			ret = new ModuleFace(instance);
 		}
