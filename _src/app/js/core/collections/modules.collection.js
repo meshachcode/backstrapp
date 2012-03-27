@@ -20,7 +20,7 @@ define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (
 		},
 
 		initialize: function () {
-			util.bindAll(this, 'moduleLoaded', 'updateModuleInstance');
+			util.bindAll(this, 'updateModuleInstance');
 			this.bind('reset', this.addModules, this);
 		},
 		
@@ -53,10 +53,6 @@ define(['backbone', 'util', 'backstrapp/models/module.instance.0.1'], function (
 		loadModule: function (modulePath, callback) {
 			console.log('loadModule', arguments);
 			require([modulePath], callback);
-		},
-
-		moduleLoaded: function (mod) {
-			this.trigger('moduleLoaded', mod);
 		},
 	
 		getModuleByName: function (name) {
