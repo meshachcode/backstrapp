@@ -1,4 +1,4 @@
-define(['underscore'], function (_) {
+define(['underscore', 'jquery'], function (_, $) {
 
     _.mixin({
 		/**

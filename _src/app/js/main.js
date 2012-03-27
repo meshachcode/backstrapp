@@ -1,7 +1,9 @@
 require.config({
+/*
 	catchError: {
 		define: true
 	},
+*/
     paths: {
 		html:			'../html',
 		jquery: 		'lib/jquery/jquery-min',
@@ -27,13 +29,9 @@ require.config({
 });
 
 /* App Main */
-require(['core/handler.error', 'backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'core/facade'], 
+require(['core/handler.error', 'backstrapp/app.0.1'],
 
-function (handler, activator, builder, facade) {
+function (handler, App) {
 	require.onError = handler;
-
-	activator.execute( );
-	builder.execute( );
-
-
+	new App();
 });

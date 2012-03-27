@@ -66,16 +66,16 @@ define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 		getModule: function (request, callback) {
 			// make sure all the required params are passed
 			if (!request || !callback || typeof request != 'object' || typeof callback != 'function') {
-				return Debug.buildReturnObject('error', 'badRequest', request);
+				return Debug.buildResponseObject('error', 'badRequest', request);
 			}
 			var ret = {};
 			// match both name and path
 			// this is weak, but until I get a solid solution for querying a collection, it's the best I got
 			var mBN = this.getModuleByName(request.name);
 			if (mBN && mBN.get('path') == request.path) {
-				ret = Debug.buildReturnObject('success', 'moduleLoad', request);
+				ret = Debug.buildResponseObject('success', 'moduleLoad', request);
 			} else {
-				ret = Debug.buildReturnObject('error', 'moduleLoad', request);
+				ret = Debug.buildResponseObject('error', 'moduleLoad', request);
 			}
 			if (typeof callback == 'function') {
 				callback(ret);
@@ -83,6 +83,6 @@ define(['backbone', 'util', 'debug'], function (Backbone, util, Debug) {
 		}
 		
 	});
-	
+
 	return ModulesCollection;
 });
