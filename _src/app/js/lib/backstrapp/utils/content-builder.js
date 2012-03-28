@@ -7,7 +7,7 @@
 			- It doesn't follow any standards we're using elsewhere, so maybe it should be rethought too?
 */
 
-define(['underscore', 'cookie', './module-activator'], function (_, cookie, activator) {
+define(['cookie'], function (cookie) {
 
     var exports = {},
         replaceContent = function (element, content) {
@@ -16,7 +16,7 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
         },
         authorizedCookieKey = 'authorized';
 
-    exports.execute = function (element, facade, callback) {
+    exports.execute = function (element, callback) {
         $('div[data-dynamic-uri], div[data-auth-uri]', element).css('visibility', 'hidden').each(function () {
             var element = $(this),
                 load = element.data('dynamic-load'),
@@ -55,9 +55,11 @@ define(['underscore', 'cookie', './module-activator'], function (_, cookie, acti
                 url: uri,
                 success: function (resp) {
                     replaceContent(element, resp);
-				   	console.log('activator', activator);
+                    callback(element);
+/*
 					activator.execute(element, callback);
                     exports.execute(element, callback);
+*/
                 },
                 error: function (xhr) {
                     var authCookieChk = cookie(authorizedCookieKey);

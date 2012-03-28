@@ -16,11 +16,12 @@ define([
 	'util',
 	'modules/template.0.1',
 	'modules/module.factory.0.1',
+	'models/module.model.0.1',
 	'core/app.0.1'
 ], 
 
 function (
- _facade, _mediator, _permissions, _error, _debug, _router, _builder, _activator, _util, _template, _moduleFactory, _app
+ _facade, _mediator, _permissions, _error, _debug, _router, _builder, _activator, _util, _template, _moduleFactory, _moduleModel, _app
 ) {
 
 	var Backstrapp = {
@@ -30,48 +31,35 @@ function (
 
 		Util: _util,
 		Module: _moduleFactory,
+		ModuleModel: _moduleModel,
+		Mediator: _mediator,
+		Error: _error,
+		Debug: _debug,
+		Router: _router,
+		Template: _template,
 
 		Facade: function (m, p) {
 			m = (!m) ? new Backstrapp.Mediator() : m;
 			p = (!p) ? new Backstrapp.Permissions() : p;
 			return _facade(m, p);
 		},
-		
-		Mediator: function () {
-			return new _mediator();
-		},
-		
-		Permissions: function () {
-			return _permissions
+
+		Permissions: function (rules) {
+			if (rules != undefined) {
+				util.extend(_permissions.rules, rules);
+			}
+			return _permissions;
 		},
 
-		Error: function () {
-			return new _error();
+		Builder: function (el) {
+			_builder.execute(el);
 		},
 		
-		Debug: function () {
-			return _debug
+		Activator: function (el, callback) {
+			_activator.execute(el, callback);
 		},
 		
-		Router: function () {
-			return _router
-		},
-				
-		Builder: function () {
-			return _builder
-		},
-		
-		Activator: function () {
-			return _activator
-		},
-		
-		Template: function () {
-			return _template
-		},
-		
-		App: function () {
-			return _app
-		}
+		App: _app
 	};
 
 	return Backstrapp

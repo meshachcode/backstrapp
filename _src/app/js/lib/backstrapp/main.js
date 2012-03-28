@@ -2,6 +2,8 @@ require.config({
     paths: {
     	// paths other scrips expect
     	lib:			'../',
+    	modules_js:		'../../modules',
+
     	// require plugins
 		text: 			'../require/text',
 		jsonLoad:		'../require/json',
@@ -26,5 +28,6 @@ require.config({
 require(['./backstrapp.js'],
 
 function (Backstrapp) {
-	new Backstrapp();
+	var app = new Backstrapp.App();
+	console.log('app', app);
 });

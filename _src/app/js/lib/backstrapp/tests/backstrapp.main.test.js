@@ -10,20 +10,25 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				return (typeof i == 'function');
 			}
 
-			module('Backstrapp: Main', {
+			module('Backstrapp: Main');
+			
+			test('Instantiation', function () {
+				var b$ = Backstrapp;
+				ok(b$, 'Backstrapp is Defined!');
+				ok(!b$.config.debugMode, 'Properly sets debugMode to ' + b$.config.debugMode + ' by default');
+				ok(b$.Util, 'Properly loads Util');
+			});
+
+			module('Backstrapp: Main: Functions', {
 				setup: function () {
 					b$ = Backstrapp;
-					ok(b$, 'Backstrapp is Defined!');
 				},
 				teardown: function () {
 					b$ = {};
 				}
 			});
 
-			test('All Factories return proper data types!', function () {
-				ok(!b$.config.debugMode, 'Properly sets debugMode to ' + b$.config.debugMode + ' by default');
-				ok(b$.Util, 'Properly loads Util');
-
+			test('Properly returns functions', function () {				
 				/* Facade */
 				var fac = new b$.Facade();
 				ok(fac, 'Properly instantiates new Facade');
@@ -49,11 +54,6 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				ok(act, 'Properly instantiates new Activator');
 				ok(isObject(act), 'Activator returns object');
 
-				/* Debug */
-				var deb = new b$.Debug();
-				ok(deb, 'Properly instantiates new Debug');
-				ok(isObject(deb), 'Debug returns object');
-
 				/* Error */
 				var err = new b$.Error();
 				ok(err, 'Properly instantiates new Error');
@@ -62,10 +62,31 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				/* Router */
 				var rou = new b$.Router();
 				ok(rou, 'Properly instantiates new Router');
-				ok(isFunction(rou), 'Router returns function');
+				ok(isObject(rou), 'Router returns object');
+
+				/* App */
+				var app = new b$.App();
+				ok(app, 'Properly instantiates new App');
+				ok(isFunction(app), 'App returns function');
+			});
+			
+			module('Backstrapp: Main: Objects', {
+				setup: function () {
+					b$ = Backstrapp;
+				},
+				teardown: function () {
+					b$ = {};
+				}
+			});
+			
+			test('Properly returns Objects', function () {
+				/* Debug */
+				var deb = b$.Debug;
+				ok(deb, 'Properly instantiates new Debug');
+				ok(isObject(deb), 'Debug returns object');
 
 				/* Template */
-				var tem = new b$.Template();
+				var tem = b$.Template;
 				ok(tem, 'Properly instantiates new Template');
 				ok(isObject(tem), 'Template returns object');
 
@@ -73,11 +94,6 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				var mod = b$.Module;
 				ok(mod, 'Properly instantiates new Module');
 				ok(isFunction(mod), 'Module returns function');
-
-				/* App */
-				var app = new b$.App();
-				ok(app, 'Properly instantiates new App');
-				ok(isFunction(app), 'App returns function');
 			});
 		}
 	};

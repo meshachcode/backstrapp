@@ -43,19 +43,28 @@ define(function () {
 		}
 	};
 
-/*
-	require the mediator and permissions to be passed in, 
-	so backstrapp main can control the version of each,
-	and users can replace with their own.
-*/
+	/*
+		SINGLETON (so all instances in a build can be the same facade.)
+		require the mediator and permissions to be passed in, 
+		so backstrapp main can control the version of each,
+		and users can replace with their own.
+	*/
+	var instance = {};
 	return function (m, p) {
-		if (m == undefined || p == undefined) {
-			return {error: 'Missing Mediator / Permissions objects'};
+		if (!instance.loaded) {
+			console.log('loading new facade instance!');
+			if (m == undefined || p == undefined) {
+				instance = {error: 'Missing Mediator / Permissions objects'};
+			} else {
+				Facade.mediator = m;
+				Facade.permissions = p;
+				instance = Facade;
+				instance.loaded = true;
+			}
 		} else {
-			Facade.mediator = m;
-			Facade.permissions = p;
-			return Facade;
+			console.log('returning old facade instance');
 		}
+		return instance;
 	};
 
 });

@@ -1,25 +1,25 @@
 /*
-	* Module Class 0.4
+	* Module Class 0.5
 		* core functionality
 		* communication with Facade
-		* TODO: Needs to communicate with the facade.
-		* TODO: UNIT TEST THIS MOFO!!!!
 */
-define(['util', 'modules/template.0.1', 'backstrapp/core/facade', 'backbone', 'backstrapp/models/module.model.0.1'], 
+define(['backbone', 'backstrapp/backstrapp'],
 
-function (util, t, Facade, Backbone, ModuleModel) {
+function (Backbone, Backstrapp) {
 
 	var ModuleClass = Backbone.View.extend({
 		processable: [],
 		processed: [],
 		required: [],
+		bindAll: Backstrapp.Util.bindAll,
+		util: Backstrapp.Util,
 
 		initialize: function (config) {
 			this.bindAll(this, 'activate', 'render', 'processParams', 'setParams');
-			this.f = Facade;
+			this.f = Backstrapp.Facade();
 
 			// init the model here, so that it's a unique instance every time
-			this.model = new ModuleModel(config);
+			this.model = new Backstrapp.ModuleModel(config);
 			this.model.bind('change:name', this.initComplete, this);
 
 			// The params args are set by module.instance.init (module.face)
@@ -134,10 +134,7 @@ function (util, t, Facade, Backbone, ModuleModel) {
 		get: function (str) {
 			var viewData = this.model.get('viewData');
 			return viewData[str];
-		},
-		
-		bindAll: util.bindAll,
-		util: util
+		}
 
 	});
 

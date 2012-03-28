@@ -40,7 +40,7 @@ require([
 	'tests/core/mediator.test',
 	'tests/core/permissions.test',
 	'tests/collections/modules.collection.test',
-	'tests/classes/module.class.test'
+	'tests/core/classes/module.class.test'
 /* 	'tests/modules/module.factory.test' */
 ],
 

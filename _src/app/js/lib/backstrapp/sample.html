@@ -2,13 +2,23 @@
 <html>
 <head>
     <link rel="stylesheet" href="../qunit/qunit.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/app/css/bootstrap.min.css" type="text/css" media="screen">
     <script type="text/javascript" src="../qunit/qunit.js"></script>
     <script type="text/javascript" data-main="main.js" src="../require/require.js"></script>
     <title>Backstrapp Tests</title>
 </head>
 <body>
-	<div>
-		Check your console. If there are no errors, you're about to see the Backstrapp Kitchen Sink!
+	<div class="container">
+		<div class="row">
+			<div class="hero-unit"><h2>Content Builder</h2></div>
+			<div class="span7" data-dynamic-uri="../../../html/demo/static.html" id="builderA">Loading...</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="hero-unit"><h2>Module Activator: JQUIBS - Jquery UI Bootstrap/Backstrapp</h2></div>
+			<div class="span7" data-module="modules_js/jquibs/message" data-module-parameters="template:../../../html/jquibs/message.html" id="messageModule">Loading...</div>
+<!-- 			<div class="span7" data-module="" data-module-parameters="" id="">Loading...</div> -->
+		</div>
 	</div>
 </body>
 </html>

@@ -1,9 +1,7 @@
 /** 
 	* Backstrapp Permissions.
 */
-define(['jquery', 'backbone'], 
-
-function ($, Backbone) {
+define(function () {
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing
@@ -12,19 +10,6 @@ function ($, Backbone) {
 	var Permissions = {
 
 		rules: {
-			pageModuleRenderComplete: {
-				navModule: {
-					subscribe: true
-				}
-			},
-			pageModulePagesLoaded: {
-				navModule: {
-					subscribe: true
-				},
-				pageModule: {
-					publish: true
-				}
-			},
 			// errors
 			errorModulePath: {
 				testModule: {
@@ -57,6 +42,6 @@ function ($, Backbone) {
 		}
 	};
 
-	return Permissions;
+	return Permissions
 
 });
