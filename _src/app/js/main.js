@@ -27,7 +27,7 @@ require.config({
 });
 
 /* App Main */
-require(['backstrapp/core/handler.error', 'backstrapp/core/app.0.1'],
+require(['backstrapp/core/handler.error', 'backstrapp/classes/app.0.1'],
 
 function (handler, App) {
 	require.onError = handler;

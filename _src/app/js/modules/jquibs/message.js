@@ -1,5 +1,5 @@
 // Message Demo
-define(['backstrapp/core/jquibs.module.factory.0.1'],
+define(['backstrapp/modules/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
 

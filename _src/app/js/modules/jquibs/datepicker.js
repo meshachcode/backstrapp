@@ -1,5 +1,5 @@
 // Datepicker Demo
-define(['lib/backstrapp/core/jquibs.module.factory.0.1'],
+define(['lib/backstrapp/modules/jquibs.module.factory.0.1'],
 
 function (ModuleFactory) {
 
