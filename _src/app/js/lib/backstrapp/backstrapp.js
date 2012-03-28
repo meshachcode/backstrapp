@@ -22,7 +22,7 @@ define([
 ], 
 
 function (
-	_facade, _mediator, _permissions, _error, _debug, _router/*, _app, _builder, _activator, _util, _template, _moduleFactory */
+	_facade, _mediator, _permissions, _error, _debug, _router /*, _app, _builder, _activator, _util, _template, _moduleFactory */
 ) {
 
 	var Backstrapp = {
