@@ -1,10 +1,15 @@
-define(['backstrapp/modules/jquibs.module.factory.0.1'], function (factory) {
+/*
+	TODO: this doesn't make sense to test until I've tested the module class. 
+
+*/
+define(['backstrapp/backstrapp'], function (Backstrapp) {
 	return {
 
 		RunTests: function () {
 			var message = {};
 			var testObj = {};
 			var el = $('<div id="testDom">El Html</div>');
+			var factory = Backstrapp.Module;
 
 			module('Module Factory: Message Module', {
 				setup: function () {

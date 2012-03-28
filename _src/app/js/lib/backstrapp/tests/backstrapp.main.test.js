@@ -70,7 +70,7 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				ok(isObject(tem), 'Template returns object');
 
 				/* Module */
-				var mod = new b$.Module();
+				var mod = b$.Module;
 				ok(mod, 'Properly instantiates new Module');
 				ok(isFunction(mod), 'Module returns function');
 

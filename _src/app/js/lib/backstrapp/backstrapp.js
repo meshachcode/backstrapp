@@ -29,6 +29,7 @@ function (
 		},
 
 		Util: _util,
+		Module: _moduleFactory,
 
 		Facade: function (m, p) {
 			m = (!m) ? new Backstrapp.Mediator() : m;
@@ -66,10 +67,6 @@ function (
 		
 		Template: function () {
 			return _template
-		},
-
-		Module: function () {
-			return _moduleFactory
 		},
 		
 		App: function () {

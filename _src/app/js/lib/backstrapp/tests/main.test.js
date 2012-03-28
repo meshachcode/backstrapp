@@ -39,14 +39,17 @@ require([
 	'tests/core/facade.test',
 	'tests/core/mediator.test',
 	'tests/core/permissions.test',
-	'tests/collections/modules.collection.test'
+	'tests/collections/modules.collection.test',
+	'tests/classes/module.class.test'
+/* 	'tests/modules/module.factory.test' */
 ],
 
-function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest) {
+function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest, ModuleClassTest) {
 	MainTest.RunTests();
 	FacadeTest.RunTests();
 	MediatorTest.RunTests();
 	PermissionsTest.RunTests();
 	ModulesCollectionTest.RunTests();
+	ModuleClassTest.RunTests();
 	QUnit.start();
 });
