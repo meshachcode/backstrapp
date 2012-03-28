@@ -1,4 +1,4 @@
-define(['backstrapp'], function (Backstrapp) {
+define(['backstrapp/backstrapp'], function (Backstrapp) {
 	return {
 
 		RunTests: function () {

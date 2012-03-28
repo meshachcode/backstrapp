@@ -1,7 +1,7 @@
 /* 	JQuibs ModuleFactory */
 
 define([
-	'backstrapp/classes/module.face.0.1', 
+	'backstrapp/core/classes/module.face.0.1', 
 	'backstrapp/modules/jquibs.accordion.module.0.1', 
 	'backstrapp/modules/jquibs.tabs.module.0.1', 
 	'backstrapp/modules/jquibs.message.module.0.1'

@@ -7,6 +7,8 @@ require.config({
 	// ######### //
 	baseUrl: '/app/js/lib/backstrapp',
     paths: {
+    	// paths other scrips expect
+    	lib:			'../',
     	// require plugins
 		text: 			'../require/text',
 		jsonLoad:		'../require/json',
@@ -15,7 +17,8 @@ require.config({
 		jquery: 		'../jquery/jquery-min',
 		underscore: 	'../underscore/underscore-min',
 		backbone: 		'../backbone/backbone-optamd3-min',
-		handlebars:		'handlebars/handlebars',
+		handlebars:		'../handlebars/handlebars',
+		backstrapp:		'../backstrapp',
 
 		// utils
 		util:			'utils/util',

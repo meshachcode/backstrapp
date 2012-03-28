@@ -12,17 +12,17 @@ define([
 	'core/permissions',
 	'core/handler.error',
 	'core/debug.0.1',
-	'core/router'
-/* 	,'core/app.0.1' */
-/* 	,'utils/content-builder' */
-/* 	,'utils/module-activator' */
-/* 	,'utils/util' */
-/* 	,'modules/template.0.1' */
-/* 	,'modules/module.factory.0.1' */
+	'core/router',
+	'utils/content-builder',
+	'utils/module-activator',
+	'util',
+	'modules/template.0.1',
+	'modules/module.factory.0.1',
+	'core/app.0.1'
 ], 
 
 function (
-	_facade, _mediator, _permissions, _error, _debug, _router /*, _app, _builder, _activator, _util, _template, _moduleFactory */
+	_facade, _mediator, _permissions, _error, _debug, _router, _builder, _activator, _util, _template, _moduleFactory, _app
 ) {
 
 	var Backstrapp = {
@@ -54,11 +54,7 @@ function (
 		Router: function () {
 			return _router
 		},
-		
-		App: function () {
-			return _app
-		},
-		
+				
 		Builder: function () {
 			return _builder
 		},
@@ -77,6 +73,10 @@ function (
 
 		Module: function () {
 			return _moduleFactory
+		},
+		
+		App: function () {
+			return _app
 		}
 
 	};

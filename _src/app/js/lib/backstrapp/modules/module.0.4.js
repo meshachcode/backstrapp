@@ -10,7 +10,7 @@
 	* by only passing parameters (for example, what happens when you run 
 	* model.set({somefunction: function (...?
 */
-define(['jquery', '../classes/module.class.0.4', '../classes/module.face.0.1'], 
+define(['jquery', 'backstrapp/core/classes/module.class.0.4', 'backstrapp/core/classes/module.face.0.1'], 
 
 function ($, ModuleClass, ModuleFace) {
 
