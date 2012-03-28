@@ -1,9 +1,17 @@
-define(['backstrapp/utils/module-activator', 'backstrapp/utils/content-builder', 'backstrapp/collections/modules.collection'], 
+define([
+	'backstrapp/utils/module-activator', 
+	'backstrapp/utils/content-builder', 
+	'backstrapp/collections/modules.collection'
+],
 
 function (Activator, Builder, ModulesCollection) {
 
 	var App = {
-		debugMode: true,
+		_exports: {
+			debugMode: 		false,
+			activatorMode: 	true,
+			builderMode: 	true
+		},
 		modules: new ModulesCollection(),
 		
 		results: {
@@ -37,8 +45,10 @@ function (Activator, Builder, ModulesCollection) {
 			},
 		},
 		
+		/* 
+			* @method buildResponseMessage 
+		*/
 		buildResponseMessage: function (type, result) {
-			console.log('result', result);
 			var ret = [];
 			ret.push(result[type]);
 			ret.push('Module: ' + result.module);
@@ -58,17 +68,36 @@ function (Activator, Builder, ModulesCollection) {
 			}
 		},
 
-		activator: function () {
-			Activator.execute(null, App.moduleLoader);
+		activator: function (el, callback) {
+			Activator.execute(el, callback);
+		},
+
+		builder: function (el, callback) {
+			Builder.execute(el, callback);
 		},
 		
-		builder: function () {
-			Builder.execute();
-		}
+		start: function (el) {
+			var ret = {success: 'APP STARTED!'};
+
+			if (App.get('activatorMode')) {
+				App.activator(el, App.moduleLoader);
+			}
+			
+			if (App.get('builderMode')) {
+				App.builder(el, App.start);
+			}
+
+			if (!App.get('started')) {
+				App.set({started: true, starts: 1});
+			} else {
+				var restarts = App.get('starts');
+				var s = App.set({starts: restarts + 1});
+				ret.success = 'APP RE-STARTED!';
+			}
+			ret.app = App._exports;
+			return ret;
+		}		
 	}
 
-	return function () {
-		App.activator();
-		App.builder();
-	}
+	return App
 })

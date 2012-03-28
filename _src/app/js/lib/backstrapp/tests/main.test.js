@@ -2,7 +2,7 @@ require.config({
 	//###### Debug mode only!
 	waitSeconds: 2,
 	catchError: {
-		define: true
+/* 		define: true */
 	},
 	// ######### //
 	baseUrl: '/app/js/lib/backstrapp',
@@ -28,7 +28,9 @@ require.config({
 		cookie:			'../../util/cookie',
 
 		// tools
-		json:			'../../../json'
+		json:			'../../../json',
+		moduleModel:	'models/module.model.0.1',
+		moduleClass:	'core/classes/module.class.0.5'
     }
 });
 
@@ -40,16 +42,18 @@ require([
 	'tests/core/mediator.test',
 	'tests/core/permissions.test',
 	'tests/collections/modules.collection.test',
-	'tests/core/classes/module.class.test'
+/* 	'tests/core/classes/module.class.test', */
+	'tests/core/app.test'
 /* 	'tests/modules/module.factory.test' */
 ],
 
-function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest, ModuleClassTest) {
+function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest, /* ModuleClassTest, */ AppTest) {
 	MainTest.RunTests();
 	FacadeTest.RunTests();
 	MediatorTest.RunTests();
 	PermissionsTest.RunTests();
 	ModulesCollectionTest.RunTests();
-	ModuleClassTest.RunTests();
+/* 	ModuleClassTest.RunTests(); */
+	AppTest.RunTests();
 	QUnit.start();
 });

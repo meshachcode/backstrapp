@@ -15,7 +15,6 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 			test('Instantiation', function () {
 				var b$ = Backstrapp;
 				ok(b$, 'Backstrapp is Defined!');
-				ok(!b$.config.debugMode, 'Properly sets debugMode to ' + b$.config.debugMode + ' by default');
 				ok(b$.Util, 'Properly loads Util');
 			});
 
@@ -67,7 +66,7 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 				/* App */
 				var app = new b$.App();
 				ok(app, 'Properly instantiates new App');
-				ok(isFunction(app), 'App returns function');
+				ok(isObject(app), 'App returns object');
 			});
 			
 			module('Backstrapp: Main: Objects', {

@@ -1,25 +1,24 @@
 /*
 	* Module Class 0.5
 		* core functionality
-		* communication with Facade
 */
-define(['backbone', 'backstrapp/backstrapp'],
+define(['backbone', 'moduleModel'],
 
-function (Backbone, Backstrapp) {
+function (Backbone, moduleModel) {
 
 	var ModuleClass = Backbone.View.extend({
 		processable: [],
 		processed: [],
 		required: [],
-		bindAll: Backstrapp.Util.bindAll,
-		util: Backstrapp.Util,
+		bindAll: {},
+		util: {},
+		template: {},
+		facade: {},
 
 		initialize: function (config) {
 			this.bindAll(this, 'activate', 'render', 'processParams', 'setParams');
-			this.f = Backstrapp.Facade();
-
 			// init the model here, so that it's a unique instance every time
-			this.model = new Backstrapp.ModuleModel(config);
+			this.model = new moduleModel(config);
 			this.model.bind('change:name', this.initComplete, this);
 
 			// The params args are set by module.instance.init (module.face)
@@ -104,7 +103,7 @@ function (Backbone, Backstrapp) {
 			if (this.model.get('template') != this.model.defaults.template) {
 				var o = this.model.toJSON();
 				console.log('trying to process', o, this.model.get('template'));
-				html = t.process(o, this.model.get('template'));
+				html = this.template.process(o, this.model.get('template'));
 			} else {
 				console.log('not processing template');
 			}

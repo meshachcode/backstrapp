@@ -11,7 +11,7 @@
 	* by only passing parameters (for example, what happens when you run 
 	* model.set({somefunction: function (...?
 */
-define(['jquery', 'backstrapp/modules/template.0.1', 'backstrapp/core/classes/module.class.0.4'], 
+define(['jquery', 'backstrapp/modules/template.0.1', 'backstrapp/core/classes/module.class.0.5'], 
 
 function ($, t, ModuleClass) {
 

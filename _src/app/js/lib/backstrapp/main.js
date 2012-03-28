@@ -21,13 +21,16 @@ require.config({
 		cookie:			'../../util/cookie',
 
 		// tools
-		json:			'../../../json'
+		json:			'../../../json',
+		moduleModel:	'models/module.model.0.1',
+		moduleClass:	'core/classes/module.class.0.5'
     }
 });
 
-require(['./backstrapp.js'],
+require(['backstrapp.js'],
 
 function (Backstrapp) {
 	var app = new Backstrapp.App();
-	console.log('app', app);
+	app.debugMode = true;
+	app.start();
 });

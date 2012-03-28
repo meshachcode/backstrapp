@@ -25,10 +25,6 @@ function (
 ) {
 
 	var Backstrapp = {
-		config: {
-			debugMode: false
-		},
-
 		Util: _util,
 		Module: _moduleFactory,
 		ModuleModel: _moduleModel,
@@ -58,8 +54,24 @@ function (
 		Activator: function (el, callback) {
 			_activator.execute(el, callback);
 		},
-		
-		App: _app
+
+		App: function (config) {
+			var a = _app;
+			if (config != undefined) {
+				a.set(config);
+			}
+			return {
+				get: function (str) {
+					return a._exports[str];
+				},
+				set: function (obj) {
+					return util.extend(a._exports, obj);
+				},
+				start: function () {
+					return a.start();
+				}
+			}
+		}
 	};
 
 	return Backstrapp
