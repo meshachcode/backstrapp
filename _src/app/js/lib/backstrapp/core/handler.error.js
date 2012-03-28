@@ -1,7 +1,6 @@
-define(['backstrapp/core/facade'], function(Facade){
+define(function(){
 
 	var Error = {
-		f: Facade,
 		name: 'errorHandler',
 		debugMode: true,
 
@@ -11,8 +10,9 @@ define(['backstrapp/core/facade'], function(Facade){
 				err.mods = this.buildModNames(err.requireModules);
 				for (var i in err.mods) {
 					var e = {error: 'Load Failed', e: err};
-					console.log('process error', this.name, e);
-					this.f.publish(this.name, 'errorModulePath', e);
+					if (this.f != undefined) {
+						this.f.publish(this.name, 'errorModulePath', e);
+					}
 				}
 			}
 			Error.debug(err);
@@ -46,10 +46,18 @@ define(['backstrapp/core/facade'], function(Facade){
 		}
 	}
 
-	return function(err) {
-		if (Error.debugMode) {
-			Error.process(err);
+
+	return function (facade) {
+		// constructor
+		if (facade != undefined) {
+			Error.f = facade;
 		}
-	};
+		// handler call
+		return function(err) {
+			if (Error.debugMode) {
+				Error.process(err);
+			}
+		}
+	}
 
 });

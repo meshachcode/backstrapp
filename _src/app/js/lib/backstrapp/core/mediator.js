@@ -3,7 +3,7 @@
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 	This is the application core. It's private, and should drive the application-wide functionality.
 */
-define(['jsonLoad!json/config.json', 'jquery', 'util', 'template'], 
+define(['jsonLoad!json/config.json', 'jquery', 'util', 'modules/template.0.1'], 
 
 function (config, $, _, template) {
 

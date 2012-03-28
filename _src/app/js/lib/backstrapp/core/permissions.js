@@ -1,9 +1,9 @@
 /** 
 	* Backstrapp Permissions.
 */
-define(['jquery', 'backbone',  './mediator'], 
+define(['jquery', 'backbone'], 
 
-function ($, Backbone, m) {
+function ($, Backbone) {
 
 	// A permissions structure can check
 	// against subscriptions prior to allowing
