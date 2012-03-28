@@ -3,9 +3,9 @@
 	Drawn on heavily from Addy Osmani's 'Aura' code.
 	This is the application core. It's private, and should drive the application-wide functionality.
 */
-define(['jsonLoad!json/config.json', 'jquery', 'util', 'modules/template.0.1'], 
+define(['jsonLoad!json/config.json', 'jquery', 'util'], 
 
-function (config, $, _, template) {
+function (config, $, _) {
 
 	var _private = {
 		util: _,
@@ -48,7 +48,7 @@ function (config, $, _, template) {
 			return obj;
 		},
 		
-		processTemplate: template.process
+/* 		processTemplate: template.process */
 	}
 
 	return function() {
