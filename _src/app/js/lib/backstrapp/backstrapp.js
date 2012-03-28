@@ -30,12 +30,14 @@ function (
 
 		Util: _util,
 
-		Facade: function () {
-			return _facade
+		Facade: function (m, p) {
+			m = (!m) ? new Backstrapp.Mediator() : m;
+			p = (!p) ? new Backstrapp.Permissions() : p;
+			return _facade(m, p);
 		},
 		
 		Mediator: function () {
-			return _mediator
+			return new _mediator();
 		},
 		
 		Permissions: function () {
@@ -43,7 +45,7 @@ function (
 		},
 
 		Error: function () {
-			return _error
+			return new _error();
 		},
 		
 		Debug: function () {
