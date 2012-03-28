@@ -1,27 +1,21 @@
 /* 
 	Backstrapp Facade.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
-	This is your sandbox. All modules will know about this module, so keep it clean, and secure. 
-
-	* TODO: Restore the facade!!!
-	* the facade doesn't need to be so complex. 
-	* It's simply a way to communicate with the mediator.
-	* Remove all of the module-loading logic, and return to a simple, pub/sub and permissions management (duh!)
+	This is your sandbox. All modules will know about this module, so keep it clean, and secure.
 */
 
-define(['./mediator' , './permissions'], 
-
-function (M, Permissions) {
+define(function () {
 
 	var Facade = {
-		Mediator: new M(),
+		mediator: {},
+		permissions: {},
 		subscribeMode: true,
 		publishMode: true,
 
 		subscribe: function(subscriber, channel, callback, context){
 			if (!Facade.subscribeMode) { return {error: 'Subscribe Mode is off'} };
-			if(Permissions.validate('subscribe', subscriber, channel)){
-				var sub = this.Mediator.subscribe( channel, callback );
+			if(this.permissions.validate('subscribe', subscriber, channel)){
+				var sub = this.mediator.subscribe( channel, callback );
 				sub.s = subscriber;
 				return sub;
 			} else {
@@ -31,8 +25,8 @@ function (M, Permissions) {
 	
 		publish: function(subscriber, channel, params){
 			if (!Facade.publishMode) { return {error: 'Publish Mode is Off!'} };
-			if(Permissions.validate('publish', subscriber, channel)){
-				var pub = this.Mediator.publish(channel, params);
+			if(this.permissionsvalidate('publish', subscriber, channel)){
+				var pub = this.mediator.publish(channel, params);
 				pub.s = subscriber;
 				return pub;
 			} else {
@@ -42,18 +36,31 @@ function (M, Permissions) {
 
 		processTemplate: function () {
 			var args = arguments.split(',');
-			return this.Mediator.processTemplate(args);
+			return this.mediator.processTemplate(args);
 		},
 
 		get: function (str) {
-			return this.Mediator.get(str);
+			return this.mediator.get(str);
 		},
 
 		set: function (obj) {
-			return this.Mediator.set(obj);
+			return this.mediator.set(obj);
 		}
 	};
 
-	return Facade;
+/*
+	require the mediator and permissions to be passed in, 
+	so backstrapp main can control the version of each,
+	and users can replace with their own.
+*/
+	return function (m, p) {
+		if (m == undefined || p == undefined) {
+			return {error: 'Missing Mediator / Permissions objects'};
+		} else {
+			Facade.mediator = m;
+			Facade.permissions = p;
+			return Facade;
+		}
+	};
 
 });

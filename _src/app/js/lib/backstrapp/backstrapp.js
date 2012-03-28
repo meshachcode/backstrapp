@@ -1,9 +1,7 @@
 /*
 	Backstrapp
 	to allow for easy assembly of the best versions of each class or module we write,
-	this file is run the builder as well, so that Backstrapp can load with a single file.
-	TODO: think through how to handle dependencies
-	TODO: see if I can override require.config settings from here, if the file is included into another build
+	this file is run the compiler as well, so that Backstrapp can load with a single file.
 */
 
 define([
@@ -22,14 +20,15 @@ define([
 ], 
 
 function (
-	_facade, _mediator, _permissions, _error, _debug, _router, _builder, _activator, _util, _template, _moduleFactory, _app
+ _facade, _mediator, _permissions, _error, _debug, _router, _builder, _activator, _util, _template, _moduleFactory, _app
 ) {
 
 	var Backstrapp = {
 		config: {
-			// options:	
-				// debugMode, appName, version, builder (bool), activator (bool) etc...
+			debugMode: false
 		},
+
+		Util: _util,
 
 		Facade: function () {
 			return _facade
@@ -63,10 +62,6 @@ function (
 			return _activator
 		},
 		
-		Util: function () {
-			return _util
-		},
-		
 		Template: function () {
 			return _template
 		},
@@ -78,7 +73,6 @@ function (
 		App: function () {
 			return _app
 		}
-
 	};
 
 	return function () {

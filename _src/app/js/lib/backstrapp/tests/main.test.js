@@ -36,7 +36,7 @@ require([
 	'tests/backstrapp.main.test'
 ],
 
-function ($, BackstrappTest) {
-	BackstrappTest.RunTests();
+function ($, BackstrappMainTest) {
+	BackstrappMainTest.RunTests();
 	QUnit.start();
 });
