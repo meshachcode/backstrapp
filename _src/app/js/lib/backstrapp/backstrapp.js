@@ -81,6 +81,8 @@ function (
 
 	};
 
-	return Backstrapp;
+	return function () {
+		return Backstrapp
+	};
 
 })
