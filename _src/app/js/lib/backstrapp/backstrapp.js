@@ -77,8 +77,6 @@ function (
 		}
 	};
 
-	return function () {
-		return Backstrapp
-	};
+	return Backstrapp
 
 })

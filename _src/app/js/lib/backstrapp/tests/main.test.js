@@ -9,6 +9,8 @@ require.config({
     paths: {
     	// paths other scrips expect
     	lib:			'../',
+    	modules_js:		'../../modules',
+
     	// require plugins
 		text: 			'../require/text',
 		jsonLoad:		'../require/json',
@@ -33,10 +35,18 @@ require.config({
 QUnit.config.autostart = false;
 require([
 	'jquery',
-	'tests/backstrapp.main.test'
+	'tests/backstrapp.main.test',
+	'tests/core/facade.test',
+	'tests/core/mediator.test',
+	'tests/core/permissions.test',
+	'tests/collections/modules.collection.test'
 ],
 
-function ($, BackstrappMainTest) {
-	BackstrappMainTest.RunTests();
+function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest) {
+	MainTest.RunTests();
+	FacadeTest.RunTests();
+	MediatorTest.RunTests();
+	PermissionsTest.RunTests();
+	ModulesCollectionTest.RunTests();
 	QUnit.start();
 });

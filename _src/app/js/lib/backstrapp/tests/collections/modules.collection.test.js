@@ -1,4 +1,4 @@
-define(['backstrapp/collections/modules.collection', 'backstrapp/core/facade'], function (ModulesCollection, Facade) {
+define(['backstrapp/collections/modules.collection'], function (ModulesCollection) {
 	return {
 
 		RunTests: function () {
@@ -52,6 +52,7 @@ define(['backstrapp/collections/modules.collection', 'backstrapp/core/facade'], 
 				ok(!result, 'CANNOT verify unloaded module : ' + result);
 			});
 			
+/*
 			test('Properly loads module when added to the collection', function () {
 				var testFunctionB = function () {
 					console.log('Modules Collection testFunctionB', arguments);
@@ -59,6 +60,7 @@ define(['backstrapp/collections/modules.collection', 'backstrapp/core/facade'], 
 				Facade.subscribe('modulesCollection', 'modulesCollectionNewModule', testFunctionB);
  				Modules.add(request);
 			});
+*/
 
 		}
 	};

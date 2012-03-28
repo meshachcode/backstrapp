@@ -1,4 +1,4 @@
-define(['jsonLoad!./config.test.json', 'backstrapp/core/mediator'], function (conf, Mediator) {
+define(['backstrapp/backstrapp'], function (Backstrapp) {
 	return {
 
 		RunTests: function () {
@@ -6,7 +6,7 @@ define(['jsonLoad!./config.test.json', 'backstrapp/core/mediator'], function (co
 
 			module('Core: Mediator: Init', {
 				setup: function () {
-					m = new Mediator();
+					m = new Backstrapp.Mediator();
 					ok(m, 'returns something!');
 					ok(m.get('util').isFunction(m.publish), 'publish is a function!');
 					ok(m.get('util').isFunction(m.subscribe), 'subscribe is a function!');
@@ -19,7 +19,7 @@ define(['jsonLoad!./config.test.json', 'backstrapp/core/mediator'], function (co
 			
 			module('Core: Mediator: PubSub', {
 				setup: function () {
-					m = new Mediator();
+					m = new Backstrapp.Mediator();
 					ok(m, 'returns something!');
 					ok(m.get('util').isFunction(m.publish), 'publish is a function!');
 					ok(m.get('util').isFunction(m.subscribe), 'subscribe is a function!');

@@ -1,4 +1,4 @@
-define(['backstrapp/core/facade'], function (Facade) {
+define(['backstrapp/backstrapp'], function (Backstrapp) {
 	return {
 
 		RunTests: function () {
@@ -11,7 +11,7 @@ define(['backstrapp/core/facade'], function (Facade) {
 
 			module('Core: Facade', {
 				setup: function () {
-					facade.f = Facade;
+					facade.f = new Backstrapp.Facade();
 					ok(facade.f, 'returns something!');
 					request = {s: 'testModule', ch: 'testModuleInitComplete', fn: testFunction};
 				},

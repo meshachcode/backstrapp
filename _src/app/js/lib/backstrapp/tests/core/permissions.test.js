@@ -1,13 +1,15 @@
-define(['backstrapp/core/permissions'], function (permissions) {
+define(['backstrapp/backstrapp'], function (Backstrapp) {
 	return {
 
 		RunTests: function () {
 			var request = 'subscribe';
 			var subscriber = 'testModule';
 			var channel = 'testModuleInitComplete';
+			var permissions = {};
 
 			module('Core: Permissions', {
 				setup: function () {
+					permissions = new Backstrapp.Permissions();
 				},
 				teardown: function () {
 				}

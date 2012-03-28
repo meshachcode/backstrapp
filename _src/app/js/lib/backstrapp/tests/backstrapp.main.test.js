@@ -12,7 +12,7 @@ define(['backstrapp/backstrapp'], function (Backstrapp) {
 
 			module('Backstrapp: Main', {
 				setup: function () {
-					b$ = new Backstrapp();
+					b$ = Backstrapp;
 					ok(b$, 'Backstrapp is Defined!');
 				},
 				teardown: function () {

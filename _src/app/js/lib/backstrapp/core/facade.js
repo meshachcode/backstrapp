@@ -25,18 +25,13 @@ define(function () {
 	
 		publish: function(subscriber, channel, params){
 			if (!Facade.publishMode) { return {error: 'Publish Mode is Off!'} };
-			if(this.permissionsvalidate('publish', subscriber, channel)){
+			if(this.permissions.validate('publish', subscriber, channel)){
 				var pub = this.mediator.publish(channel, params);
 				pub.s = subscriber;
 				return pub;
 			} else {
 				return {error: 'Permission Failed', s: subscriber, ch: channel};
 			}
-		},
-
-		processTemplate: function () {
-			var args = arguments.split(',');
-			return this.mediator.processTemplate(args);
 		},
 
 		get: function (str) {
