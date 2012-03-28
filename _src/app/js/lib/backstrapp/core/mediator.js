@@ -1,11 +1,11 @@
 /*
 	Backstrapp Mediator.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
-	This is the application core. It's private, and should drive the application-wide functionality.
+	This is the application Brain.
 */
-define(['jsonLoad!json/config.json', 'jquery', 'util'], 
+define(['jquery', 'util'], 
 
-function (config, $, _) {
+function ($, _) {
 
 	var _private = {
 		util: _,
@@ -25,7 +25,7 @@ function (config, $, _) {
 		},
 
 		publish: function (channel) {
-/* 			console.log('Mediator.publish', arguments, _private.channels); */
+			/* 	console.log('Mediator.publish', arguments, _private.channels); */
 			if (!_private.channels[channel]) return {error: 'No Subscribers for this event', ch: channel};
 			var args = [].slice.call(arguments, 1);
 			for (var i = 0, l = _private.channels[channel].length; i < l; i++) {
@@ -46,9 +46,7 @@ function (config, $, _) {
 		set: function (obj) {
 			_private.util.extend(_private, obj);
 			return obj;
-		},
-		
-/* 		processTemplate: template.process */
+		}
 	}
 
 	return function() {
