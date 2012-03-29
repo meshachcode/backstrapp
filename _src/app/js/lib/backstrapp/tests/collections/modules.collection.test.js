@@ -31,6 +31,7 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 			
 			asyncTest('Properly loads a module', function () {
 				var testFunction = function (result) {
+					console.log('result', result);
 					var mod = result.instance;
 					// this will not contain success/error property yet. getModule does that
 					ok(mod, 'Properly returns an object');
