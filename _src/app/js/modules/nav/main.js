@@ -1,37 +1,29 @@
 /**
 	* Nav Module
 */
-define(['backstrapp/modules/module.0.2', 'backstrapp/core/facade', 'modules/page/pages.collection'], 
+define(['backstrapp/backstrapp', 'modules_js/page/pages.collection'], 
 
-function (Module, facade, PagesCollection) {
-
+function (Backstrapp, PagesCollection) {
+	console.log('Backstrapp', Backstrapp);	
+/*
 	var NavModule = Module.extend({
 		debug: {
-/* 			subscribe: true */
+			subscribe: true
 		},
-		/*
-			* @property view
-		*/
 		view: 'html/app/parts/nav.html',
 		animation: {
 			time: 250
 		},
 		pages: [],
-		
 		constructor: function (request) {
 			this.util.bindAll(this, 'start', 'process', 'updateActive');
 			this.base(request);
 		},
-
-		/*
-			* @method start
-		*/
 		start: function () {
 			this.subscribe('renderComplete', this.updateActive, 'pageModule');
 			this.subscribe('pagesLoaded', this.loadView, 'pageModule');
 			this.base();
 		},
-
 		loadView: function (pages) {
 			if (pages != undefined) {
 				for (var i in pages) {
@@ -40,10 +32,6 @@ function (Module, facade, PagesCollection) {
 				this.base();
 			}
 		},
-
-		/*
-			* @method process
-		*/
 		process: function (html) {
 			var obj = {
 				meta: facade.getMeta(),
@@ -51,16 +39,11 @@ function (Module, facade, PagesCollection) {
 			}
 			this.processTemplate(html, obj, this.setHtml);
 		},
-
-		/*
-			* @method updateActive
-		*/
 		updateActive: function (page) {
 			$('.active', this.el).removeClass('active');
 			$('#nav_' + page, this.el).addClass('active');
 		}
 	});
-
 	return {
 		instance: {},
 		init: function (request) {
@@ -71,4 +54,5 @@ function (Module, facade, PagesCollection) {
 			return this.instance.restore(request);
 		}
 	}
+*/
 });

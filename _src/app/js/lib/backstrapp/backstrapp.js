@@ -5,19 +5,19 @@
 */
 
 define([
-	'core/facade',
-	'core/mediator',
-	'core/permissions',
-	'core/handler.error',
-	'core/debug.0.1',
-	'core/router',
-	'utils/content-builder',
-	'utils/module-activator',
+	'backstrapp/core/facade',
+	'backstrapp/core/mediator',
+	'backstrapp/core/permissions',
+	'backstrapp/core/handler.error',
+	'backstrapp/core/debug.0.1',
+	'backstrapp/core/router',
+	'backstrapp/utils/content-builder',
+	'backstrapp/utils/module-activator',
 	'util',
-	'modules/template.0.1',
-	'modules/module.factory.0.1',
-	'models/module.model.0.1',
-	'core/app.0.1'
+	'backstrapp/modules/template.0.1',
+	'backstrapp/modules/module.factory.0.1',
+	'backstrapp/models/module.model.0.1',
+	'backstrapp/core/app.0.1'
 ], 
 
 function (

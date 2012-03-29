@@ -30,7 +30,6 @@ require.config({
 require(['backstrapp.js'],
 
 function (Backstrapp) {
-	var app = new Backstrapp.App();
-	app.debugMode = true;
-	app.start();
+	var App = new Backstrapp.App();
+	App.start();
 });

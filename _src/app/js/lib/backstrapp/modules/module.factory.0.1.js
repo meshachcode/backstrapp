@@ -2,17 +2,12 @@
 
 define([
 	'backstrapp/core/classes/module.face.0.1',
-	'backstrapp/modules/jquibs.accordion.module.0.1', 
-	'backstrapp/modules/jquibs.tabs.module.0.1', 
-	'backstrapp/modules/jquibs.message.module.0.1'
 ],
 
-function (ModuleFace, Accordion, Tabs, Message) {
-	
+function (ModuleFace, Template) {
+
 	var Module = {
-		accordion: Accordion,
-		tabs: Tabs,
-		message: Message
+		template: Template
 	}
 
 	return function (type, config) {

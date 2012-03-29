@@ -27,7 +27,6 @@ require.config({
 		modules_html:	'../html/modules',
 		modules_js:		'modules',
 		modules:		'modules',
-		core:			'backstrapp/core',
 		tests:			'tests'
     }
 });

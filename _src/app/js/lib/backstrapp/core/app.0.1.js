@@ -79,23 +79,23 @@ function (Activator, Builder, ModulesCollection) {
 		start: function (el) {
 			var ret = {success: 'APP STARTED!'};
 
-			if (this._exports.activatorMode) {
-				this.activator(el, App.moduleLoader);
+			if (App._exports.activatorMode) {
+				App.activator(el, App.moduleLoader);
 			}
 			
-			if (this._exports.builderMode) {
-				this.builder(el, App.start);
+			if (App._exports.builderMode) {
+				App.builder(el, App.start);
 			}
 
-			if (!this._exports.started) {
-				this._exports.started = true;
-				this._exports.starts = 1;
+			if (!App._exports.started) {
+				App._exports.started = true;
+				App._exports.starts = 1;
 			} else {
-				var restarts = this._exports.starts;
-				this._exports.starts = restarts + 1;
+				var restarts = App._exports.starts;
+				App._exports.starts = restarts + 1;
 				ret.success = 'APP RE-STARTED!';
 			}
-			ret.app = this._exports;
+			ret.app = App._exports;
 			return ret;
 		}		
 	}
