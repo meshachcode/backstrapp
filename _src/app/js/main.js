@@ -12,10 +12,12 @@ require.config({
 		underscore: 	'lib/underscore/underscore-min',
 		backbone: 		'lib/backbone/backbone-optamd3-min',
 		handlebars:		'lib/handlebars/handlebars',
+
 		// utils
-		util:			'lib/backstrapp/core/util',
+		util:			'lib/backstrapp/utils/util',
 		loadcss:		'util/loadcss',
 		cookie:			'util/cookie',
+
 		// tools
 		backstrapp:		'lib/backstrapp',
 		template: 		'lib/backstrapp/modules/template.0.1',
@@ -31,9 +33,9 @@ require.config({
 });
 
 /* App Main */
-require(['backstrapp/core/handler.error', 'backstrapp/classes/app.0.1'],
+require(['backstrapp/core/handler.error', 'backstrapp/core/app.0.1'],
 
 function (handler, App) {
 	require.onError = handler;
-	new App();
+	App.start();
 });
