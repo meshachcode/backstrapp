@@ -1,8 +1,9 @@
 /**
 	* Backstrapp Router
+	TODO: fix the dependency issues here. the facade shouldn't be loaded in this way. Use Backstrapp.js to handle that stuff.
 */
 
-define(['underscore', 'backbone', 'core/facade'], function (_, Backbone, facade) {
+define(['underscore', 'backbone', 'backstrapp/core/facade'], function (_, Backbone, facade) {
 
 	var BackstrappRouter = Backbone.Router.extend({
 
