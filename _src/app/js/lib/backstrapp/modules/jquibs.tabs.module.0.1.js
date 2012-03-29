@@ -1,4 +1,4 @@
-define(['jquery', 'backstrapp/modules/jquibs.module.0.1'], function ($, Module) {
+define(['jquery', 'backstrapp/modules/template.module.0.1'], function ($, Module) {
 
 	var Tabs = Module.extend({
 		render: function () {

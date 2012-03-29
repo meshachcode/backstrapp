@@ -4,7 +4,11 @@
 define(['backstrapp/backstrapp', 'modules_js/page/pages.collection'], 
 
 function (Backstrapp, PagesCollection) {
-	console.log('Backstrapp', Backstrapp);	
+	var config = {
+		template: 'html/app/parts/nav.html'
+	}
+	var mod = new Backstrapp.Module('template', config);
+	return mod;	
 /*
 	var NavModule = Module.extend({
 		debug: {

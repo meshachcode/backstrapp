@@ -2,6 +2,7 @@
 
 define([
 	'backstrapp/core/classes/module.face.0.1',
+	'backstrapp/modules/template.module.0.1'
 ],
 
 function (ModuleFace, Template) {
