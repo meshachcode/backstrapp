@@ -89,11 +89,14 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1', 'backstrapp/core/facade
 			this.modules[request.instanceName] = {};
 			var me = this;
 			require([request.path], function (m) {
-				var i = request;
-				i.instance = m;
-				if (typeof callback == 'function') {
-					callback(i);
+				if (m == undefined) {
+					var response = Debug.buildResponseObject('error', 'moduleLoad', request);
+				} else {
+					var i = request;
+					i.instance = m;
+					var response = Debug.buildResponseObject('success', 'moduleLoad', m);
 				}
+				callback(response);
 			});
 		},
 
@@ -142,15 +145,18 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1', 'backstrapp/core/facade
 				console.error('required params missing');
 				return Debug.buildResponseObject('error', 'badRequest', request);
 			}
+			console.count();
 			var mod, instanceName = this.buildModuleInstanceName(request.path, request.name);
+			console.log('--- getting module --- ', instanceName);
 			request.instanceName = instanceName;
 			if (mod = this.isModuleLoaded(instanceName)) {
+				console.log('-- module was loaded, returning');
 				var response = Debug.buildResponseObject('success', 'moduleLoad', mod);
 				callback(response);
 			} else {
+				console.log('-- module was not loaded. loading');
 				this.loadModule(request, function (mod) {
-					var response = Debug.buildResponseObject('success', 'moduleLoad', mod);
-					callback(response);
+					callback(mod);
 				});
 			}
 		}
