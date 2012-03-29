@@ -5,7 +5,7 @@
 		the modules need to 
 			- know about template, since that's a universal behavior...?
 */
-define(['backbone', 'models/module.model.0.1', 'util', 'modules/template.0.1'],
+define(['backbone', 'backstrapp/models/module.model.0.1', 'util', 'backstrapp/modules/template.0.1'],
 
 function (Backbone, moduleModel, Util, Template) {
 
@@ -121,6 +121,7 @@ function (Backbone, moduleModel, Util, Template) {
 		/*
 			This is a better solution. 
 			Just trigger an internal event, and have the modules Collection listen for it.
+			TODO: update ModulesCollection to listen for subscribe / publish events from each module, and broadcast them to the facade
 		*/
 		publish: function (event, params) {
 			var e = {

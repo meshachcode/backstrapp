@@ -1,8 +1,0 @@
-{
-	"name": "testDiv",
-	"dom": "<div id='testButton' data-module='lib/backstrapp/modules/module.0.2'></div>",
-	"mod": "lib/backstrapp/modules/module.0.2",
-	"arg": {
-		"view":	"app/html/modules/parts/msg.html"
-	}
-}

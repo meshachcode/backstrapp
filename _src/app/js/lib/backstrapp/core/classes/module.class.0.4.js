@@ -5,7 +5,7 @@
 		* TODO: Needs to communicate with the facade.
 		* TODO: UNIT TEST THIS MOFO!!!!
 */
-define(['util', 'modules/template.0.1', 'backstrapp/core/facade', 'backbone', 'backstrapp/models/module.model.0.1'], 
+define(['util', 'backstrapp/modules/template.0.1', 'backstrapp/core/facade', 'backbone', 'backstrapp/models/module.model.0.1'], 
 
 function (util, t, Facade, Backbone, ModuleModel) {
 

@@ -21,6 +21,7 @@ function (Activator, Builder, ModulesCollection) {
 					and allow the module to 'do it's thang'
 			*/
 			success: function (result) {
+				console.log('result', result);
 				result.module.init(result.request);
 			},
 
