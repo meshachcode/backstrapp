@@ -1,19 +1,21 @@
 /*
 	* Module Class 0.5
 		* core functionality
+		TODO: there is a conflict in dependencies here.
+		the modules need to 
+			- know about template, since that's a universal behavior...?
 */
-define(['backbone', 'moduleModel'],
+define(['backbone', 'models/module.model.0.1', 'util', 'modules/template.0.1'],
 
-function (Backbone, moduleModel) {
+function (Backbone, moduleModel, Util, Template) {
 
 	var ModuleClass = Backbone.View.extend({
 		processable: [],
 		processed: [],
 		required: [],
-		bindAll: {},
-		util: {},
-		template: {},
-		facade: {},
+		bindAll: Util.bindAll,
+		util: Util,
+		template: Template,
 
 		initialize: function (config) {
 			this.bindAll(this, 'activate', 'render', 'processParams', 'setParams');
@@ -115,12 +117,28 @@ function (Backbone, moduleModel) {
 			this.publish('RenderComplete', this.model.toJSON());
 		},
 		
+		
+		/*
+			This is a better solution. 
+			Just trigger an internal event, and have the modules Collection listen for it.
+		*/
 		publish: function (event, params) {
-			this.f.publish(this.model.get('name'), this.model.get('name') + event, params);
+			var e = {
+				subscriber: this.model.get('name'),
+				channel: this.model.get('name') + event, 
+				params: params
+			}
+			this.trigger('publish', e);
 		},
 		
 		subscribe: function (event, callback) {
-			this.f.publish(this.model.get('name'), this.model.get('name') + event, callback, this);
+			var e = {
+				subscriber: this.model.get('name'),
+				channel: this.model.get('name') + event,
+				listener: callback,
+				context: this
+			}
+			this.trigger('subscribe', e);
 		},
 
 		set: function (obj) {

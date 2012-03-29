@@ -42,18 +42,18 @@ require([
 	'tests/core/mediator.test',
 	'tests/core/permissions.test',
 	'tests/collections/modules.collection.test',
-/* 	'tests/core/classes/module.class.test', */
+	'tests/core/classes/module.class.test',
 	'tests/core/app.test'
 /* 	'tests/modules/module.factory.test' */
 ],
 
-function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest, /* ModuleClassTest, */ AppTest) {
+function ($, MainTest, FacadeTest, MediatorTest, PermissionsTest, ModulesCollectionTest, ModuleClassTest, AppTest) {
 	MainTest.RunTests();
 	FacadeTest.RunTests();
 	MediatorTest.RunTests();
 	PermissionsTest.RunTests();
 	ModulesCollectionTest.RunTests();
-/* 	ModuleClassTest.RunTests(); */
+	ModuleClassTest.RunTests();
 	AppTest.RunTests();
 	QUnit.start();
 });

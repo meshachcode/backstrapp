@@ -58,14 +58,14 @@ function (
 		App: function (config) {
 			var a = _app;
 			if (config != undefined) {
-				a.set(config);
+				_util.extend(a._exports, config);
 			}
 			return {
 				get: function (str) {
 					return a._exports[str];
 				},
 				set: function (obj) {
-					return util.extend(a._exports, obj);
+					return _util.extend(a._exports, obj);
 				},
 				start: function () {
 					return a.start();
