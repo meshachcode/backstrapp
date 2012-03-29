@@ -1,6 +1,6 @@
 require.config({
 	catchError: {
-/* 		define: true */
+		define: true
 	},
     paths: {
     	// require plugins

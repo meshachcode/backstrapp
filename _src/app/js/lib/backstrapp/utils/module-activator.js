@@ -9,6 +9,7 @@
 define(['jquery', 'loadcss'], function ($, loadcss) {
 
 	var Activator = {
+		loadingMessage: '<p>Loading Module...</p>',
 		objectifyParams: function (paramStr) {
 			var pObj = {},
 				pArr = [],
@@ -45,6 +46,7 @@ define(['jquery', 'loadcss'], function ($, loadcss) {
 					name = item.attr('id'),
 					module = item.data("module"),
 					params = Activator.objectifyParams(item.data("module-parameters"));
+				item.html(Activator.loadingMessage);
 				request = {
 					name: name,
 					el: item,
