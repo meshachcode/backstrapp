@@ -24,9 +24,6 @@ function (ModulesCollection) {
 					};
 					ok(Modules, 'returns Object!');
 					deepEqual(Modules.toJSON(), testModules, 'Properly sets default modules (not yet loaded, though)');
-				},
-
-				teardown: function () {
 				}
 			});
 			

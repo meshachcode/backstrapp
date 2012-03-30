@@ -63,15 +63,13 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1'], function (Backbone, ut
 		*/
 		buildModuleInstanceName: function (path, name) {
 			var p = path.replace(/\//g, '_');
-			var str = name + util.camelize(p);
-			return str;
+			return name + util.camelize(p);
 		},
 		
 		addModules: function () {
 			var me = this;
 			this.each(function (m) {
-				var request = m.toJSON();
-				me.getModule(request, me.initModuleLoaded);
+				me.getModule(m.toJSON(), me.initModuleLoaded);
 			});
 		},
 		
@@ -113,18 +111,15 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1'], function (Backbone, ut
 		*/
 		isModuleLoaded: function (instanceName) {
 			var test = (this.modules[instanceName] == undefined) ? false : this.modules[instanceName];
-			var mods = this.modules;
 			return (test == undefined) ? false : test;
 		},
 		
 		handleErrors: function (request, callback) {
-			var response = Debug.buildResponseObject('error', 'moduleLoad', request);
-			callback(response);
+			callback(Debug.buildResponseObject('error', 'moduleLoad', request));
 		},
 		
 		handleSuccesses: function (request, callback) {
-			var response = Debug.buildResponseObject('success', 'moduleLoad', request);
-			callback(response);
+			callback(Debug.buildResponseObject('success', 'moduleLoad', request));
 		},
 		
 		/*
@@ -151,15 +146,14 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1'], function (Backbone, ut
 				console.error('required params missing');
 				return Debug.buildResponseObject('error', 'badRequest', request);
 			}
-			console.count();
 			var mod, instanceName = this.buildModuleInstanceName(request.path, request.name);
 			request.instanceName = instanceName;
 			if (mod = this.isModuleLoaded(instanceName)) {
-				console.log('-- module was loaded, returning', instanceName);
+				console.log('-- EXISTING MODULE', instanceName);
 				var response = Debug.buildResponseObject('success', 'moduleLoad', mod);
 				callback(response);
 			} else {
-				console.log('-- module was not loaded. loading', instanceName);
+				console.log('-- NEW MODULE', instanceName);
 				this.loadModule(request, function (mod) {
 					if (mod.instance != undefined) {
 						var response = Debug.buildResponseObject('success', 'moduleLoad', mod);
