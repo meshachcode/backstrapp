@@ -18,7 +18,8 @@ require.config({
 		// libs
 		jquery: 		'../jquery/jquery-min',
 		underscore: 	'../underscore/underscore-min',
-		backbone: 		'../backbone/backbone-optamd3-min',
+		backbone:		'../backbone/backbone-optamd3-min',
+		marionette:		'../backbone/backbone.marionette/lib/amd/backbone.marionette',
 		handlebars:		'../handlebars/handlebars',
 		backstrapp:		'../backstrapp',
 

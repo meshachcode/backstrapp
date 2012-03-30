@@ -1,5 +1,9 @@
-define(['/app/js/lib/backbone/-optamd3-min', '/app/js/lib/backbone/backbone.query.js'], function (Backbone) {
+define(['backboneAMD'/* , 'marionette' */], 
 
+function (Backbone/* , Marionette */) {
+
+	console.log('Backbone from Backbone.js', Backbone);
+/* 	Backbone.Marionette = Marionette; */
 	return Backbone;
 
 });
