@@ -1,7 +1,7 @@
 /*
 	* Modules Collection
 */
-define(['backbone', 'util', 'backstrapp/core/debug.0.1', 'backstrapp/core/facade'], function (Backbone, util, Debug, Facade) {
+define(['backbone', 'util', 'backstrapp/core/debug.0.1'], function (Backbone, util, Debug) {
 
 	var ModulesCollection = Backbone.Collection.extend({
 		/*
@@ -17,6 +17,13 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1', 'backstrapp/core/facade
 					- that way, if you want the same instance, just use the same module path and div id
 					- if you want a new instance of the module, use a new div ID
 					- if you put a new module into a previously-used divID, it will create a new instance.
+					TODO: the problem with this logic is that when you want a new instance of a module that has been loaded for another DIV,
+					the module will be re-loaded. 
+						- Instead, first check if the module path has been loaded.
+							- if so, check if there are any instances with the same div ID
+								- if so, return it
+								- if not, return a new instance of the requested module
+							- if not, load it
 		*/
 		modules: {},
 
@@ -36,13 +43,13 @@ define(['backbone', 'util', 'backstrapp/core/debug.0.1', 'backstrapp/core/facade
 		initModuleLoaded: function (result) {
 			this.addLoadedModule(result);
 			if (util.keys(this.modules).length == this.models.length) {
-				Facade.publish('modulesCollection', 'modulesCollectionInitComplete', this.toJSON());
+				this.trigger('initComplete', this.toJSON());
 			}
 		},
 		
 		newModuleLoaded: function (result) {
 			this.addLoadedModule(result);
-			Facade.publish('modulesCollection', 'modulesCollectionNewModule', result);
+			this.trigger('newModuleLoaded', result);
 		},
 		
 		addLoadedModule: function (result) {

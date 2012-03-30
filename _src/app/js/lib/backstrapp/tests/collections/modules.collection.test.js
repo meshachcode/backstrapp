@@ -1,4 +1,6 @@
-define(['backstrapp/collections/modules.collection'], function (ModulesCollection) {
+define(['backstrapp/collections/modules.collection'], 
+
+function (ModulesCollection) {
 	return {
 
 		RunTests: function () {
@@ -19,7 +21,6 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 						name: 'testModuleA',
 						el: $('<div>Test Module</div>'),
 						path: 'modules_js/jquibs/message'
-/* 						arg: {} */
 					};
 					ok(Modules, 'returns Object!');
 					deepEqual(Modules.toJSON(), testModules, 'Properly sets default modules (not yet loaded, though)');
@@ -31,7 +32,6 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 			
 			asyncTest('Properly loads a module', function () {
 				var testFunction = function (result) {
-					console.log('result', result);
 					var mod = result.instance;
 					// this will not contain success/error property yet. getModule does that
 					ok(mod, 'Properly returns an object');
@@ -53,15 +53,14 @@ define(['backstrapp/collections/modules.collection'], function (ModulesCollectio
 				ok(!result, 'CANNOT verify unloaded module : ' + result);
 			});
 			
-/*
 			test('Properly loads module when added to the collection', function () {
-				var testFunctionB = function () {
+				var testFunctionB = function (result) {
 					console.log('Modules Collection testFunctionB', arguments);
+					ok(result.success, 'Properly triggers newModuleLoaded with success object : ' + result.success);
 				}
-				Facade.subscribe('modulesCollection', 'modulesCollectionNewModule', testFunctionB);
+				Modules.bind('newModuleLoaded', testFunctionB);
  				Modules.add(request);
 			});
-*/
 
 		}
 	};
