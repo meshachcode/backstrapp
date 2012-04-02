@@ -1,4 +1,4 @@
-define(['backstrapp/collections/modules.collection'], 
+define(['backstrapp/collections/modules.collection.0.2'], 
 
 function (ModulesCollection) {
 	return {
@@ -28,10 +28,12 @@ function (ModulesCollection) {
 				deepEqual(Modules.toJSON(), testModules, 'Properly sets default modules');
 			});
 			
+/*
 			asyncTest('Properly returns a module if not previously loaded', function () {
 				// loadModule takes the request object, and calls the callback
 				var tma = Modules.getModule(request);
 			});
+*/
 /*
 			test('Properly checks if a module is loaded', function () {
 				var instanceName = Modules.buildModuleInstanceName(testModules[0].path, testModules[0].name);

@@ -4,8 +4,11 @@
 	TODO: write the template object to handle loading and caching of templates with jq deferred and handlebars
 */
 
-define(['backbone', 'util', 'backstrapp/core/debug.0.1'], function (Backbone, util, Debug) {
+define(['backbone', 'marionette'], function (Backbone) {
+	console.log('Backbone', Backbone.Marionette);
+	return;
 
+	
 	var ModulesCollection = Backbone.Collection.extend({
 /*
 		eventually, this object should look like:

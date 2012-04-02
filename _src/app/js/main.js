@@ -6,6 +6,7 @@ require.config({
     	// require plugins
 		text: 			'lib/require/text',
 		jsonLoad:		'lib/require/json',
+		use:			'lib/require/use',
 
 		// libs
 		jquery: 		'lib/jquery/jquery-min',
