@@ -1,9 +1,6 @@
 /*
 	Backstrapp Module Activator.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
-
-	TODO: refactor the activator object with pub/priv in mind. THINK TDD!!
-		- NOTE: the tight-coupling with facade isn't advised. Think through this.
 */
 
 define(['jquery', 'loadcss'], function ($, loadcss) {

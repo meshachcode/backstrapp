@@ -1,10 +1,6 @@
 /*
 	Backstrapp Content Builder.
 	Drawn on heavily from Addy Osmani's 'Aura' code.
-
-	TODO: refactor the builder object with pub/priv in mind. THINK TDD!! 
-			- Also, note the ugly use of .execute here. 
-			- It doesn't follow any standards we're using elsewhere, so maybe it should be rethought too?
 */
 
 define(['cookie'], function (cookie) {
@@ -56,10 +52,6 @@ define(['cookie'], function (cookie) {
                 success: function (resp) {
                     replaceContent(element, resp);
                     callback(element);
-/*
-					activator.execute(element, callback);
-                    exports.execute(element, callback);
-*/
                 },
                 error: function (xhr) {
                     var authCookieChk = cookie(authorizedCookieKey);
